@@ -1,2 +1,38 @@
-# community
-意識を高め合うことのできるSNS
+# 機能設計
+### ユーザー
+- 作成
+- ログイン
+- ログアウト
+- 閲覧
+- 編集
+- 退会
+
+### 投稿
+- 作成
+- 閲覧
+- 編集
+- 退会
+- いいね
+- 返信
+
+### コミュニティ
+- 作成
+- 閲覧
+- 編集
+- 消去
+- 投稿と同等の機能
+
+# バージョン
+### フレームワーク等
+PHP 8.0.3 (cli)  
+Laravel 8.32.1  
+Vue.js 3.0.7  
+### プラグイン
+
+
+# 環境構築コマンド等
+composer create-project --prefer-dist laravel/laravel main  
+composer require laravel/ui  
+npm install -g npm  
+main/resources/js/app.js内の`require('./bootstrap');`を削除
+
