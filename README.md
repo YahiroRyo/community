@@ -28,11 +28,13 @@ PHP 8.0.3 (cli)
 Laravel 8.32.1  
 Vue.js 3.0.7  
 ### プラグイン
-
+vuex 4.0.0  
+vue-router 4.0.5  
 
 # 環境構築コマンド等
 composer create-project --prefer-dist laravel/laravel main  
 composer require laravel/ui  
 npm install -g npm  
-main/resources/js/app.js内の`require('./bootstrap');`を削除
-
+main/resources/js/app.js内の`require('./bootstrap');`を削除  
+npm install vuex@next --save  
+npm i vue-router@next
