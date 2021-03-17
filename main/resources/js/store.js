@@ -3,6 +3,10 @@ import ***REMOVED*** createStore ***REMOVED*** from 'vuex'
 export const store = createStore(***REMOVED***
     state() ***REMOVED***
       return ***REMOVED***
+        alert: ***REMOVED***
+          object: null,
+          waitIntervals: [],
+        ***REMOVED***,
         window: ***REMOVED***
           currentComponent: 0,
           title: 'タイトルが設定されていません',
