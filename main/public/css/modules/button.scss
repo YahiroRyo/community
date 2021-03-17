@@ -1,0 +1,36 @@
+.btn ***REMOVED***
+    border-radius: 5px;
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    line-height: 3;
+    padding: 0 10px;
+    width: 100%;
+    &:hover ***REMOVED***
+        transition: .2s;
+        cursor: pointer;
+    ***REMOVED***
+***REMOVED***
+.btn_item ***REMOVED*** &:hover ***REMOVED*** background-color: $non-colored-color-gray-3; ***REMOVED*** ***REMOVED***
+.btn_normal ***REMOVED***
+    background-color: $non-colored-color-gray-3;
+    &:hover ***REMOVED*** background-color: darken($non-colored-color-gray-3, 10%); ***REMOVED***
+***REMOVED***
+.btn_success ***REMOVED***
+    background-color: $accent-color-success;
+    &:hover ***REMOVED*** background-color: darken($accent-color-success, 10%); ***REMOVED***
+***REMOVED***
+.btn_attention ***REMOVED***
+    background-color: $accent-color-attention;
+    &:hover ***REMOVED*** background-color: darken($accent-color-attention, 10%); ***REMOVED***
+***REMOVED***
+.btn_danger ***REMOVED***
+    background-color: $accent-color-danger;
+    color: white;
+    &:hover ***REMOVED*** background-color: darken($accent-color-danger, 10%); ***REMOVED***
+***REMOVED***
+.btn_circle ***REMOVED***
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+***REMOVED***
