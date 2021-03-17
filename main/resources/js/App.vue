@@ -41,7 +41,7 @@
     import ***REMOVED*** reactive, watch ***REMOVED*** from 'vue'
     import ***REMOVED*** useStore ***REMOVED*** from 'vuex'
     import ***REMOVED*** useRouter, useRoute ***REMOVED*** from 'vue-router'
-    import ***REMOVED*** window, createWindow ***REMOVED*** from './window';
+    import ***REMOVED*** displayWindow ***REMOVED*** from './window';
     import ***REMOVED*** alert, createAlert ***REMOVED*** from './alert';
 
     /* ---------------コンポーネントインポート--------------- */
@@ -85,6 +85,7 @@
                 ***REMOVED***
             ***REMOVED***)
             watch(() => data.testTrigger, () => ***REMOVED***
+                displayWindow(0)
                 if (data.testTrigger) ***REMOVED***
                     createAlert(
                         new alert(
