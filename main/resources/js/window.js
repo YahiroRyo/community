@@ -9,6 +9,15 @@
 // ・閉じた時にメソッドを実行したい場合
 // windowに表示するコンポーネントのonMountedから、setCloseFunctionの引数にメソッドを代入する
 
+// ・storeにあるwindowのグローバル変数の説明
+// currentComponent:    モジュールの番号
+// title:               タイトル
+// width:               横幅
+// height:              縦幅
+// use:                 使用しているか否かのフラグ
+// functions.open:      開いたときに実行されるメソッド
+// functions.close:     閉じたときに実行されるメソッド
+
 import ***REMOVED*** store ***REMOVED*** from './store'
 
 class window ***REMOVED***
