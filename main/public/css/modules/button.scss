@@ -1,0 +1,36 @@
+.btn {
+    border-radius: 5px;
+    display: block;
+    font-size: 18px;
+    text-align: center;
+    line-height: 3;
+    padding: 0 10px;
+    width: 100%;
+    &:hover {
+        transition: .2s;
+        cursor: pointer;
+    }
+}
+.btn_item { &:hover { background-color: $non-colored-color-gray-3; } }
+.btn_normal {
+    background-color: $non-colored-color-gray-3;
+    &:hover { background-color: darken($non-colored-color-gray-3, 10%); }
+}
+.btn_success {
+    background-color: $accent-color-success;
+    &:hover { background-color: darken($accent-color-success, 10%); }
+}
+.btn_attention {
+    background-color: $accent-color-attention;
+    &:hover { background-color: darken($accent-color-attention, 10%); }
+}
+.btn_danger {
+    background-color: $accent-color-danger;
+    color: white;
+    &:hover { background-color: darken($accent-color-danger, 10%); }
+}
+.btn_circle {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
