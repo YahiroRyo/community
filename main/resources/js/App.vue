@@ -41,7 +41,7 @@
     import { reactive, watch } from 'vue'
     import { useStore } from 'vuex'
     import { useRouter, useRoute } from 'vue-router'
-    import { window, createWindow } from './window';
+    import { displayWindow } from './window';
     import { alert, createAlert } from './alert';
 
     /* ---------------コンポーネントインポート--------------- */
@@ -85,6 +85,7 @@
                 }
             })
             watch(() => data.testTrigger, () => {
+                displayWindow(0)
                 if (data.testTrigger) {
                     createAlert(
                         new alert(
