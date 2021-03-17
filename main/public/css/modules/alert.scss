@@ -1,0 +1,60 @@
+@import '../brandColor';
+
+.alert ***REMOVED***
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    width: 500px;
+    padding: 15px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+***REMOVED***
+.alert_success ***REMOVED***
+    background-color: $accent-color-success;
+    box-shadow: 5px 5px darken($accent-color-success, 30%);
+***REMOVED***
+.alert_attention ***REMOVED***
+    background-color: $accent-color-attention;
+    box-shadow: 5px 5px darken($accent-color-attention, 30%);
+***REMOVED***
+.alert_danger ***REMOVED***
+    background-color: $accent-color-danger;
+    box-shadow: 5px 5px darken($accent-color-danger, 30%);
+***REMOVED***
+
+/* ---------------alertsのtransition--------------- */
+.alerts-anim-enter-active,
+.alerts-anim-leave-active ***REMOVED*** transition: opacity .5s ease-in-out, transform .5s ease; ***REMOVED***
+
+.alerts-anim-enter-active,
+.alerts-anim-leave-to ***REMOVED***
+    opacity: 0;
+    transform: translateX(100px);
+***REMOVED***
+
+.alerts-anim-enter-to,
+.alerts-anim-leave ***REMOVED***
+    opacity: 1;
+    transform: translateX(0);
+***REMOVED***
+
+/* ---------------スマホ・タブレット用のalert--------------- */
+@media screen and (max-width: 1100px) ***REMOVED***
+    .alert ***REMOVED***
+        border-radius: 0;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        bottom: auto;
+        right: auto;
+    ***REMOVED***
+    .alert_success ***REMOVED*** box-shadow: 0 5px darken($accent-color-success, 30%); ***REMOVED***
+    .alert_attention ***REMOVED*** box-shadow: 0 5px darken($accent-color-attention, 30%); ***REMOVED***
+    .alert_danger ***REMOVED*** box-shadow: 0 5px darken($accent-color-danger, 30%); ***REMOVED***
+    .alerts-anim-enter-active,
+    .alerts-anim-leave-to ***REMOVED*** transform: translate(0, -100px); ***REMOVED***
+
+    .alerts-anim-enter-to,
+    .alerts-anim-leave ***REMOVED*** transform: translate(0, 0); ***REMOVED***
+***REMOVED***
