@@ -433,6 +433,7 @@ template ***REMOVED***
   .window__close-btn:hover ***REMOVED***
     cursor: pointer; ***REMOVED***
 
+/* ---------------windowのtransition--------------- */
 .window-anim-enter-active,
 .window-anim-leave-active ***REMOVED***
   transition: opacity .5s ease-in-out; ***REMOVED***
@@ -445,6 +446,69 @@ template ***REMOVED***
 .window-anim-leave ***REMOVED***
   opacity: 1; ***REMOVED***
 
+.alert ***REMOVED***
+  border-radius: 5px;
+  display: inline-block;
+  text-align: center;
+  width: 500px;
+  padding: 15px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px; ***REMOVED***
+
+.alert_success ***REMOVED***
+  background-color: #4cdb8f;
+  box-shadow: 5px 5px #187644; ***REMOVED***
+
+.alert_attention ***REMOVED***
+  background-color: #fcd419;
+  box-shadow: 5px 5px #7a6502; ***REMOVED***
+
+.alert_danger ***REMOVED***
+  background-color: #f9446a;
+  box-shadow: 5px 5px #9f0525; ***REMOVED***
+
+/* ---------------alertsのtransition--------------- */
+.alerts-anim-enter-active,
+.alerts-anim-leave-active ***REMOVED***
+  transition: opacity .5s ease-in-out, transform .5s ease; ***REMOVED***
+
+.alerts-anim-enter-active,
+.alerts-anim-leave-to ***REMOVED***
+  opacity: 0;
+  transform: translateX(100px); ***REMOVED***
+
+.alerts-anim-enter-to,
+.alerts-anim-leave ***REMOVED***
+  opacity: 1;
+  transform: translateX(0); ***REMOVED***
+
+/* ---------------スマホ・タブレット用のalert--------------- */
+@media screen and (max-width: 1100px) ***REMOVED***
+  .alert ***REMOVED***
+    border-radius: 0;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    bottom: auto;
+    right: auto; ***REMOVED***
+
+  .alert_success ***REMOVED***
+    box-shadow: 0 5px #187644; ***REMOVED***
+
+  .alert_attention ***REMOVED***
+    box-shadow: 0 5px #7a6502; ***REMOVED***
+
+  .alert_danger ***REMOVED***
+    box-shadow: 0 5px #9f0525; ***REMOVED***
+
+  .alerts-anim-enter-active,
+  .alerts-anim-leave-to ***REMOVED***
+    transform: translate(0, -100px); ***REMOVED***
+
+  .alerts-anim-enter-to,
+  .alerts-anim-leave ***REMOVED***
+    transform: translate(0, 0); ***REMOVED*** ***REMOVED***
 body ***REMOVED***
   font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; ***REMOVED***
 
