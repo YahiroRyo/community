@@ -1,0 +1,472 @@
+@charset "UTF-8";
+*,
+::before,
+::after ***REMOVED***
+  box-sizing: border-box;
+  border-style: solid;
+  border-width: 0; ***REMOVED***
+
+/* Document */
+/* ============================================ */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ * 3. Remove gray overlay on links for iOS.
+ */
+html ***REMOVED***
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-tap-highlight-color: transparent;
+  /* 3*/ ***REMOVED***
+
+/* Sections */
+/* ============================================ */
+/**
+ * Remove the margin in all browsers.
+ */
+body ***REMOVED***
+  margin: 0; ***REMOVED***
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main ***REMOVED***
+  display: block; ***REMOVED***
+
+/* Vertical rhythm */
+/* ============================================ */
+p,
+table,
+blockquote,
+address,
+pre,
+iframe,
+form,
+figure,
+dl ***REMOVED***
+  margin: 0; ***REMOVED***
+
+/* Headings */
+/* ============================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 ***REMOVED***
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  margin: 0; ***REMOVED***
+
+/* Lists (enumeration) */
+/* ============================================ */
+ul,
+ol ***REMOVED***
+  margin: 0;
+  padding: 0;
+  list-style: none; ***REMOVED***
+
+/* Lists (definition) */
+/* ============================================ */
+dt ***REMOVED***
+  font-weight: bold; ***REMOVED***
+
+dd ***REMOVED***
+  margin-left: 0; ***REMOVED***
+
+/* Grouping content */
+/* ============================================ */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr ***REMOVED***
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+  border-top-width: 1px;
+  margin: 0;
+  clear: both;
+  color: inherit; ***REMOVED***
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre ***REMOVED***
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: inherit;
+  /* 2 */ ***REMOVED***
+
+address ***REMOVED***
+  font-style: inherit; ***REMOVED***
+
+/* Text-level semantics */
+/* ============================================ */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a ***REMOVED***
+  background-color: transparent;
+  text-decoration: none;
+  color: inherit; ***REMOVED***
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] ***REMOVED***
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */ ***REMOVED***
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong ***REMOVED***
+  font-weight: bolder; ***REMOVED***
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp ***REMOVED***
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: inherit;
+  /* 2 */ ***REMOVED***
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small ***REMOVED***
+  font-size: 80%; ***REMOVED***
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup ***REMOVED***
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; ***REMOVED***
+
+sub ***REMOVED***
+  bottom: -0.25em; ***REMOVED***
+
+sup ***REMOVED***
+  top: -0.5em; ***REMOVED***
+
+/* Embedded content */
+/* ============================================ */
+/**
+ * Prevent vertical alignment issues.
+ */
+img,
+embed,
+object,
+iframe ***REMOVED***
+  vertical-align: bottom; ***REMOVED***
+
+/* Forms */
+/* ============================================ */
+/**
+ * Reset form fields to make them styleable
+ */
+button,
+input,
+optgroup,
+select,
+textarea ***REMOVED***
+  -webkit-appearance: none;
+  appearance: none;
+  vertical-align: middle;
+  color: inherit;
+  font: inherit;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  border-radius: 0;
+  text-align: inherit; ***REMOVED***
+
+/**
+ * Reset radio and checkbox appearance to preserve their look in iOS.
+ */
+[type="checkbox"] ***REMOVED***
+  -webkit-appearance: checkbox;
+  appearance: checkbox; ***REMOVED***
+
+[type="radio"] ***REMOVED***
+  -webkit-appearance: radio;
+  appearance: radio; ***REMOVED***
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input ***REMOVED***
+  /* 1 */
+  overflow: visible; ***REMOVED***
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select ***REMOVED***
+  /* 1 */
+  text-transform: none; ***REMOVED***
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] ***REMOVED***
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none; ***REMOVED***
+
+button[disabled],
+[type="button"][disabled],
+[type="reset"][disabled],
+[type="submit"][disabled] ***REMOVED***
+  cursor: default; ***REMOVED***
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner ***REMOVED***
+  border-style: none;
+  padding: 0; ***REMOVED***
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring ***REMOVED***
+  outline: 1px dotted ButtonText; ***REMOVED***
+
+/**
+ * Remove arrow in IE10 & IE11
+ */
+select::-ms-expand ***REMOVED***
+  display: none; ***REMOVED***
+
+/**
+ * Remove padding
+ */
+option ***REMOVED***
+  padding: 0; ***REMOVED***
+
+/**
+ * Reset to invisible
+ */
+fieldset ***REMOVED***
+  margin: 0;
+  padding: 0;
+  min-width: 0; ***REMOVED***
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend ***REMOVED***
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */ ***REMOVED***
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress ***REMOVED***
+  vertical-align: baseline; ***REMOVED***
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea ***REMOVED***
+  overflow: auto; ***REMOVED***
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button ***REMOVED***
+  height: auto; ***REMOVED***
+
+/**
+ * 1. Correct the outline style in Safari.
+ */
+[type="search"] ***REMOVED***
+  outline-offset: -2px;
+  /* 1 */ ***REMOVED***
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-decoration ***REMOVED***
+  -webkit-appearance: none; ***REMOVED***
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button ***REMOVED***
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */ ***REMOVED***
+
+/**
+ * Clickable labels
+ */
+label[for] ***REMOVED***
+  cursor: pointer; ***REMOVED***
+
+/* Interactive */
+/* ============================================ */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details ***REMOVED***
+  display: block; ***REMOVED***
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary ***REMOVED***
+  display: list-item; ***REMOVED***
+
+/*
+ * Remove outline for editable content.
+ */
+[contenteditable] ***REMOVED***
+  outline: none; ***REMOVED***
+
+/* Table */
+/* ============================================ */
+table ***REMOVED***
+  border-collapse: collapse;
+  border-spacing: 0; ***REMOVED***
+
+caption ***REMOVED***
+  text-align: left; ***REMOVED***
+
+td,
+th ***REMOVED***
+  vertical-align: top;
+  padding: 0; ***REMOVED***
+
+th ***REMOVED***
+  text-align: left;
+  font-weight: bold; ***REMOVED***
+
+/* Misc */
+/* ============================================ */
+/**
+ * Add the correct display in IE 10+.
+ */
+template ***REMOVED***
+  display: none; ***REMOVED***
+
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] ***REMOVED***
+  display: none; ***REMOVED***
+
+.window ***REMOVED***
+  background-color: white;
+  box-shadow: 5px 5px #797979;
+  border-radius: 5px;
+  box-sizing: border-box;
+  position: fixed;
+  padding: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; ***REMOVED***
+
+.window__title ***REMOVED***
+  font-size: 32px;
+  font-weight: normal;
+  margin-top: 10px; ***REMOVED***
+
+.window__content ***REMOVED***
+  margin-top: 10px;
+  overflow-y: auto; ***REMOVED***
+
+.window__close-btn ***REMOVED***
+  width: 24px;
+  height: 24px; ***REMOVED***
+  .window__close-btn:hover ***REMOVED***
+    cursor: pointer; ***REMOVED***
+
+.window-anim-enter-active,
+.window-anim-leave-active ***REMOVED***
+  transition: opacity .5s ease-in-out; ***REMOVED***
+
+.window-anim-enter-active,
+.window-anim-leave-to ***REMOVED***
+  opacity: 0; ***REMOVED***
+
+.window-anim-enter-to,
+.window-anim-leave ***REMOVED***
+  opacity: 1; ***REMOVED***
+
+body ***REMOVED***
+  font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; ***REMOVED***
+
+.dark-background ***REMOVED***
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 5; ***REMOVED***
+
+.dark-background-anim-enter-active,
+.dark-background-anim-leave-active ***REMOVED***
+  transition: opacity .5s ease-in-out; ***REMOVED***
+
+.dark-background-anim-enter-active,
+.dark-background-anim-leave-to ***REMOVED***
+  opacity: 0; ***REMOVED***
+
+.dark-background-anim-enter-to,
+.dark-background-anim-leave ***REMOVED***
+  opacity: 1; ***REMOVED***
+
+/*# sourceMappingURL=base.css.map */

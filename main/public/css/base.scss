@@ -1,1 +1,22 @@
 @import 'brandColor';
+@import 'reset.scss';
+@import 'modules/window.scss';
+
+body ***REMOVED*** font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; ***REMOVED***
+.dark-background ***REMOVED***
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 5;
+***REMOVED***
+.dark-background-anim-enter-active,
+.dark-background-anim-leave-active ***REMOVED*** transition: opacity .5s ease-in-out; ***REMOVED***
+
+.dark-background-anim-enter-active,
+.dark-background-anim-leave-to ***REMOVED*** opacity: 0; ***REMOVED***
+
+.dark-background-anim-enter-to,
+.dark-background-anim-leave ***REMOVED*** opacity: 1; ***REMOVED***
