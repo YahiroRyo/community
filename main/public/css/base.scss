@@ -1,9 +1,76 @@
 @import 'brandColor';
 @import 'reset.scss';
 @import 'modules/window.scss';
+@import 'modules/button.scss';
 @import 'modules/alert.scss';
 
-body ***REMOVED*** font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; ***REMOVED***
+body ***REMOVED***
+    background-color: $non-colored-color-gray-2;
+    font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif;
+***REMOVED***
+
+/*
+======================
+        header      
+======================
+*/
+#header ***REMOVED***
+    background-color: white;
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
+    display: table-cell;
+    vertical-align: middle;
+    height: 75px;
+    width: 100vw;
+***REMOVED***
+.header__icon ***REMOVED***
+    vertical-align: middle;
+    margin-left: 20px;
+    width: 60px;
+    height: 60px;
+***REMOVED***
+
+/*
+=====================
+        body      
+=====================
+*/
+#container ***REMOVED***
+    display: flex;
+    padding-top: 50px;
+***REMOVED***
+#main ***REMOVED*** width: 50vw; ***REMOVED***
+.menu, .other ***REMOVED*** width: 25vw; ***REMOVED***
+.menu__item-wapper ***REMOVED***
+    box-sizing: border-box;
+    padding: 0 20px;
+***REMOVED***
+.menu__item ***REMOVED***
+    @extend .btn;
+    @extend .btn_item;
+    margin-bottom: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+***REMOVED***
+
+/*
+=====================
+        other      
+=====================
+*/
+.other__item-wapper ***REMOVED***
+    box-sizing: border-box;
+    padding: 0 20px;
+***REMOVED***
+.other__item ***REMOVED***
+    @extend .btn;
+    @extend .btn_item;
+    margin-bottom: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+***REMOVED***
+
 .dark-background ***REMOVED***
     background-color: rgba(0, 0, 0, 0.5);
     width: 100vw;
@@ -13,6 +80,7 @@ body ***REMOVED*** font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans
     position: fixed;
     z-index: 5;
 ***REMOVED***
+/* ---------------dark-background-animのtransition--------------- */
 .dark-background-anim-enter-active,
 .dark-background-anim-leave-active ***REMOVED*** transition: opacity .5s ease-in-out; ***REMOVED***
 

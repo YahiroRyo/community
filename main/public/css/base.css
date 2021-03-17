@@ -446,6 +446,47 @@ template ***REMOVED***
 .window-anim-leave ***REMOVED***
   opacity: 1; ***REMOVED***
 
+.btn, .menu__item, .other__item ***REMOVED***
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 3;
+  padding: 0 10px;
+  width: 100%; ***REMOVED***
+  .btn:hover, .menu__item:hover, .other__item:hover ***REMOVED***
+    transition: .2s;
+    cursor: pointer; ***REMOVED***
+
+.btn_item:hover, .menu__item:hover, .other__item:hover ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+
+.btn_normal ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+  .btn_normal:hover ***REMOVED***
+    background-color: #b8b8b8; ***REMOVED***
+
+.btn_success ***REMOVED***
+  background-color: #4cdb8f; ***REMOVED***
+  .btn_success:hover ***REMOVED***
+    background-color: #29cb75; ***REMOVED***
+
+.btn_attention ***REMOVED***
+  background-color: #fcd419; ***REMOVED***
+  .btn_attention:hover ***REMOVED***
+    background-color: #dfb803; ***REMOVED***
+
+.btn_danger ***REMOVED***
+  background-color: #f9446a;
+  color: white; ***REMOVED***
+  .btn_danger:hover ***REMOVED***
+    background-color: #f71343; ***REMOVED***
+
+.btn_circle ***REMOVED***
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; ***REMOVED***
+
 .alert ***REMOVED***
   border-radius: 5px;
   display: inline-block;
@@ -510,7 +551,67 @@ template ***REMOVED***
   .alerts-anim-leave ***REMOVED***
     transform: translate(0, 0); ***REMOVED*** ***REMOVED***
 body ***REMOVED***
+  background-color: #eee;
   font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; ***REMOVED***
+
+/*
+======================
+        header      
+======================
+*/
+#header ***REMOVED***
+  background-color: white;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
+  display: table-cell;
+  vertical-align: middle;
+  height: 75px;
+  width: 100vw; ***REMOVED***
+
+.header__icon ***REMOVED***
+  vertical-align: middle;
+  margin-left: 20px;
+  width: 60px;
+  height: 60px; ***REMOVED***
+
+/*
+=====================
+        body      
+=====================
+*/
+#container ***REMOVED***
+  display: flex;
+  padding-top: 50px; ***REMOVED***
+
+#main ***REMOVED***
+  width: 50vw; ***REMOVED***
+
+.menu, .other ***REMOVED***
+  width: 25vw; ***REMOVED***
+
+.menu__item-wapper ***REMOVED***
+  box-sizing: border-box;
+  padding: 0 20px; ***REMOVED***
+
+.menu__item ***REMOVED***
+  margin-bottom: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; ***REMOVED***
+
+/*
+=====================
+        other      
+=====================
+*/
+.other__item-wapper ***REMOVED***
+  box-sizing: border-box;
+  padding: 0 20px; ***REMOVED***
+
+.other__item ***REMOVED***
+  margin-bottom: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; ***REMOVED***
 
 .dark-background ***REMOVED***
   background-color: rgba(0, 0, 0, 0.5);
@@ -521,6 +622,7 @@ body ***REMOVED***
   position: fixed;
   z-index: 5; ***REMOVED***
 
+/* ---------------dark-background-animのtransition--------------- */
 .dark-background-anim-enter-active,
 .dark-background-anim-leave-active ***REMOVED***
   transition: opacity .5s ease-in-out; ***REMOVED***
