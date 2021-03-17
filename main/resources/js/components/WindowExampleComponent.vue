@@ -40,11 +40,11 @@
 </template>
 
 <script>
-    import { setOpenFunction, setCloseFunction, createWindow, window } from '../window'
+    import { setOpenFunction, setCloseFunction, createWindow } from '../window'
 
     export default {
         mounted() {
-            createWindow(new window(0, 'WindowExampleComponent', 1000, 500))
+            createWindow('WindowExampleComponent', 500, 500)
             setOpenFunction(() => {
                 console.log("open")
             })
