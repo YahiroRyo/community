@@ -1,0 +1,38 @@
+@import '../brandColor';
+
+.window ***REMOVED***
+    background-color: white;
+    box-shadow: 5px 5px $non-colored-color-gray-5;
+    border-radius: 5px;
+    box-sizing: border-box;
+    position: fixed;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+***REMOVED***
+.window__title ***REMOVED***
+    font-size: 32px;
+    font-weight: normal;
+    margin-top: 10px;
+***REMOVED***
+.window__content ***REMOVED***
+    margin-top: 10px;
+    overflow-y: auto;
+***REMOVED***
+.window__close-btn ***REMOVED***
+    width: 24px;
+    height: 24px;
+    &:hover ***REMOVED*** cursor: pointer; ***REMOVED***
+***REMOVED***
+
+/* ---------------windowのtransition--------------- */
+.window-anim-enter-active,
+.window-anim-leave-active ***REMOVED*** transition: opacity .5s ease-in-out; ***REMOVED***
+
+.window-anim-enter-active,
+.window-anim-leave-to ***REMOVED*** opacity: 0; ***REMOVED***
+
+.window-anim-enter-to,
+.window-anim-leave ***REMOVED*** opacity: 1; ***REMOVED***
