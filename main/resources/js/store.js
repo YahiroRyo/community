@@ -3,6 +3,10 @@ import { createStore } from 'vuex'
 export const store = createStore({
     state() {
       return {
+        alert: {
+          object: null,
+          waitIntervals: [],
+        },
         window: {
           currentComponent: 0,
           title: 'タイトルが設定されていません',
