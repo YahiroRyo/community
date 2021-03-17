@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="" />
+  <link rel="icon" href="/images/icon.svg">
   <title>community</title>
   <script src="***REMOVED******REMOVED*** mix('../js/app.js') ***REMOVED******REMOVED***" defer></script>
 </head>
