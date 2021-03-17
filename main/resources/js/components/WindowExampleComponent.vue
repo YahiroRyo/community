@@ -40,11 +40,11 @@
 </template>
 
 <script>
-    import ***REMOVED*** setOpenFunction, setCloseFunction, createWindow, window ***REMOVED*** from '../window'
+    import ***REMOVED*** setOpenFunction, setCloseFunction, createWindow ***REMOVED*** from '../window'
 
     export default ***REMOVED***
         mounted() ***REMOVED***
-            createWindow(new window(0, 'WindowExampleComponent', 1000, 500))
+            createWindow('WindowExampleComponent', 500, 500)
             setOpenFunction(() => ***REMOVED***
                 console.log("open")
             ***REMOVED***)
