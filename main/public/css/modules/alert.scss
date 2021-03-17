@@ -1,0 +1,60 @@
+@import '../brandColor';
+
+.alert {
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+    width: 500px;
+    padding: 15px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.alert_success {
+    background-color: $accent-color-success;
+    box-shadow: 5px 5px darken($accent-color-success, 30%);
+}
+.alert_attention {
+    background-color: $accent-color-attention;
+    box-shadow: 5px 5px darken($accent-color-attention, 30%);
+}
+.alert_danger {
+    background-color: $accent-color-danger;
+    box-shadow: 5px 5px darken($accent-color-danger, 30%);
+}
+
+/* ---------------alertsのtransition--------------- */
+.alerts-anim-enter-active,
+.alerts-anim-leave-active { transition: opacity .5s ease-in-out, transform .5s ease; }
+
+.alerts-anim-enter-active,
+.alerts-anim-leave-to {
+    opacity: 0;
+    transform: translateX(100px);
+}
+
+.alerts-anim-enter-to,
+.alerts-anim-leave {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ---------------スマホ・タブレット用のalert--------------- */
+@media screen and (max-width: 1100px) {
+    .alert {
+        border-radius: 0;
+        width: 100vw;
+        top: 0;
+        left: 0;
+        bottom: auto;
+        right: auto;
+    }
+    .alert_success { box-shadow: 0 5px darken($accent-color-success, 30%); }
+    .alert_attention { box-shadow: 0 5px darken($accent-color-attention, 30%); }
+    .alert_danger { box-shadow: 0 5px darken($accent-color-danger, 30%); }
+    .alerts-anim-enter-active,
+    .alerts-anim-leave-to { transform: translate(0, -100px); }
+
+    .alerts-anim-enter-to,
+    .alerts-anim-leave { transform: translate(0, 0); }
+}
