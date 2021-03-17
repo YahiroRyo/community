@@ -1,9 +1,76 @@
 @import 'brandColor';
 @import 'reset.scss';
 @import 'modules/window.scss';
+@import 'modules/button.scss';
 @import 'modules/alert.scss';
 
-body { font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; }
+body {
+    background-color: $non-colored-color-gray-2;
+    font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif;
+}
+
+/*
+======================
+        header      
+======================
+*/
+#header {
+    background-color: white;
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
+    display: table-cell;
+    vertical-align: middle;
+    height: 75px;
+    width: 100vw;
+}
+.header__icon {
+    vertical-align: middle;
+    margin-left: 20px;
+    width: 60px;
+    height: 60px;
+}
+
+/*
+=====================
+        body      
+=====================
+*/
+#container {
+    display: flex;
+    padding-top: 50px;
+}
+#main { width: 50vw; }
+.menu, .other { width: 25vw; }
+.menu__item-wapper {
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+.menu__item {
+    @extend .btn;
+    @extend .btn_item;
+    margin-bottom: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*
+=====================
+        other      
+=====================
+*/
+.other__item-wapper {
+    box-sizing: border-box;
+    padding: 0 20px;
+}
+.other__item {
+    @extend .btn;
+    @extend .btn_item;
+    margin-bottom: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .dark-background {
     background-color: rgba(0, 0, 0, 0.5);
     width: 100vw;
@@ -13,6 +80,7 @@ body { font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; }
     position: fixed;
     z-index: 5;
 }
+/* ---------------dark-background-animのtransition--------------- */
 .dark-background-anim-enter-active,
 .dark-background-anim-leave-active { transition: opacity .5s ease-in-out; }
 

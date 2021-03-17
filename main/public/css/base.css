@@ -446,6 +446,47 @@ template {
 .window-anim-leave {
   opacity: 1; }
 
+.btn, .menu__item, .other__item {
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 3;
+  padding: 0 10px;
+  width: 100%; }
+  .btn:hover, .menu__item:hover, .other__item:hover {
+    transition: .2s;
+    cursor: pointer; }
+
+.btn_item:hover, .menu__item:hover, .other__item:hover {
+  background-color: #d1d1d1; }
+
+.btn_normal {
+  background-color: #d1d1d1; }
+  .btn_normal:hover {
+    background-color: #b8b8b8; }
+
+.btn_success {
+  background-color: #4cdb8f; }
+  .btn_success:hover {
+    background-color: #29cb75; }
+
+.btn_attention {
+  background-color: #fcd419; }
+  .btn_attention:hover {
+    background-color: #dfb803; }
+
+.btn_danger {
+  background-color: #f9446a;
+  color: white; }
+  .btn_danger:hover {
+    background-color: #f71343; }
+
+.btn_circle {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; }
+
 .alert {
   border-radius: 5px;
   display: inline-block;
@@ -510,7 +551,67 @@ template {
   .alerts-anim-leave {
     transform: translate(0, 0); } }
 body {
+  background-color: #eee;
   font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; }
+
+/*
+======================
+        header      
+======================
+*/
+#header {
+  background-color: white;
+  box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
+  display: table-cell;
+  vertical-align: middle;
+  height: 75px;
+  width: 100vw; }
+
+.header__icon {
+  vertical-align: middle;
+  margin-left: 20px;
+  width: 60px;
+  height: 60px; }
+
+/*
+=====================
+        body      
+=====================
+*/
+#container {
+  display: flex;
+  padding-top: 50px; }
+
+#main {
+  width: 50vw; }
+
+.menu, .other {
+  width: 25vw; }
+
+.menu__item-wapper {
+  box-sizing: border-box;
+  padding: 0 20px; }
+
+.menu__item {
+  margin-bottom: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
+/*
+=====================
+        other      
+=====================
+*/
+.other__item-wapper {
+  box-sizing: border-box;
+  padding: 0 20px; }
+
+.other__item {
+  margin-bottom: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
 
 .dark-background {
   background-color: rgba(0, 0, 0, 0.5);
@@ -521,6 +622,7 @@ body {
   position: fixed;
   z-index: 5; }
 
+/* ---------------dark-background-animのtransition--------------- */
 .dark-background-anim-enter-active,
 .dark-background-anim-leave-active {
   transition: opacity .5s ease-in-out; }
