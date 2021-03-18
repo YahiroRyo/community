@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    import ***REMOVED*** setOpenFunction, setCloseFunction, createWindow ***REMOVED*** from '../window'
+    import ***REMOVED*** setOpenFunction, setCloseFunction, createWindow ***REMOVED*** from '../../window'
 
     export default ***REMOVED***
         mounted() ***REMOVED***

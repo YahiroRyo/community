@@ -63,15 +63,15 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, watch ***REMOVED*** from 'vue'
-    import ***REMOVED*** useStore ***REMOVED*** from 'vuex'
-    import ***REMOVED*** useRouter, useRoute ***REMOVED*** from 'vue-router'
-    import ***REMOVED*** displayWindow ***REMOVED*** from './window';
-    import ***REMOVED*** alert, createAlert ***REMOVED*** from './alert';
+    import ***REMOVED*** reactive, watch ***REMOVED***      from 'vue'
+    import ***REMOVED*** useStore ***REMOVED***             from 'vuex'
+    import ***REMOVED*** useRouter, useRoute ***REMOVED***  from 'vue-router'
+    import ***REMOVED*** displayWindow ***REMOVED***        from './window';
+    import ***REMOVED*** alert, createAlert ***REMOVED***   from './alert';
 
     /* ---------------コンポーネントインポート--------------- */
-    import WindowExample from './components/WindowExampleComponent.vue'
-    import Modules from './components/Modules.vue'
+    import WindowExample from './components/window/WindowExampleComponent.vue'
+    import Modules from './components/window/Modules.vue'
 
     export default ***REMOVED***
         components:***REMOVED***
@@ -115,6 +115,7 @@
                 if (data.testTrigger) ***REMOVED***
                     //window
                     displayWindow(0)
+                    
                     //alert
                     createAlert(new alert('alert', 0))
                     data.testTrigger = false
