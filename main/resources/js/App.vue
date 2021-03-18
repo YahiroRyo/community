@@ -1,22 +1,22 @@
 <template>
     <link rel="stylesheet" href="/css/base.css">
     <header id="header">
-        <router-link to="/a"><img class="header__icon" src="/images/icon.svg"></router-link>
+        <router-link to="/"><img class="header__icon" src="/images/icon.svg"></router-link>
     </header>
     <div id="container">
         <nav class="menu">
-            <ul class="menu__item-wapper">
+            <ul class="menu__items-wapper">
                 <li>
-                    <router-link to="/" class="menu__item">グローバルな投稿を閲覧</router-link>
+                    <router-link to="/" class="menu__item"><img class="menu__item-icon" src="/images/materials/home.svg">グローバルな投稿を閲覧</router-link>
                 </li>
                 <li>
-                    <router-link to="/" class="menu__item">プロフィール</router-link>
+                    <router-link to="/profile" class="menu__item"><img class="menu__item-icon" src="/images/materials/profile.svg">プロフィール</router-link>
                 </li>
                 <li>
-                    <router-link to="/" class="menu__item">コミュニティ</router-link>
+                    <router-link to="/communities" class="menu__item"><img class="menu__item-icon" src="/images/materials/community.svg">コミュニティ</router-link>
                 </li>
                 <li>
-                    <router-link to="/" class="menu__item">お問い合わせ</router-link>
+                    <router-link to="/contact" class="menu__item"><img class="menu__item-icon" src="/images/materials/info.svg">お問い合わせ</router-link>
                 </li>
                 <li>
                     <button @click="displayWindow(1)" class="menu__item">モジュール</button>
@@ -58,7 +58,7 @@
         </main>
         <div class="other">
             <ul class="other__item-wapper">
-                <li @click="displayWindow(2)" class="other__item">投稿する</li>
+                <li @click="displayWindow(2)" class="other__item"><img class="other__item-icon" src="/images/materials/post.svg">投稿する</li>
             </ul>
         </div>
     </div>
