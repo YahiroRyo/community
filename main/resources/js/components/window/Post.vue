@@ -1,0 +1,67 @@
+<template>
+    <div>
+        <link rel="stylesheet" href="/css/components/post/post.css">
+        <label class="form-label">投稿内容を入力</label>
+        <textarea v-model="data.post.content" class="form form_dont-resize height-between-small-and-middle"></textarea>
+        <!-- 文字数カウント -->
+        <p :class="***REMOVED***'form-label-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, ***REMOVED***">***REMOVED******REMOVED***data.post.content.length***REMOVED******REMOVED*** | 200</p>
+        <!-- 画像プレビュー -->
+        <div class="post-display-img-wapper" v-show="data.post.images.length > 0">
+            <transition-group name="post-input-img-anim">
+                <div class="post-input-img" v-for="(image, key) in data.post.images" :key="key" :style="`background-image: url($***REMOVED***image***REMOVED***)`">
+                    <button @click="deleteMedia(key)" class="post-input-img__btn"><img class="post-input-img__btn__img" src="/images/materials/close.svg"></button>
+                </div>
+            </transition-group>
+        </div>
+        <button @click="selectMedia" class="post-btn"><img src="/images/materials/media.svg" class="post-btn__media-img"></button>
+        <input ref="inputFileElement" @change="displayMedia" style="display: none;" type="file" accept="image/*" />
+        <button @click="postSend" class="form form_btn">投稿する</button>
+    </div>
+</template>
+
+<script>
+    /* ---------------post(投稿)をする制約-------------- */
+    // ・文字数は200字まで
+    // ・画像を投稿できるのは4枚まで
+
+    import ***REMOVED*** reactive, onMounted, ref ***REMOVED***         from 'vue'
+    import ***REMOVED*** createWindow, closeWindow ***REMOVED***        from '../../window.js'
+    import ***REMOVED*** createAlert, alert ***REMOVED***               from '../../alert.js'
+    import ***REMOVED*** useStore ***REMOVED***                         from 'vuex';
+
+    export default ***REMOVED***
+        setup() ***REMOVED***
+            // ボタンを用いてファイルを選択させたいため、ファイル選択にrefを用いた。
+            const inputFileElement = ref(null)
+            const data = reactive(***REMOVED***
+                store: useStore(),
+                post: ***REMOVED***
+                    content: '',
+                    images: [],
+                ***REMOVED***,
+            ***REMOVED***)
+            const postSend = () => ***REMOVED***
+                /* ---------------TODO: サーバーに投稿内容を投げるajax処理を実装--------------- */
+                closeWindow()
+            ***REMOVED***
+            const selectMedia = () => ***REMOVED***
+                // 閉じた際に、clickするとnullをクリックした判定になるため、nullじゃないかチェック
+                if (inputFileElement.value.click !== null) ***REMOVED*** inputFileElement.value.click() ***REMOVED***
+            ***REMOVED***
+            const displayMedia = () => ***REMOVED***
+                if (inputFileElement.value.files.length > 0) ***REMOVED***
+                    if (data.post.images.length < 4 && inputFileElement.value.files[0].type.match("image.*")) ***REMOVED***
+                        const fileReader    = new FileReader()
+                        fileReader.onload   = (() => ***REMOVED*** data.post.images.push(fileReader.result) ***REMOVED***)
+                        fileReader.readAsDataURL(inputFileElement.value.files[0])
+                    ***REMOVED*** else ***REMOVED***
+                        createAlert(new alert('4枚以上の画像を設定できません', 1))
+                    ***REMOVED***
+                ***REMOVED***
+            ***REMOVED***
+            const deleteMedia = (key) => ***REMOVED*** data.post.images.splice(key, 1) ***REMOVED***
+            onMounted(() => ***REMOVED*** createWindow('投稿する', 500, 650) ***REMOVED***)
+            return ***REMOVED*** data, postSend, selectMedia, inputFileElement, displayMedia, deleteMedia, ***REMOVED***
+        ***REMOVED***
+    ***REMOVED***
+</script>
