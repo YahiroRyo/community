@@ -19,13 +19,12 @@ body {
 #header {
     background-color: white;
     box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
-    display: table-cell;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
     height: 75px;
     width: 100vw;
 }
 .header__icon {
-    vertical-align: middle;
     margin-left: 20px;
     width: 60px;
     height: 60px;
@@ -42,17 +41,24 @@ body {
 }
 #main { width: 50vw; }
 .menu, .other { width: 25vw; }
-.menu__item-wapper {
+.menu__items-wapper {
     box-sizing: border-box;
     padding: 0 20px;
 }
 .menu__item {
     @extend .btn;
     @extend .btn_item;
+    display: flex;
+    align-items: center;
     margin-bottom: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.menu__item-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
 }
 
 /*
@@ -60,19 +66,22 @@ body {
         other      
 =====================
 */
-.other__item-wapper {
-    box-sizing: border-box;
-    padding: 0 20px;
-}
+.other__item-wapper { padding: 0 20px; }
 .other__item {
     @extend .btn;
     @extend .btn_item;
+    align-items: center;
+    display: flex;
     margin-bottom: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
+.other__item-icon {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
 .dark-background {
     background-color: rgba(0, 0, 0, 0.5);
     width: 100vw;
