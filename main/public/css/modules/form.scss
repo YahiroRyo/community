@@ -1,0 +1,22 @@
+@import '../brandColor';
+
+.form ***REMOVED***
+    border: 2px solid $base-color-4;
+    font-size: 16px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+***REMOVED***
+.form-label ***REMOVED*** font-size: 16px; ***REMOVED***
+.form_dont-resize ***REMOVED*** resize: none; ***REMOVED***
+.form_btn ***REMOVED***
+    text-align: center;
+    width: 100px;
+    &:disabled ***REMOVED***
+        background-color: $base-color-5;
+        border: 2px solid $non-colored-color-gray-5;
+        color: white;
+        &:hover ***REMOVED*** cursor: not-allowed; ***REMOVED***
+    ***REMOVED***
+    &:hover ***REMOVED*** cursor: pointer; ***REMOVED***
+***REMOVED***
