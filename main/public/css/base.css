@@ -1,4 +1,28 @@
 @charset "UTF-8";
+.height-small {
+  height: 200px; }
+
+.height-between-small-and-middle {
+  height: 350px; }
+
+.height-middle {
+  height: 500px; }
+
+.height-full {
+  height: 100%; }
+
+.width-small {
+  width: 200px; }
+
+.width-between-small-and-middle {
+  width: 350px; }
+
+.width-middle {
+  width: 500px; }
+
+.width-full {
+  width: 100%; }
+
 *,
 ::before,
 ::after {
@@ -550,6 +574,31 @@ template {
   .alerts-anim-enter-to,
   .alerts-anim-leave {
     transform: translate(0, 0); } }
+.form {
+  border: 2px solid #0BB3A2;
+  font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px; }
+
+.form-label {
+  font-size: 16px; }
+
+.form_dont-resize {
+  resize: none; }
+
+.form_btn {
+  text-align: center;
+  width: 100px; }
+  .form_btn:disabled {
+    background-color: #077368;
+    border: 2px solid #797979;
+    color: white; }
+    .form_btn:disabled:hover {
+      cursor: not-allowed; }
+  .form_btn:hover {
+    cursor: pointer; }
+
 body {
   background-color: #eee;
   font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; }
