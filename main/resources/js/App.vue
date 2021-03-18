@@ -41,6 +41,7 @@
                         <!-- 使いたいコンポーネントに番号を定義し、if文で表示させる -->
                         <WindowExample v-if="$store.state.window.currentComponent === 0" />
                         <Modules v-else-if="$store.state.window.currentComponent === 1" />
+                        <Post v-else-if="$store.state.window.currentComponent === 2" />
                     </div>
                 </div>
             </transition>
@@ -56,7 +57,7 @@
         </main>
         <div class="other">
             <ul class="other__item-wapper">
-                <li class="other__item">投稿する</li>
+                <li @click="displayWindow(2)" class="other__item">投稿する</li>
             </ul>
         </div>
     </div>
@@ -72,6 +73,7 @@
     /* ---------------コンポーネントインポート--------------- */
     import WindowExample from './components/window/WindowExampleComponent.vue'
     import Modules from './components/window/Modules.vue'
+    import Post from './components/window/Post.vue'
 
     export default {
         components:{
@@ -81,6 +83,7 @@
             /* ---------------Window用コンポーネント--------------- */
             WindowExample,
             Modules,
+            Post,
         },
         setup() {
             const data = reactive({
@@ -92,20 +95,21 @@
             })
             watch(() => data.store.state.window.use, () => {
                 if (data.store.state.window.use) {
-                    // 他のコンポーネントでopenにメソッドを代入するため、遅延が発生してしまう。
+                    // 他のコンポーネントでwindowのプロパティを設定するため、遅延が発生してしまう。
                     // その遅延に合わせるため、setTimeoutを使用
                     setTimeout(() => {
                         if (data.store.state.window.functions.open) { data.store.state.window.functions.open() }
+                        
+                        /* ---------------window.height -120計算方法--------------- */
+                        // windowのpadding                          -20px
+                        // close.svgのheight                        -24px
+                        // window__titleのheight                    -36px
+                        // window__titleのmargin-top                -10px
+                        // window__contentのmargin-top              -10px
+                        // window__contentを不自然に表示しないため  -20px
+                        // 計 -120px
+                        data.window.contentHeight = data.store.state.window.height - 120;
                     }, 100)
-                    /* ---------------window.height -120計算方法--------------- */
-                    // windowのpadding                          -20px
-                    // close.svgのheight                        -24px
-                    // window__titleのheight                    -36px
-                    // window__titleのmargin-top                -10px
-                    // window__contentのmargin-top              -10px
-                    // window__contentを不自然に表示しないため  -20px
-                    // 計 -120px
-                    data.window.contentHeight = data.store.state.window.height - 120;
                 } else {
                     if (data.store.state.window.functions.close) { data.store.state.window.functions.close() }
                 }
