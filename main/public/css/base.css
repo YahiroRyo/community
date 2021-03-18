@@ -629,13 +629,12 @@ body ***REMOVED***
 #header ***REMOVED***
   background-color: white;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
   height: 75px;
   width: 100vw; ***REMOVED***
 
 .header__icon ***REMOVED***
-  vertical-align: middle;
   margin-left: 20px;
   width: 60px;
   height: 60px; ***REMOVED***
@@ -655,15 +654,22 @@ body ***REMOVED***
 .menu, .other ***REMOVED***
   width: 25vw; ***REMOVED***
 
-.menu__item-wapper ***REMOVED***
+.menu__items-wapper ***REMOVED***
   box-sizing: border-box;
   padding: 0 20px; ***REMOVED***
 
 .menu__item ***REMOVED***
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; ***REMOVED***
+
+.menu__item-icon ***REMOVED***
+  width: 20px;
+  height: 20px;
+  margin-right: 10px; ***REMOVED***
 
 /*
 =====================
@@ -671,14 +677,20 @@ body ***REMOVED***
 =====================
 */
 .other__item-wapper ***REMOVED***
-  box-sizing: border-box;
   padding: 0 20px; ***REMOVED***
 
 .other__item ***REMOVED***
+  align-items: center;
+  display: flex;
   margin-bottom: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; ***REMOVED***
+
+.other__item-icon ***REMOVED***
+  margin-right: 10px;
+  width: 20px;
+  height: 20px; ***REMOVED***
 
 .dark-background ***REMOVED***
   background-color: rgba(0, 0, 0, 0.5);
