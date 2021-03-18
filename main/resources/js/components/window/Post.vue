@@ -1,7 +1,7 @@
 <template>
     <div>
         <link rel="stylesheet" href="/css/components/post/post.css">
-        <label class="form-label">投稿内容を入力</label>
+        <p class="form-label-post">投稿内容を入力</p>
         <textarea v-model="data.post.content" class="form form_dont-resize height-between-small-and-middle"></textarea>
         <!-- 文字数カウント -->
         <p :class="{'form-label-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, }">{{data.post.content.length}} | 200</p>
