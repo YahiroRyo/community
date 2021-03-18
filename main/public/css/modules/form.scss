@@ -8,6 +8,10 @@
     margin-top: 10px;
 }
 .form-label { font-size: 16px; }
+.form-label_danger {
+    color: red;
+    font-weight: bold;
+}
 .form_dont-resize { resize: none; }
 .form_btn {
     text-align: center;
