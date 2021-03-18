@@ -1,11 +1,9 @@
-import ***REMOVED*** createWebHistory, createRouter ***REMOVED*** from "vue-router";
+//ルーターを設定する
 
-const routes = [
-];
-  
-const router = createRouter(***REMOVED***
-  history: createWebHistory(),
-  routes,
-***REMOVED***);
+import ***REMOVED*** createRouter, createWebHistory***REMOVED***  from 'vue-router'
 
-export default router;
+export const router = createRouter(***REMOVED***
+    history: createWebHistory(),
+    routes: [
+    ]
+***REMOVED***)
