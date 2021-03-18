@@ -1,4 +1,28 @@
 @charset "UTF-8";
+.height-small ***REMOVED***
+  height: 200px; ***REMOVED***
+
+.height-between-small-and-middle ***REMOVED***
+  height: 350px; ***REMOVED***
+
+.height-middle ***REMOVED***
+  height: 500px; ***REMOVED***
+
+.height-full ***REMOVED***
+  height: 100%; ***REMOVED***
+
+.width-small ***REMOVED***
+  width: 200px; ***REMOVED***
+
+.width-between-small-and-middle ***REMOVED***
+  width: 350px; ***REMOVED***
+
+.width-middle ***REMOVED***
+  width: 500px; ***REMOVED***
+
+.width-full ***REMOVED***
+  width: 100%; ***REMOVED***
+
 *,
 ::before,
 ::after ***REMOVED***
@@ -550,6 +574,31 @@ template ***REMOVED***
   .alerts-anim-enter-to,
   .alerts-anim-leave ***REMOVED***
     transform: translate(0, 0); ***REMOVED*** ***REMOVED***
+.form ***REMOVED***
+  border: 2px solid #0BB3A2;
+  font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px; ***REMOVED***
+
+.form-label ***REMOVED***
+  font-size: 16px; ***REMOVED***
+
+.form_dont-resize ***REMOVED***
+  resize: none; ***REMOVED***
+
+.form_btn ***REMOVED***
+  text-align: center;
+  width: 100px; ***REMOVED***
+  .form_btn:disabled ***REMOVED***
+    background-color: #077368;
+    border: 2px solid #797979;
+    color: white; ***REMOVED***
+    .form_btn:disabled:hover ***REMOVED***
+      cursor: not-allowed; ***REMOVED***
+  .form_btn:hover ***REMOVED***
+    cursor: pointer; ***REMOVED***
+
 body ***REMOVED***
   background-color: #eee;
   font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif; ***REMOVED***

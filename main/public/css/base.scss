@@ -1,8 +1,10 @@
 @import 'brandColor';
+@import 'cosmetic.scss';
 @import 'reset.scss';
 @import 'modules/window.scss';
 @import 'modules/button.scss';
 @import 'modules/alert.scss';
+@import 'modules/form.scss';
 
 body ***REMOVED***
     background-color: $non-colored-color-gray-2;
