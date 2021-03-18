@@ -29,11 +29,11 @@
         </nav>
         <main id="main">
             <!-- 背景を暗くする -->
-            <transition name="dark-background-anim"><div v-show="$store.state.window.use" class="dark-background"></div></transition>
+            <transition name="dark-background-anim"><div v-show="$store.state.window.use" @click="data.window.isClickOutSize = true" class="dark-background"></div></transition>
             <!-- window module -->
             <transition name="window-anim">
                 <!-- onMounted時に表示するコンポーネントがwindowの情報を指定できるようにするため、v-ifを使用 -->
-                <div v-if="$store.state.window.use" :style="`width: ${$store.state.window.width}px; height: ${$store.state.window.height}px;`" class="window">
+                <div v-if="$store.state.window.use" :style="`width: ${$store.state.window.width}px; height: ${$store.state.window.height}px;`" :class="{'window': true, 'window_shake-anim': data.window.isClickOutSize, }">
                     <img @click="$store.state.window.use = false" class="window__close-btn" src="/images/materials/close.svg">
                     <h1 class="window__title">{{$store.state.window.title}}</h1>
                     <!-- window__content内のコンポーネントは予め用意しておき、if文で切り替える -->
@@ -90,7 +90,10 @@
                 store: useStore(),
                 router: useRouter(),
                 route: useRoute(),
-                window: { contentHeight: 0, },
+                window: {
+                    contentHeight: 0,
+                    isClickOutSize: false,
+                },
                 testTrigger: false,
             })
             watch(() => data.store.state.window.use, () => {
@@ -112,6 +115,11 @@
                     }, 100)
                 } else {
                     if (data.store.state.window.functions.close) { data.store.state.window.functions.close() }
+                }
+            })
+            watch(() => data.window.isClickOutSize, () => {
+                if (data.window.isClickOutSize) {
+                    setTimeout(() => { data.window.isClickOutSize = false }, 1000)
                 }
             })
             // 挙動を確かめるためのtestTriggerフラグをwatchしている

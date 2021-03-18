@@ -36,3 +36,15 @@
 
 .window-anim-enter-to,
 .window-anim-leave { opacity: 1; }
+
+.window_shake-anim {
+    animation-duration: .82s;
+    animation-name: window_shake;
+}
+
+@keyframes window_shake {
+    10%, 90%        { transform: translate(calc(-50% - 2px), -50%); }
+    20%, 80%        { transform: translate(calc(-50% + 4px), -50%); }
+    30%, 50%, 70%   { transform: translate(calc(-50% - 8px), -50%); }
+    40%, 60%        { transform: translate(calc(-50% + 8px), -50%); }
+}
