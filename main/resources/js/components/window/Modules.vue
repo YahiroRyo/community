@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import { setOpenFunction, setCloseFunction, createWindow } from '../window'
+    import { setOpenFunction, setCloseFunction, createWindow } from '../../window'
 
     export default {
         mounted() { createWindow('Modules', 1000, 500) }

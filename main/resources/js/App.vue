@@ -63,15 +63,15 @@
 </template>
 
 <script>
-    import { reactive, watch } from 'vue'
-    import { useStore } from 'vuex'
-    import { useRouter, useRoute } from 'vue-router'
-    import { displayWindow } from './window';
-    import { alert, createAlert } from './alert';
+    import { reactive, watch }      from 'vue'
+    import { useStore }             from 'vuex'
+    import { useRouter, useRoute }  from 'vue-router'
+    import { displayWindow }        from './window';
+    import { alert, createAlert }   from './alert';
 
     /* ---------------コンポーネントインポート--------------- */
-    import WindowExample from './components/WindowExampleComponent.vue'
-    import Modules from './components/Modules.vue'
+    import WindowExample from './components/window/WindowExampleComponent.vue'
+    import Modules from './components/window/Modules.vue'
 
     export default {
         components:{
@@ -115,6 +115,7 @@
                 if (data.testTrigger) {
                     //window
                     displayWindow(0)
+                    
                     //alert
                     createAlert(new alert('alert', 0))
                     data.testTrigger = false
