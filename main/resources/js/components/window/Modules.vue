@@ -18,6 +18,10 @@
         <h1 class="window__title">windowTitle</h1>
         <div class="window__content">コンポーネント</div>
     </div>
+    <label class="form-label">form-label</label>
+    <input class="form">
+    <textarea class="form form_dont-resize">form form_dont-resize</textarea>
+    <button disabled class="form form_btn">form form_btn</button>
 </template>
 
 <script>
