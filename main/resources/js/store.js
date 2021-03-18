@@ -3,10 +3,12 @@ import ***REMOVED*** createStore ***REMOVED*** from 'vuex'
 export const store = createStore(***REMOVED***
     state() ***REMOVED***
       return ***REMOVED***
+        // 変数の説明についてはalert.jsの一行目から参照
         alert: ***REMOVED***
           object: null,
           waitIntervals: [],
         ***REMOVED***,
+        // 変数の説明についてはwindow.jsの一行目から参照
         window: ***REMOVED***
           currentComponent: 0,
           title: 'タイトルが設定されていません',
