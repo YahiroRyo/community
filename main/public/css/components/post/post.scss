@@ -1,0 +1,74 @@
+@import '../../brandColor';
+@import '../../modules/button.scss';
+@import '../../modules/form.scss';
+
+.post-btn ***REMOVED***
+    @extend .btn;
+    @extend .btn_normal;
+    @extend .btn_circle;
+    background-color: white;
+    margin-top: 10px;
+***REMOVED***
+.post-btn__media-img ***REMOVED***
+    width: 25px;
+    height: 45px;
+    margin-bottom: 5px;
+***REMOVED***
+.post-input-img ***REMOVED***
+    background-size: cover;
+    background-position: center center;
+    box-sizing: border-box;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    margin: 10px auto 0 auto;
+    overflow: hidden;
+    height: 200px;
+    width: 48%;
+***REMOVED***
+.post-display-img-wapper ***REMOVED***
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 20px;
+***REMOVED***
+.post-input-img__btn ***REMOVED***
+    @extend .btn;
+    @extend .btn_normal;
+    @extend .btn_circle;
+    background-color: rgba(0, 0, 0, 0);
+    width: 30px;
+    height: 30px;
+    position: relative;
+    margin: 10px 0 0 10px;
+    &:hover ***REMOVED*** background-color: rgba(0, 0, 0, 0.5); ***REMOVED***
+***REMOVED***
+.post-input-img__btn__img ***REMOVED***
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+***REMOVED***
+.form-label-post ***REMOVED***
+    @extend .form-label;
+    margin-top: 10px;
+***REMOVED***
+
+/* ---------------post-input-img-animのtransition--------------- */
+.post-input-img-anim-enter-active,
+.post-input-img-anim-leave-active ***REMOVED*** animation-duration: .5s; ***REMOVED***
+.post-input-img-anim-enter-active ***REMOVED*** animation-name: scaleToBig; ***REMOVED***
+.post-input-img-anim-leave-active ***REMOVED*** animation-name: scaleToSmall; ***REMOVED***
+
+@keyframes scaleToBig ***REMOVED***
+    0% ***REMOVED*** transform: scale(0); ***REMOVED***
+    20% ***REMOVED*** transform: scale(1.2); ***REMOVED***
+    30% ***REMOVED*** transform: scale(0.9); ***REMOVED***
+    100% ***REMOVED*** transform: scale(1); ***REMOVED***
+***REMOVED***
+@keyframes scaleToSmall ***REMOVED***
+    0% ***REMOVED*** transform: scale(1); ***REMOVED***
+    20% ***REMOVED*** transform: scale(0.1); ***REMOVED***
+    100% ***REMOVED*** transform: scale(0); ***REMOVED***
+***REMOVED***
