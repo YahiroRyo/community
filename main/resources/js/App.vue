@@ -29,11 +29,11 @@
         </nav>
         <main id="main">
             <!-- 背景を暗くする -->
-            <transition name="dark-background-anim"><div v-show="$store.state.window.use" class="dark-background"></div></transition>
+            <transition name="dark-background-anim"><div v-show="$store.state.window.use" @click="data.window.isClickOutSize = true" class="dark-background"></div></transition>
             <!-- window module -->
             <transition name="window-anim">
                 <!-- onMounted時に表示するコンポーネントがwindowの情報を指定できるようにするため、v-ifを使用 -->
-                <div v-if="$store.state.window.use" :style="`width: $***REMOVED***$store.state.window.width***REMOVED***px; height: $***REMOVED***$store.state.window.height***REMOVED***px;`" class="window">
+                <div v-if="$store.state.window.use" :style="`width: $***REMOVED***$store.state.window.width***REMOVED***px; height: $***REMOVED***$store.state.window.height***REMOVED***px;`" :class="***REMOVED***'window': true, 'window_shake-anim': data.window.isClickOutSize, ***REMOVED***">
                     <img @click="$store.state.window.use = false" class="window__close-btn" src="/images/materials/close.svg">
                     <h1 class="window__title">***REMOVED******REMOVED***$store.state.window.title***REMOVED******REMOVED***</h1>
                     <!-- window__content内のコンポーネントは予め用意しておき、if文で切り替える -->
@@ -90,7 +90,10 @@
                 store: useStore(),
                 router: useRouter(),
                 route: useRoute(),
-                window: ***REMOVED*** contentHeight: 0, ***REMOVED***,
+                window: ***REMOVED***
+                    contentHeight: 0,
+                    isClickOutSize: false,
+                ***REMOVED***,
                 testTrigger: false,
             ***REMOVED***)
             watch(() => data.store.state.window.use, () => ***REMOVED***
@@ -112,6 +115,11 @@
                     ***REMOVED***, 100)
                 ***REMOVED*** else ***REMOVED***
                     if (data.store.state.window.functions.close) ***REMOVED*** data.store.state.window.functions.close() ***REMOVED***
+                ***REMOVED***
+            ***REMOVED***)
+            watch(() => data.window.isClickOutSize, () => ***REMOVED***
+                if (data.window.isClickOutSize) ***REMOVED***
+                    setTimeout(() => ***REMOVED*** data.window.isClickOutSize = false ***REMOVED***, 1000)
                 ***REMOVED***
             ***REMOVED***)
             // 挙動を確かめるためのtestTriggerフラグをwatchしている

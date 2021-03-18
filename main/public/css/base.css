@@ -470,6 +470,19 @@ template ***REMOVED***
 .window-anim-leave ***REMOVED***
   opacity: 1; ***REMOVED***
 
+.window_shake-anim ***REMOVED***
+  animation-duration: .82s;
+  animation-name: window_shake; ***REMOVED***
+
+@keyframes window_shake ***REMOVED***
+  10%, 90% ***REMOVED***
+    transform: translate(calc(-50% - 2px), -50%); ***REMOVED***
+  20%, 80% ***REMOVED***
+    transform: translate(calc(-50% + 4px), -50%); ***REMOVED***
+  30%, 50%, 70% ***REMOVED***
+    transform: translate(calc(-50% - 8px), -50%); ***REMOVED***
+  40%, 60% ***REMOVED***
+    transform: translate(calc(-50% + 8px), -50%); ***REMOVED*** ***REMOVED***
 .btn, .menu__item, .other__item ***REMOVED***
   border-radius: 5px;
   display: block;
