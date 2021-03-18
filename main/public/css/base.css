@@ -440,7 +440,7 @@ template ***REMOVED***
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10; ***REMOVED***
+  z-index: 2; ***REMOVED***
 
 .window__title ***REMOVED***
   font-size: 32px;
@@ -519,7 +519,8 @@ template ***REMOVED***
   padding: 15px;
   position: fixed;
   bottom: 20px;
-  right: 20px; ***REMOVED***
+  right: 20px;
+  z-index: 3; ***REMOVED***
 
 .alert_success ***REMOVED***
   background-color: #4cdb8f;
@@ -583,6 +584,10 @@ template ***REMOVED***
 
 .form-label ***REMOVED***
   font-size: 16px; ***REMOVED***
+
+.form-label_danger ***REMOVED***
+  color: red;
+  font-weight: bold; ***REMOVED***
 
 .form_dont-resize ***REMOVED***
   resize: none; ***REMOVED***
@@ -669,7 +674,7 @@ body ***REMOVED***
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 5; ***REMOVED***
+  z-index: 1; ***REMOVED***
 
 /* ---------------dark-background-animのtransition--------------- */
 .dark-background-anim-enter-active,
