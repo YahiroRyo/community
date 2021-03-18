@@ -1,0 +1,74 @@
+@import '../../brandColor';
+@import '../../modules/button.scss';
+@import '../../modules/form.scss';
+
+.post-btn {
+    @extend .btn;
+    @extend .btn_normal;
+    @extend .btn_circle;
+    background-color: white;
+    margin-top: 10px;
+}
+.post-btn__media-img {
+    width: 25px;
+    height: 45px;
+    margin-bottom: 5px;
+}
+.post-input-img {
+    background-size: cover;
+    background-position: center center;
+    box-sizing: border-box;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    margin: 10px auto 0 auto;
+    overflow: hidden;
+    height: 200px;
+    width: 48%;
+}
+.post-display-img-wapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 20px;
+}
+.post-input-img__btn {
+    @extend .btn;
+    @extend .btn_normal;
+    @extend .btn_circle;
+    background-color: rgba(0, 0, 0, 0);
+    width: 30px;
+    height: 30px;
+    position: relative;
+    margin: 10px 0 0 10px;
+    &:hover { background-color: rgba(0, 0, 0, 0.5); }
+}
+.post-input-img__btn__img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+}
+.form-label-post {
+    @extend .form-label;
+    margin-top: 10px;
+}
+
+/* ---------------post-input-img-animのtransition--------------- */
+.post-input-img-anim-enter-active,
+.post-input-img-anim-leave-active { animation-duration: .5s; }
+.post-input-img-anim-enter-active { animation-name: scaleToBig; }
+.post-input-img-anim-leave-active { animation-name: scaleToSmall; }
+
+@keyframes scaleToBig {
+    0% { transform: scale(0); }
+    20% { transform: scale(1.2); }
+    30% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+@keyframes scaleToSmall {
+    0% { transform: scale(1); }
+    20% { transform: scale(0.1); }
+    100% { transform: scale(0); }
+}
