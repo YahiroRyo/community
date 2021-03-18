@@ -31,6 +31,7 @@ const createWindow = (title = 'タイトルが設定されていません', widt
     store.state.window.width = width
     store.state.window.height = height
 ***REMOVED***
+const closeWindow = () => ***REMOVED*** store.state.window.use = false ***REMOVED***
 const setOpenFunction = (func = null) => ***REMOVED*** store.state.window.functions.open = func ***REMOVED***
 const setCloseFunction = (func = null) => ***REMOVED*** store.state.window.functions.close = func ***REMOVED***
 
@@ -39,4 +40,5 @@ export ***REMOVED***
     displayWindow,
     setOpenFunction,
     setCloseFunction,
+    closeWindow,
 ***REMOVED***
