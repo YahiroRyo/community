@@ -1,7 +1,7 @@
 <template>
     <link rel="stylesheet" href="/css/base.css">
     <header id="header">
-        <img class="header__icon" src="/images/icon.svg">
+        <router-link to="/a"><img class="header__icon" src="/images/icon.svg"></router-link>
     </header>
     <div id="container">
         <nav class="menu">
@@ -54,6 +54,7 @@
                     <p class="alert__content">***REMOVED******REMOVED***$store.state.alert.object.content***REMOVED******REMOVED***</p>
                 </div>
             </transition>
+            <router-view></router-view>
         </main>
         <div class="other">
             <ul class="other__item-wapper">
