@@ -618,12 +618,12 @@ template {
     cursor: pointer; }
 
 /* ---------------tabの仕様・制約--------------- */
-.tabs-wapper {
+.tabs-wapper, .header__tab-wapper {
   align-items: center;
   background-color: white;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
   display: flex; }
-  .tabs-wapper.tab_circle {
+  .tabs-wapper.tab_circle, .header__tab-wapper {
     border-radius: 16px; }
 
 .tab {
@@ -635,7 +635,7 @@ template {
   height: 75px; }
   .tab:hover {
     background-color: #d1d1d1; }
-    .tab:hover.tab_circle {
+    .tab:hover.tab_circle, .tab.header__tab-wapper:hover {
       border-radius: 16px; }
 
 .tab_selecting::after {
@@ -682,6 +682,10 @@ body {
   margin-left: 20px;
   width: 60px;
   height: 60px; }
+
+.header__tab-wapper {
+  width: 50vw;
+  margin: 0 auto; }
 
 /*
 =====================

@@ -30,6 +30,12 @@ body {
     width: 60px;
     height: 60px;
 }
+.header__tab-wapper {
+    @extend .tabs-wapper;
+    @extend .tab_circle;
+    width: 50vw;
+    margin: 0 auto;
+}
 
 /*
 =====================

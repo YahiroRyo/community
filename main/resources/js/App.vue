@@ -2,6 +2,28 @@
     <link rel="stylesheet" href="/css/base.css">
     <header id="header">
         <router-link to="/"><img class="header__icon" src="/images/icon.svg"></router-link>
+        <ul class="header__tab-wapper">
+            <li :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/',}">
+                <router-link class="tab__img" to="/">
+                    <img class="tab__img-icon" src="/images/materials/home.svg">
+                </router-link>
+            </li>
+            <li :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/profile',}">
+                <router-link class="tab__img" to="/profile">
+                    <img class="tab__img-icon" src="/images/materials/profile.svg">
+                </router-link>
+            </li>
+            <li :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/communities',}">
+                <router-link class="tab__img" to="/communities">
+                    <img class="tab__img-icon" src="/images/materials/community.svg">
+                </router-link>
+            </li>
+            <li :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/contact',}">
+                <router-link class="tab__img" to="/contact">
+                    <img class="tab__img-icon" src="/images/materials/info.svg">
+                </router-link>
+            </li>
+        </ul>
     </header>
     <div id="container">
         <nav class="menu">
@@ -28,6 +50,7 @@
             </ul>
         </nav>
         <main id="main">
+            
             <!-- 背景を暗くする -->
             <transition name="dark-background-anim"><div v-show="$store.state.window.use" @click="data.window.isClickOutSize = true" class="dark-background"></div></transition>
             <!-- window module -->
