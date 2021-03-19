@@ -1,0 +1,50 @@
+/* ---------------tabの仕様・制約--------------- */
+// ・tab_circle
+// border-radiusを適応するか否かを判断するクラスである。
+
+@import '../brandColor';
+
+.tabs-wapper ***REMOVED***
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    &.tab_circle ***REMOVED*** border-radius: 16px; ***REMOVED***
+***REMOVED***
+.tab ***REMOVED***
+    align-items: center;
+    display: flex;
+    position: relative;
+    transition: .5s;
+    width: 100%;
+    height: 75px;
+    &:hover ***REMOVED***
+        background-color: $non-colored-color-gray-3;
+        &.tab_circle ***REMOVED*** border-radius: 16px; ***REMOVED***
+    ***REMOVED***
+***REMOVED***
+.tab_selecting ***REMOVED***
+    &::after ***REMOVED***
+        background-color: $base-color-5;
+        bottom: 0;
+        border-radius: 16px;
+        content: ' ';
+        height: 5px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        position: absolute;
+        width: 90%;
+    ***REMOVED***
+***REMOVED***
+.tab__img ***REMOVED***
+    align-items: center;
+    display: flex;
+    width: 100%;
+    height: 100%;
+***REMOVED***
+.tab__img-icon ***REMOVED***
+    display: block;
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+***REMOVED***
