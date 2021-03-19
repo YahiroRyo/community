@@ -24,6 +24,7 @@ body {
     align-items: center;
     height: 75px;
     width: 100vw;
+    z-index: 1;
 }
 .header__icon {
     margin-left: 20px;
@@ -107,3 +108,19 @@ body {
 
 .dark-background-anim-enter-to,
 .dark-background-anim-leave { opacity: 1; }
+
+/* ---------------router-view-animのtransition--------------- */
+.router-view-anim-enter-active,
+.router-view-anim-leave-active { transition: opacity .5s ease-in-out, transform .5s ease; }
+
+.router-view-anim-enter-active,
+.router-view-anim-leave-to {
+    opacity: 0;
+    transform: translate(0, 100px);
+}
+
+.router-view-anim-enter-to,
+.router-view-anim-leave {
+    opacity: 1;
+    transform: translate(0, 0);
+}
