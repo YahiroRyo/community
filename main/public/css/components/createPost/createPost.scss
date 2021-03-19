@@ -2,19 +2,19 @@
 @import '../../modules/button.scss';
 @import '../../modules/form.scss';
 
-.post-btn {
+.create-post-btn {
     @extend .btn;
     @extend .btn_normal;
     @extend .btn_circle;
     background-color: white;
     margin-top: 10px;
 }
-.post-btn__media-img {
+.create-post-btn__media-img {
     width: 25px;
     height: 45px;
     margin-bottom: 5px;
 }
-.post-input-img {
+.create-post-input-img {
     background-size: cover;
     background-position: center center;
     box-sizing: border-box;
@@ -25,13 +25,13 @@
     height: 200px;
     width: 48%;
 }
-.post-display-img-wapper {
+.create-post-display-img-wapper {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
 }
-.post-input-img__btn {
+.create-post-input-img__btn {
     @extend .btn;
     @extend .btn_normal;
     @extend .btn_circle;
@@ -42,7 +42,7 @@
     margin: 10px 0 0 10px;
     &:hover { background-color: rgba(0, 0, 0, 0.5); }
 }
-.post-input-img__btn__img {
+.create-post-input-img__btn__img {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -50,16 +50,16 @@
     width: 16px;
     height: 16px;
 }
-.form-label-post {
+.form-label-create-post {
     @extend .form-label;
     margin-top: 10px;
 }
 
-/* ---------------post-input-img-animのtransition--------------- */
-.post-input-img-anim-enter-active,
-.post-input-img-anim-leave-active { animation-duration: .5s; }
-.post-input-img-anim-enter-active { animation-name: scaleToBig; }
-.post-input-img-anim-leave-active { animation-name: scaleToSmall; }
+/* ---------------create-post-input-img-animのtransition--------------- */
+.create-post-input-img-anim-enter-active,
+.create-post-input-img-anim-leave-active { animation-duration: .5s; }
+.create-post-input-img-anim-enter-active { animation-name: scaleToBig; }
+.create-post-input-img-anim-leave-active { animation-name: scaleToSmall; }
 
 @keyframes scaleToBig {
     0% { transform: scale(0); }

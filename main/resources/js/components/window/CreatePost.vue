@@ -1,26 +1,26 @@
 <template>
     <div>
-        <link rel="stylesheet" href="/css/components/post/post.css">
-        <p class="form-label-post">投稿内容を入力</p>
+        <link rel="stylesheet" href="/css/components/createPost/createPost.css">
+        <p class="form-label-create-post">投稿内容を入力</p>
         <textarea v-model="data.post.content" class="form form_dont-resize height-between-small-and-middle"></textarea>
         <!-- 文字数カウント -->
-        <p :class="{'form-label-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, }">{{data.post.content.length}} | 200</p>
+        <p :class="{'form-label-create-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, }">{{data.post.content.length}} | 200</p>
         <!-- 画像プレビュー -->
-        <div class="post-display-img-wapper" v-show="data.post.images.length > 0">
-            <transition-group name="post-input-img-anim">
-                <div class="post-input-img" v-for="(image, key) in data.post.images" :key="key" :style="`background-image: url(${image})`">
-                    <button @click="deleteMedia(key)" class="post-input-img__btn"><img class="post-input-img__btn__img" src="/images/materials/close.svg"></button>
+        <div class="create-post-display-img-wapper" v-show="data.post.images.length > 0">
+            <transition-group name="create-post-input-img-anim">
+                <div class="create-post-input-img" v-for="(image, key) in data.post.images" :key="key" :style="`background-image: url(${image})`">
+                    <button @click="deleteMedia(key)" class="create-post-input-img__btn"><img class="create-post-input-img__btn__img" src="/images/materials/close.svg"></button>
                 </div>
             </transition-group>
         </div>
-        <button @click="selectMedia" class="post-btn"><img src="/images/materials/media.svg" class="post-btn__media-img"></button>
+        <button @click="selectMedia" class="create-post-btn"><img src="/images/materials/media.svg" class="create-post-btn__media-img"></button>
         <input ref="inputFileElement" @change="displayMedia" style="display: none;" type="file" accept="image/*" />
-        <button @click="postSend" class="form form_btn">投稿する</button>
+        <button @click="createPost" class="form form_btn">投稿する</button>
     </div>
 </template>
 
 <script>
-    /* ---------------post(投稿)をする制約-------------- */
+    /* ---------------createPost(投稿)をする制約-------------- */
     // ・文字数は200字まで
     // ・画像を投稿できるのは4枚まで
 
@@ -40,7 +40,7 @@
                     images: [],
                 },
             })
-            const postSend = () => {
+            const createPost = () => {
                 /* ---------------TODO: サーバーに投稿内容を投げるajax処理を実装--------------- */
                 closeWindow()
             }
@@ -61,7 +61,7 @@
             }
             const deleteMedia = (key) => { data.post.images.splice(key, 1) }
             onMounted(() => { createWindow('投稿する', 500, 650) })
-            return { data, postSend, selectMedia, inputFileElement, displayMedia, deleteMedia, }
+            return { data, createPost, selectMedia, inputFileElement, displayMedia, deleteMedia, }
         }
     }
 </script>
