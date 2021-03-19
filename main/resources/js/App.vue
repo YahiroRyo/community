@@ -50,7 +50,6 @@
             </ul>
         </nav>
         <main id="main">
-            
             <!-- 背景を暗くする -->
             <transition name="dark-background-anim"><div v-show="$store.state.window.use" @click="data.window.isClickOutSize = true" class="dark-background"></div></transition>
             <!-- window module -->
@@ -77,7 +76,12 @@
                     <p class="alert__content">{{$store.state.alert.object.content}}</p>
                 </div>
             </transition>
-            <router-view></router-view>
+            <!-- ルーターに対してのコンポーネント表示 -->
+            <router-view v-slot="{ Component }">
+                <transition name="router-view-anim">
+                    <component :is="Component"></component>
+                </transition>
+            </router-view>
         </main>
         <div class="other">
             <ul class="other__item-wapper">
