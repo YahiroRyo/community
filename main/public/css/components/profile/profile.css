@@ -1,0 +1,66 @@
+.btn, .profile__btn {
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 3;
+  padding: 0 10px;
+  width: 100%; }
+  .btn:hover, .profile__btn:hover {
+    transition: .2s;
+    cursor: pointer; }
+
+.btn_item:hover {
+  background-color: #d1d1d1; }
+
+.btn_normal, .profile__btn {
+  background-color: #d1d1d1; }
+  .btn_normal:hover, .profile__btn:hover {
+    background-color: #b8b8b8; }
+
+.btn_success {
+  background-color: #4cdb8f; }
+  .btn_success:hover {
+    background-color: #29cb75; }
+
+.btn_attention {
+  background-color: #fcd419; }
+  .btn_attention:hover {
+    background-color: #dfb803; }
+
+.btn_danger {
+  background-color: #f9446a;
+  color: white; }
+  .btn_danger:hover {
+    background-color: #f71343; }
+
+.btn_circle {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; }
+
+.profile__flex {
+  align-items: center;
+  display: flex; }
+
+.profile__font, .profile__user-name, .profile__content {
+  color: #797979;
+  margin-top: 5px; }
+
+.profile__name {
+  font-size: 24px;
+  font-weight: bold; }
+
+.profile__btn {
+  font-size: 16px;
+  margin-left: auto;
+  width: 200px;
+  line-height: 2.5; }
+
+.profile__content {
+  margin-top: 10px; }
+
+.profile__posts-wapper {
+  margin-top: 20px; }
+
+/*# sourceMappingURL=profile.css.map */

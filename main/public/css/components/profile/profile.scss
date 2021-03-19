@@ -1,0 +1,29 @@
+@import '../../brandColor';
+@import '../../modules/button.scss';
+
+.profile__flex {
+    align-items: center;
+    display: flex;
+}
+.profile__font {
+    color: $non-colored-color-gray-5;
+    margin-top: 5px;
+}
+.profile__name {
+    font-size: 24px;
+    font-weight: bold;
+}
+.profile__user-name { @extend .profile__font; }
+.profile__btn {
+    @extend .btn;
+    @extend .btn_normal;
+    font-size: 16px;
+    margin-left: auto;
+    width: 200px;
+    line-height: 2.5;
+}
+.profile__content {
+    @extend .profile__font;
+    margin-top: 10px;
+}
+.profile__posts-wapper { margin-top: 20px; }
