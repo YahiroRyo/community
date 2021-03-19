@@ -676,7 +676,8 @@ body ***REMOVED***
   display: flex;
   align-items: center;
   height: 75px;
-  width: 100vw; ***REMOVED***
+  width: 100vw;
+  z-index: 1; ***REMOVED***
 
 .header__icon ***REMOVED***
   margin-left: 20px;
@@ -761,5 +762,20 @@ body ***REMOVED***
 .dark-background-anim-enter-to,
 .dark-background-anim-leave ***REMOVED***
   opacity: 1; ***REMOVED***
+
+/* ---------------router-view-animのtransition--------------- */
+.router-view-anim-enter-active,
+.router-view-anim-leave-active ***REMOVED***
+  transition: opacity .5s ease-in-out, transform .5s ease; ***REMOVED***
+
+.router-view-anim-enter-active,
+.router-view-anim-leave-to ***REMOVED***
+  opacity: 0;
+  transform: translate(0, 100px); ***REMOVED***
+
+.router-view-anim-enter-to,
+.router-view-anim-leave ***REMOVED***
+  opacity: 1;
+  transform: translate(0, 0); ***REMOVED***
 
 /*# sourceMappingURL=base.css.map */
