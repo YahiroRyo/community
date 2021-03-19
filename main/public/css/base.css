@@ -436,7 +436,7 @@ template ***REMOVED***
   border-radius: 5px;
   box-sizing: border-box;
   position: fixed;
-  padding: 20px;
+  padding: 25px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -676,13 +676,17 @@ body ***REMOVED***
   display: flex;
   align-items: center;
   height: 75px;
-  width: 100vw;
+  width: 100%;
   z-index: 1; ***REMOVED***
 
 .header__icon ***REMOVED***
   margin-left: 20px;
   width: 60px;
   height: 60px; ***REMOVED***
+
+.header__icon-wapper,
+.header__other ***REMOVED***
+  width: 25vw; ***REMOVED***
 
 .header__tab-wapper ***REMOVED***
   width: 50vw;

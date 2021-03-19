@@ -23,7 +23,7 @@ body ***REMOVED***
     display: flex;
     align-items: center;
     height: 75px;
-    width: 100vw;
+    width: 100%;
     z-index: 1;
 ***REMOVED***
 .header__icon ***REMOVED***
@@ -31,6 +31,8 @@ body ***REMOVED***
     width: 60px;
     height: 60px;
 ***REMOVED***
+.header__icon-wapper,
+.header__other ***REMOVED*** width: 25vw; ***REMOVED***
 .header__tab-wapper ***REMOVED***
     @extend .tabs-wapper;
     @extend .tab_circle;
