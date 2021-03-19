@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.btn, .post-btn, .post-input-img__btn ***REMOVED***
+.btn, .create-post-btn, .create-post-input-img__btn ***REMOVED***
   border-radius: 5px;
   display: block;
   font-size: 18px;
@@ -7,16 +7,16 @@
   line-height: 3;
   padding: 0 10px;
   width: 100%; ***REMOVED***
-  .btn:hover, .post-btn:hover, .post-input-img__btn:hover ***REMOVED***
+  .btn:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
     transition: .2s;
     cursor: pointer; ***REMOVED***
 
 .btn_item:hover ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
 
-.btn_normal, .post-btn, .post-input-img__btn ***REMOVED***
+.btn_normal, .create-post-btn, .create-post-input-img__btn ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .post-btn:hover, .post-input-img__btn:hover ***REMOVED***
+  .btn_normal:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
     background-color: #b8b8b8; ***REMOVED***
 
 .btn_success ***REMOVED***
@@ -35,7 +35,7 @@
   .btn_danger:hover ***REMOVED***
     background-color: #f71343; ***REMOVED***
 
-.btn_circle, .post-btn, .post-input-img__btn ***REMOVED***
+.btn_circle, .create-post-btn, .create-post-input-img__btn ***REMOVED***
   border-radius: 50%;
   width: 50px;
   height: 50px; ***REMOVED***
@@ -47,7 +47,7 @@
   padding: 10px;
   margin-top: 10px; ***REMOVED***
 
-.form-label, .form-label-post ***REMOVED***
+.form-label, .form-label-create-post ***REMOVED***
   font-size: 16px; ***REMOVED***
 
 .form-label_danger ***REMOVED***
@@ -69,16 +69,16 @@
   .form_btn:hover ***REMOVED***
     cursor: pointer; ***REMOVED***
 
-.post-btn ***REMOVED***
+.create-post-btn ***REMOVED***
   background-color: white;
   margin-top: 10px; ***REMOVED***
 
-.post-btn__media-img ***REMOVED***
+.create-post-btn__media-img ***REMOVED***
   width: 25px;
   height: 45px;
   margin-bottom: 5px; ***REMOVED***
 
-.post-input-img ***REMOVED***
+.create-post-input-img ***REMOVED***
   background-size: cover;
   background-position: center center;
   box-sizing: border-box;
@@ -89,22 +89,22 @@
   height: 200px;
   width: 48%; ***REMOVED***
 
-.post-display-img-wapper ***REMOVED***
+.create-post-display-img-wapper ***REMOVED***
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   margin-top: 20px; ***REMOVED***
 
-.post-input-img__btn ***REMOVED***
+.create-post-input-img__btn ***REMOVED***
   background-color: rgba(0, 0, 0, 0);
   width: 30px;
   height: 30px;
   position: relative;
   margin: 10px 0 0 10px; ***REMOVED***
-  .post-input-img__btn:hover ***REMOVED***
+  .create-post-input-img__btn:hover ***REMOVED***
     background-color: rgba(0, 0, 0, 0.5); ***REMOVED***
 
-.post-input-img__btn__img ***REMOVED***
+.create-post-input-img__btn__img ***REMOVED***
   position: absolute;
   top: 50%;
   left: 50%;
@@ -112,18 +112,18 @@
   width: 16px;
   height: 16px; ***REMOVED***
 
-.form-label-post ***REMOVED***
+.form-label-create-post ***REMOVED***
   margin-top: 10px; ***REMOVED***
 
-/* ---------------post-input-img-animのtransition--------------- */
-.post-input-img-anim-enter-active,
-.post-input-img-anim-leave-active ***REMOVED***
+/* ---------------create-post-input-img-animのtransition--------------- */
+.create-post-input-img-anim-enter-active,
+.create-post-input-img-anim-leave-active ***REMOVED***
   animation-duration: .5s; ***REMOVED***
 
-.post-input-img-anim-enter-active ***REMOVED***
+.create-post-input-img-anim-enter-active ***REMOVED***
   animation-name: scaleToBig; ***REMOVED***
 
-.post-input-img-anim-leave-active ***REMOVED***
+.create-post-input-img-anim-leave-active ***REMOVED***
   animation-name: scaleToSmall; ***REMOVED***
 
 @keyframes scaleToBig ***REMOVED***
@@ -143,4 +143,4 @@
   100% ***REMOVED***
     transform: scale(0); ***REMOVED*** ***REMOVED***
 
-/*# sourceMappingURL=post.css.map */
+/*# sourceMappingURL=createPost.css.map */

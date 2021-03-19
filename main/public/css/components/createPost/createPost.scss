@@ -2,19 +2,19 @@
 @import '../../modules/button.scss';
 @import '../../modules/form.scss';
 
-.post-btn ***REMOVED***
+.create-post-btn ***REMOVED***
     @extend .btn;
     @extend .btn_normal;
     @extend .btn_circle;
     background-color: white;
     margin-top: 10px;
 ***REMOVED***
-.post-btn__media-img ***REMOVED***
+.create-post-btn__media-img ***REMOVED***
     width: 25px;
     height: 45px;
     margin-bottom: 5px;
 ***REMOVED***
-.post-input-img ***REMOVED***
+.create-post-input-img ***REMOVED***
     background-size: cover;
     background-position: center center;
     box-sizing: border-box;
@@ -25,13 +25,13 @@
     height: 200px;
     width: 48%;
 ***REMOVED***
-.post-display-img-wapper ***REMOVED***
+.create-post-display-img-wapper ***REMOVED***
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
 ***REMOVED***
-.post-input-img__btn ***REMOVED***
+.create-post-input-img__btn ***REMOVED***
     @extend .btn;
     @extend .btn_normal;
     @extend .btn_circle;
@@ -42,7 +42,7 @@
     margin: 10px 0 0 10px;
     &:hover ***REMOVED*** background-color: rgba(0, 0, 0, 0.5); ***REMOVED***
 ***REMOVED***
-.post-input-img__btn__img ***REMOVED***
+.create-post-input-img__btn__img ***REMOVED***
     position: absolute;
     top: 50%;
     left: 50%;
@@ -50,16 +50,16 @@
     width: 16px;
     height: 16px;
 ***REMOVED***
-.form-label-post ***REMOVED***
+.form-label-create-post ***REMOVED***
     @extend .form-label;
     margin-top: 10px;
 ***REMOVED***
 
-/* ---------------post-input-img-animのtransition--------------- */
-.post-input-img-anim-enter-active,
-.post-input-img-anim-leave-active ***REMOVED*** animation-duration: .5s; ***REMOVED***
-.post-input-img-anim-enter-active ***REMOVED*** animation-name: scaleToBig; ***REMOVED***
-.post-input-img-anim-leave-active ***REMOVED*** animation-name: scaleToSmall; ***REMOVED***
+/* ---------------create-post-input-img-animのtransition--------------- */
+.create-post-input-img-anim-enter-active,
+.create-post-input-img-anim-leave-active ***REMOVED*** animation-duration: .5s; ***REMOVED***
+.create-post-input-img-anim-enter-active ***REMOVED*** animation-name: scaleToBig; ***REMOVED***
+.create-post-input-img-anim-leave-active ***REMOVED*** animation-name: scaleToSmall; ***REMOVED***
 
 @keyframes scaleToBig ***REMOVED***
     0% ***REMOVED*** transform: scale(0); ***REMOVED***
