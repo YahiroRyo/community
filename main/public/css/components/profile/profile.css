@@ -1,0 +1,66 @@
+.btn, .profile__btn ***REMOVED***
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 3;
+  padding: 0 10px;
+  width: 100%; ***REMOVED***
+  .btn:hover, .profile__btn:hover ***REMOVED***
+    transition: .2s;
+    cursor: pointer; ***REMOVED***
+
+.btn_item:hover ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+
+.btn_normal, .profile__btn ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+  .btn_normal:hover, .profile__btn:hover ***REMOVED***
+    background-color: #b8b8b8; ***REMOVED***
+
+.btn_success ***REMOVED***
+  background-color: #4cdb8f; ***REMOVED***
+  .btn_success:hover ***REMOVED***
+    background-color: #29cb75; ***REMOVED***
+
+.btn_attention ***REMOVED***
+  background-color: #fcd419; ***REMOVED***
+  .btn_attention:hover ***REMOVED***
+    background-color: #dfb803; ***REMOVED***
+
+.btn_danger ***REMOVED***
+  background-color: #f9446a;
+  color: white; ***REMOVED***
+  .btn_danger:hover ***REMOVED***
+    background-color: #f71343; ***REMOVED***
+
+.btn_circle ***REMOVED***
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; ***REMOVED***
+
+.profile__flex ***REMOVED***
+  align-items: center;
+  display: flex; ***REMOVED***
+
+.profile__font, .profile__user-name, .profile__content ***REMOVED***
+  color: #797979;
+  margin-top: 5px; ***REMOVED***
+
+.profile__name ***REMOVED***
+  font-size: 24px;
+  font-weight: bold; ***REMOVED***
+
+.profile__btn ***REMOVED***
+  font-size: 16px;
+  margin-left: auto;
+  width: 200px;
+  line-height: 2.5; ***REMOVED***
+
+.profile__content ***REMOVED***
+  margin-top: 10px; ***REMOVED***
+
+.profile__posts-wapper ***REMOVED***
+  margin-top: 20px; ***REMOVED***
+
+/*# sourceMappingURL=profile.css.map */

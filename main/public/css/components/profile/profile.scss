@@ -1,0 +1,29 @@
+@import '../../brandColor';
+@import '../../modules/button.scss';
+
+.profile__flex ***REMOVED***
+    align-items: center;
+    display: flex;
+***REMOVED***
+.profile__font ***REMOVED***
+    color: $non-colored-color-gray-5;
+    margin-top: 5px;
+***REMOVED***
+.profile__name ***REMOVED***
+    font-size: 24px;
+    font-weight: bold;
+***REMOVED***
+.profile__user-name ***REMOVED*** @extend .profile__font; ***REMOVED***
+.profile__btn ***REMOVED***
+    @extend .btn;
+    @extend .btn_normal;
+    font-size: 16px;
+    margin-left: auto;
+    width: 200px;
+    line-height: 2.5;
+***REMOVED***
+.profile__content ***REMOVED***
+    @extend .profile__font;
+    margin-top: 10px;
+***REMOVED***
+.profile__posts-wapper ***REMOVED*** margin-top: 20px; ***REMOVED***
