@@ -1,0 +1,17 @@
+@import '../../brandColor';
+@import '../../modules/form.scss';
+
+.contact__title { font-size: 32px; }
+.contact__flex {
+    align-items: center;
+    display: flex;
+    margin-top: 10px;
+}
+.contact__form-label {
+    font-size: 20px;
+    margin-top: 20px;
+}
+.contact__form-input {
+    @extend .form;
+    margin: 0 10px;
+}
