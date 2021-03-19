@@ -618,12 +618,12 @@ template ***REMOVED***
     cursor: pointer; ***REMOVED***
 
 /* ---------------tabの仕様・制約--------------- */
-.tabs-wapper ***REMOVED***
+.tabs-wapper, .header__tab-wapper ***REMOVED***
   align-items: center;
   background-color: white;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
   display: flex; ***REMOVED***
-  .tabs-wapper.tab_circle ***REMOVED***
+  .tabs-wapper.tab_circle, .header__tab-wapper ***REMOVED***
     border-radius: 16px; ***REMOVED***
 
 .tab ***REMOVED***
@@ -635,7 +635,7 @@ template ***REMOVED***
   height: 75px; ***REMOVED***
   .tab:hover ***REMOVED***
     background-color: #d1d1d1; ***REMOVED***
-    .tab:hover.tab_circle ***REMOVED***
+    .tab:hover.tab_circle, .tab.header__tab-wapper:hover ***REMOVED***
       border-radius: 16px; ***REMOVED***
 
 .tab_selecting::after ***REMOVED***
@@ -682,6 +682,10 @@ body ***REMOVED***
   margin-left: 20px;
   width: 60px;
   height: 60px; ***REMOVED***
+
+.header__tab-wapper ***REMOVED***
+  width: 50vw;
+  margin: 0 auto; ***REMOVED***
 
 /*
 =====================
