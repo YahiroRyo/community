@@ -3,31 +3,43 @@
     <header id="header">
         <router-link class="header__icon-wapper" to="/"><img class="header__icon" src="/images/icon.svg"></router-link>
         <ul class="header__tab-wapper">
-            <li :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/',}">
+            <li @mouseover="data.menu.home.isHover = true" @mouseleave="data.menu.home.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/',}">
                 <router-link class="tab__img" to="/">
                     <img class="tab__img-icon" src="/images/materials/home.svg">
                 </router-link>
+                <transition name="pop-up-discription-anim">
+                    <div v-show="data.menu.home.isHover" class="pop-up-discription"><p class="pop-up-discription__content">ホーム</p></div>
+                </transition>
             </li>
-            <li :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/profile',}">
+            <li @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/profile',}">
                 <router-link class="tab__img" to="/profile">
                     <img class="tab__img-icon" src="/images/materials/profile.svg">
                 </router-link>
+                <transition name="pop-up-discription-anim">
+                    <div v-show="data.menu.profile.isHover" class="pop-up-discription"><p class="pop-up-discription__content">プロフィール</p></div>
+                </transition>
             </li>
-            <li :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/communities',}">
+            <li @mouseover="data.menu.communities.isHover = true" @mouseleave="data.menu.communities.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/communities',}">
                 <router-link class="tab__img" to="/communities">
                     <img class="tab__img-icon" src="/images/materials/community.svg">
                 </router-link>
+                <transition name="pop-up-discription-anim">
+                    <div v-show="data.menu.communities.isHover" class="pop-up-discription"><p class="pop-up-discription__content">コミュニティ</p></div>
+                </transition>
             </li>
-            <li :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/contact',}">
+            <li @mouseover="data.menu.contact.isHover = true" @mouseleave="data.menu.contact.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/contact',}">
                 <router-link class="tab__img" to="/contact">
                     <img class="tab__img-icon" src="/images/materials/info.svg">
                 </router-link>
+                <transition name="pop-up-discription-anim">
+                    <div v-show="data.menu.contact.isHover" class="pop-up-discription"><p class="pop-up-discription__content">お問い合わせ</p></div>
+                </transition>
             </li>
         </ul>
         <div class="header__other"></div>
     </header>
     <div id="container">
-        <nav class="menu">
+        <nav style="" class="menu">
             <ul class="menu__items-wapper">
                 <li>
                     <router-link to="/" class="menu__item"><img class="menu__item-icon" src="/images/materials/home.svg">グローバルな投稿を閲覧</router-link>
@@ -122,6 +134,12 @@
                 window: {
                     contentHeight: 0,
                     isClickOutSize: false,
+                },
+                menu: {
+                    home: { isHover: false, },
+                    profile: { isHover: false, },
+                    communities: { isHover: false, },
+                    contact: { isHover: false, },
                 },
                 testTrigger: false,
             })

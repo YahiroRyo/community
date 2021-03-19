@@ -5,6 +5,7 @@
 @import 'modules/button.scss';
 @import 'modules/alert.scss';
 @import 'modules/form.scss';
+@import 'modules/post.scss';
 @import 'modules/tab.scss';
 
 body {
@@ -18,10 +19,12 @@ body {
 ======================
 */
 #header {
+    align-items: center;
     background-color: white;
     box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
     display: flex;
-    align-items: center;
+    position: sticky;
+    top: 0;
     height: 75px;
     width: 100%;
     z-index: 1;
@@ -50,7 +53,12 @@ body {
     padding-top: 50px;
 }
 #main { width: 50vw; }
-.menu, .other { width: 25vw; }
+.menu, .other {
+    width: 25vw;
+    position: sticky;
+    top: 125px;
+    height: 500px;
+}
 .menu__items-wapper {
     box-sizing: border-box;
     padding: 0 20px;
@@ -92,6 +100,33 @@ body {
     width: 20px;
     height: 20px;
 }
+.pop-up-discription {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    padding: 10px;
+    bottom: -50%;
+    left: 50%;
+    width: 150px;
+    transform: translateX(-50%);
+    height: 50%;
+    z-index: 2;
+    &::after {
+        position: absolute;
+        content: ' ';
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid white;
+        border-left: 10px solid transparent; 
+        top: -25%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+.pop-up-discription__content {
+    color: $non-colored-color-gray-6;
+    text-align: center;
+}
 .dark-background {
     background-color: rgba(0, 0, 0, 0.5);
     width: 100vw;
@@ -116,13 +151,25 @@ body {
 .router-view-anim-leave-active { transition: opacity .5s ease-in-out, transform .5s ease; }
 
 .router-view-anim-enter-active,
-.router-view-anim-leave-to {
-    opacity: 0;
-    transform: translate(0, 100px);
-}
+.router-view-anim-leave-to { opacity: 0; }
+
+.router-view-anim-enter-active { transform: translateY(-100px); }
+.router-view-anim-leave-to { transform: translateY(100px); }
 
 .router-view-anim-enter-to,
 .router-view-anim-leave {
     opacity: 1;
-    transform: translate(0, 0);
+    transition-delay: .5s;
+    transform: translateY(0);
 }
+
+/* ---------------pop-up-discription-animのtransition--------------- */
+
+.pop-up-discription-anim-enter-active,
+.pop-up-discription-anim-leave-active { transition: opacity .1s ease-in-out; }
+
+.pop-up-discription-anim-enter-active,
+.pop-up-discription-anim-leave-to { opacity: 0; }
+
+.pop-up-discription-anim-enter-to,
+.pop-up-discription-anim-leave { opacity: 1; }
