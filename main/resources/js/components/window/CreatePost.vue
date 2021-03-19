@@ -60,7 +60,7 @@
                 }
             }
             const deleteMedia = (key) => { data.post.images.splice(key, 1) }
-            onMounted(() => { createWindow('投稿する', 500, 650) })
+            onMounted(() => { createWindow('投稿する', 500, 660) })
             return { data, createPost, selectMedia, inputFileElement, displayMedia, deleteMedia, }
         }
     }
