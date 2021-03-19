@@ -483,7 +483,7 @@ template ***REMOVED***
     transform: translate(calc(-50% - 8px), -50%); ***REMOVED***
   40%, 60% ***REMOVED***
     transform: translate(calc(-50% + 8px), -50%); ***REMOVED*** ***REMOVED***
-.btn, .menu__item, .other__item ***REMOVED***
+.btn, .post__btn, .post__btn-display-responce, .menu__item, .other__item ***REMOVED***
   border-radius: 5px;
   display: block;
   font-size: 18px;
@@ -491,16 +491,16 @@ template ***REMOVED***
   line-height: 3;
   padding: 0 10px;
   width: 100%; ***REMOVED***
-  .btn:hover, .menu__item:hover, .other__item:hover ***REMOVED***
+  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .menu__item:hover, .other__item:hover ***REMOVED***
     transition: .2s;
     cursor: pointer; ***REMOVED***
 
 .btn_item:hover, .menu__item:hover, .other__item:hover ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
 
-.btn_normal ***REMOVED***
+.btn_normal, .post__btn, .post__btn-display-responce ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover ***REMOVED***
+  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover ***REMOVED***
     background-color: #b8b8b8; ***REMOVED***
 
 .btn_success ***REMOVED***
@@ -519,7 +519,7 @@ template ***REMOVED***
   .btn_danger:hover ***REMOVED***
     background-color: #f71343; ***REMOVED***
 
-.btn_circle ***REMOVED***
+.btn_circle, .post__btn ***REMOVED***
   border-radius: 50%;
   width: 50px;
   height: 50px; ***REMOVED***
@@ -617,6 +617,94 @@ template ***REMOVED***
   .form_btn:hover ***REMOVED***
     cursor: pointer; ***REMOVED***
 
+.btn, .post__btn, .post__btn-display-responce, .menu__item, .other__item ***REMOVED***
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 3;
+  padding: 0 10px;
+  width: 100%; ***REMOVED***
+  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .menu__item:hover, .other__item:hover ***REMOVED***
+    transition: .2s;
+    cursor: pointer; ***REMOVED***
+
+.btn_item:hover, .menu__item:hover, .other__item:hover ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+
+.btn_normal, .post__btn, .post__btn-display-responce ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover ***REMOVED***
+    background-color: #b8b8b8; ***REMOVED***
+
+.btn_success ***REMOVED***
+  background-color: #4cdb8f; ***REMOVED***
+  .btn_success:hover ***REMOVED***
+    background-color: #29cb75; ***REMOVED***
+
+.btn_attention ***REMOVED***
+  background-color: #fcd419; ***REMOVED***
+  .btn_attention:hover ***REMOVED***
+    background-color: #dfb803; ***REMOVED***
+
+.btn_danger ***REMOVED***
+  background-color: #f9446a;
+  color: white; ***REMOVED***
+  .btn_danger:hover ***REMOVED***
+    background-color: #f71343; ***REMOVED***
+
+.btn_circle, .post__btn ***REMOVED***
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; ***REMOVED***
+
+.post ***REMOVED***
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 5px #797979;
+  width: 100%;
+  min-height: 50px;
+  margin-bottom: 10px;
+  padding: 15px; ***REMOVED***
+
+.post__flex ***REMOVED***
+  align-items: center;
+  display: flex; ***REMOVED***
+
+.post__font, .post__status, .post__name ***REMOVED***
+  color: #797979;
+  margin: 5px 0 0 5px;
+  overflow-wrap: break-word; ***REMOVED***
+
+.post__status, .post__name ***REMOVED***
+  color: black;
+  margin-right: 5px; ***REMOVED***
+
+.post__name ***REMOVED***
+  font-weight: bold; ***REMOVED***
+
+.post__btn ***REMOVED***
+  background-color: transparent;
+  position: relative;
+  margin-top: 10px;
+  width: 30px;
+  height: 30px; ***REMOVED***
+
+.post__btn__img ***REMOVED***
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px; ***REMOVED***
+
+.post__btn-display-responce ***REMOVED***
+  font-size: 16px;
+  line-height: 2;
+  padding: 2px 10px;
+  margin: 10px 0 0 5px;
+  width: auto; ***REMOVED***
+
 /* ---------------tabの仕様・制約--------------- */
 .tabs-wapper, .header__tab-wapper ***REMOVED***
   align-items: center;
@@ -671,10 +759,12 @@ body ***REMOVED***
 ======================
 */
 #header ***REMOVED***
+  align-items: center;
   background-color: white;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
+  position: sticky;
+  top: 0;
   height: 75px;
   width: 100%;
   z-index: 1; ***REMOVED***
@@ -705,7 +795,10 @@ body ***REMOVED***
   width: 50vw; ***REMOVED***
 
 .menu, .other ***REMOVED***
-  width: 25vw; ***REMOVED***
+  width: 25vw;
+  position: sticky;
+  top: 125px;
+  height: 500px; ***REMOVED***
 
 .menu__items-wapper ***REMOVED***
   box-sizing: border-box;
@@ -745,6 +838,32 @@ body ***REMOVED***
   width: 20px;
   height: 20px; ***REMOVED***
 
+.pop-up-discription ***REMOVED***
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  padding: 10px;
+  bottom: -50%;
+  left: 50%;
+  width: 150px;
+  transform: translateX(-50%);
+  height: 50%;
+  z-index: 2; ***REMOVED***
+  .pop-up-discription::after ***REMOVED***
+    position: absolute;
+    content: ' ';
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+    border-left: 10px solid transparent;
+    top: -25%;
+    left: 50%;
+    transform: translateX(-50%); ***REMOVED***
+
+.pop-up-discription__content ***REMOVED***
+  color: #333;
+  text-align: center; ***REMOVED***
+
 .dark-background ***REMOVED***
   background-color: rgba(0, 0, 0, 0.5);
   width: 100vw;
@@ -774,12 +893,31 @@ body ***REMOVED***
 
 .router-view-anim-enter-active,
 .router-view-anim-leave-to ***REMOVED***
-  opacity: 0;
-  transform: translate(0, 100px); ***REMOVED***
+  opacity: 0; ***REMOVED***
+
+.router-view-anim-enter-active ***REMOVED***
+  transform: translateY(-100px); ***REMOVED***
+
+.router-view-anim-leave-to ***REMOVED***
+  transform: translateY(100px); ***REMOVED***
 
 .router-view-anim-enter-to,
 .router-view-anim-leave ***REMOVED***
   opacity: 1;
-  transform: translate(0, 0); ***REMOVED***
+  transition-delay: .5s;
+  transform: translateY(0); ***REMOVED***
+
+/* ---------------pop-up-discription-animのtransition--------------- */
+.pop-up-discription-anim-enter-active,
+.pop-up-discription-anim-leave-active ***REMOVED***
+  transition: opacity .1s ease-in-out; ***REMOVED***
+
+.pop-up-discription-anim-enter-active,
+.pop-up-discription-anim-leave-to ***REMOVED***
+  opacity: 0; ***REMOVED***
+
+.pop-up-discription-anim-enter-to,
+.pop-up-discription-anim-leave ***REMOVED***
+  opacity: 1; ***REMOVED***
 
 /*# sourceMappingURL=base.css.map */
