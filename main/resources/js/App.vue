@@ -1,7 +1,7 @@
 <template>
     <link rel="stylesheet" href="/css/base.css">
     <header id="header">
-        <router-link to="/"><img class="header__icon" src="/images/icon.svg"></router-link>
+        <router-link class="header__icon-wapper" to="/"><img class="header__icon" src="/images/icon.svg"></router-link>
         <ul class="header__tab-wapper">
             <li :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/',}">
                 <router-link class="tab__img" to="/">
@@ -24,6 +24,7 @@
                 </router-link>
             </li>
         </ul>
+        <div class="header__other"></div>
     </header>
     <div id="container">
         <nav class="menu">
@@ -132,14 +133,14 @@
                         if (data.store.state.window.functions.open) { data.store.state.window.functions.open() }
                         
                         /* ---------------window.height -120計算方法--------------- */
-                        // windowのpadding                          -20px
+                        // windowのpadding                          -25px
                         // close.svgのheight                        -24px
                         // window__titleのheight                    -36px
                         // window__titleのmargin-top                -10px
                         // window__contentのmargin-top              -10px
                         // window__contentを不自然に表示しないため  -20px
                         // 計 -120px
-                        data.window.contentHeight = data.store.state.window.height - 120;
+                        data.window.contentHeight = data.store.state.window.height - 125;
                     }, 100)
                 } else {
                     if (data.store.state.window.functions.close) { data.store.state.window.functions.close() }
