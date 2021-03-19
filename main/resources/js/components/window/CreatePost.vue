@@ -60,7 +60,7 @@
                 ***REMOVED***
             ***REMOVED***
             const deleteMedia = (key) => ***REMOVED*** data.post.images.splice(key, 1) ***REMOVED***
-            onMounted(() => ***REMOVED*** createWindow('投稿する', 500, 650) ***REMOVED***)
+            onMounted(() => ***REMOVED*** createWindow('投稿する', 500, 660) ***REMOVED***)
             return ***REMOVED*** data, createPost, selectMedia, inputFileElement, displayMedia, deleteMedia, ***REMOVED***
         ***REMOVED***
     ***REMOVED***
