@@ -436,7 +436,7 @@ template {
   border-radius: 5px;
   box-sizing: border-box;
   position: fixed;
-  padding: 20px;
+  padding: 25px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -676,13 +676,17 @@ body {
   display: flex;
   align-items: center;
   height: 75px;
-  width: 100vw;
+  width: 100%;
   z-index: 1; }
 
 .header__icon {
   margin-left: 20px;
   width: 60px;
   height: 60px; }
+
+.header__icon-wapper,
+.header__other {
+  width: 25vw; }
 
 .header__tab-wapper {
   width: 50vw;
