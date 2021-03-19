@@ -1,0 +1,57 @@
+@import '../../brandColor';
+@import '../../modules/button.scss';
+
+.post ***REMOVED***
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 5px $non-colored-color-gray-5;
+    width: 100%;
+    min-height: 50px;
+    margin-bottom: 10px;
+    padding: 15px;
+***REMOVED***
+.post__flex ***REMOVED***
+    align-items: center;
+    display: flex;
+***REMOVED***
+.post__font ***REMOVED***
+    color: $non-colored-color-gray-5;
+    margin: 5px 0 0 5px;
+    overflow-wrap: break-word;
+***REMOVED***
+.post__status ***REMOVED***
+    @extend .post__font;
+    color: black;
+    margin-right: 5px;
+***REMOVED***
+.post__name ***REMOVED***
+    @extend .post__status;
+    font-weight: bold;
+***REMOVED***
+.post__btn ***REMOVED***
+    @extend .btn;
+    @extend .btn_normal;
+    @extend .btn_circle;
+    background-color: transparent;
+    position: relative;
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+***REMOVED***
+.post__btn__img ***REMOVED***
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+***REMOVED***
+.post__btn-display-responce ***REMOVED***
+    @extend .btn;
+    @extend .btn_normal;
+    font-size: 16px;
+    line-height: 2;
+    padding: 2px 10px;
+    margin: 10px 0 0 5px;
+    width: auto;
+***REMOVED***
