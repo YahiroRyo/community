@@ -64,7 +64,7 @@
                         <!-- 使いたいコンポーネントに番号を定義し、if文で表示させる -->
                         <WindowExample v-if="$store.state.window.currentComponent === 0" />
                         <Modules v-else-if="$store.state.window.currentComponent === 1" />
-                        <Post v-else-if="$store.state.window.currentComponent === 2" />
+                        <CreatePost v-else-if="$store.state.window.currentComponent === 2" />
                     </div>
                 </div>
             </transition>
@@ -97,7 +97,7 @@
     /* ---------------コンポーネントインポート--------------- */
     import WindowExample from './components/window/WindowExampleComponent.vue'
     import Modules from './components/window/Modules.vue'
-    import Post from './components/window/Post.vue'
+    import CreatePost from './components/window/CreatePost.vue'
 
     export default {
         components:{
@@ -107,7 +107,7 @@
             /* ---------------Window用コンポーネント--------------- */
             WindowExample,
             Modules,
-            Post,
+            CreatePost,
         },
         setup() {
             const data = reactive({
