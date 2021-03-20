@@ -5,6 +5,7 @@ import GlobalPost                           from './components/contents/GlobalPo
 import Profile                              from './components/contents/Profile.vue'
 import Communities                          from './components/contents/Communities.vue'
 import Contact                              from './components/contents/Contact.vue'
+import ProfileEdit                              from './components/contents/ProfileEdit.vue'
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -18,6 +19,11 @@ export const router = createRouter({
             path: '/profile',
             name: 'profile',
             component: Profile,
+        },
+        {
+            path: '/profile-edit',
+            name: 'profile-edit',
+            component: ProfileEdit,
         },
         {
             path: '/communities',
