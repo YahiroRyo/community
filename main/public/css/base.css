@@ -783,6 +783,13 @@ body {
 .header__other {
   width: 25vw; }
 
+.header__other__menu {
+  align-items: center;
+  display: flex; }
+
+.header__other__menu__item {
+  padding: 20px; }
+
 .header__tab-wapper {
   width: 50vw;
   margin: 0 auto; }
@@ -868,8 +875,7 @@ body {
 
 .pop-up-discription__content {
   color: #333;
-  text-align: center;
-  z-index: 2; }
+  text-align: center; }
 
 /* ---------------スクロールバーのデザイン--------------- */
 ::-webkit-scrollbar {
