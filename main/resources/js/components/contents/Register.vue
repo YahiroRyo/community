@@ -18,6 +18,9 @@
 
 <script>
     import { reactive, onMounted } from 'vue'
+    import { alert, createAlert }   from '../../alert';
+    import firebase from 'firebase'
+    import axios from 'axios'
 
     export default {
         setup() {
@@ -40,9 +43,57 @@
                     },
                 },
             })
-            const register = () => {
-                /* ---------------TODO: サーバーに登録する情報を投げる--------------- */
-                
+            const register = async() => {
+                let isError = false
+                // firebaseアカウントを作成
+                await firebase.auth().createUserWithEmailAndPassword(data.form.email.content, data.form.password.content)
+                .then(async(responce) => {
+                    // uidをローカルストレージに保存
+                    localStorage.setItem('uid', responce.user.uid)
+                    // idTokenを取得
+                    await firebase.auth().currentUser.getIdTokenResult()
+                    .then((idTokenResult) => {
+                        // idTokenをローカルストレージに保存
+                        localStorage.setItem('token', idTokenResult.token)
+                    })
+                    .catch(async() => {
+                        // アクセストークンの取得に失敗した場合はログアウト
+                        createAlert(new alert('アクセストークンの取得に失敗しました。', 2))
+                        await firebase.auth().signOut()
+                    })
+                })
+                .catch(() => {
+                    isError = true
+                    for (key in data.form) { data.form[key].content = '' }
+                    createAlert(new alert('アカウントの作成に失敗しました。', 1))
+                })
+                if (!isError) {
+                    const registerUserInfos = {
+                        token: localStorage.getItem('token'),
+                        uid: localStorage.getItem('uid'),
+                        name: data.form.name.content,
+                        userName: data.form.userName.content,
+                    }
+                    axios.post('/api/post/register-user', registerUserInfos)
+                    .then((responce) => {
+                        if (!responce.data.isNormalToken) {
+                            createAlert(new alert('無効なアクセストークンです。', 2))
+                        } else if (!responce.data.isCreateAccount) {
+                            createAlert(new alert('アカウントの作成に失敗しました。', 2))
+                        } else {
+                            // ログイン
+                            firebase.auth().onAuthStateChanged(async(user) => {
+                                if (user) {
+                                    data.store.state.user.isLogin = true
+                                    data.router.push('/')
+                                } else {
+                                    data.store.state.user.isLogin = false
+                                    data.router.push('/login')
+                                }
+                            })
+                        }
+                    })
+                }
             }
             return { data, register }
         }
