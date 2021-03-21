@@ -888,7 +888,7 @@ body ***REMOVED***
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 1; ***REMOVED***
+  z-index: 2; ***REMOVED***
 
 /* ---------------dark-background-animのtransition--------------- */
 .dark-background-anim-enter-active,
