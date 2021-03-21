@@ -1,12 +1,12 @@
 <template>
     <div>
         <link rel="stylesheet" href="/css/components/profile/profile.css">
-        <h1 class="profile__name">name</h1>
+        <h1 class="profile__name">***REMOVED******REMOVED***data.user.name***REMOVED******REMOVED***</h1>
         <div class="profile__flex">
-            <p class="profile__user-name">@user-name</p>
+            <p class="profile__user-name">@***REMOVED******REMOVED***data.user.userName***REMOVED******REMOVED***</p>
             <router-link to="/profile-edit" class="profile__btn">プロフィールを編集する</router-link>
         </div>
-        <p class="profile__content">content</p>
+        <p class="profile__content">***REMOVED******REMOVED***data.user.intro***REMOVED******REMOVED***</p>
         <div class="profile__posts-wapper">
             <template v-for="(post, key) in data.post.objects" :key="key">
                 <Post
@@ -26,7 +26,10 @@
 
 <script>
     import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
+    import ***REMOVED*** useStore ***REMOVED*** from 'vuex'
+    import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
     import ***REMOVED*** post ***REMOVED*** from '../../post.js'
+    import axios from 'axios'
     import Post from '../Post.vue'
 
     export default ***REMOVED***
@@ -35,6 +38,11 @@
         ***REMOVED***,
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
+                user: ***REMOVED***
+                    name: '',
+                    userName: '',
+                    intro: '',
+                ***REMOVED***,
                 post: ***REMOVED***
                     objects: [],
                 ***REMOVED***
@@ -43,7 +51,25 @@
                 data.post.objects[key].isGood = !data.post.objects[key].isGood
                 data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
             ***REMOVED***
+            const getUserData = () => ***REMOVED***
+                const userProfileInfos = ***REMOVED***
+                    params: ***REMOVED***
+                        'uid': localStorage.getItem('uid'),
+                    ***REMOVED***,
+                ***REMOVED***
+                axios.get('/api/get/user-profile', userProfileInfos)
+                .then((responce) => ***REMOVED***
+                    data.user.name = responce.data.name
+                    data.user.userName = responce.data.user_name
+                    data.user.intro = responce.data.intro
+                ***REMOVED***)
+                .catch(() => ***REMOVED***
+                   createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
+                ***REMOVED***)
+            ***REMOVED***
             onMounted(() => ***REMOVED***
+                getUserData()
+
                 /* ---------------TODO: サーバーから投稿内容を取得するajax処理を実装--------------- */
 
                 // 仮で表示するために値を格納
