@@ -36,6 +36,13 @@ body {
 }
 .header__icon-wapper,
 .header__other { width: 25vw; }
+.header__other__menu {
+    align-items: center;
+    display: flex;
+}
+.header__other__menu__item {
+    padding: 20px;
+}
 .header__tab-wapper {
     @extend .tabs-wapper;
     @extend .tab_circle;
