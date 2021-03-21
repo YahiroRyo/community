@@ -1,0 +1,31 @@
+.communities-tab__title {
+  color: #333;
+  display: block;
+  font-size: 18px;
+  margin: 0 auto; }
+
+.tabs-wapper {
+  position: sticky;
+  top: 80px;
+  z-index: 2; }
+
+.tab:hover {
+  cursor: pointer; }
+
+.post__font {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; }
+
+.communities-page {
+  margin-top: 20px; }
+
+.communities__form-label {
+  margin-top: 10px; }
+
+.btn_normal {
+  font-size: 16px;
+  margin-left: 10px; }
+
+/*# sourceMappingURL=communities.css.map */
