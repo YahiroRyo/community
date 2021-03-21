@@ -10,7 +10,11 @@
     padding: 10px;
     margin-top: 10px;
 ***REMOVED***
-.form-label ***REMOVED*** font-size: 16px; ***REMOVED***
+.form-label ***REMOVED***
+    display: block;
+    font-size: 16px;
+    margin-top: 10px;
+***REMOVED***
 .form-label_danger ***REMOVED***
     color: red;
     font-weight: bold;

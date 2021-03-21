@@ -599,7 +599,9 @@ template ***REMOVED***
   margin-top: 10px; ***REMOVED***
 
 .form-label ***REMOVED***
-  font-size: 16px; ***REMOVED***
+  display: block;
+  font-size: 16px;
+  margin-top: 10px; ***REMOVED***
 
 .form-label_danger ***REMOVED***
   color: red;
@@ -866,7 +868,8 @@ body ***REMOVED***
 
 .pop-up-discription__content ***REMOVED***
   color: #333;
-  text-align: center; ***REMOVED***
+  text-align: center;
+  z-index: 2; ***REMOVED***
 
 /* ---------------スクロールバーのデザイン--------------- */
 ::-webkit-scrollbar ***REMOVED***
