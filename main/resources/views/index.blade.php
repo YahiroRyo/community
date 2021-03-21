@@ -9,6 +9,8 @@
   <script src="***REMOVED******REMOVED*** mix('../js/app.js') ***REMOVED******REMOVED***" defer></script>
 </head>
 <body>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
   <div id="app"></div>
 </body>
 </html>
