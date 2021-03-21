@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { store } from './store'
 import { router } from './router'
 import App from './App.vue'
+import firebase from 'firebase'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCEG7R9qdyrIGJSCKSY8mDtXTruotAwJNA",
@@ -12,9 +13,24 @@ const firebaseConfig = {
   appId: "1:22259305849:web:afbb7588e683ceb3e0b3a8",
   measurementId: "G-BJM2Z9STJG"
 }
+// firebase初期化
 firebase.initializeApp(firebaseConfig)
 firebase.analytics()
 
+// ログインをしているか確認
+router.beforeEach(async(to, from, next) => {
+  await firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      store.state.user.isLogin = true
+    } else {
+      if (store.state.user.isLogin) {
+        store.state.user.isLogin = false
+        router.push('/login')
+      }
+    }
+  })
+  next()
+})
 let app = createApp(App)
 app.use(store)
 app.use(router)
