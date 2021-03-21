@@ -3,6 +3,7 @@
 import { createRouter, createWebHistory}    from 'vue-router'
 import GlobalPost                           from './components/contents/GlobalPost.vue'
 import Login                                from './components/contents/Login.vue'
+import Logout                               from './components/contents/Logout.vue'
 import Register                             from './components/contents/Register.vue'
 import Profile                              from './components/contents/Profile.vue'
 import Communities                          from './components/contents/Communities.vue'
@@ -22,6 +23,11 @@ export const router = createRouter({
             path: '/login',
             name: 'login',
             component: Login,
+        },
+        {
+            path: '/logout',
+            name: 'logout',
+            component: Logout,
         },
         {
             path: '/register',
