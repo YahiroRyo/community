@@ -1,0 +1,18 @@
+@import '../../modules/button.scss';
+@import '../createPost/createPost.scss';
+@import '../../brandColor';
+
+.community-create-post-wapper {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    position: sticky;
+    top: 80px;
+    margin-bottom: 20px;
+    height: 270px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 1;
+}
+.community-create-post__title { font-size: 18px; }
