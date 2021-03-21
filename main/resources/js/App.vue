@@ -36,7 +36,12 @@
                 </transition>
             </li>
         </ul>
-        <div class="header__other"></div>
+        <div class="header__other">
+            <ul class="header__other__menu">
+                <!-- <li><router-link class="header__other__menu__item" to="/login">ログイン</router-link></li> -->
+                <!-- <li><router-link class="header__other__menu__item" to="/register">アカウント登録</router-link></li> -->
+            </ul>
+        </div>
     </header>
     <div id="container">
         <nav style="" class="menu">
@@ -99,6 +104,8 @@
         <div class="other">
             <ul class="other__item-wapper">
                 <li @click="displayWindow(2)" class="other__item"><img class="other__item-icon" src="/images/materials/post.svg">投稿する</li>
+                <li><router-link to="/login" class="other__item">ログイン</router-link></li>
+                <li><router-link to="/register" class="other__item">アカウント登録</router-link></li>
             </ul>
         </div>
     </div>
