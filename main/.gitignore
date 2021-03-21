@@ -14,3 +14,4 @@ yarn-error.log
 *.scssc
 *.map
 /public/js/app.js
+yarn.lock
