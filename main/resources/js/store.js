@@ -8,6 +8,9 @@ export const store = createStore({
           object: null,
           waitIntervals: [],
         },
+        user: {
+          isLogin: false,
+        },
         // 変数の説明についてはwindow.jsの一行目から参照
         window: {
           currentComponent: 0,
