@@ -36,6 +36,13 @@ body ***REMOVED***
 ***REMOVED***
 .header__icon-wapper,
 .header__other ***REMOVED*** width: 25vw; ***REMOVED***
+.header__other__menu ***REMOVED***
+    align-items: center;
+    display: flex;
+***REMOVED***
+.header__other__menu__item ***REMOVED***
+    padding: 20px;
+***REMOVED***
 .header__tab-wapper ***REMOVED***
     @extend .tabs-wapper;
     @extend .tab_circle;

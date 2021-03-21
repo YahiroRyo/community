@@ -783,6 +783,13 @@ body ***REMOVED***
 .header__other ***REMOVED***
   width: 25vw; ***REMOVED***
 
+.header__other__menu ***REMOVED***
+  align-items: center;
+  display: flex; ***REMOVED***
+
+.header__other__menu__item ***REMOVED***
+  padding: 20px; ***REMOVED***
+
 .header__tab-wapper ***REMOVED***
   width: 50vw;
   margin: 0 auto; ***REMOVED***
@@ -868,8 +875,7 @@ body ***REMOVED***
 
 .pop-up-discription__content ***REMOVED***
   color: #333;
-  text-align: center;
-  z-index: 2; ***REMOVED***
+  text-align: center; ***REMOVED***
 
 /* ---------------スクロールバーのデザイン--------------- */
 ::-webkit-scrollbar ***REMOVED***
