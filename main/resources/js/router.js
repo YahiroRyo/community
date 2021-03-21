@@ -2,6 +2,8 @@
 
 import { createRouter, createWebHistory}    from 'vue-router'
 import GlobalPost                           from './components/contents/GlobalPost.vue'
+import Login                                from './components/contents/Login.vue'
+import Register                             from './components/contents/Register.vue'
 import Profile                              from './components/contents/Profile.vue'
 import Communities                          from './components/contents/Communities.vue'
 import Community                            from './components/contents/Community.vue'
@@ -15,6 +17,16 @@ export const router = createRouter({
             path: '/',
             name: 'global-post',
             component: GlobalPost,
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login,
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register,
         },
         {
             path: '/profile',
