@@ -18,13 +18,17 @@
 
 <script>
     import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
-    import ***REMOVED*** alert, createAlert ***REMOVED***   from '../../alert';
+    import ***REMOVED*** useStore ***REMOVED***   from 'vuex';
+    import ***REMOVED*** useRouter ***REMOVED***   from 'vue-router';
+    import ***REMOVED*** alert, createAlert ***REMOVED***   from '../../alert'
     import firebase from 'firebase'
     import axios from 'axios'
 
     export default ***REMOVED***
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
+                store: useStore(),
+                router: useRouter(),
                 form: ***REMOVED***
                     email: ***REMOVED***
                         content: '',
