@@ -1,0 +1,31 @@
+.communities-tab__title ***REMOVED***
+  color: #333;
+  display: block;
+  font-size: 18px;
+  margin: 0 auto; ***REMOVED***
+
+.tabs-wapper ***REMOVED***
+  position: sticky;
+  top: 80px;
+  z-index: 2; ***REMOVED***
+
+.tab:hover ***REMOVED***
+  cursor: pointer; ***REMOVED***
+
+.post__font ***REMOVED***
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; ***REMOVED***
+
+.communities-page ***REMOVED***
+  margin-top: 20px; ***REMOVED***
+
+.communities__form-label ***REMOVED***
+  margin-top: 10px; ***REMOVED***
+
+.btn_normal ***REMOVED***
+  font-size: 16px;
+  margin-left: 10px; ***REMOVED***
+
+/*# sourceMappingURL=communities.css.map */
