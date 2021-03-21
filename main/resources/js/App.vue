@@ -11,7 +11,7 @@
                     <div v-show="data.menu.home.isHover" class="pop-up-discription"><p class="pop-up-discription__content">ホーム</p></div>
                 </transition>
             </li>
-            <li @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/profile',***REMOVED***">
+            <li v-if="$store.state.user.isLogin" @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/profile',***REMOVED***">
                 <router-link class="tab__img" to="/profile">
                     <img class="tab__img-icon" src="/images/materials/profile.svg">
                 </router-link>
@@ -19,7 +19,7 @@
                     <div v-show="data.menu.profile.isHover" class="pop-up-discription"><p class="pop-up-discription__content">プロフィール</p></div>
                 </transition>
             </li>
-            <li @mouseover="data.menu.communities.isHover = true" @mouseleave="data.menu.communities.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/communities',***REMOVED***">
+            <li v-if="$store.state.user.isLogin" @mouseover="data.menu.communities.isHover = true" @mouseleave="data.menu.communities.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/communities',***REMOVED***">
                 <router-link class="tab__img" to="/communities">
                     <img class="tab__img-icon" src="/images/materials/community.svg">
                 </router-link>
@@ -49,10 +49,10 @@
                 <li>
                     <router-link to="/" class="menu__item"><img class="menu__item-icon" src="/images/materials/home.svg">グローバルな投稿を閲覧</router-link>
                 </li>
-                <li>
+                <li v-if="$store.state.user.isLogin">
                     <router-link to="/profile" class="menu__item"><img class="menu__item-icon" src="/images/materials/profile.svg">プロフィール</router-link>
                 </li>
-                <li>
+                <li v-if="$store.state.user.isLogin">
                     <router-link to="/communities" class="menu__item"><img class="menu__item-icon" src="/images/materials/community.svg">コミュニティ</router-link>
                 </li>
                 <li>
@@ -103,9 +103,10 @@
         </main>
         <div class="other">
             <ul class="other__item-wapper">
-                <li @click="displayWindow(2)" class="other__item"><img class="other__item-icon" src="/images/materials/post.svg">投稿する</li>
-                <li><router-link to="/login" class="other__item">ログイン</router-link></li>
-                <li><router-link to="/register" class="other__item">アカウント登録</router-link></li>
+                <li v-if="$store.state.user.isLogin" @click="displayWindow(2)" class="other__item"><img class="other__item-icon" src="/images/materials/post.svg">投稿する</li>
+                <li v-if="$store.state.user.isLogin" ><router-link to="/logout" class="other__item">ログアウト</router-link></li>
+                <li v-if="!$store.state.user.isLogin" ><router-link to="/login" class="other__item">ログイン</router-link></li>
+                <li v-if="!$store.state.user.isLogin" ><router-link to="/register" class="other__item">アカウント登録</router-link></li>
             </ul>
         </div>
     </div>
@@ -175,6 +176,9 @@
                 if (data.window.isClickOutSize) ***REMOVED***
                     setTimeout(() => ***REMOVED*** data.window.isClickOutSize = false ***REMOVED***, 1000)
                 ***REMOVED***
+            ***REMOVED***)
+            watch(() => localStorage.getItem('isLogin'), () => ***REMOVED***
+                console.log("t")
             ***REMOVED***)
             // 挙動を確かめるためのtestTriggerフラグをwatchしている
             watch(() => data.testTrigger, () => ***REMOVED***
