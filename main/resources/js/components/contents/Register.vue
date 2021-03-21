@@ -9,20 +9,20 @@
         <label class="form-label">ユーザー名</label>
         <input class="form" v-model="data.form.userName.content">
         <label class="form-label">パスワード</label>
-        <input class="form" v-model="data.form.password.content">
+        <input type="password" class="form" v-model="data.form.password.content">
         <label class="form-label">パスワード確認</label>
-        <input class="form" v-model="data.form.confirmationPassword.content">
+        <input type="password" class="form" v-model="data.form.confirmationPassword.content">
         <button @click="register" class="form form_btn">登録</button>
     </div>
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
-    import ***REMOVED*** useStore ***REMOVED***   from 'vuex';
-    import ***REMOVED*** useRouter ***REMOVED***   from 'vue-router';
+    import ***REMOVED*** reactive, onMounted ***REMOVED***  from 'vue'
+    import ***REMOVED*** useStore ***REMOVED***             from 'vuex'
+    import ***REMOVED*** useRouter ***REMOVED***            from 'vue-router'
     import ***REMOVED*** alert, createAlert ***REMOVED***   from '../../alert'
-    import firebase from 'firebase'
-    import axios from 'axios'
+    import firebase                 from 'firebase'
+    import axios                    from 'axios'
 
     export default ***REMOVED***
         setup() ***REMOVED***
@@ -59,11 +59,13 @@
                     .then((idTokenResult) => ***REMOVED***
                         // idTokenをローカルストレージに保存
                         localStorage.setItem('token', idTokenResult.token)
+                        data.router.push('/')
                     ***REMOVED***)
                     .catch(async() => ***REMOVED***
                         // アクセストークンの取得に失敗した場合はログアウト
                         createAlert(new alert('アクセストークンの取得に失敗しました。', 2))
                         await firebase.auth().signOut()
+                        data.router.push('/')
                     ***REMOVED***)
                 ***REMOVED***)
                 .catch(() => ***REMOVED***
