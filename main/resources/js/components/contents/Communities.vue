@@ -20,7 +20,7 @@
                     </div>
                     <div class="post__flex">
                         <p class="post__font">***REMOVED******REMOVED***community.description***REMOVED******REMOVED***</p>
-                        <button class="btn btn_normal">加入申請</button>
+                        <button @click="goToCommunity(key)" class="btn btn_normal">入る</button>
                     </div>
                 </div>
             </div>
@@ -41,11 +41,13 @@
 
 <script>
     import ***REMOVED*** reactive, watch, onMounted ***REMOVED*** from 'vue'
+    import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
 
     export default ***REMOVED***
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
                 page: false,
+                router: useRouter(),
                 community: ***REMOVED***
                     objects: [],
                 ***REMOVED***,
@@ -58,7 +60,12 @@
                 /* ---------------TODO: サーバーへコミュニティを作成するajax処理を実装--------------- */
                 
             ***REMOVED***
-
+            const goToCommunity = (key) => ***REMOVED***
+                /* ---------------TODO: コミュニティに入る作業--------------- */
+                // 仮に入るとする
+                data.router.push('/communities/community/0')
+            ***REMOVED***
+            
             /* ---------------createCommunity変数について--------------- */
             // 他のURLに飛ぶと値が消滅してしまうため、ローカルストレージに入力した値を保存
             watch(() => data.createCommunity.name, () => ***REMOVED***
@@ -79,7 +86,7 @@
                     ***REMOVED***)
                 ***REMOVED***
             ***REMOVED***)
-            return ***REMOVED*** data, createCommunity ***REMOVED***
+            return ***REMOVED*** data, createCommunity, goToCommunity ***REMOVED***
         ***REMOVED***
     ***REMOVED***
 </script>
