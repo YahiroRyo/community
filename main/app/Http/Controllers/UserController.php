@@ -91,7 +91,10 @@ class UserController extends Controller
                 'isCreateAccount' => true,
             ];
         }
-
-       
+    }
+    // ユーザーの情報を取得
+    public function getUserProfile(Request $request) {
+        $userId = User::where('uid', $request->uid)->first()['id'];
+        return UserInfo::where('user_id', $userId)->first(['name', 'user_name', 'intro']);
     }
 }
