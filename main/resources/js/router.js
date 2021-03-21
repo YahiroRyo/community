@@ -4,8 +4,9 @@ import { createRouter, createWebHistory}    from 'vue-router'
 import GlobalPost                           from './components/contents/GlobalPost.vue'
 import Profile                              from './components/contents/Profile.vue'
 import Communities                          from './components/contents/Communities.vue'
+import Community                            from './components/contents/Community.vue'
 import Contact                              from './components/contents/Contact.vue'
-import ProfileEdit                              from './components/contents/ProfileEdit.vue'
+import ProfileEdit                          from './components/contents/ProfileEdit.vue'
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -29,6 +30,11 @@ export const router = createRouter({
             path: '/communities',
             name: 'communities',
             component: Communities,
+        },
+        {
+            path: '/communities/community/:id',
+            name: 'communities-community',
+            component: Community,
         },
         {
             path: '/contact',
