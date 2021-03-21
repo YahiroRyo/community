@@ -18,6 +18,9 @@
 
 <script>
     import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
+    import ***REMOVED*** alert, createAlert ***REMOVED***   from '../../alert';
+    import firebase from 'firebase'
+    import axios from 'axios'
 
     export default ***REMOVED***
         setup() ***REMOVED***
@@ -40,9 +43,57 @@
                     ***REMOVED***,
                 ***REMOVED***,
             ***REMOVED***)
-            const register = () => ***REMOVED***
-                /* ---------------TODO: サーバーに登録する情報を投げる--------------- */
-                
+            const register = async() => ***REMOVED***
+                let isError = false
+                // firebaseアカウントを作成
+                await firebase.auth().createUserWithEmailAndPassword(data.form.email.content, data.form.password.content)
+                .then(async(responce) => ***REMOVED***
+                    // uidをローカルストレージに保存
+                    localStorage.setItem('uid', responce.user.uid)
+                    // idTokenを取得
+                    await firebase.auth().currentUser.getIdTokenResult()
+                    .then((idTokenResult) => ***REMOVED***
+                        // idTokenをローカルストレージに保存
+                        localStorage.setItem('token', idTokenResult.token)
+                    ***REMOVED***)
+                    .catch(async() => ***REMOVED***
+                        // アクセストークンの取得に失敗した場合はログアウト
+                        createAlert(new alert('アクセストークンの取得に失敗しました。', 2))
+                        await firebase.auth().signOut()
+                    ***REMOVED***)
+                ***REMOVED***)
+                .catch(() => ***REMOVED***
+                    isError = true
+                    for (key in data.form) ***REMOVED*** data.form[key].content = '' ***REMOVED***
+                    createAlert(new alert('アカウントの作成に失敗しました。', 1))
+                ***REMOVED***)
+                if (!isError) ***REMOVED***
+                    const registerUserInfos = ***REMOVED***
+                        token: localStorage.getItem('token'),
+                        uid: localStorage.getItem('uid'),
+                        name: data.form.name.content,
+                        userName: data.form.userName.content,
+                    ***REMOVED***
+                    axios.post('/api/post/register-user', registerUserInfos)
+                    .then((responce) => ***REMOVED***
+                        if (!responce.data.isNormalToken) ***REMOVED***
+                            createAlert(new alert('無効なアクセストークンです。', 2))
+                        ***REMOVED*** else if (!responce.data.isCreateAccount) ***REMOVED***
+                            createAlert(new alert('アカウントの作成に失敗しました。', 2))
+                        ***REMOVED*** else ***REMOVED***
+                            // ログイン
+                            firebase.auth().onAuthStateChanged(async(user) => ***REMOVED***
+                                if (user) ***REMOVED***
+                                    data.store.state.user.isLogin = true
+                                    data.router.push('/')
+                                ***REMOVED*** else ***REMOVED***
+                                    data.store.state.user.isLogin = false
+                                    data.router.push('/login')
+                                ***REMOVED***
+                            ***REMOVED***)
+                        ***REMOVED***
+                    ***REMOVED***)
+                ***REMOVED***
             ***REMOVED***
             return ***REMOVED*** data, register ***REMOVED***
         ***REMOVED***
