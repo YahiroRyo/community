@@ -1,0 +1,205 @@
+@charset "UTF-8";
+.btn, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 3;
+  padding: 0 10px;
+  width: 100%; ***REMOVED***
+  .btn:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
+    transition: .2s;
+    cursor: pointer; ***REMOVED***
+
+.btn_item:hover ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+
+.btn_normal, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+  .btn_normal:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
+    background-color: #b8b8b8; ***REMOVED***
+
+.btn_success ***REMOVED***
+  background-color: #4cdb8f; ***REMOVED***
+  .btn_success:hover ***REMOVED***
+    background-color: #29cb75; ***REMOVED***
+
+.btn_attention ***REMOVED***
+  background-color: #fcd419; ***REMOVED***
+  .btn_attention:hover ***REMOVED***
+    background-color: #dfb803; ***REMOVED***
+
+.btn_danger ***REMOVED***
+  background-color: #f9446a;
+  color: white; ***REMOVED***
+  .btn_danger:hover ***REMOVED***
+    background-color: #f71343; ***REMOVED***
+
+.btn_circle, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; ***REMOVED***
+
+.btn, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 3;
+  padding: 0 10px;
+  width: 100%; ***REMOVED***
+  .btn:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
+    transition: .2s;
+    cursor: pointer; ***REMOVED***
+
+.btn_item:hover ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+
+.btn_normal, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+  .btn_normal:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
+    background-color: #b8b8b8; ***REMOVED***
+
+.btn_success ***REMOVED***
+  background-color: #4cdb8f; ***REMOVED***
+  .btn_success:hover ***REMOVED***
+    background-color: #29cb75; ***REMOVED***
+
+.btn_attention ***REMOVED***
+  background-color: #fcd419; ***REMOVED***
+  .btn_attention:hover ***REMOVED***
+    background-color: #dfb803; ***REMOVED***
+
+.btn_danger ***REMOVED***
+  background-color: #f9446a;
+  color: white; ***REMOVED***
+  .btn_danger:hover ***REMOVED***
+    background-color: #f71343; ***REMOVED***
+
+.btn_circle, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; ***REMOVED***
+
+.form ***REMOVED***
+  border: 2px solid #0BB3A2;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px; ***REMOVED***
+
+.form-label, .form-label-create-post ***REMOVED***
+  font-size: 16px; ***REMOVED***
+
+.form-label_danger ***REMOVED***
+  color: red;
+  font-weight: bold; ***REMOVED***
+
+.form_dont-resize ***REMOVED***
+  resize: none; ***REMOVED***
+
+.form_btn ***REMOVED***
+  text-align: center;
+  width: 100px; ***REMOVED***
+  .form_btn:disabled ***REMOVED***
+    background-color: #077368;
+    border: 2px solid #797979;
+    color: white; ***REMOVED***
+    .form_btn:disabled:hover ***REMOVED***
+      cursor: not-allowed; ***REMOVED***
+  .form_btn:hover ***REMOVED***
+    cursor: pointer; ***REMOVED***
+
+.create-post-btn ***REMOVED***
+  background-color: white;
+  margin-top: 10px; ***REMOVED***
+
+.create-post-btn__media-img ***REMOVED***
+  width: 25px;
+  height: 45px;
+  margin-bottom: 5px; ***REMOVED***
+
+.create-post-input-img ***REMOVED***
+  background-size: cover;
+  background-position: center center;
+  box-sizing: border-box;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  margin: 10px auto 0 auto;
+  overflow: hidden;
+  height: 200px;
+  width: 48%; ***REMOVED***
+
+.create-post-display-img-wapper ***REMOVED***
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 20px; ***REMOVED***
+
+.create-post-input-img__btn ***REMOVED***
+  background-color: rgba(0, 0, 0, 0);
+  width: 30px;
+  height: 30px;
+  position: relative;
+  margin: 10px 0 0 10px; ***REMOVED***
+  .create-post-input-img__btn:hover ***REMOVED***
+    background-color: rgba(0, 0, 0, 0.5); ***REMOVED***
+
+.create-post-input-img__btn__img ***REMOVED***
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px; ***REMOVED***
+
+.form-label-create-post ***REMOVED***
+  margin-top: 10px; ***REMOVED***
+
+/* ---------------create-post-input-img-animのtransition--------------- */
+.create-post-input-img-anim-enter-active,
+.create-post-input-img-anim-leave-active ***REMOVED***
+  animation-duration: .5s; ***REMOVED***
+
+.create-post-input-img-anim-enter-active ***REMOVED***
+  animation-name: scaleToBig; ***REMOVED***
+
+.create-post-input-img-anim-leave-active ***REMOVED***
+  animation-name: scaleToSmall; ***REMOVED***
+
+@keyframes scaleToBig ***REMOVED***
+  0% ***REMOVED***
+    transform: scale(0); ***REMOVED***
+  20% ***REMOVED***
+    transform: scale(1.2); ***REMOVED***
+  30% ***REMOVED***
+    transform: scale(0.9); ***REMOVED***
+  100% ***REMOVED***
+    transform: scale(1); ***REMOVED*** ***REMOVED***
+@keyframes scaleToSmall ***REMOVED***
+  0% ***REMOVED***
+    transform: scale(1); ***REMOVED***
+  20% ***REMOVED***
+    transform: scale(0.1); ***REMOVED***
+  100% ***REMOVED***
+    transform: scale(0); ***REMOVED*** ***REMOVED***
+.community-create-post-wapper ***REMOVED***
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  position: sticky;
+  top: 80px;
+  margin-bottom: 20px;
+  height: 270px;
+  overflow-y: auto;
+  width: 100%;
+  z-index: 1; ***REMOVED***
+
+.community-create-post__title ***REMOVED***
+  font-size: 18px; ***REMOVED***
+
+/*# sourceMappingURL=community.css.map */
