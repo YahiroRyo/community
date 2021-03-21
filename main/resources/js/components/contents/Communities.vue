@@ -20,7 +20,7 @@
                     </div>
                     <div class="post__flex">
                         <p class="post__font">{{community.description}}</p>
-                        <button class="btn btn_normal">加入申請</button>
+                        <button @click="goToCommunity(key)" class="btn btn_normal">入る</button>
                     </div>
                 </div>
             </div>
@@ -41,11 +41,13 @@
 
 <script>
     import { reactive, watch, onMounted } from 'vue'
+    import { useRouter } from 'vue-router'
 
     export default {
         setup() {
             const data = reactive({
                 page: false,
+                router: useRouter(),
                 community: {
                     objects: [],
                 },
@@ -58,7 +60,12 @@
                 /* ---------------TODO: サーバーへコミュニティを作成するajax処理を実装--------------- */
                 
             }
-
+            const goToCommunity = (key) => {
+                /* ---------------TODO: コミュニティに入る作業--------------- */
+                // 仮に入るとする
+                data.router.push('/communities/community/0')
+            }
+            
             /* ---------------createCommunity変数について--------------- */
             // 他のURLに飛ぶと値が消滅してしまうため、ローカルストレージに入力した値を保存
             watch(() => data.createCommunity.name, () => {
@@ -79,7 +86,7 @@
                     })
                 }
             })
-            return { data, createCommunity }
+            return { data, createCommunity, goToCommunity }
         }
     }
 </script>
