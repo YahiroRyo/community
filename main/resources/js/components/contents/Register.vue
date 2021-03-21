@@ -9,20 +9,20 @@
         <label class="form-label">ユーザー名</label>
         <input class="form" v-model="data.form.userName.content">
         <label class="form-label">パスワード</label>
-        <input class="form" v-model="data.form.password.content">
+        <input type="password" class="form" v-model="data.form.password.content">
         <label class="form-label">パスワード確認</label>
-        <input class="form" v-model="data.form.confirmationPassword.content">
+        <input type="password" class="form" v-model="data.form.confirmationPassword.content">
         <button @click="register" class="form form_btn">登録</button>
     </div>
 </template>
 
 <script>
-    import { reactive, onMounted } from 'vue'
-    import { useStore }   from 'vuex';
-    import { useRouter }   from 'vue-router';
+    import { reactive, onMounted }  from 'vue'
+    import { useStore }             from 'vuex'
+    import { useRouter }            from 'vue-router'
     import { alert, createAlert }   from '../../alert'
-    import firebase from 'firebase'
-    import axios from 'axios'
+    import firebase                 from 'firebase'
+    import axios                    from 'axios'
 
     export default {
         setup() {
@@ -59,11 +59,13 @@
                     .then((idTokenResult) => {
                         // idTokenをローカルストレージに保存
                         localStorage.setItem('token', idTokenResult.token)
+                        data.router.push('/')
                     })
                     .catch(async() => {
                         // アクセストークンの取得に失敗した場合はログアウト
                         createAlert(new alert('アクセストークンの取得に失敗しました。', 2))
                         await firebase.auth().signOut()
+                        data.router.push('/')
                     })
                 })
                 .catch(() => {
