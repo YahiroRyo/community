@@ -20,7 +20,7 @@
                     </div>
                     <div class="post__flex">
                         <p class="post__font">{{community.description}}</p>
-                        <button @click="goToCommunity(key)" class="communitiest__btn">入る</button>
+                        <button @click="goToCommunity(key)" class="communitiest__btn">{{community.type === 0 ? '加入申請' : community.type === 1 ? '加入申請中' : '入る'}}</button>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
 
 <script>
     import { reactive, watch, onMounted } from 'vue'
-    import { createAlert, alert } from '../../alert.js'
+    import { createAlert, alert, notNormalTokenAlert } from '../../alert.js'
     import { addPageEvent, removeAtAllFunc } from '../../page.js'
     import { useRouter } from 'vue-router'
     import axios from 'axios'
@@ -52,7 +52,7 @@
                 page: false,
                 router: useRouter(),
                 community: {
-                    getNum: 0,
+                    gotNum: 0,
                     take: 50,
                     cantTake: false,
                     objects: [],
@@ -63,7 +63,7 @@
                 },
             })
             const getCommunities = () => {
-                if (!data.cantTake) {
+                if (!data.community.cantTake) {
                     const getCommunitiesInfos = {
                         params: {
                             take: data.community.take,
@@ -83,6 +83,7 @@
                                     name: community.name,
                                     description: community.description,
                                     id: community.id,
+                                    type: community.is_joining_community !== null ? 2 : community.can_i_join_community !== null ? 1 : 0,
                                 })
                             })
                         } else {
@@ -112,12 +113,9 @@
                         data.createCommunity.description = ''
                         localStorage.removeItem('name')
                         localStorage.removeItem('description')
+                        data.page = false
                     } else if (!responce.data.isNormalToken) {
-                        createAlert(new alert('無効なアクセストークンのためログアウトします。', 2))
-                        // data.router.pushをそのまま実行すると何故か実行されないため、setTimeoutを用いる
-                        setTimeout(() => {
-                            data.router.push('/logout')
-                        }, 50)
+                        notNormalTokenAlert()
                     } else {
                         createAlert(new alert('コミュニティの作成に失敗しました。', 2))
                     }
@@ -125,8 +123,27 @@
             }
             const goToCommunity = (key) => {
                 /* ---------------TODO: コミュニティに入る作業--------------- */
-                // 仮に入るとする
-                data.router.push(`/communities/community/${data.community.objects[key].id}`)
+                if (data.community.objects[key].type === 0) {
+                    // 加入申請を送信
+                    const canIJoinCommunity = {
+                        uid: localStorage.getItem('uid'),
+                        token: localStorage.getItem('token'),
+                        communityId: data.community.objects[key].id,
+                    }
+                    axios.post('/api/post/can-i-join-community', canIJoinCommunity)
+                    .then((responce) => {
+                        if (responce.data.isNormalToken || responce.data.isCanIJoinCommunity) {
+                            data.community.objects[key].type = 1
+                        } else {
+                            notNormalTokenAlert()
+                        }
+                    })
+                } else if (data.community.objects[key].type === 1) {
+                    // 加入申請を取り消し
+                } else {
+                    // ルームへ入る
+                    data.router.push(`/communities/community/${data.community.objects[key].id}`)
+                }
             }
             
             /* ---------------createCommunity変数について--------------- */
