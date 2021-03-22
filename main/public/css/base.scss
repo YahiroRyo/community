@@ -42,6 +42,14 @@ body {
 }
 .header__other__menu__item {
     padding: 20px;
+    margin-left: auto;
+}
+.header__other__menu__item__btn {
+    @extend .btn;
+    @extend .btn_normal;
+    @extend .btn_circle;
+    background-color: transparent;
+    &:hover { background-color: $non-colored-color-gray-3; }
 }
 .header__tab-wapper {
     @extend .tabs-wapper;
@@ -154,7 +162,7 @@ body {
     top: 0;
     left: 0;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
 }
 
 /* ---------------dark-background-animのtransition--------------- */
