@@ -62,10 +62,17 @@
                 }
                 axios.post('/api/post/refresh-user-profile', refreshUserProfileInfos)
                 .then((responce) => {
-                    if (responce.data.isRefreshAccount)
+                    if (responce.data.isRefreshAccount) {
                         createAlert(new alert('ユーザデータを更新しました。', 0))
-                    else
+                    } else if (!responce.data.isNormalToken) {
+                        createAlert(new alert('無効なアクセストークンのためログアウトします。', 2))
+                        // data.router.pushをそのまま実行すると何故か実行されないため、setTimeoutを用いる
+                        setTimeout(() => {
+                            data.router.push('/logout')
+                        }, 50)
+                    } else {
                         createAlert(new alert('ユーザデータを更新することができませんでした。', 2))
+                    }
                     data.router.push('/profile')
                 })
             }
