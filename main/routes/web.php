@@ -10,6 +10,7 @@ Route::post('/api/post/refresh-user-profile', [UserController::class, 'refreshUs
 Route::get('/api/get/user-profile', [UserController::class, 'getUserProfile']);
 
 Route::post('/api/post/create-community', [CommunityController::class, 'createCommunity']);
+Route::post('/api/post/can-i-join-community', [CommunityController::class, 'canIJoinCommunity']);
 Route::get('/api/get/communities', [CommunityController::class, 'getCommunities']);
 
 Route::get('/{any?}', function () {
