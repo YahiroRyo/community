@@ -440,7 +440,7 @@ template ***REMOVED***
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2; ***REMOVED***
+  z-index: 4; ***REMOVED***
 
 .window__title ***REMOVED***
   font-size: 32px;
@@ -483,7 +483,7 @@ template ***REMOVED***
     transform: translate(calc(-50% - 8px), -50%); ***REMOVED***
   40%, 60% ***REMOVED***
     transform: translate(calc(-50% + 8px), -50%); ***REMOVED*** ***REMOVED***
-.btn, .post__btn, .post__btn-display-responce, .menu__item, .other__item ***REMOVED***
+.btn, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn, .menu__item, .other__item ***REMOVED***
   border-radius: 5px;
   display: block;
   font-size: 18px;
@@ -491,16 +491,16 @@ template ***REMOVED***
   line-height: 3;
   padding: 0 10px;
   width: 100%; ***REMOVED***
-  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .menu__item:hover, .other__item:hover ***REMOVED***
+  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover ***REMOVED***
     transition: .2s;
     cursor: pointer; ***REMOVED***
 
 .btn_item:hover, .menu__item:hover, .other__item:hover ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
 
-.btn_normal, .post__btn, .post__btn-display-responce ***REMOVED***
+.btn_normal, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover ***REMOVED***
+  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover ***REMOVED***
     background-color: #b8b8b8; ***REMOVED***
 
 .btn_success ***REMOVED***
@@ -519,7 +519,7 @@ template ***REMOVED***
   .btn_danger:hover ***REMOVED***
     background-color: #f71343; ***REMOVED***
 
-.btn_circle, .post__btn ***REMOVED***
+.btn_circle, .post__btn, .header__other__menu__item__btn ***REMOVED***
   border-radius: 50%;
   width: 50px;
   height: 50px; ***REMOVED***
@@ -622,7 +622,7 @@ template ***REMOVED***
   .form_btn:hover ***REMOVED***
     cursor: pointer; ***REMOVED***
 
-.btn, .post__btn, .post__btn-display-responce, .menu__item, .other__item ***REMOVED***
+.btn, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn, .menu__item, .other__item ***REMOVED***
   border-radius: 5px;
   display: block;
   font-size: 18px;
@@ -630,16 +630,16 @@ template ***REMOVED***
   line-height: 3;
   padding: 0 10px;
   width: 100%; ***REMOVED***
-  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .menu__item:hover, .other__item:hover ***REMOVED***
+  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover ***REMOVED***
     transition: .2s;
     cursor: pointer; ***REMOVED***
 
 .btn_item:hover, .menu__item:hover, .other__item:hover ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
 
-.btn_normal, .post__btn, .post__btn-display-responce ***REMOVED***
+.btn_normal, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover ***REMOVED***
+  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover ***REMOVED***
     background-color: #b8b8b8; ***REMOVED***
 
 .btn_success ***REMOVED***
@@ -658,7 +658,7 @@ template ***REMOVED***
   .btn_danger:hover ***REMOVED***
     background-color: #f71343; ***REMOVED***
 
-.btn_circle, .post__btn ***REMOVED***
+.btn_circle, .post__btn, .header__other__menu__item__btn ***REMOVED***
   border-radius: 50%;
   width: 50px;
   height: 50px; ***REMOVED***
@@ -788,7 +788,13 @@ body ***REMOVED***
   display: flex; ***REMOVED***
 
 .header__other__menu__item ***REMOVED***
-  padding: 20px; ***REMOVED***
+  padding: 20px;
+  margin-left: auto; ***REMOVED***
+
+.header__other__menu__item__btn ***REMOVED***
+  background-color: transparent; ***REMOVED***
+  .header__other__menu__item__btn:hover ***REMOVED***
+    background-color: #d1d1d1; ***REMOVED***
 
 .header__tab-wapper ***REMOVED***
   width: 50vw;
@@ -897,7 +903,7 @@ body ***REMOVED***
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 2; ***REMOVED***
+  z-index: 3; ***REMOVED***
 
 /* ---------------dark-background-animのtransition--------------- */
 .dark-background-anim-enter-active,

@@ -42,6 +42,14 @@ body ***REMOVED***
 ***REMOVED***
 .header__other__menu__item ***REMOVED***
     padding: 20px;
+    margin-left: auto;
+***REMOVED***
+.header__other__menu__item__btn ***REMOVED***
+    @extend .btn;
+    @extend .btn_normal;
+    @extend .btn_circle;
+    background-color: transparent;
+    &:hover ***REMOVED*** background-color: $non-colored-color-gray-3; ***REMOVED***
 ***REMOVED***
 .header__tab-wapper ***REMOVED***
     @extend .tabs-wapper;
@@ -154,7 +162,7 @@ body ***REMOVED***
     top: 0;
     left: 0;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
 ***REMOVED***
 
 /* ---------------dark-background-animのtransition--------------- */
