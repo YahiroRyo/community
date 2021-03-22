@@ -107,7 +107,7 @@ class UserController extends Controller
         // ・エラーが出た場合
         // エラーをキャッチし、isRefreshAccountをfalseにして返す
 
-        if (!$this->isNormalToken($request->token)) {
+        if ($this->isNormalToken($request->token)) {
             try {
                 // ユーザー情報更新
                 $userId = User::where('uid', $request->uid)->first()['id'];
@@ -119,11 +119,20 @@ class UserController extends Controller
                 ]);
                 $userInfo->save();
             } catch(\Exception $e) {
-                return [ 'isRefreshAccount' => false, ];
+                return [
+                    'isRefreshAccount' => false,
+                    'isNormalToken' => true,
+                ];
             }
-            return [ 'isRefreshAccount' => true, ];
+            return [
+                'isRefreshAccount' => true,
+                'isNormalToken' => true,
+            ];
         } else {
-            return [ 'isRefreshAccount' => false, ];
+            return [
+                'isRefreshAccount' => false,
+                'isNormalToken' => false,
+            ];
         }
     }
 }
