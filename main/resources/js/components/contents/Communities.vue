@@ -20,7 +20,7 @@
                     </div>
                     <div class="post__flex">
                         <p class="post__font">***REMOVED******REMOVED***community.description***REMOVED******REMOVED***</p>
-                        <button @click="goToCommunity(key)" class="communitiest__btn">入る</button>
+                        <button @click="goToCommunity(key)" class="communitiest__btn">***REMOVED******REMOVED***community.type === 0 ? '加入申請' : community.type === 1 ? '加入申請中' : '入る'***REMOVED******REMOVED***</button>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
 
 <script>
     import ***REMOVED*** reactive, watch, onMounted ***REMOVED*** from 'vue'
-    import ***REMOVED*** createAlert, alert ***REMOVED*** from '../../alert.js'
+    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED*** from '../../alert.js'
     import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED*** from '../../page.js'
     import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
     import axios from 'axios'
@@ -52,7 +52,7 @@
                 page: false,
                 router: useRouter(),
                 community: ***REMOVED***
-                    getNum: 0,
+                    gotNum: 0,
                     take: 50,
                     cantTake: false,
                     objects: [],
@@ -63,7 +63,7 @@
                 ***REMOVED***,
             ***REMOVED***)
             const getCommunities = () => ***REMOVED***
-                if (!data.cantTake) ***REMOVED***
+                if (!data.community.cantTake) ***REMOVED***
                     const getCommunitiesInfos = ***REMOVED***
                         params: ***REMOVED***
                             take: data.community.take,
@@ -83,6 +83,7 @@
                                     name: community.name,
                                     description: community.description,
                                     id: community.id,
+                                    type: community.is_joining_community !== null ? 2 : community.can_i_join_community !== null ? 1 : 0,
                                 ***REMOVED***)
                             ***REMOVED***)
                         ***REMOVED*** else ***REMOVED***
@@ -112,12 +113,9 @@
                         data.createCommunity.description = ''
                         localStorage.removeItem('name')
                         localStorage.removeItem('description')
+                        data.page = false
                     ***REMOVED*** else if (!responce.data.isNormalToken) ***REMOVED***
-                        createAlert(new alert('無効なアクセストークンのためログアウトします。', 2))
-                        // data.router.pushをそのまま実行すると何故か実行されないため、setTimeoutを用いる
-                        setTimeout(() => ***REMOVED***
-                            data.router.push('/logout')
-                        ***REMOVED***, 50)
+                        notNormalTokenAlert()
                     ***REMOVED*** else ***REMOVED***
                         createAlert(new alert('コミュニティの作成に失敗しました。', 2))
                     ***REMOVED***
@@ -125,8 +123,27 @@
             ***REMOVED***
             const goToCommunity = (key) => ***REMOVED***
                 /* ---------------TODO: コミュニティに入る作業--------------- */
-                // 仮に入るとする
-                data.router.push(`/communities/community/$***REMOVED***data.community.objects[key].id***REMOVED***`)
+                if (data.community.objects[key].type === 0) ***REMOVED***
+                    // 加入申請を送信
+                    const canIJoinCommunity = ***REMOVED***
+                        uid: localStorage.getItem('uid'),
+                        token: localStorage.getItem('token'),
+                        communityId: data.community.objects[key].id,
+                    ***REMOVED***
+                    axios.post('/api/post/can-i-join-community', canIJoinCommunity)
+                    .then((responce) => ***REMOVED***
+                        if (responce.data.isNormalToken || responce.data.isCanIJoinCommunity) ***REMOVED***
+                            data.community.objects[key].type = 1
+                        ***REMOVED*** else ***REMOVED***
+                            notNormalTokenAlert()
+                        ***REMOVED***
+                    ***REMOVED***)
+                ***REMOVED*** else if (data.community.objects[key].type === 1) ***REMOVED***
+                    // 加入申請を取り消し
+                ***REMOVED*** else ***REMOVED***
+                    // ルームへ入る
+                    data.router.push(`/communities/community/$***REMOVED***data.community.objects[key].id***REMOVED***`)
+                ***REMOVED***
             ***REMOVED***
             
             /* ---------------createCommunity変数について--------------- */
