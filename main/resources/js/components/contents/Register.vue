@@ -20,7 +20,7 @@
     import { reactive, onMounted }  from 'vue'
     import { useStore }             from 'vuex'
     import { useRouter }            from 'vue-router'
-    import { alert, createAlert }   from '../../alert'
+    import { alert, createAlert, notNormalTokenAlert }   from '../../alert'
     import firebase                 from 'firebase'
     import axios                    from 'axios'
 
@@ -63,9 +63,7 @@
                     })
                     .catch(async() => {
                         // アクセストークンの取得に失敗した場合はログアウト
-                        createAlert(new alert('アクセストークンの取得に失敗しました。', 2))
-                        await firebase.auth().signOut()
-                        data.router.push('/')
+                        notNormalTokenAlert()
                     })
                 })
                 .catch(() => {

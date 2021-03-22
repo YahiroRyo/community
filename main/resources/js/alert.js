@@ -17,6 +17,7 @@
 // waitIntervals:   alertを監視しているIntervalの戻り値を格納
 
 import { store } from './store'
+import { router } from './router'
 
 class alert {
     constructor(content, type) {
@@ -43,8 +44,16 @@ const createAlert = (alertObj) => {
         store.state.alert.waitIntervals.push(interval)
     }
 }
+const notNormalTokenAlert = () => {
+    createAlert(new alert('無効なアクセストークンのためログアウトします。', 2))
+    // router.pushをそのまま実行すると何故か実行されないため、setTimeoutを用いる
+    setTimeout(() => {
+        router.push('/logout')
+    }, 50)
+}
 
 export {
     alert,
     createAlert,
+    notNormalTokenAlert,
 }

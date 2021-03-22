@@ -19,7 +19,7 @@
 
     import { reactive, onMounted } from 'vue'
     import { useRouter } from 'vue-router'
-    import { alert, createAlert }   from '../../alert'
+    import { alert, createAlert, notNormalTokenAlert }   from '../../alert'
     import axios from 'axios'
 
     export default {
@@ -65,11 +65,7 @@
                     if (responce.data.isRefreshAccount) {
                         createAlert(new alert('ユーザデータを更新しました。', 0))
                     } else if (!responce.data.isNormalToken) {
-                        createAlert(new alert('無効なアクセストークンのためログアウトします。', 2))
-                        // data.router.pushをそのまま実行すると何故か実行されないため、setTimeoutを用いる
-                        setTimeout(() => {
-                            data.router.push('/logout')
-                        }, 50)
+                        notNormalTokenAlert()
                     } else {
                         createAlert(new alert('ユーザデータを更新することができませんでした。', 2))
                     }
