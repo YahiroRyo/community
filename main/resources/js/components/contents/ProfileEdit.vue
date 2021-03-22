@@ -19,6 +19,7 @@
 
     import { reactive, onMounted } from 'vue'
     import { useRouter } from 'vue-router'
+    import  { useStore } from 'vuex'
     import { alert, createAlert, notNormalTokenAlert }   from '../../alert'
     import axios from 'axios'
 
@@ -26,6 +27,7 @@
         setup() {
             const data = reactive({
                 router: useRouter(),
+                store: useStore(),
                 user: {
                     name: '',
                     userName: '',
@@ -40,7 +42,7 @@
                         'uid': localStorage.getItem('uid'),
                     },
                 }
-                axios.get('/api/get/user-profile', userProfileInfos)
+                axios.get('/api/get/my-user-data', userProfileInfos)
                 .then((responce) => {
                     data.user.name = responce.data.name
                     data.user.userName = responce.data.user_name
@@ -69,7 +71,9 @@
                     } else {
                         createAlert(new alert('ユーザデータを更新することができませんでした。', 2))
                     }
-                    data.router.push('/profile')
+                    localStorage.setItem('myUserName', data.user.userName)
+                    data.store.state.user.profileUpdate = true
+                    data.router.push(`/profile/${data.user.userName}`)
                 })
             }
             onMounted(() => { getUserData() })
