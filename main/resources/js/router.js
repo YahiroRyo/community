@@ -35,7 +35,7 @@ export const router = createRouter(***REMOVED***
             component: Register,
         ***REMOVED***,
         ***REMOVED***
-            path: '/profile',
+            path: '/profile/:userName',
             name: 'profile',
             component: Profile,
         ***REMOVED***,
