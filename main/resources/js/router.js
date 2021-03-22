@@ -35,7 +35,7 @@ export const router = createRouter({
             component: Register,
         },
         {
-            path: '/profile',
+            path: '/profile/:userName',
             name: 'profile',
             component: Profile,
         },
