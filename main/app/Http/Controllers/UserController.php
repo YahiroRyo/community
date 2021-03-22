@@ -94,6 +94,10 @@ class UserController extends Controller
     }
     // ユーザーの情報を取得
     public function getUserProfile(Request $request) {
+        return UserInfo::where('user_name', $request->userName)->first(['name', 'user_name', 'intro']);
+    }
+    // 自分のユーザー情報を取得
+    public function getMyUserData(Request $request) {
         $userId = User::where('uid', $request->uid)->first()['id'];
         return UserInfo::where('user_id', $userId)->first(['name', 'user_name', 'intro']);
     }
