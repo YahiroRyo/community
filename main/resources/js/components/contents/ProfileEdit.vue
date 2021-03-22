@@ -19,6 +19,7 @@
 
     import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
     import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
+    import  ***REMOVED*** useStore ***REMOVED*** from 'vuex'
     import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***   from '../../alert'
     import axios from 'axios'
 
@@ -26,6 +27,7 @@
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
                 router: useRouter(),
+                store: useStore(),
                 user: ***REMOVED***
                     name: '',
                     userName: '',
@@ -40,7 +42,7 @@
                         'uid': localStorage.getItem('uid'),
                     ***REMOVED***,
                 ***REMOVED***
-                axios.get('/api/get/user-profile', userProfileInfos)
+                axios.get('/api/get/my-user-data', userProfileInfos)
                 .then((responce) => ***REMOVED***
                     data.user.name = responce.data.name
                     data.user.userName = responce.data.user_name
@@ -69,7 +71,9 @@
                     ***REMOVED*** else ***REMOVED***
                         createAlert(new alert('ユーザデータを更新することができませんでした。', 2))
                     ***REMOVED***
-                    data.router.push('/profile')
+                    localStorage.setItem('myUserName', data.user.userName)
+                    data.store.state.user.profileUpdate = true
+                    data.router.push(`/profile/$***REMOVED***data.user.userName***REMOVED***`)
                 ***REMOVED***)
             ***REMOVED***
             onMounted(() => ***REMOVED*** getUserData() ***REMOVED***)
