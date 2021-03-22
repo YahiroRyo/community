@@ -1,19 +1,76 @@
 <template>
     <div>
         <link rel="stylesheet" href="/css/components/profileEdit/profileEdit.css">
-        <h1 class="profile-edit__title">お問い合わせ</h1>
+        <h1 class="profile-edit__title">プロフィールを編集</h1>
         <p class="profile-edit__form-label">名前</p>
-        <input class="form">
+        <input v-model="data.user.name" class="form">
         <p class="profile-edit__form-label">ユーザー名</p>
-        <input class="form">
+        <input v-model="data.user.userName" class="form">
         <p class="profile-edit__form-label">自己紹介</p>
-        <textarea class="form form_dont-resize"></textarea>
-        <button disabled class="form form_btn">保存</button>
+        <textarea v-model="data.user.intro" class="form form_dont-resize"></textarea>
+        <button @click="refreshUserData" class="form form_btn">保存</button>
     </div>
 </template>
 
 <script>
+    /* ---------------ProfileEditについて--------------- */
+    // ・何らかのエラーが出た場合
+    // alertを表示させた後、data.router.push('/profile')を実行
+
+    import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
+    import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
+    import ***REMOVED*** alert, createAlert ***REMOVED***   from '../../alert'
+    import axios from 'axios'
+
     export default ***REMOVED***
-        
+        setup() ***REMOVED***
+            const data = reactive(***REMOVED***
+                router: useRouter(),
+                user: ***REMOVED***
+                    name: '',
+                    userName: '',
+                    intro: '',
+                ***REMOVED***,
+            ***REMOVED***)
+            // ユーザーデータの取得
+            // uidを投げたらユーザー情報が返ってくる
+            const getUserData = () => ***REMOVED***
+                const userProfileInfos = ***REMOVED***
+                    params: ***REMOVED***
+                        'uid': localStorage.getItem('uid'),
+                    ***REMOVED***,
+                ***REMOVED***
+                axios.get('/api/get/user-profile', userProfileInfos)
+                .then((responce) => ***REMOVED***
+                    data.user.name = responce.data.name
+                    data.user.userName = responce.data.user_name
+                    data.user.intro = responce.data.intro
+                ***REMOVED***)
+                .catch(() => ***REMOVED***
+                    createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
+                    data.router.push('/profile')
+                ***REMOVED***)
+            ***REMOVED***
+            // ユーザー情報を更新する
+            const refreshUserData = () => ***REMOVED***
+                const refreshUserProfileInfos = ***REMOVED***
+                    token: localStorage.getItem('token'),
+                    uid: localStorage.getItem('uid'),
+                    name: data.user.name,
+                    userName: data.user.userName,
+                    intro: data.user.intro,
+                ***REMOVED***
+                axios.post('/api/post/refresh-user-profile', refreshUserProfileInfos)
+                .then((responce) => ***REMOVED***
+                    if (responce.data.isRefreshAccount)
+                        createAlert(new alert('ユーザデータを更新しました。', 0))
+                    else
+                        createAlert(new alert('ユーザデータを更新することができませんでした。', 2))
+                    data.router.push('/profile')
+                ***REMOVED***)
+            ***REMOVED***
+            onMounted(() => ***REMOVED*** getUserData() ***REMOVED***)
+            return ***REMOVED*** data, refreshUserData ***REMOVED***
+        ***REMOVED***
     ***REMOVED***
 </script>
