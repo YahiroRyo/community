@@ -1,3 +1,5 @@
+@import '../../modules/button.scss';
+
 .communities-tab__title ***REMOVED***
     color: #333;
     display: block;
@@ -23,4 +25,10 @@
 .btn_normal ***REMOVED***
     font-size: 16px;
     margin-left: 10px;
+***REMOVED***
+.communitiest__btn ***REMOVED***
+    @extend .btn;
+    @extend .btn_normal;
+    width: 200px;
+    margin-left: auto;
 ***REMOVED***
