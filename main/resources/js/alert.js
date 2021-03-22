@@ -17,6 +17,7 @@
 // waitIntervals:   alertを監視しているIntervalの戻り値を格納
 
 import ***REMOVED*** store ***REMOVED*** from './store'
+import ***REMOVED*** router ***REMOVED*** from './router'
 
 class alert ***REMOVED***
     constructor(content, type) ***REMOVED***
@@ -43,8 +44,16 @@ const createAlert = (alertObj) => ***REMOVED***
         store.state.alert.waitIntervals.push(interval)
     ***REMOVED***
 ***REMOVED***
+const notNormalTokenAlert = () => ***REMOVED***
+    createAlert(new alert('無効なアクセストークンのためログアウトします。', 2))
+    // router.pushをそのまま実行すると何故か実行されないため、setTimeoutを用いる
+    setTimeout(() => ***REMOVED***
+        router.push('/logout')
+    ***REMOVED***, 50)
+***REMOVED***
 
 export ***REMOVED***
     alert,
     createAlert,
+    notNormalTokenAlert,
 ***REMOVED***

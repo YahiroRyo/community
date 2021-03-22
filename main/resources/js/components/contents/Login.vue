@@ -14,6 +14,7 @@
     import ***REMOVED*** reactive, onMounted ***REMOVED***  from 'vue'
     import ***REMOVED*** useStore ***REMOVED***             from 'vuex'
     import ***REMOVED*** useRouter ***REMOVED***            from 'vue-router'
+    import ***REMOVED*** notNormalTokenAlert ***REMOVED***  from '../../alert.js'
     import firebase                 from 'firebase'
     
     export default ***REMOVED***
@@ -43,10 +44,7 @@
                         data.router.push('/')
                     ***REMOVED***)
                     .catch(async() => ***REMOVED***
-                        // アクセストークンの取得に失敗した場合はログアウト
-                        createAlert(new alert('アクセストークンの取得に失敗しました。', 2))
-                        await firebase.auth().signOut()
-                        data.router.push('/')
+                       notNormalTokenAlert()
                     ***REMOVED***)
                 ***REMOVED***)
                 .catch(() => ***REMOVED***
