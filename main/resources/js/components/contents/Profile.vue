@@ -4,7 +4,7 @@
         <h1 class="profile__name">{{data.user.name}}</h1>
         <div class="profile__flex">
             <p class="profile__user-name">@{{data.user.userName}}</p>
-            <router-link to="/profile-edit" class="profile__btn">プロフィールを編集する</router-link>
+            <router-link to="/profile-edit" v-if="data.myUserName === data.user.userName" class="profile__btn">プロフィールを編集する</router-link>
         </div>
         <p class="profile__content">{{data.user.intro}}</p>
         <div class="profile__posts-wapper">
@@ -25,9 +25,9 @@
 </template>
 
 <script>
-    import { reactive, onMounted } from 'vue'
+    import { reactive, onMounted, onUpdated } from 'vue'
     import { useStore } from 'vuex'
-    import { useRouter } from 'vue-router'
+    import { useRouter, useRoute } from 'vue-router'
     import { post } from '../../post.js'
     import axios from 'axios'
     import Post from '../Post.vue'
@@ -38,11 +38,13 @@
         },
         setup() {
             const data = reactive({
+                route: useRoute(),
                 user: {
                     name: '',
                     userName: '',
                     intro: '',
                 },
+                myUserName: localStorage.getItem('myUserName'),
                 post: {
                     objects: [],
                 }
@@ -54,7 +56,7 @@
             const getUserData = () => {
                 const userProfileInfos = {
                     params: {
-                        'uid': localStorage.getItem('uid'),
+                        'userName': data.route.params.userName,
                     },
                 }
                 axios.get('/api/get/user-profile', userProfileInfos)
@@ -67,11 +69,14 @@
                    createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
                 })
             }
+            onUpdated(() => {
+                getUserData()
+            })
             onMounted(() => {
                 getUserData()
 
                 /* ---------------TODO: サーバーから投稿内容を取得するajax処理を実装--------------- */
-
+                
                 // 仮で表示するために値を格納
                 for (let i = 0; i < 100; i++)
                     data.post.objects.push(new post('name', 'userName', 'content', true, 1, 5))
