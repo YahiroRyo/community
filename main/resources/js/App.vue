@@ -13,7 +13,7 @@
             </li>
             <transition name="router-view-anim">
                 <li v-if="$store.state.user.isLogin" @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/profile',***REMOVED***">
-                    <router-link class="tab__img" to="/profile">
+                    <router-link class="tab__img" :to="`/profile/$***REMOVED***data.menu.profile.userName***REMOVED***`">
                         <img class="tab__img-icon" src="/images/materials/profile.svg">
                     </router-link>
                     <transition name="pop-up-discription-anim">
@@ -42,8 +42,7 @@
         </ul>
         <div class="header__other">
             <ul class="header__other__menu">
-                <!-- <li><router-link class="header__other__menu__item" to="/login">ログイン</router-link></li> -->
-                <!-- <li><router-link class="header__other__menu__item" to="/register">アカウント登録</router-link></li> -->
+                <li @click="displayWindow(3)" class="header__other__menu__item"><img class="header__other__menu__item__btn" src="/images/materials/bell.svg"></li>
             </ul>
         </div>
     </header>
@@ -55,7 +54,7 @@
                 </li>
                 <transition name="router-view-anim">
                     <li v-if="$store.state.user.isLogin">
-                        <router-link to="/profile" class="menu__item"><img class="menu__item-icon" src="/images/materials/profile.svg">プロフィール</router-link>
+                        <router-link :to="`/profile/$***REMOVED***data.menu.profile.userName***REMOVED***`" class="menu__item"><img class="menu__item-icon" src="/images/materials/profile.svg">プロフィール</router-link>
                     </li>
                 </transition>
                 <transition name="router-view-anim">
@@ -90,6 +89,7 @@
                         <WindowExample v-if="$store.state.window.currentComponent === 0" />
                         <Modules v-else-if="$store.state.window.currentComponent === 1" />
                         <CreatePost v-else-if="$store.state.window.currentComponent === 2" />
+                        <Bell v-else-if="$store.state.window.currentComponent === 3" />
                     </div>
                 </div>
             </transition>
@@ -129,16 +129,18 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, watch ***REMOVED***      from 'vue'
+    import ***REMOVED*** reactive, watch, onMounted ***REMOVED***      from 'vue'
     import ***REMOVED*** useStore ***REMOVED***             from 'vuex'
     import ***REMOVED*** useRouter, useRoute ***REMOVED***  from 'vue-router'
-    import ***REMOVED*** displayWindow ***REMOVED***        from './window';
-    import ***REMOVED*** alert, createAlert ***REMOVED***   from './alert';
+    import ***REMOVED*** displayWindow ***REMOVED***        from './window'
+    import ***REMOVED*** alert, createAlert ***REMOVED***   from './alert'
+    import axios from 'axios'
 
     /* ---------------コンポーネントインポート--------------- */
     import WindowExample from './components/window/WindowExampleComponent.vue'
     import Modules from './components/window/Modules.vue'
     import CreatePost from './components/window/CreatePost.vue'
+    import Bell from './components/window/Bell.vue'
 
     export default ***REMOVED***
         components:***REMOVED***
@@ -149,6 +151,7 @@
             WindowExample,
             Modules,
             CreatePost,
+            Bell,
         ***REMOVED***,
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
@@ -161,7 +164,7 @@
                 ***REMOVED***,
                 menu: ***REMOVED***
                     home: ***REMOVED*** isHover: false, ***REMOVED***,
-                    profile: ***REMOVED*** isHover: false, ***REMOVED***,
+                    profile: ***REMOVED*** isHover: false, userName: '', ***REMOVED***,
                     communities: ***REMOVED*** isHover: false, ***REMOVED***,
                     contact: ***REMOVED*** isHover: false, ***REMOVED***,
                 ***REMOVED***,
@@ -206,6 +209,24 @@
                     createAlert(new alert('alert', 0))
                     data.testTrigger = false
                 ***REMOVED***
+            ***REMOVED***)
+            watch(() => data.store.state.user.profileUpdate, () => ***REMOVED***
+                if (data.store.state.user.profileUpdate) ***REMOVED***
+                    data.store.state.user.profileUpdate = false
+                    data.menu.profile.userName = localStorage.getItem('myUserName')
+                ***REMOVED***
+            ***REMOVED***)
+            onMounted(() => ***REMOVED***
+                const myUserDataInfos = ***REMOVED***
+                    params: ***REMOVED***
+                        uid: localStorage.getItem('uid'),
+                    ***REMOVED***
+                ***REMOVED***
+                axios.get('/api/get/my-user-data', myUserDataInfos)
+                .then((responce) => ***REMOVED***
+                    data.menu.profile.userName = responce.data.user_name
+                    localStorage.setItem('myUserName', responce.data.user_name)
+                ***REMOVED***)
             ***REMOVED***)
             return ***REMOVED*** displayWindow, data ***REMOVED***
         ***REMOVED***
