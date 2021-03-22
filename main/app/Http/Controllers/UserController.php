@@ -97,4 +97,33 @@ class UserController extends Controller
         $userId = User::where('uid', $request->uid)->first()['id'];
         return UserInfo::where('user_id', $userId)->first(['name', 'user_name', 'intro']);
     ***REMOVED***
+    public function refreshUserProfile(Request $request) ***REMOVED***
+        /* ---------------取得する変数一覧--------------- */
+        // $request->uid:       更新する対象のuid
+        // $request->name:      更新する名前
+        // $request->userName:  更新するユーザーネーム
+        // $request->intro:     更新する自己紹介
+
+        // ・エラーが出た場合
+        // エラーをキャッチし、isRefreshAccountをfalseにして返す
+
+        if (!$this->isNormalToken($request->token)) ***REMOVED***
+            try ***REMOVED***
+                // ユーザー情報更新
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $userInfo = UserInfo::where('user_id', $userId)->first();
+                $userInfo->fill([
+                    'name' => $request->name,
+                    'user_name' => $request->userName,
+                    'intro' => $request->intro,
+                ]);
+                $userInfo->save();
+            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                return [ 'isRefreshAccount' => false, ];
+            ***REMOVED***
+            return [ 'isRefreshAccount' => true, ];
+        ***REMOVED*** else ***REMOVED***
+            return [ 'isRefreshAccount' => false, ];
+        ***REMOVED***
+    ***REMOVED***
 ***REMOVED***
