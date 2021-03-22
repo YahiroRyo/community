@@ -20,7 +20,7 @@
                     </div>
                     <div class="post__flex">
                         <p class="post__font">***REMOVED******REMOVED***community.description***REMOVED******REMOVED***</p>
-                        <button @click="goToCommunity(key)" class="btn btn_normal">入る</button>
+                        <button @click="goToCommunity(key)" class="communitiest__btn">入る</button>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 <input v-model="data.createCommunity.name" class="form">
                 <p class="communities__form-label">コミュニティの説明</p>
                 <textarea v-model="data.createCommunity.description" class="form height-middle form_dont-resize"></textarea>
-                <button @click="createCommunity()" disabled class="form form_btn">作成</button>
+                <button @click="createCommunity()" class="form form_btn">作成</button>
             </div>
         </transition>
     </div>
@@ -41,7 +41,10 @@
 
 <script>
     import ***REMOVED*** reactive, watch, onMounted ***REMOVED*** from 'vue'
+    import ***REMOVED*** createAlert, alert ***REMOVED*** from '../../alert.js'
+    import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED*** from '../../page.js'
     import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
+    import axios from 'axios'
 
     export default ***REMOVED***
         setup() ***REMOVED***
@@ -49,6 +52,9 @@
                 page: false,
                 router: useRouter(),
                 community: ***REMOVED***
+                    getNum: 0,
+                    take: 50,
+                    cantTake: false,
                     objects: [],
                 ***REMOVED***,
                 createCommunity: ***REMOVED***
@@ -56,14 +62,71 @@
                     description: localStorage.getItem('description') ? localStorage.getItem('description') : '',
                 ***REMOVED***,
             ***REMOVED***)
+            const getCommunities = () => ***REMOVED***
+                if (!data.cantTake) ***REMOVED***
+                    const getCommunitiesInfos = ***REMOVED***
+                        params: ***REMOVED***
+                            take: data.community.take,
+                            gotNum: data.community.gotNum,
+                        ***REMOVED***
+                    ***REMOVED***
+                    axios.get('/api/get/communities', getCommunitiesInfos)
+                    .then((responce) => ***REMOVED***
+                        if (responce.data.isGetCommunities) ***REMOVED***
+                            data.community.gotNum += data.community.take
+                            // 取得しようとしていた数よりも少なかった場合は、それ以上のデータがない。
+                            // 従って、これ以上取得できないように設定
+                            if (data.community.gotNum > responce.data.communities.length)
+                                data.community.cantTake = true
+                            responce.data.communities.forEach((community) => ***REMOVED***
+                                data.community.objects.push(***REMOVED***
+                                    name: community.name,
+                                    description: community.description,
+                                    id: community.id,
+                                ***REMOVED***)
+                            ***REMOVED***)
+                        ***REMOVED*** else ***REMOVED***
+                            createAlert(new alert('コミュニティの取得に失敗しました。', 2))
+                            // 失敗した場合は、ホームに飛ぶ
+                            setTimeout(() => ***REMOVED***
+                                data.router.push('/')
+                            ***REMOVED***, 50)
+                        ***REMOVED***
+                    ***REMOVED***)
+                ***REMOVED***
+            ***REMOVED***
             const createCommunity = () => ***REMOVED***
                 /* ---------------TODO: サーバーへコミュニティを作成するajax処理を実装--------------- */
-                
+                const createCommunityInfos = ***REMOVED***
+                    uid: localStorage.getItem('uid'),
+                    token: localStorage.getItem('token'),
+                    name: data.createCommunity.name,
+                    description: data.createCommunity.description,
+                ***REMOVED***
+                axios.post('/api/post/create-community', createCommunityInfos)
+                .then((responce) => ***REMOVED***
+                    if (responce.data.isCreateCommunity) ***REMOVED***
+                        createAlert(new alert('コミュニティを作成しました。', 0))
+                        // v-modelの内容とlocalStorageの内容を初期化
+                        data.createCommunity.name = ''
+                        data.createCommunity.description = ''
+                        localStorage.removeItem('name')
+                        localStorage.removeItem('description')
+                    ***REMOVED*** else if (!responce.data.isNormalToken) ***REMOVED***
+                        createAlert(new alert('無効なアクセストークンのためログアウトします。', 2))
+                        // data.router.pushをそのまま実行すると何故か実行されないため、setTimeoutを用いる
+                        setTimeout(() => ***REMOVED***
+                            data.router.push('/logout')
+                        ***REMOVED***, 50)
+                    ***REMOVED*** else ***REMOVED***
+                        createAlert(new alert('コミュニティの作成に失敗しました。', 2))
+                    ***REMOVED***
+                ***REMOVED***)
             ***REMOVED***
             const goToCommunity = (key) => ***REMOVED***
                 /* ---------------TODO: コミュニティに入る作業--------------- */
                 // 仮に入るとする
-                data.router.push('/communities/community/0')
+                data.router.push(`/communities/community/$***REMOVED***data.community.objects[key].id***REMOVED***`)
             ***REMOVED***
             
             /* ---------------createCommunity変数について--------------- */
@@ -77,16 +140,14 @@
 
             onMounted(() => ***REMOVED***
                 /* ---------------TODO: サーバーからコミュニティデータを取得するajax処理を実装--------------- */
-
-                // 本来はここでajax通信を行うが、まだデータがないため仮で100個データをpush
-                for (let i = 0; i < 100; i++) ***REMOVED***
-                    data.community.objects.push(***REMOVED***
-                        name: 'コミュニティ名',
-                        description: 'コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明コミュニティの説明',
-                    ***REMOVED***)
-                ***REMOVED***
+                getCommunities()
+                addPageEvent('pageMostBottom', () => ***REMOVED***getCommunities()***REMOVED***)
             ***REMOVED***)
             return ***REMOVED*** data, createCommunity, goToCommunity ***REMOVED***
+        ***REMOVED***,
+        beforeRouteLeave (to, from, next) ***REMOVED***
+            removeAtAllFunc()
+            next()
         ***REMOVED***
     ***REMOVED***
 </script>
