@@ -52,19 +52,7 @@
                 // firebaseアカウントを作成
                 await firebase.auth().createUserWithEmailAndPassword(data.form.email.content, data.form.password.content)
                 .then(async(responce) => {
-                    // uidをローカルストレージに保存
-                    localStorage.setItem('uid', responce.user.uid)
-                    // idTokenを取得
-                    await firebase.auth().currentUser.getIdTokenResult()
-                    .then((idTokenResult) => {
-                        // idTokenをローカルストレージに保存
-                        localStorage.setItem('token', idTokenResult.token)
-                        data.router.push('/')
-                    })
-                    .catch(async() => {
-                        // アクセストークンの取得に失敗した場合はログアウト
-                        notNormalTokenAlert()
-                    })
+                    data.router.push('/')
                 })
                 .catch(() => {
                     isError = true

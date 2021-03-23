@@ -44,6 +44,7 @@
     import { createAlert, alert, notNormalTokenAlert } from '../../alert.js'
     import { addPageEvent, removeAtAllFunc } from '../../page.js'
     import { useRouter } from 'vue-router'
+    import firebase from 'firebase'
     import axios from 'axios'
 
     export default {
@@ -96,11 +97,16 @@
                     })
                 }
             }
-            const createCommunity = () => {
+            const createCommunity = async() => {
                 /* ---------------TODO: サーバーへコミュニティを作成するajax処理を実装--------------- */
+                const user = firebase.auth().currentUser
+                let usersToken
+                await user.getIdTokenResult().then((responce) => {
+                    usersToken = responce.token
+                })
                 const createCommunityInfos = {
-                    uid: localStorage.getItem('uid'),
-                    token: localStorage.getItem('token'),
+                    uid: user.uid,
+                    token: usersToken,
                     name: data.createCommunity.name,
                     description: data.createCommunity.description,
                 }
@@ -121,13 +127,18 @@
                     }
                 })
             }
-            const goToCommunity = (key) => {
+            const goToCommunity = async(key) => {
                 /* ---------------TODO: コミュニティに入る作業--------------- */
+                const user = firebase.auth().currentUser
+                let usersToken
+                await user.getIdTokenResult().then((responce) => {
+                    usersToken = responce.token
+                })
                 if (data.community.objects[key].type === 0) {
                     // 加入申請を送信
                     const canIJoinCommunity = {
-                        uid: localStorage.getItem('uid'),
-                        token: localStorage.getItem('token'),
+                        uid: user.uid,
+                        token: usersToken,
                         communityId: data.community.objects[key].id,
                     }
                     axios.post('/api/post/can-i-join-community', canIJoinCommunity)

@@ -134,6 +134,7 @@
     import { useRouter, useRoute }  from 'vue-router'
     import { displayWindow }        from './window'
     import { alert, createAlert }   from './alert'
+    import firebase from 'firebase'
     import axios from 'axios'
 
     /* ---------------コンポーネントインポート--------------- */
@@ -196,9 +197,6 @@
                     setTimeout(() => { data.window.isClickOutSize = false }, 1000)
                 }
             })
-            watch(() => localStorage.getItem('isLogin'), () => {
-                console.log("t")
-            })
             // 挙動を確かめるためのtestTriggerフラグをwatchしている
             watch(() => data.testTrigger, () => {
                 if (data.testTrigger) {
@@ -217,16 +215,14 @@
                 }
             })
             onMounted(() => {
-                const myUserDataInfos = {
-                    params: {
-                        uid: localStorage.getItem('uid'),
-                    }
+                const user = firebase.auth().currentUser
+                if (user) {
+                    const myUserDataInfos = { params: { uid: user.uid, } }
+                    axios.get('/api/get/my-user-data', myUserDataInfos)
+                    .then((responce) => {
+                        data.menu.profile.userName = responce.data.user_name
+                    })
                 }
-                axios.get('/api/get/my-user-data', myUserDataInfos)
-                .then((responce) => {
-                    data.menu.profile.userName = responce.data.user_name
-                    localStorage.setItem('myUserName', responce.data.user_name)
-                })
             })
             return { displayWindow, data }
         }
