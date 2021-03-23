@@ -44,6 +44,7 @@
     import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED*** from '../../alert.js'
     import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED*** from '../../page.js'
     import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
+    import firebase from 'firebase'
     import axios from 'axios'
 
     export default ***REMOVED***
@@ -96,11 +97,16 @@
                     ***REMOVED***)
                 ***REMOVED***
             ***REMOVED***
-            const createCommunity = () => ***REMOVED***
+            const createCommunity = async() => ***REMOVED***
                 /* ---------------TODO: サーバーへコミュニティを作成するajax処理を実装--------------- */
+                const user = firebase.auth().currentUser
+                let usersToken
+                await user.getIdTokenResult().then((responce) => ***REMOVED***
+                    usersToken = responce.token
+                ***REMOVED***)
                 const createCommunityInfos = ***REMOVED***
-                    uid: localStorage.getItem('uid'),
-                    token: localStorage.getItem('token'),
+                    uid: user.uid,
+                    token: usersToken,
                     name: data.createCommunity.name,
                     description: data.createCommunity.description,
                 ***REMOVED***
@@ -121,13 +127,18 @@
                     ***REMOVED***
                 ***REMOVED***)
             ***REMOVED***
-            const goToCommunity = (key) => ***REMOVED***
+            const goToCommunity = async(key) => ***REMOVED***
                 /* ---------------TODO: コミュニティに入る作業--------------- */
+                const user = firebase.auth().currentUser
+                let usersToken
+                await user.getIdTokenResult().then((responce) => ***REMOVED***
+                    usersToken = responce.token
+                ***REMOVED***)
                 if (data.community.objects[key].type === 0) ***REMOVED***
                     // 加入申請を送信
                     const canIJoinCommunity = ***REMOVED***
-                        uid: localStorage.getItem('uid'),
-                        token: localStorage.getItem('token'),
+                        uid: user.uid,
+                        token: usersToken,
                         communityId: data.community.objects[key].id,
                     ***REMOVED***
                     axios.post('/api/post/can-i-join-community', canIJoinCommunity)

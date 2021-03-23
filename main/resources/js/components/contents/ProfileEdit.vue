@@ -22,6 +22,7 @@
     import  ***REMOVED*** useStore ***REMOVED*** from 'vuex'
     import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***   from '../../alert'
     import axios from 'axios'
+    import firebase from 'firebase'
 
     export default ***REMOVED***
         setup() ***REMOVED***
@@ -37,9 +38,10 @@
             // ユーザーデータの取得
             // uidを投げたらユーザー情報が返ってくる
             const getUserData = () => ***REMOVED***
+                const user = firebase.auth().currentUser
                 const userProfileInfos = ***REMOVED***
                     params: ***REMOVED***
-                        'uid': localStorage.getItem('uid'),
+                        'uid': user.uid,
                     ***REMOVED***,
                 ***REMOVED***
                 axios.get('/api/get/my-user-data', userProfileInfos)
@@ -54,10 +56,15 @@
                 ***REMOVED***)
             ***REMOVED***
             // ユーザー情報を更新する
-            const refreshUserData = () => ***REMOVED***
+            const refreshUserData = async() => ***REMOVED***
+                const user = firebase.auth().currentUser
+                let usersToken
+                await user.getIdTokenResult().then((responce) => ***REMOVED***
+                    usersToken = responce.token
+                ***REMOVED***)
                 const refreshUserProfileInfos = ***REMOVED***
-                    token: localStorage.getItem('token'),
-                    uid: localStorage.getItem('uid'),
+                    token: usersToken,
+                    uid: user.uid,
                     name: data.user.name,
                     userName: data.user.userName,
                     intro: data.user.intro,

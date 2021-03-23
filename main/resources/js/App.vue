@@ -134,6 +134,7 @@
     import ***REMOVED*** useRouter, useRoute ***REMOVED***  from 'vue-router'
     import ***REMOVED*** displayWindow ***REMOVED***        from './window'
     import ***REMOVED*** alert, createAlert ***REMOVED***   from './alert'
+    import firebase from 'firebase'
     import axios from 'axios'
 
     /* ---------------コンポーネントインポート--------------- */
@@ -196,9 +197,6 @@
                     setTimeout(() => ***REMOVED*** data.window.isClickOutSize = false ***REMOVED***, 1000)
                 ***REMOVED***
             ***REMOVED***)
-            watch(() => localStorage.getItem('isLogin'), () => ***REMOVED***
-                console.log("t")
-            ***REMOVED***)
             // 挙動を確かめるためのtestTriggerフラグをwatchしている
             watch(() => data.testTrigger, () => ***REMOVED***
                 if (data.testTrigger) ***REMOVED***
@@ -217,16 +215,14 @@
                 ***REMOVED***
             ***REMOVED***)
             onMounted(() => ***REMOVED***
-                const myUserDataInfos = ***REMOVED***
-                    params: ***REMOVED***
-                        uid: localStorage.getItem('uid'),
-                    ***REMOVED***
+                const user = firebase.auth().currentUser
+                if (user) ***REMOVED***
+                    const myUserDataInfos = ***REMOVED*** params: ***REMOVED*** uid: user.uid, ***REMOVED*** ***REMOVED***
+                    axios.get('/api/get/my-user-data', myUserDataInfos)
+                    .then((responce) => ***REMOVED***
+                        data.menu.profile.userName = responce.data.user_name
+                    ***REMOVED***)
                 ***REMOVED***
-                axios.get('/api/get/my-user-data', myUserDataInfos)
-                .then((responce) => ***REMOVED***
-                    data.menu.profile.userName = responce.data.user_name
-                    localStorage.setItem('myUserName', responce.data.user_name)
-                ***REMOVED***)
             ***REMOVED***)
             return ***REMOVED*** displayWindow, data ***REMOVED***
         ***REMOVED***

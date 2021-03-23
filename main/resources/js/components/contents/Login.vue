@@ -33,19 +33,7 @@
             ***REMOVED***)
             const login = async() => ***REMOVED***
                 await firebase.auth().signInWithEmailAndPassword(data.form.email.content, data.form.password.content)
-                .then(async(responce) => ***REMOVED***
-                    // uidをローカルストレージに保存
-                    localStorage.setItem('uid', responce.user.uid)
-                    // idTokenを取得
-                    await firebase.auth().currentUser.getIdTokenResult()
-                    .then((idTokenResult) => ***REMOVED***
-                        // idTokenをローカルストレージに保存
-                        localStorage.setItem('token', idTokenResult.token)
-                        data.router.push('/')
-                    ***REMOVED***)
-                    .catch(async() => ***REMOVED***
-                       notNormalTokenAlert()
-                    ***REMOVED***)
+                .then(() => ***REMOVED***
                 ***REMOVED***)
                 .catch(() => ***REMOVED***
                     createAlert(new alert('ログインに失敗しました。', 2))
