@@ -1,16 +1,21 @@
 <template>
     <div>
         <link rel="stylesheet" href="/css/components/bell/bell.css">
-        <div class="post" v-for="(bell, key) in data.bell.objects" :key="key">
-            <div class="post__flex">
-                <p class="post__font" v-if="bell.type === 1">
-                    <p class="bell__go-to-profile" @click="goToProfile(bell.dataForType.user_info.user_name)">{{bell.dataForType.user_info.name}}</p>
-                    が{{bell.dataForType.community.name}}へ入りたいと加入申請をしています。
-                </p>
-                <button v-if="bell.type === 1" @click="joinApp(bell.dataForType.community_id, bell.dataForType.user_id, bell.id)" class="bell__btn-app">申請を許可する</button>
-                <button v-if="bell.type === 1" @click="joinDisallow(bell.dataForType.user_id, bell.id)" class="bell__btn-disallow">申請を許可しない</button>
+        <template v-if="data.bell.objects.length > 0">
+            <div class="post" v-for="(bell, key) in data.bell.objects" :key="key">
+                <div class="post__flex">
+                    <p class="post__font" v-if="bell.type === 1">
+                        <p class="bell__go-to-profile" @click="goToProfile(bell.dataForType.user_info.user_name)">{{bell.dataForType.user_info.name}}</p>
+                        が{{bell.dataForType.community.name}}へ入りたいと加入申請をしています。
+                    </p>
+                    <button v-if="bell.type === 1" @click="joinApp(bell.dataForType.community_id, bell.dataForType.user_id, bell.id)" class="bell__btn-app">申請を許可する</button>
+                    <button v-if="bell.type === 1" @click="joinDisallow(bell.dataForType.user_id, bell.id)" class="bell__btn-disallow">申請を許可しない</button>
+                </div>
             </div>
-        </div>
+        </template>
+        <template v-else>
+            <h1 class="bell__not-exist">通知がないです。</h1>
+        </template>
     </div>
 </template>
 
@@ -26,6 +31,7 @@
     import { reactive, onMounted } from 'vue'
     import { useRouter } from 'vue-router'
     import { setOpenFunction, setCloseFunction, createWindow, closeWindow } from '../../window'
+    import { createAlert, alert, notNormalTokenAlert } from '../../alert'
     import firebase from 'firebase'
     import axios from 'axios'
 
@@ -36,38 +42,97 @@
                     objects: [],
                     take: 50,
                     gotNum: 0,
+                    isCantTake: false,
                 },
                 router: useRouter(),
             })
             const getBells = async() => {
+                if (!data.bell.cantTake) {
+                    await firebase.auth().onAuthStateChanged(async(user) => {
+                        if (user) {
+                            const bellsInfos = {
+                                params: {
+                                    uid: user.uid,
+                                    take: data.bell.take,
+                                    gotNum: data.bell.gotNum,
+                                },
+                            }
+                            await axios.get('/api/get/bells', bellsInfos)
+                            .then((responce) => {
+                                data.bell.gotNum += data.bell.take
+                                if (responce.data.length < data.bell.take)
+                                    data.bell.cantTake = true
+                                responce.data = responce.data.filter((obj) => obj.dataForType !== null)
+                                responce.data.forEach((obj) => {
+                                    data.bell.objects.push(new bell(obj.type, obj.id, obj.dataForType))
+                                })
+                            })
+                        }
+                    })
+                }
+            }
+            const joinApp = async(communityId, userId, bellId) => {
+                // 申請を通す
+                // bellは消去
                 await firebase.auth().onAuthStateChanged(async(user) => {
                     if (user) {
-                        const bellsInfos = {
-                            params: {
-                                uid: user.uid,
-                                take: data.bell.take,
-                                gotNum: data.bell.gotNum,
-                            },
-                        }
-                        await axios.get('/api/get/bells', bellsInfos)
-                        .then((responce) => {
-                            console.log(responce)
-                            responce.data.forEach((obj) => {
-                                data.bell.objects.push(new bell(obj.type, obj.id, obj.dataForType))
+                        await user.getIdTokenResult().then((responce) => {
+                            const joinCommunityInfos = {
+                                token: responce.token,
+                                communityId: communityId,
+                                userId: userId,
+                                bellId: bellId,
+                            }
+                            axios.post('/api/post/join-community', joinCommunityInfos)
+                            .then((responce) => {
+                                if (responce.data.isNormalToken) {
+                                    if (responce.data.isJoinCommunity) {
+                                        createAlert(new alert('加入申請を許可しました。', 0))
+                                        data.bell.objects = []
+                                        data.bell.gotNum = 0
+                                        data.bell.cantTake = false
+                                        getBells()
+                                    } else {
+                                        createAlert(new alert('加入申請を許可することができませんでした。', 2))
+                                    }
+                                } else {
+                                    notNormalTokenAlert()
+                                }
                             })
                         })
                     }
                 })
             }
-            const joinApp = (communityId, userId, bellId) => {
-                // 申請を通す
-                // bellは消去
-                
-            }
-            const joinDisallow = (userId, bellId) => {
+            const joinDisallow = async(userId, bellId) => {
                 // 申請削除
                 // bellは消去
-
+                await firebase.auth().onAuthStateChanged(async(user) => {
+                    if (user) {
+                        await user.getIdTokenResult().then((responce) => {
+                            const dontJoinCommunityInfos = {
+                                token: responce.token,
+                                userId: userId,
+                                bellId: bellId,
+                            }
+                            axios.post('/api/post/dont-join-community', dontJoinCommunityInfos)
+                            .then((responce) => {
+                                if (responce.data.isNormalToken) {
+                                    if (responce.data.isDontJoinCommunity) {
+                                        createAlert(new alert('加入申請を拒否しました。', 0))
+                                        data.bell.objects = []
+                                        data.bell.gotNum = 0
+                                        data.bell.cantTake = false
+                                        getBells()
+                                    } else {
+                                        createAlert(new alert('加入申請の拒否に失敗しました。', 2))
+                                    }
+                                } else {
+                                    notNormalTokenAlert()
+                                }
+                            })
+                        })
+                    }
+                })
             }
             const goToProfile = (userName) => {
                 closeWindow()
