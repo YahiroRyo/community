@@ -103,7 +103,10 @@ class CommunityController extends Controller
                 DB::beginTransaction();
                 try ***REMOVED***
                     $bell = new Bell;
-                    $bell->fill(['type' => 1,]);
+                    $bell->fill([
+                        'user_id' => $userId,
+                        'type' => 1,
+                    ]);
                     $bell->save();
                     $bellId = $bell->id;
                 ***REMOVED*** catch(\Exception $e) ***REMOVED***
