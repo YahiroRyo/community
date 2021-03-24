@@ -99,6 +99,7 @@
                     ($store.state.alert.object.type === 0) ?    'alert alert_success'       :
                     ($store.state.alert.object.type === 1) ?    'alert alert_attention'     : 'alert alert_danger'"
                     >
+                    <img class="alert__icon" src="/images/materials/surprised.svg">
                     <p class="alert__content">***REMOVED******REMOVED***$store.state.alert.object.content***REMOVED******REMOVED***</p>
                 </div>
             </transition>
