@@ -1,0 +1,64 @@
+.btn, .bell__btn, .bell__btn-app, .bell__btn-disallow {
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 3;
+  padding: 0 10px;
+  width: 100%; }
+  .btn:hover, .bell__btn:hover, .bell__btn-app:hover, .bell__btn-disallow:hover {
+    transition: .2s;
+    cursor: pointer; }
+
+.btn_item:hover {
+  background-color: #d1d1d1; }
+
+.btn_normal, .bell__btn, .bell__btn-app, .bell__btn-disallow {
+  background-color: #d1d1d1; }
+  .btn_normal:hover, .bell__btn:hover, .bell__btn-app:hover, .bell__btn-disallow:hover {
+    background-color: #b8b8b8; }
+
+.btn_success {
+  background-color: #4cdb8f; }
+  .btn_success:hover {
+    background-color: #29cb75; }
+
+.btn_attention {
+  background-color: #fcd419; }
+  .btn_attention:hover {
+    background-color: #dfb803; }
+
+.btn_danger {
+  background-color: #f9446a;
+  color: white; }
+  .btn_danger:hover {
+    background-color: #f71343; }
+
+.btn_circle {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; }
+
+.bell__btn, .bell__btn-app, .bell__btn-disallow {
+  font-size: 16px;
+  margin-left: auto;
+  width: 200px; }
+
+.bell__btn-app {
+  background-color: #4cdb8f; }
+  .bell__btn-app:hover {
+    background-color: #20a15c; }
+
+.bell__btn-disallow {
+  background-color: #f9446a; }
+  .bell__btn-disallow:hover {
+    background-color: #d00731; }
+
+.bell__go-to-profile {
+  color: black;
+  display: inline-block;
+  font-weight: bold; }
+  .bell__go-to-profile:hover {
+    cursor: pointer; }
+
+/*# sourceMappingURL=bell.css.map */

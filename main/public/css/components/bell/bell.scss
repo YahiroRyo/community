@@ -1,0 +1,26 @@
+@import '../../modules/button.scss';
+@import '../../brandColor';
+
+.bell__btn {
+    @extend .btn;
+    @extend .btn_normal;
+    font-size: 16px;
+    margin-left: auto;
+    width: 200px;
+}
+.bell__btn-app {
+    @extend .bell__btn;
+    background-color: $accent-color-success;
+    &:hover { background-color: darken($accent-color-success, 20%); }
+}
+.bell__btn-disallow {
+    @extend .bell__btn;
+    background-color: $accent-color-danger;
+    &:hover { background-color: darken($accent-color-danger, 20%); }
+}
+.bell__go-to-profile {
+    color: black;
+    display: inline-block;
+    font-weight: bold;
+    &:hover { cursor: pointer; }
+}
