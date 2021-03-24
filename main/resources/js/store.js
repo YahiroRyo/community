@@ -11,6 +11,7 @@ export const store = createStore(***REMOVED***
         user: ***REMOVED***
           isLogin: false,
           profileUpdate: false,
+          userName: '',
         ***REMOVED***,
         // 変数の説明についてはwindow.jsの一行目から参照
         window: ***REMOVED***
