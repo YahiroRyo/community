@@ -63,36 +63,41 @@
                     description: localStorage.getItem('description') ? localStorage.getItem('description') : '',
                 ***REMOVED***,
             ***REMOVED***)
-            const getCommunities = () => ***REMOVED***
+            const getCommunities = async() => ***REMOVED***
                 if (!data.community.cantTake) ***REMOVED***
-                    const getCommunitiesInfos = ***REMOVED***
-                        params: ***REMOVED***
-                            take: data.community.take,
-                            gotNum: data.community.gotNum,
-                        ***REMOVED***
-                    ***REMOVED***
-                    axios.get('/api/get/communities', getCommunitiesInfos)
-                    .then((responce) => ***REMOVED***
-                        if (responce.data.isGetCommunities) ***REMOVED***
-                            data.community.gotNum += data.community.take
-                            // 取得しようとしていた数よりも少なかった場合は、それ以上のデータがない。
-                            // 従って、これ以上取得できないように設定
-                            if (data.community.gotNum > responce.data.communities.length)
-                                data.community.cantTake = true
-                            responce.data.communities.forEach((community) => ***REMOVED***
-                                data.community.objects.push(***REMOVED***
-                                    name: community.name,
-                                    description: community.description,
-                                    id: community.id,
-                                    type: community.is_joining_community !== null ? 2 : community.can_i_join_community !== null ? 1 : 0,
-                                ***REMOVED***)
+                    await firebase.auth().onAuthStateChanged(async(user) => ***REMOVED***
+                        if (user) ***REMOVED***
+                            const getCommunitiesInfos = ***REMOVED***
+                                params: ***REMOVED***
+                                    uid: user.uid,
+                                    take: data.community.take,
+                                    gotNum: data.community.gotNum,
+                                ***REMOVED***
+                            ***REMOVED***
+                            await axios.get('/api/get/communities', getCommunitiesInfos)
+                            .then((responce) => ***REMOVED***
+                                if (responce.data.isGetCommunities) ***REMOVED***
+                                    data.community.gotNum += data.community.take
+                                    // 取得しようとしていた数よりも少なかった場合は、それ以上のデータがない。
+                                    // 従って、これ以上取得できないように設定
+                                    if (data.community.gotNum > responce.data.communities.length)
+                                        data.community.cantTake = true
+                                    responce.data.communities.forEach((community) => ***REMOVED***
+                                        data.community.objects.push(***REMOVED***
+                                            name: community.name,
+                                            description: community.description,
+                                            id: community.id,
+                                            type: community.is_joining_community !== null ? 2 : community.can_i_join_community !== null ? 1 : 0,
+                                        ***REMOVED***)
+                                    ***REMOVED***)
+                                ***REMOVED*** else ***REMOVED***
+                                    createAlert(new alert('コミュニティの取得に失敗しました。', 2))
+                                    // 失敗した場合は、ホームに飛ぶ
+                                    setTimeout(() => ***REMOVED***
+                                        data.router.push('/')
+                                    ***REMOVED***, 50)
+                                ***REMOVED***
                             ***REMOVED***)
-                        ***REMOVED*** else ***REMOVED***
-                            createAlert(new alert('コミュニティの取得に失敗しました。', 2))
-                            // 失敗した場合は、ホームに飛ぶ
-                            setTimeout(() => ***REMOVED***
-                                data.router.push('/')
-                            ***REMOVED***, 50)
                         ***REMOVED***
                     ***REMOVED***)
                 ***REMOVED***
@@ -136,21 +141,44 @@
                 ***REMOVED***)
                 if (data.community.objects[key].type === 0) ***REMOVED***
                     // 加入申請を送信
-                    const canIJoinCommunity = ***REMOVED***
+                    const canIJoinCommunityInfos = ***REMOVED***
                         uid: user.uid,
                         token: usersToken,
                         communityId: data.community.objects[key].id,
                     ***REMOVED***
-                    axios.post('/api/post/can-i-join-community', canIJoinCommunity)
+                    axios.post('/api/post/can-i-join-community', canIJoinCommunityInfos)
                     .then((responce) => ***REMOVED***
-                        if (responce.data.isNormalToken || responce.data.isCanIJoinCommunity) ***REMOVED***
-                            data.community.objects[key].type = 1
+                        if (responce.data.isNormalToken) ***REMOVED***
+                            if (responce.data.isCanIJoinCommunity) ***REMOVED***
+                                data.community.objects[key].type = 1
+                                createAlert(new alert('加入申請をしました。', 0))
+                            ***REMOVED*** else ***REMOVED***
+                                createAlert(new alert('加入申請に失敗しました。', 2))
+                            ***REMOVED***
                         ***REMOVED*** else ***REMOVED***
                             notNormalTokenAlert()
                         ***REMOVED***
                     ***REMOVED***)
                 ***REMOVED*** else if (data.community.objects[key].type === 1) ***REMOVED***
                     // 加入申請を取り消し
+                    const cancelJoinCommunityInfos = ***REMOVED***
+                        uid: user.uid,
+                        token: usersToken,
+                        communityId: data.community.objects[key].id,
+                    ***REMOVED***
+                    axios.post('/api/post/cancel-join-community', cancelJoinCommunityInfos)
+                    .then((responce) => ***REMOVED***
+                        if (responce.data.isNormalToken) ***REMOVED***
+                            if (responce.data.isCancelJoinCommunity) ***REMOVED***
+                                data.community.objects[key].type = 0
+                                createAlert(new alert('加入申請を取り消しました。', 0))
+                            ***REMOVED*** else ***REMOVED***
+                                createAlert(new alert('加入申請の取り消しに失敗しました', 2))
+                            ***REMOVED***
+                        ***REMOVED*** else ***REMOVED***
+                            notNormalTokenAlert()
+                        ***REMOVED***
+                    ***REMOVED***)
                 ***REMOVED*** else ***REMOVED***
                     // ルームへ入る
                     data.router.push(`/communities/community/$***REMOVED***data.community.objects[key].id***REMOVED***`)
@@ -167,7 +195,6 @@
             ***REMOVED***)
 
             onMounted(() => ***REMOVED***
-                /* ---------------TODO: サーバーからコミュニティデータを取得するajax処理を実装--------------- */
                 getCommunities()
                 addPageEvent('pageMostBottom', () => ***REMOVED***getCommunities()***REMOVED***)
             ***REMOVED***)
