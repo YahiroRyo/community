@@ -60,9 +60,14 @@
                     createAlert(new alert('アカウントの作成に失敗しました。', 1))
                 ***REMOVED***)
                 if (!isError) ***REMOVED***
+                    const user = firebase.auth().currentUser
+                    let usersToken
+                    await user.getIdTokenResult().then((responce) => ***REMOVED***
+                        usersToken = responce.token
+                    ***REMOVED***)
                     const registerUserInfos = ***REMOVED***
-                        token: localStorage.getItem('token'),
-                        uid: localStorage.getItem('uid'),
+                        token: usersToken,
+                        uid: user.uid,
                         name: data.form.name.content,
                         userName: data.form.userName.content,
                     ***REMOVED***
@@ -76,8 +81,14 @@
                             // ログイン
                             firebase.auth().onAuthStateChanged(async(user) => ***REMOVED***
                                 if (user) ***REMOVED***
-                                    data.store.state.user.isLogin = true
-                                    data.router.push('/')
+                                    const myUserDataInfos = ***REMOVED*** params: ***REMOVED*** uid: user.uid, ***REMOVED*** ***REMOVED***
+                                    await axios.get('/api/get/my-user-data', myUserDataInfos)
+                                    .then((responce) => ***REMOVED***
+                                        data.menu.profile.userName = responce.data.user_name
+                                        data.store.state.user.isLogin = true
+                                        data.store.state.user.profileUpdate = true
+                                        data.router.push('/')
+                                    ***REMOVED***)
                                 ***REMOVED*** else ***REMOVED***
                                     data.store.state.user.isLogin = false
                                     data.router.push('/login')

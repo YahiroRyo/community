@@ -12,7 +12,7 @@
                 </transition>
             </li>
             <transition name="router-view-anim">
-                <li v-if="$store.state.user.isLogin" @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/profile',***REMOVED***">
+                <li v-if="$store.state.user.isLogin" @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === `/profile/$***REMOVED***data.menu.profile.userName***REMOVED***`,***REMOVED***">
                     <router-link class="tab__img" :to="`/profile/$***REMOVED***data.menu.profile.userName***REMOVED***`">
                         <img class="tab__img-icon" src="/images/materials/profile.svg">
                     </router-link>
@@ -211,18 +211,21 @@
             watch(() => data.store.state.user.profileUpdate, () => ***REMOVED***
                 if (data.store.state.user.profileUpdate) ***REMOVED***
                     data.store.state.user.profileUpdate = false
-                    data.menu.profile.userName = localStorage.getItem('myUserName')
+                    data.menu.profile.userName = data.store.state.user.userName
                 ***REMOVED***
             ***REMOVED***)
-            onMounted(() => ***REMOVED***
-                const user = firebase.auth().currentUser
-                if (user) ***REMOVED***
-                    const myUserDataInfos = ***REMOVED*** params: ***REMOVED*** uid: user.uid, ***REMOVED*** ***REMOVED***
-                    axios.get('/api/get/my-user-data', myUserDataInfos)
-                    .then((responce) => ***REMOVED***
-                        data.menu.profile.userName = responce.data.user_name
-                    ***REMOVED***)
-                ***REMOVED***
+            onMounted(async() => ***REMOVED***
+                await firebase.auth().onAuthStateChanged(async(user) => ***REMOVED***
+                    if (user) ***REMOVED***
+                        const myUserDataInfos = ***REMOVED*** params: ***REMOVED*** uid: user.uid, ***REMOVED*** ***REMOVED***
+                        await axios.get('/api/get/my-user-data', myUserDataInfos)
+                        .then((responce) => ***REMOVED***
+                            data.menu.profile.userName = responce.data.user_name
+                            data.store.state.user.userName = responce.data.user_name
+                        ***REMOVED***)
+                    ***REMOVED***
+                ***REMOVED***)
+                
             ***REMOVED***)
             return ***REMOVED*** displayWindow, data ***REMOVED***
         ***REMOVED***
