@@ -1,13 +1,14 @@
 @import '../brandColor';
 
 .alert {
+    align-items: center;
+    bottom: 20px;
     border-radius: 5px;
-    display: inline-block;
+    display: flex;
     text-align: center;
-    width: 500px;
     padding: 15px;
     position: fixed;
-    bottom: 20px;
+    width: 500px;
     right: 20px;
     z-index: 3;
 }
@@ -23,7 +24,12 @@
     background-color: $accent-color-danger;
     box-shadow: 5px 5px darken($accent-color-danger, 30%);
 }
-
+.alert__content { margin: 0 auto 0 5px; }
+.alert__icon {
+    margin-left: auto;
+    width: 16px;
+    height: 16px;
+}
 /* ---------------alertsのtransition--------------- */
 .alerts-anim-enter-active,
 .alerts-anim-leave-active { transition: opacity .5s ease-in-out, transform .5s ease; }
