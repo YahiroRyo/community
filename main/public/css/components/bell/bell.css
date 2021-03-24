@@ -61,4 +61,11 @@
   .bell__go-to-profile:hover ***REMOVED***
     cursor: pointer; ***REMOVED***
 
+.bell__not-exist ***REMOVED***
+  font-size: 32px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); ***REMOVED***
+
 /*# sourceMappingURL=bell.css.map */
