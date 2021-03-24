@@ -25,8 +25,6 @@ router.beforeEach(async(to, from, next) => {
     } else {
       if (store.state.user.isLogin) {
         store.state.user.isLogin = false
-        localStorage.removeItem('uid')
-        localStorage.removeItem('token')
         router.push('/login')
       }
     }
