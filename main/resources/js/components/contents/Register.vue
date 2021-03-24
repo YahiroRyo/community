@@ -60,9 +60,14 @@
                     createAlert(new alert('アカウントの作成に失敗しました。', 1))
                 })
                 if (!isError) {
+                    const user = firebase.auth().currentUser
+                    let usersToken
+                    await user.getIdTokenResult().then((responce) => {
+                        usersToken = responce.token
+                    })
                     const registerUserInfos = {
-                        token: localStorage.getItem('token'),
-                        uid: localStorage.getItem('uid'),
+                        token: usersToken,
+                        uid: user.uid,
                         name: data.form.name.content,
                         userName: data.form.userName.content,
                     }
@@ -76,8 +81,14 @@
                             // ログイン
                             firebase.auth().onAuthStateChanged(async(user) => {
                                 if (user) {
-                                    data.store.state.user.isLogin = true
-                                    data.router.push('/')
+                                    const myUserDataInfos = { params: { uid: user.uid, } }
+                                    await axios.get('/api/get/my-user-data', myUserDataInfos)
+                                    .then((responce) => {
+                                        data.menu.profile.userName = responce.data.user_name
+                                        data.store.state.user.isLogin = true
+                                        data.store.state.user.profileUpdate = true
+                                        data.router.push('/')
+                                    })
                                 } else {
                                     data.store.state.user.isLogin = false
                                     data.router.push('/login')

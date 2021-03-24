@@ -12,7 +12,7 @@
                 </transition>
             </li>
             <transition name="router-view-anim">
-                <li v-if="$store.state.user.isLogin" @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/profile',}">
+                <li v-if="$store.state.user.isLogin" @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === `/profile/${data.menu.profile.userName}`,}">
                     <router-link class="tab__img" :to="`/profile/${data.menu.profile.userName}`">
                         <img class="tab__img-icon" src="/images/materials/profile.svg">
                     </router-link>
@@ -211,18 +211,21 @@
             watch(() => data.store.state.user.profileUpdate, () => {
                 if (data.store.state.user.profileUpdate) {
                     data.store.state.user.profileUpdate = false
-                    data.menu.profile.userName = localStorage.getItem('myUserName')
+                    data.menu.profile.userName = data.store.state.user.userName
                 }
             })
-            onMounted(() => {
-                const user = firebase.auth().currentUser
-                if (user) {
-                    const myUserDataInfos = { params: { uid: user.uid, } }
-                    axios.get('/api/get/my-user-data', myUserDataInfos)
-                    .then((responce) => {
-                        data.menu.profile.userName = responce.data.user_name
-                    })
-                }
+            onMounted(async() => {
+                await firebase.auth().onAuthStateChanged(async(user) => {
+                    if (user) {
+                        const myUserDataInfos = { params: { uid: user.uid, } }
+                        await axios.get('/api/get/my-user-data', myUserDataInfos)
+                        .then((responce) => {
+                            data.menu.profile.userName = responce.data.user_name
+                            data.store.state.user.userName = responce.data.user_name
+                        })
+                    }
+                })
+                
             })
             return { displayWindow, data }
         }
