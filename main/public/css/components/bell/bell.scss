@@ -1,0 +1,26 @@
+@import '../../modules/button.scss';
+@import '../../brandColor';
+
+.bell__btn ***REMOVED***
+    @extend .btn;
+    @extend .btn_normal;
+    font-size: 16px;
+    margin-left: auto;
+    width: 200px;
+***REMOVED***
+.bell__btn-app ***REMOVED***
+    @extend .bell__btn;
+    background-color: $accent-color-success;
+    &:hover ***REMOVED*** background-color: darken($accent-color-success, 20%); ***REMOVED***
+***REMOVED***
+.bell__btn-disallow ***REMOVED***
+    @extend .bell__btn;
+    background-color: $accent-color-danger;
+    &:hover ***REMOVED*** background-color: darken($accent-color-danger, 20%); ***REMOVED***
+***REMOVED***
+.bell__go-to-profile ***REMOVED***
+    color: black;
+    display: inline-block;
+    font-weight: bold;
+    &:hover ***REMOVED*** cursor: pointer; ***REMOVED***
+***REMOVED***

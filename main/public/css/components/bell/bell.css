@@ -1,0 +1,64 @@
+.btn, .bell__btn, .bell__btn-app, .bell__btn-disallow ***REMOVED***
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  text-align: center;
+  line-height: 3;
+  padding: 0 10px;
+  width: 100%; ***REMOVED***
+  .btn:hover, .bell__btn:hover, .bell__btn-app:hover, .bell__btn-disallow:hover ***REMOVED***
+    transition: .2s;
+    cursor: pointer; ***REMOVED***
+
+.btn_item:hover ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+
+.btn_normal, .bell__btn, .bell__btn-app, .bell__btn-disallow ***REMOVED***
+  background-color: #d1d1d1; ***REMOVED***
+  .btn_normal:hover, .bell__btn:hover, .bell__btn-app:hover, .bell__btn-disallow:hover ***REMOVED***
+    background-color: #b8b8b8; ***REMOVED***
+
+.btn_success ***REMOVED***
+  background-color: #4cdb8f; ***REMOVED***
+  .btn_success:hover ***REMOVED***
+    background-color: #29cb75; ***REMOVED***
+
+.btn_attention ***REMOVED***
+  background-color: #fcd419; ***REMOVED***
+  .btn_attention:hover ***REMOVED***
+    background-color: #dfb803; ***REMOVED***
+
+.btn_danger ***REMOVED***
+  background-color: #f9446a;
+  color: white; ***REMOVED***
+  .btn_danger:hover ***REMOVED***
+    background-color: #f71343; ***REMOVED***
+
+.btn_circle ***REMOVED***
+  border-radius: 50%;
+  width: 50px;
+  height: 50px; ***REMOVED***
+
+.bell__btn, .bell__btn-app, .bell__btn-disallow ***REMOVED***
+  font-size: 16px;
+  margin-left: auto;
+  width: 200px; ***REMOVED***
+
+.bell__btn-app ***REMOVED***
+  background-color: #4cdb8f; ***REMOVED***
+  .bell__btn-app:hover ***REMOVED***
+    background-color: #20a15c; ***REMOVED***
+
+.bell__btn-disallow ***REMOVED***
+  background-color: #f9446a; ***REMOVED***
+  .bell__btn-disallow:hover ***REMOVED***
+    background-color: #d00731; ***REMOVED***
+
+.bell__go-to-profile ***REMOVED***
+  color: black;
+  display: inline-block;
+  font-weight: bold; ***REMOVED***
+  .bell__go-to-profile:hover ***REMOVED***
+    cursor: pointer; ***REMOVED***
+
+/*# sourceMappingURL=bell.css.map */
