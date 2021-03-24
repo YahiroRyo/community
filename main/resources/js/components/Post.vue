@@ -1,7 +1,7 @@
 <template>
     <div class="post">
         <div class="post__flex">
-            <p class="post__name">***REMOVED******REMOVED***name***REMOVED******REMOVED***</p>
+            <router-link :to="`/profile/$***REMOVED***userName***REMOVED***`" class="post__name">***REMOVED******REMOVED***name***REMOVED******REMOVED***</router-link>
             <p class="post__font">@***REMOVED******REMOVED***userName***REMOVED******REMOVED***</p>
         </div>
         <p class="post__font">***REMOVED******REMOVED***content***REMOVED******REMOVED***</p>
