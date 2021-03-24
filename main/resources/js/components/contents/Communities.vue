@@ -119,7 +119,7 @@
                         data.createCommunity.description = ''
                         localStorage.removeItem('name')
                         localStorage.removeItem('description')
-                        data.page = false
+                        data.router.go(data.router.path)
                     } else if (!responce.data.isNormalToken) {
                         notNormalTokenAlert()
                     } else {
