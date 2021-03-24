@@ -119,7 +119,7 @@
                         data.createCommunity.description = ''
                         localStorage.removeItem('name')
                         localStorage.removeItem('description')
-                        data.page = false
+                        data.router.go(data.router.path)
                     ***REMOVED*** else if (!responce.data.isNormalToken) ***REMOVED***
                         notNormalTokenAlert()
                     ***REMOVED*** else ***REMOVED***
