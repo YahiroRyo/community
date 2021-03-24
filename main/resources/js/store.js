@@ -11,6 +11,7 @@ export const store = createStore({
         user: {
           isLogin: false,
           profileUpdate: false,
+          userName: '',
         },
         // 変数の説明についてはwindow.jsの一行目から参照
         window: {
