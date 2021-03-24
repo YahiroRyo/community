@@ -4,7 +4,7 @@
         <h1 class="profile__name">***REMOVED******REMOVED***data.user.name***REMOVED******REMOVED***</h1>
         <div class="profile__flex">
             <p class="profile__user-name">@***REMOVED******REMOVED***data.user.userName***REMOVED******REMOVED***</p>
-            <router-link to="/profile-edit" v-if="data.myUserName === data.user.userName" class="profile__btn">プロフィールを編集する</router-link>
+            <router-link to="/profile-edit" v-if="$store.state.user.userName === data.user.userName" class="profile__btn">プロフィールを編集する</router-link>
         </div>
         <p class="profile__content">***REMOVED******REMOVED***data.user.intro***REMOVED******REMOVED***</p>
         <div class="profile__posts-wapper">
@@ -44,7 +44,6 @@
                     userName: '',
                     intro: '',
                 ***REMOVED***,
-                myUserName: localStorage.getItem('myUserName'),
                 post: ***REMOVED***
                     objects: [],
                 ***REMOVED***
