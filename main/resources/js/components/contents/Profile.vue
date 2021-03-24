@@ -4,7 +4,7 @@
         <h1 class="profile__name">{{data.user.name}}</h1>
         <div class="profile__flex">
             <p class="profile__user-name">@{{data.user.userName}}</p>
-            <router-link to="/profile-edit" v-if="data.myUserName === data.user.userName" class="profile__btn">プロフィールを編集する</router-link>
+            <router-link to="/profile-edit" v-if="$store.state.user.userName === data.user.userName" class="profile__btn">プロフィールを編集する</router-link>
         </div>
         <p class="profile__content">{{data.user.intro}}</p>
         <div class="profile__posts-wapper">
@@ -44,7 +44,6 @@
                     userName: '',
                     intro: '',
                 },
-                myUserName: localStorage.getItem('myUserName'),
                 post: {
                     objects: [],
                 }
