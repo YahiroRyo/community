@@ -15,6 +15,7 @@ class CreateBellsTable extends Migration
     ***REMOVED***
         Schema::create('bells', function (Blueprint $table) ***REMOVED***
             $table->id();
+            $table->integer('user_id')->unsigned();
             $table->integer('type')->unsigned();
             $table->timestamps();
         ***REMOVED***);
