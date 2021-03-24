@@ -63,36 +63,41 @@
                     description: localStorage.getItem('description') ? localStorage.getItem('description') : '',
                 },
             })
-            const getCommunities = () => {
+            const getCommunities = async() => {
                 if (!data.community.cantTake) {
-                    const getCommunitiesInfos = {
-                        params: {
-                            take: data.community.take,
-                            gotNum: data.community.gotNum,
-                        }
-                    }
-                    axios.get('/api/get/communities', getCommunitiesInfos)
-                    .then((responce) => {
-                        if (responce.data.isGetCommunities) {
-                            data.community.gotNum += data.community.take
-                            // 取得しようとしていた数よりも少なかった場合は、それ以上のデータがない。
-                            // 従って、これ以上取得できないように設定
-                            if (data.community.gotNum > responce.data.communities.length)
-                                data.community.cantTake = true
-                            responce.data.communities.forEach((community) => {
-                                data.community.objects.push({
-                                    name: community.name,
-                                    description: community.description,
-                                    id: community.id,
-                                    type: community.is_joining_community !== null ? 2 : community.can_i_join_community !== null ? 1 : 0,
-                                })
+                    await firebase.auth().onAuthStateChanged(async(user) => {
+                        if (user) {
+                            const getCommunitiesInfos = {
+                                params: {
+                                    uid: user.uid,
+                                    take: data.community.take,
+                                    gotNum: data.community.gotNum,
+                                }
+                            }
+                            await axios.get('/api/get/communities', getCommunitiesInfos)
+                            .then((responce) => {
+                                if (responce.data.isGetCommunities) {
+                                    data.community.gotNum += data.community.take
+                                    // 取得しようとしていた数よりも少なかった場合は、それ以上のデータがない。
+                                    // 従って、これ以上取得できないように設定
+                                    if (data.community.gotNum > responce.data.communities.length)
+                                        data.community.cantTake = true
+                                    responce.data.communities.forEach((community) => {
+                                        data.community.objects.push({
+                                            name: community.name,
+                                            description: community.description,
+                                            id: community.id,
+                                            type: community.is_joining_community !== null ? 2 : community.can_i_join_community !== null ? 1 : 0,
+                                        })
+                                    })
+                                } else {
+                                    createAlert(new alert('コミュニティの取得に失敗しました。', 2))
+                                    // 失敗した場合は、ホームに飛ぶ
+                                    setTimeout(() => {
+                                        data.router.push('/')
+                                    }, 50)
+                                }
                             })
-                        } else {
-                            createAlert(new alert('コミュニティの取得に失敗しました。', 2))
-                            // 失敗した場合は、ホームに飛ぶ
-                            setTimeout(() => {
-                                data.router.push('/')
-                            }, 50)
                         }
                     })
                 }
@@ -136,21 +141,44 @@
                 })
                 if (data.community.objects[key].type === 0) {
                     // 加入申請を送信
-                    const canIJoinCommunity = {
+                    const canIJoinCommunityInfos = {
                         uid: user.uid,
                         token: usersToken,
                         communityId: data.community.objects[key].id,
                     }
-                    axios.post('/api/post/can-i-join-community', canIJoinCommunity)
+                    axios.post('/api/post/can-i-join-community', canIJoinCommunityInfos)
                     .then((responce) => {
-                        if (responce.data.isNormalToken || responce.data.isCanIJoinCommunity) {
-                            data.community.objects[key].type = 1
+                        if (responce.data.isNormalToken) {
+                            if (responce.data.isCanIJoinCommunity) {
+                                data.community.objects[key].type = 1
+                                createAlert(new alert('加入申請をしました。', 0))
+                            } else {
+                                createAlert(new alert('加入申請に失敗しました。', 2))
+                            }
                         } else {
                             notNormalTokenAlert()
                         }
                     })
                 } else if (data.community.objects[key].type === 1) {
                     // 加入申請を取り消し
+                    const cancelJoinCommunityInfos = {
+                        uid: user.uid,
+                        token: usersToken,
+                        communityId: data.community.objects[key].id,
+                    }
+                    axios.post('/api/post/cancel-join-community', cancelJoinCommunityInfos)
+                    .then((responce) => {
+                        if (responce.data.isNormalToken) {
+                            if (responce.data.isCancelJoinCommunity) {
+                                data.community.objects[key].type = 0
+                                createAlert(new alert('加入申請を取り消しました。', 0))
+                            } else {
+                                createAlert(new alert('加入申請の取り消しに失敗しました', 2))
+                            }
+                        } else {
+                            notNormalTokenAlert()
+                        }
+                    })
                 } else {
                     // ルームへ入る
                     data.router.push(`/communities/community/${data.community.objects[key].id}`)
@@ -167,7 +195,6 @@
             })
 
             onMounted(() => {
-                /* ---------------TODO: サーバーからコミュニティデータを取得するajax処理を実装--------------- */
                 getCommunities()
                 addPageEvent('pageMostBottom', () => {getCommunities()})
             })
