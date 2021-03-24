@@ -1,7 +1,7 @@
 <template>
     <div class="post">
         <div class="post__flex">
-            <p class="post__name">{{name}}</p>
+            <router-link :to="`/profile/${userName}`" class="post__name">{{name}}</router-link>
             <p class="post__font">@{{userName}}</p>
         </div>
         <p class="post__font">{{content}}</p>
