@@ -8,13 +8,14 @@
 // responceNum: 投稿への返信数
 
 class post {
-    constructor(name, userName, content, isGood, goodNum, responceNum) {
+    constructor(name, userName, content, isGood, goodNum, responceNum, postId) {
         this.name           = name
         this.userName       = userName
         this.content        = content
         this.isGood         = isGood
         this.goodNum        = goodNum
         this.responceNum    = responceNum
+        this.postId         = postId
     }
 }
 
