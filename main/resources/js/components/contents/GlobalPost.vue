@@ -16,12 +16,13 @@
 </template>
 
 <script>
-    import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***    from '../../page.js'
-    import ***REMOVED*** reactive, onMounted ***REMOVED***              from 'vue'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                   from '../../supportFirebase.js'
-    import ***REMOVED*** post ***REMOVED***                             from '../../post.js'
-    import axios                                from 'axios'
-    import Post                                 from '../Post.vue'
+    import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***  from '../../alert'
+    import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***            from '../../page.js'
+    import ***REMOVED*** reactive, onMounted ***REMOVED***                      from 'vue'
+    import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
+    import ***REMOVED*** post ***REMOVED***                                     from '../../post.js'
+    import axios                                        from 'axios'
+    import Post                                         from '../Post.vue'
 
     export default ***REMOVED***
         components: ***REMOVED*** Post, ***REMOVED***,
@@ -34,9 +35,26 @@
                     take:           50,
                 ***REMOVED***
             ***REMOVED***)
-            const sendGood = (key) => ***REMOVED***
-                data.post.objects[key].isGood = !data.post.objects[key].isGood
-                data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
+            const sendGood = async(key) => ***REMOVED***
+                const user = await getUidAndToken()
+                const greatPostInfos = ***REMOVED***
+                    postId: data.post.objects[key].postId,
+                    token:  user.token,
+                    uid:    user.uid,
+                ***REMOVED***
+                axios.post('/api/post/great-post', greatPostInfos)
+                .then((responce) => ***REMOVED***
+                    if (responce.data.isNormalToken) ***REMOVED***
+                        if (responce.data.isGreat) ***REMOVED***
+                            data.post.objects[key].isGood = !data.post.objects[key].isGood
+                            data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
+                        ***REMOVED*** else ***REMOVED***
+                            createAlert(new alert('いいねすることができませんでした。', 2))
+                        ***REMOVED***
+                    ***REMOVED*** else ***REMOVED***
+                        notNormalTokenAlert()
+                    ***REMOVED***
+                ***REMOVED***)
             ***REMOVED***
             const getPosts = async() => ***REMOVED***
                 if (!data.post.cantGetPosts) ***REMOVED***
@@ -60,9 +78,10 @@
                                     obj.user_info.name,
                                     obj.user_info.user_name,
                                     obj.content,
-                                    false,
+                                    obj.is_great_post.length > 0,
+                                    obj.great_post_num.length,
                                     0,
-                                    0,
+                                    obj.id,
                                 )
                             )
                         ***REMOVED***)
