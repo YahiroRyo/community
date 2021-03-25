@@ -21,6 +21,7 @@ Route::post('/api/post/register-user',          [UserController::class, 'registe
 Route::get('/api/get/user-profile',             [UserController::class, 'getUserProfile']);
 Route::get('/api/get/my-user-data',             [UserController::class, 'getMyUserData']);
 
+Route::post('/api/post/create-responce-post',   [PostController::class, 'createResponcePost']);
 Route::post('/api/post/create-post',            [PostController::class, 'createPost']);
 Route::post('/api/post/great-post',             [PostController::class, 'greatPost']);
 Route::get('/api/get/global-posts',             [PostController::class, 'getGlobalPosts']);
