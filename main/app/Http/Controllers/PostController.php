@@ -8,6 +8,7 @@ use Kreait\Firebase\Auth;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Great;
 
 class PostController extends Controller
 ***REMOVED***
@@ -57,23 +58,63 @@ class PostController extends Controller
     public function getGlobalPosts(Request $request): array ***REMOVED***
         // $request->take
         // $request->gotNum
+        // $request->uid
         if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) ***REMOVED***
             $result = [];
             
             $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
 
+            $userId = User::where('uid', $request->uid)->first()['id'];
             $posts  = Post::select(['content', 'id', 'user_id'])
                             ->take($take + $gotNum)
-                            ->with(['userInfo' => function ($query) ***REMOVED***
-                                $query->select(['name', 'user_name', 'user_id']);
-                            ***REMOVED***])
+                            ->with([
+                                'userInfo' => function ($query) ***REMOVED***
+                                    $query->select(['name', 'user_name', 'user_id']);
+                                ***REMOVED***,
+                                'isGreatPost' => function ($query) use ($userId) ***REMOVED***
+                                    $query->where('user_id', $userId);
+                                ***REMOVED***,
+                                'greatPostNum',
+                            ])
                             ->orderBy('id', 'desc')
                             ->get();
             for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
                 array_push($result, $posts[$i]);
             ***REMOVED***
             return $result;
+        ***REMOVED***
+    ***REMOVED***
+    public function greatPost(Request $request) ***REMOVED***
+        // $request->uid
+        // $request->token
+        // $request->postId
+        if ($this->isNormalToken($request->token)) ***REMOVED***
+            $userId = User::where('uid', $request->uid)->first()['id'];
+            $isGreatExists = Great::where('user_id', $userId)
+                                    ->where('post_id',$request->postId)
+                                    ->exists();
+            if ($isGreatExists) ***REMOVED***
+                Great::where('user_id', $userId)
+                        ->where('post_id',$request->postId)
+                        ->delete();
+            ***REMOVED*** else ***REMOVED***
+                $great = new Great;
+                $great->fill([
+                    'user_id' => $userId,
+                    'post_id' => $request->postId,
+                ]);
+                $great->save();
+            ***REMOVED***
+            return [
+                'isNormalToken' => true,
+                'isGreat' => true,
+            ];
+        ***REMOVED*** else ***REMOVED***
+            return [
+                'isNormalToken' => false,
+                'isGreat' => false,
+            ];
         ***REMOVED***
     ***REMOVED***
 ***REMOVED***
