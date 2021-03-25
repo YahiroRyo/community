@@ -7,6 +7,7 @@ use Kreait\Firebase\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UserInfo;
+use App\Models\Great;
 
 class Post extends Model
 ***REMOVED***
@@ -17,5 +18,11 @@ class Post extends Model
     ];
     public function userInfo() ***REMOVED***
         return $this->hasOne(UserInfo::class, 'user_id', 'user_id');
+    ***REMOVED***
+    public function isGreatPost() ***REMOVED***
+        return $this->hasMany(Great::class, 'post_id', 'id');
+    ***REMOVED***
+    public function greatPostNum() ***REMOVED***
+        return $this->hasMany(Great::class, 'post_id', 'id');
     ***REMOVED***
 ***REMOVED***
