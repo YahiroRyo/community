@@ -22,6 +22,7 @@ Route::get('/api/get/user-profile',             [UserController::class, 'getUser
 Route::get('/api/get/my-user-data',             [UserController::class, 'getMyUserData']);
 
 Route::post('/api/post/create-post',            [PostController::class, 'createPost']);
+Route::post('/api/post/great-post',             [PostController::class, 'greatPost']);
 Route::get('/api/get/global-posts',             [PostController::class, 'getGlobalPosts']);
 
 Route::get('/***REMOVED***any?***REMOVED***', function () ***REMOVED***
