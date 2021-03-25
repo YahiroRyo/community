@@ -25,4 +25,7 @@ class Post extends Model
     public function greatPostNum() {
         return $this->hasMany(Great::class, 'post_id', 'id');
     }
+    public function responceNum() {
+        return $this->hasMany(Post::class, 'post_id', 'id');
+    }
 }
