@@ -25,4 +25,7 @@ class Post extends Model
     public function greatPostNum() ***REMOVED***
         return $this->hasMany(Great::class, 'post_id', 'id');
     ***REMOVED***
+    public function responceNum() ***REMOVED***
+        return $this->hasMany(Post::class, 'post_id', 'id');
+    ***REMOVED***
 ***REMOVED***
