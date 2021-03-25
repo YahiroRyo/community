@@ -1,0 +1,87 @@
+<template>
+    <div>
+        <link rel="stylesheet" href="/css/components/createPost/createPost.css">
+        <p class="form-label-create-post">投稿内容を入力</p>
+        <textarea v-model="data.post.content" class="form form_dont-resize height-between-small-and-middle"></textarea>
+        <!-- 文字数カウント -->
+        <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, ***REMOVED***">***REMOVED******REMOVED***data.post.content.length***REMOVED******REMOVED*** | 200</p>
+        <!-- 画像プレビュー -->
+        <div class="create-post-display-img-wapper" v-show="data.post.images.length > 0">
+            <transition-group name="create-post-input-img-anim">
+                <div class="create-post-input-img" v-for="(image, key) in data.post.images" :key="key" :style="`background-image: url($***REMOVED***image***REMOVED***)`">
+                    <button @click="deleteMedia(key)" class="create-post-input-img__btn"><img class="create-post-input-img__btn__img" src="/images/materials/close.svg"></button>
+                </div>
+            </transition-group>
+        </div>
+        <button @click="selectMedia" class="create-post-btn"><img src="/images/materials/media.svg" class="create-post-btn__media-img"></button>
+        <input ref="inputFileElement" @change="displayMedia" style="display: none;" type="file" accept="image/*" />
+        <button @click="createResponcePost" class="form form_btn">投稿する</button>
+    </div>
+</template>
+
+<script>
+    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
+    import ***REMOVED*** createWindow, closeWindow ***REMOVED***                from '../../window.js'
+    import ***REMOVED*** reactive, onMounted, ref ***REMOVED***                 from 'vue'
+    import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
+    import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
+    import axios                                        from 'axios'
+
+    export default ***REMOVED***
+        setup() ***REMOVED***
+            // ボタンを用いてファイルを選択させたいため、ファイル選択にrefを用いた。
+            const inputFileElement = ref(null)
+            const data = reactive(***REMOVED***
+                store: useStore(),
+                post: ***REMOVED***
+                    content:    '',
+                    images:     [],
+                ***REMOVED***,
+            ***REMOVED***)
+            const createResponcePost = async() => ***REMOVED***
+                if (!data.store.state.post.toResponcePostId) ***REMOVED***
+                    createAlert(new alert('返信する対象の投稿が存在しません。', 2))
+                ***REMOVED***
+                const user = await getUidAndToken()
+                const createResponcePostInfos = ***REMOVED***
+                    content:    data.post.content,
+                    postId:     data.store.state.post.toResponcePostId,
+                    token:      user.token,
+                    uid:        user.uid,
+                ***REMOVED***
+                axios.post('/api/post/create-responce-post', createResponcePostInfos)
+                .then((responce) => ***REMOVED***
+                    if (responce.data.isNormalToken) ***REMOVED***
+                        if (responce.data.isCreateResponcePost) ***REMOVED***
+                            createAlert(new alert('返信をしました。', 0))
+                        ***REMOVED*** else ***REMOVED***
+                            createAlert(new alert('返信をすることができませんでした。', 2))
+                        ***REMOVED***
+                    ***REMOVED*** else ***REMOVED***
+                        notNormalTokenAlert()
+                    ***REMOVED***
+                    data.store.state.post.toResponcePostId = null
+                    closeWindow()
+                ***REMOVED***)
+            ***REMOVED***
+            const selectMedia = () => ***REMOVED***
+                // 閉じた際に、clickするとnullをクリックした判定になるため、nullじゃないかチェック
+                if (inputFileElement.value.click !== null) ***REMOVED*** inputFileElement.value.click() ***REMOVED***
+            ***REMOVED***
+            const displayMedia = () => ***REMOVED***
+                if (inputFileElement.value.files.length > 0) ***REMOVED***
+                    if (data.post.images.length < 4 && inputFileElement.value.files[0].type.match("image.*")) ***REMOVED***
+                        const fileReader    = new FileReader()
+                        fileReader.onload   = (() => ***REMOVED*** data.post.images.push(fileReader.result) ***REMOVED***)
+                        fileReader.readAsDataURL(inputFileElement.value.files[0])
+                    ***REMOVED*** else ***REMOVED***
+                        createAlert(new alert('4枚以上の画像を設定できません', 1))
+                    ***REMOVED***
+                ***REMOVED***
+            ***REMOVED***
+            const deleteMedia = (key) => ***REMOVED*** data.post.images.splice(key, 1) ***REMOVED***
+            onMounted(() => ***REMOVED*** createWindow('投稿に返信', 500, 660) ***REMOVED***)
+            return ***REMOVED*** data, createResponcePost, selectMedia, inputFileElement, displayMedia, deleteMedia, ***REMOVED***
+        ***REMOVED***
+    ***REMOVED***
+</script>
