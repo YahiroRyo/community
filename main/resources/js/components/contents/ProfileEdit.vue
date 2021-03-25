@@ -17,12 +17,13 @@
     // ・何らかのエラーが出た場合
     // alertを表示させた後、data.router.push('/profile')を実行
 
-    import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
-    import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
-    import  ***REMOVED*** useStore ***REMOVED*** from 'vuex'
-    import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***   from '../../alert'
-    import axios from 'axios'
-    import firebase from 'firebase'
+    import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***      from '../../alert'
+    import ***REMOVED*** reactive, onMounted ***REMOVED***                          from 'vue'
+    import ***REMOVED*** getUidAndToken ***REMOVED***                               from '../../supportFirebase.js'
+    import ***REMOVED*** useRouter ***REMOVED***                                    from 'vue-router'
+    import ***REMOVED*** useStore ***REMOVED***                                     from 'vuex'
+    import firebase                                         from 'firebase'
+    import axios                                            from 'axios'
 
     export default ***REMOVED***
         setup() ***REMOVED***
@@ -30,44 +31,49 @@
                 router: useRouter(),
                 store: useStore(),
                 user: ***REMOVED***
-                    name: '',
-                    userName: '',
-                    intro: '',
+                    userName:   '',
+                    name:       '',
+                    intro:      '',
                 ***REMOVED***,
             ***REMOVED***)
             // ユーザーデータの取得
             // uidを投げたらユーザー情報が返ってくる
-            const getUserData = () => ***REMOVED***
-                const user = firebase.auth().currentUser
-                const userProfileInfos = ***REMOVED***
-                    params: ***REMOVED***
-                        'uid': user.uid,
-                    ***REMOVED***,
+            const getUserData = async() => ***REMOVED***
+                const user = await getUidAndToken()
+                if (!user.isError) ***REMOVED***
+                    const userProfileInfos = ***REMOVED***
+                        params: ***REMOVED*** 'uid': user.uid, ***REMOVED***,
+                    ***REMOVED***
+                    axios.get('/api/get/my-user-data', userProfileInfos)
+                    .then((responce) => ***REMOVED***
+                        data.user.name      = responce.data.name
+                        data.user.userName  = responce.data.user_name
+                        data.user.intro     = responce.data.intro
+                    ***REMOVED***)
+                    .catch(() => ***REMOVED***
+                        createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
+                        // 失敗した場合は、プロフィールに飛ぶ
+                        setTimeout(() => ***REMOVED***
+                            data.router.push('/profile')
+                        ***REMOVED***, 50)
+                    ***REMOVED***)
+                ***REMOVED*** else ***REMOVED***
+                    createAlert(new alert('ユーザー情報を取得することに失敗しました。', 2))
+                    // 失敗した場合は、プロフィールに飛ぶ
+                    setTimeout(() => ***REMOVED***
+                        data.router.push('/profile')
+                    ***REMOVED***, 50)
                 ***REMOVED***
-                axios.get('/api/get/my-user-data', userProfileInfos)
-                .then((responce) => ***REMOVED***
-                    data.user.name = responce.data.name
-                    data.user.userName = responce.data.user_name
-                    data.user.intro = responce.data.intro
-                ***REMOVED***)
-                .catch(() => ***REMOVED***
-                    createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
-                    data.router.push('/profile')
-                ***REMOVED***)
             ***REMOVED***
             // ユーザー情報を更新する
             const refreshUserData = async() => ***REMOVED***
-                const user = firebase.auth().currentUser
-                let usersToken
-                await user.getIdTokenResult().then((responce) => ***REMOVED***
-                    usersToken = responce.token
-                ***REMOVED***)
+                const user = await getUidAndToken()
                 const refreshUserProfileInfos = ***REMOVED***
-                    token: usersToken,
-                    uid: user.uid,
-                    name: data.user.name,
-                    userName: data.user.userName,
-                    intro: data.user.intro,
+                    userName:   data.user.userName,
+                    token:      user.token,
+                    intro:      data.user.intro,
+                    name:       data.user.name,
+                    uid:        user.uid,
                 ***REMOVED***
                 axios.post('/api/post/refresh-user-profile', refreshUserProfileInfos)
                 .then((responce) => ***REMOVED***

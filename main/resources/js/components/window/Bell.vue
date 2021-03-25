@@ -28,12 +28,13 @@
         ***REMOVED***
     ***REMOVED***
 
-    import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
-    import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
     import ***REMOVED*** setOpenFunction, setCloseFunction, createWindow, closeWindow ***REMOVED*** from '../../window'
-    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED*** from '../../alert'
-    import firebase from 'firebase'
-    import axios from 'axios'
+    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***                      from '../../alert'
+    import ***REMOVED*** reactive, onMounted ***REMOVED***                                          from 'vue'
+    import ***REMOVED*** getUidAndToken ***REMOVED***                                               from '../../supportFirebase.js'
+    import ***REMOVED*** useRouter ***REMOVED***                                                    from 'vue-router'
+    import firebase                                                         from 'firebase'
+    import axios                                                            from 'axios'
 
     export default ***REMOVED***
         setup() ***REMOVED***
@@ -52,9 +53,9 @@
                         if (user) ***REMOVED***
                             const bellsInfos = ***REMOVED***
                                 params: ***REMOVED***
-                                    uid: user.uid,
-                                    take: data.bell.take,
                                     gotNum: data.bell.gotNum,
+                                    take:   data.bell.take,
+                                    uid:    user.uid,
                                 ***REMOVED***,
                             ***REMOVED***
                             await axios.get('/api/get/bells', bellsInfos)
@@ -74,32 +75,27 @@
             const joinApp = async(communityId, userId, bellId) => ***REMOVED***
                 // 申請を通す
                 // bellは消去
-                await firebase.auth().onAuthStateChanged(async(user) => ***REMOVED***
-                    if (user) ***REMOVED***
-                        await user.getIdTokenResult().then((responce) => ***REMOVED***
-                            const joinCommunityInfos = ***REMOVED***
-                                token: responce.token,
-                                communityId: communityId,
-                                userId: userId,
-                                bellId: bellId,
-                            ***REMOVED***
-                            axios.post('/api/post/join-community', joinCommunityInfos)
-                            .then((responce) => ***REMOVED***
-                                if (responce.data.isNormalToken) ***REMOVED***
-                                    if (responce.data.isJoinCommunity) ***REMOVED***
-                                        createAlert(new alert('加入申請を許可しました。', 0))
-                                        data.bell.objects = []
-                                        data.bell.gotNum = 0
-                                        data.bell.cantTake = false
-                                        getBells()
-                                    ***REMOVED*** else ***REMOVED***
-                                        createAlert(new alert('加入申請を許可することができませんでした。', 2))
-                                    ***REMOVED***
-                                ***REMOVED*** else ***REMOVED***
-                                    notNormalTokenAlert()
-                                ***REMOVED***
-                            ***REMOVED***)
-                        ***REMOVED***)
+                const user = await getUidAndToken()
+                const joinCommunityInfos = ***REMOVED***
+                    communityId:    communityId,
+                    userId:         userId,
+                    bellId:         bellId,
+                    token:          user.token,
+                ***REMOVED***
+                axios.post('/api/post/join-community', joinCommunityInfos)
+                .then((responce) => ***REMOVED***
+                    if (responce.data.isNormalToken) ***REMOVED***
+                        if (responce.data.isJoinCommunity) ***REMOVED***
+                            createAlert(new alert('加入申請を許可しました。', 0))
+                            data.bell.objects = []
+                            data.bell.gotNum = 0
+                            data.bell.cantTake = false
+                            getBells()
+                        ***REMOVED*** else ***REMOVED***
+                            createAlert(new alert('加入申請を許可することができませんでした。', 2))
+                        ***REMOVED***
+                    ***REMOVED*** else ***REMOVED***
+                        notNormalTokenAlert()
                     ***REMOVED***
                 ***REMOVED***)
             ***REMOVED***
@@ -110,18 +106,18 @@
                     if (user) ***REMOVED***
                         await user.getIdTokenResult().then((responce) => ***REMOVED***
                             const dontJoinCommunityInfos = ***REMOVED***
-                                token: responce.token,
                                 userId: userId,
                                 bellId: bellId,
+                                token:  responce.token,
                             ***REMOVED***
                             axios.post('/api/post/dont-join-community', dontJoinCommunityInfos)
                             .then((responce) => ***REMOVED***
                                 if (responce.data.isNormalToken) ***REMOVED***
                                     if (responce.data.isDontJoinCommunity) ***REMOVED***
                                         createAlert(new alert('加入申請を拒否しました。', 0))
-                                        data.bell.objects = []
-                                        data.bell.gotNum = 0
-                                        data.bell.cantTake = false
+                                        data.bell.cantTake  = false
+                                        data.bell.objects   = []
+                                        data.bell.gotNum    = 0
                                         getBells()
                                     ***REMOVED*** else ***REMOVED***
                                         createAlert(new alert('加入申請の拒否に失敗しました。', 2))

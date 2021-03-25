@@ -17,12 +17,13 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted ***REMOVED***  from 'vue'
-    import ***REMOVED*** useStore ***REMOVED***             from 'vuex'
-    import ***REMOVED*** useRouter ***REMOVED***            from 'vue-router'
-    import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***   from '../../alert'
-    import firebase                 from 'firebase'
-    import axios                    from 'axios'
+    import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***  from '../../alert'
+    import ***REMOVED*** reactive, onMounted ***REMOVED***                      from 'vue'
+    import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
+    import ***REMOVED*** useRouter ***REMOVED***                                from 'vue-router'
+    import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
+    import firebase                                     from 'firebase'
+    import axios                                        from 'axios'
 
     export default ***REMOVED***
         setup() ***REMOVED***
@@ -51,8 +52,7 @@
                 let isError = false
                 // firebaseアカウントを作成
                 await firebase.auth().createUserWithEmailAndPassword(data.form.email.content, data.form.password.content)
-                .then(async(responce) => ***REMOVED***
-                    data.router.push('/')
+                .then((responce) => ***REMOVED***
                 ***REMOVED***)
                 .catch(() => ***REMOVED***
                     isError = true
@@ -60,40 +60,22 @@
                     createAlert(new alert('アカウントの作成に失敗しました。', 1))
                 ***REMOVED***)
                 if (!isError) ***REMOVED***
-                    const user = firebase.auth().currentUser
-                    let usersToken
-                    await user.getIdTokenResult().then((responce) => ***REMOVED***
-                        usersToken = responce.token
-                    ***REMOVED***)
+                    const user = await getUidAndToken()
                     const registerUserInfos = ***REMOVED***
-                        token: usersToken,
-                        uid: user.uid,
-                        name: data.form.name.content,
-                        userName: data.form.userName.content,
+                        userName:   data.form.userName.content,
+                        token:      user.token,
+                        name:       data.form.name.content,
+                        uid:        user.uid,
                     ***REMOVED***
-                    axios.post('/api/post/register-user', registerUserInfos)
-                    .then((responce) => ***REMOVED***
+                    await axios.post('/api/post/register-user', registerUserInfos)
+                    .then(async(responce) => ***REMOVED***
                         if (!responce.data.isNormalToken) ***REMOVED***
                             createAlert(new alert('無効なアクセストークンです。', 2))
                         ***REMOVED*** else if (!responce.data.isCreateAccount) ***REMOVED***
                             createAlert(new alert('アカウントの作成に失敗しました。', 2))
                         ***REMOVED*** else ***REMOVED***
-                            // ログイン
-                            firebase.auth().onAuthStateChanged(async(user) => ***REMOVED***
-                                if (user) ***REMOVED***
-                                    const myUserDataInfos = ***REMOVED*** params: ***REMOVED*** uid: user.uid, ***REMOVED*** ***REMOVED***
-                                    await axios.get('/api/get/my-user-data', myUserDataInfos)
-                                    .then((responce) => ***REMOVED***
-                                        data.menu.profile.userName = responce.data.user_name
-                                        data.store.state.user.isLogin = true
-                                        data.store.state.user.profileUpdate = true
-                                        data.router.push('/')
-                                    ***REMOVED***)
-                                ***REMOVED*** else ***REMOVED***
-                                    data.store.state.user.isLogin = false
-                                    data.router.push('/login')
-                                ***REMOVED***
-                            ***REMOVED***)
+                            // TODO: router.goが動かない
+                            data.router.push('/')
                         ***REMOVED***
                     ***REMOVED***)
                 ***REMOVED***
