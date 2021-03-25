@@ -37,7 +37,7 @@ composer require laravel/ui
 npm install -g npm  
 main/resources/js/app.js内の`require('./bootstrap');`を削除  
 npm install vuex@next --save  
-npm i vue-router@next
-npm install axios
-composer require kreait/firebase-php
-composer require kreait/laravel-firebase
+npm i vue-router@next  
+npm install axios  
+composer require kreait/firebase-php  
+composer require kreait/laravel-firebase  
