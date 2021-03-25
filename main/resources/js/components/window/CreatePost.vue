@@ -24,10 +24,12 @@
     // ・文字数は200字まで
     // ・画像を投稿できるのは4枚まで
 
-    import ***REMOVED*** createWindow, closeWindow ***REMOVED***        from '../../window.js'
-    import ***REMOVED*** reactive, onMounted, ref ***REMOVED***         from 'vue'
-    import ***REMOVED*** createAlert, alert ***REMOVED***               from '../../alert.js'
-    import ***REMOVED*** useStore ***REMOVED***                         from 'vuex';
+    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
+    import ***REMOVED*** createWindow, closeWindow ***REMOVED***                from '../../window.js'
+    import ***REMOVED*** reactive, onMounted, ref ***REMOVED***                 from 'vue'
+    import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
+    import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
+    import axios                                        from 'axios'
 
     export default ***REMOVED***
         setup() ***REMOVED***
@@ -40,9 +42,26 @@
                     images:     [],
                 ***REMOVED***,
             ***REMOVED***)
-            const createPost = () => ***REMOVED***
-                /* ---------------TODO: サーバーに投稿内容を投げるajax処理を実装--------------- */
-                closeWindow()
+            const createPost = async() => ***REMOVED***
+                const user = await getUidAndToken()
+                const createPostInfos = ***REMOVED***
+                    content:    data.post.content,
+                    token:      user.token,
+                    uid:        user.uid,
+                ***REMOVED***
+                axios.post('/api/post/create-post', createPostInfos)
+                .then((responce) => ***REMOVED***
+                    if (responce.data.isNormalToken) ***REMOVED***
+                        if (responce.data.isCreatePost) ***REMOVED***
+                            createAlert(new alert('投稿をしました。', 0))
+                        ***REMOVED*** else ***REMOVED***
+                            createAlert(new alert('投稿をすることができませんでした。', 2))
+                        ***REMOVED***
+                    ***REMOVED*** else ***REMOVED***
+                        notNormalTokenAlert()
+                    ***REMOVED***
+                    closeWindow()
+                ***REMOVED***)
             ***REMOVED***
             const selectMedia = () => ***REMOVED***
                 // 閉じた際に、clickするとnullをクリックした判定になるため、nullじゃないかチェック
