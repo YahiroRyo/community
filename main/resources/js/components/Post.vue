@@ -6,9 +6,9 @@
         </div>
         <p class="post__font">{{content}}</p>
         <div class="post__flex">
-            <button @click="sendGood(sendGoodKey)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
+            <button @click="sendGood(sendKey)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
             <p class="post__status">{{goodNum}}</p>
-            <button class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
+            <button @click="$store.state.post.toResponcePostId = postId; displayWindow(4);" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
             <p class="post__status">{{responceNum}}</p>
             <button @click="" class="post__btn-display-responce">返信を表示する</button>
         </div>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import { displayWindow } from '../window'
+
     export default {
         props: {
             name: {
@@ -27,11 +29,15 @@
                 required:   true,
             },
             responceNum:    { type: Number, },
-            sendGoodKey:    { type: Number, },
             sendGood:       { type: Function, },
+            sendKey:        { type: Number, },
             content:        { type: String, },
             goodNum:        { type: Number, },
+            postId:         { type: Number, },
             isGood:         { type: Boolean, },
         },
+        setup() {
+            return { displayWindow }
+        }
     }
 </script>
