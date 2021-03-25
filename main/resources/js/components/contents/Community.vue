@@ -28,7 +28,7 @@
                 :goodNum="post.goodNum"
                 :responceNum="post.responceNum"
                 :sendGood="sendGood"
-                :sendGoodKey="key"
+                :sendKey="key"
                 :isGood="post.isGood"
             />
         </div>
