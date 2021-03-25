@@ -28,12 +28,13 @@
         }
     }
 
-    import { reactive, onMounted } from 'vue'
-    import { useRouter } from 'vue-router'
     import { setOpenFunction, setCloseFunction, createWindow, closeWindow } from '../../window'
-    import { createAlert, alert, notNormalTokenAlert } from '../../alert'
-    import firebase from 'firebase'
-    import axios from 'axios'
+    import { createAlert, alert, notNormalTokenAlert }                      from '../../alert'
+    import { reactive, onMounted }                                          from 'vue'
+    import { getUidAndToken }                                               from '../../supportFirebase.js'
+    import { useRouter }                                                    from 'vue-router'
+    import firebase                                                         from 'firebase'
+    import axios                                                            from 'axios'
 
     export default {
         setup() {
@@ -52,9 +53,9 @@
                         if (user) {
                             const bellsInfos = {
                                 params: {
-                                    uid: user.uid,
-                                    take: data.bell.take,
                                     gotNum: data.bell.gotNum,
+                                    take:   data.bell.take,
+                                    uid:    user.uid,
                                 },
                             }
                             await axios.get('/api/get/bells', bellsInfos)
@@ -74,32 +75,27 @@
             const joinApp = async(communityId, userId, bellId) => {
                 // 申請を通す
                 // bellは消去
-                await firebase.auth().onAuthStateChanged(async(user) => {
-                    if (user) {
-                        await user.getIdTokenResult().then((responce) => {
-                            const joinCommunityInfos = {
-                                token: responce.token,
-                                communityId: communityId,
-                                userId: userId,
-                                bellId: bellId,
-                            }
-                            axios.post('/api/post/join-community', joinCommunityInfos)
-                            .then((responce) => {
-                                if (responce.data.isNormalToken) {
-                                    if (responce.data.isJoinCommunity) {
-                                        createAlert(new alert('加入申請を許可しました。', 0))
-                                        data.bell.objects = []
-                                        data.bell.gotNum = 0
-                                        data.bell.cantTake = false
-                                        getBells()
-                                    } else {
-                                        createAlert(new alert('加入申請を許可することができませんでした。', 2))
-                                    }
-                                } else {
-                                    notNormalTokenAlert()
-                                }
-                            })
-                        })
+                const user = await getUidAndToken()
+                const joinCommunityInfos = {
+                    communityId:    communityId,
+                    userId:         userId,
+                    bellId:         bellId,
+                    token:          user.token,
+                }
+                axios.post('/api/post/join-community', joinCommunityInfos)
+                .then((responce) => {
+                    if (responce.data.isNormalToken) {
+                        if (responce.data.isJoinCommunity) {
+                            createAlert(new alert('加入申請を許可しました。', 0))
+                            data.bell.objects = []
+                            data.bell.gotNum = 0
+                            data.bell.cantTake = false
+                            getBells()
+                        } else {
+                            createAlert(new alert('加入申請を許可することができませんでした。', 2))
+                        }
+                    } else {
+                        notNormalTokenAlert()
                     }
                 })
             }
@@ -110,18 +106,18 @@
                     if (user) {
                         await user.getIdTokenResult().then((responce) => {
                             const dontJoinCommunityInfos = {
-                                token: responce.token,
                                 userId: userId,
                                 bellId: bellId,
+                                token:  responce.token,
                             }
                             axios.post('/api/post/dont-join-community', dontJoinCommunityInfos)
                             .then((responce) => {
                                 if (responce.data.isNormalToken) {
                                     if (responce.data.isDontJoinCommunity) {
                                         createAlert(new alert('加入申請を拒否しました。', 0))
-                                        data.bell.objects = []
-                                        data.bell.gotNum = 0
-                                        data.bell.cantTake = false
+                                        data.bell.cantTake  = false
+                                        data.bell.objects   = []
+                                        data.bell.gotNum    = 0
                                         getBells()
                                     } else {
                                         createAlert(new alert('加入申請の拒否に失敗しました。', 2))

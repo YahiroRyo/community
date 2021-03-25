@@ -17,12 +17,13 @@
     // ・何らかのエラーが出た場合
     // alertを表示させた後、data.router.push('/profile')を実行
 
-    import { reactive, onMounted } from 'vue'
-    import { useRouter } from 'vue-router'
-    import  { useStore } from 'vuex'
-    import { alert, createAlert, notNormalTokenAlert }   from '../../alert'
-    import axios from 'axios'
-    import firebase from 'firebase'
+    import { alert, createAlert, notNormalTokenAlert }      from '../../alert'
+    import { reactive, onMounted }                          from 'vue'
+    import { getUidAndToken }                               from '../../supportFirebase.js'
+    import { useRouter }                                    from 'vue-router'
+    import { useStore }                                     from 'vuex'
+    import firebase                                         from 'firebase'
+    import axios                                            from 'axios'
 
     export default {
         setup() {
@@ -30,44 +31,49 @@
                 router: useRouter(),
                 store: useStore(),
                 user: {
-                    name: '',
-                    userName: '',
-                    intro: '',
+                    userName:   '',
+                    name:       '',
+                    intro:      '',
                 },
             })
             // ユーザーデータの取得
             // uidを投げたらユーザー情報が返ってくる
-            const getUserData = () => {
-                const user = firebase.auth().currentUser
-                const userProfileInfos = {
-                    params: {
-                        'uid': user.uid,
-                    },
+            const getUserData = async() => {
+                const user = await getUidAndToken()
+                if (!user.isError) {
+                    const userProfileInfos = {
+                        params: { 'uid': user.uid, },
+                    }
+                    axios.get('/api/get/my-user-data', userProfileInfos)
+                    .then((responce) => {
+                        data.user.name      = responce.data.name
+                        data.user.userName  = responce.data.user_name
+                        data.user.intro     = responce.data.intro
+                    })
+                    .catch(() => {
+                        createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
+                        // 失敗した場合は、プロフィールに飛ぶ
+                        setTimeout(() => {
+                            data.router.push('/profile')
+                        }, 50)
+                    })
+                } else {
+                    createAlert(new alert('ユーザー情報を取得することに失敗しました。', 2))
+                    // 失敗した場合は、プロフィールに飛ぶ
+                    setTimeout(() => {
+                        data.router.push('/profile')
+                    }, 50)
                 }
-                axios.get('/api/get/my-user-data', userProfileInfos)
-                .then((responce) => {
-                    data.user.name = responce.data.name
-                    data.user.userName = responce.data.user_name
-                    data.user.intro = responce.data.intro
-                })
-                .catch(() => {
-                    createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
-                    data.router.push('/profile')
-                })
             }
             // ユーザー情報を更新する
             const refreshUserData = async() => {
-                const user = firebase.auth().currentUser
-                let usersToken
-                await user.getIdTokenResult().then((responce) => {
-                    usersToken = responce.token
-                })
+                const user = await getUidAndToken()
                 const refreshUserProfileInfos = {
-                    token: usersToken,
-                    uid: user.uid,
-                    name: data.user.name,
-                    userName: data.user.userName,
-                    intro: data.user.intro,
+                    userName:   data.user.userName,
+                    token:      user.token,
+                    intro:      data.user.intro,
+                    name:       data.user.name,
+                    uid:        user.uid,
                 }
                 axios.post('/api/post/refresh-user-profile', refreshUserProfileInfos)
                 .then((responce) => {

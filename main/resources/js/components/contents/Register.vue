@@ -17,12 +17,13 @@
 </template>
 
 <script>
-    import { reactive, onMounted }  from 'vue'
-    import { useStore }             from 'vuex'
-    import { useRouter }            from 'vue-router'
-    import { alert, createAlert, notNormalTokenAlert }   from '../../alert'
-    import firebase                 from 'firebase'
-    import axios                    from 'axios'
+    import { alert, createAlert, notNormalTokenAlert }  from '../../alert'
+    import { reactive, onMounted }                      from 'vue'
+    import { getUidAndToken }                           from '../../supportFirebase.js'
+    import { useRouter }                                from 'vue-router'
+    import { useStore }                                 from 'vuex'
+    import firebase                                     from 'firebase'
+    import axios                                        from 'axios'
 
     export default {
         setup() {
@@ -51,8 +52,7 @@
                 let isError = false
                 // firebaseアカウントを作成
                 await firebase.auth().createUserWithEmailAndPassword(data.form.email.content, data.form.password.content)
-                .then(async(responce) => {
-                    data.router.push('/')
+                .then((responce) => {
                 })
                 .catch(() => {
                     isError = true
@@ -60,40 +60,22 @@
                     createAlert(new alert('アカウントの作成に失敗しました。', 1))
                 })
                 if (!isError) {
-                    const user = firebase.auth().currentUser
-                    let usersToken
-                    await user.getIdTokenResult().then((responce) => {
-                        usersToken = responce.token
-                    })
+                    const user = await getUidAndToken()
                     const registerUserInfos = {
-                        token: usersToken,
-                        uid: user.uid,
-                        name: data.form.name.content,
-                        userName: data.form.userName.content,
+                        userName:   data.form.userName.content,
+                        token:      user.token,
+                        name:       data.form.name.content,
+                        uid:        user.uid,
                     }
-                    axios.post('/api/post/register-user', registerUserInfos)
-                    .then((responce) => {
+                    await axios.post('/api/post/register-user', registerUserInfos)
+                    .then(async(responce) => {
                         if (!responce.data.isNormalToken) {
                             createAlert(new alert('無効なアクセストークンです。', 2))
                         } else if (!responce.data.isCreateAccount) {
                             createAlert(new alert('アカウントの作成に失敗しました。', 2))
                         } else {
-                            // ログイン
-                            firebase.auth().onAuthStateChanged(async(user) => {
-                                if (user) {
-                                    const myUserDataInfos = { params: { uid: user.uid, } }
-                                    await axios.get('/api/get/my-user-data', myUserDataInfos)
-                                    .then((responce) => {
-                                        data.menu.profile.userName = responce.data.user_name
-                                        data.store.state.user.isLogin = true
-                                        data.store.state.user.profileUpdate = true
-                                        data.router.push('/')
-                                    })
-                                } else {
-                                    data.store.state.user.isLogin = false
-                                    data.router.push('/login')
-                                }
-                            })
+                            // TODO: router.goが動かない
+                            data.router.push('/')
                         }
                     })
                 }
