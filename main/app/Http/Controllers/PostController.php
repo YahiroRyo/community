@@ -53,7 +53,29 @@ class PostController extends Controller
         }
     }
     public function createResponcePost(Request $request) {
-        // TODO: 返信を作成するPostを作成
+        // $request->uid
+        // $request->token
+        // $request->postId
+        // $request->content
+        if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) {
+            $userId = User::where('uid', $request->uid)->first()['id'];
+            $post = new Post;
+            $post->fill([
+                'user_id' => $userId,
+                'post_id' => $request->postId,
+                'content' => $request->content,
+            ]);
+            $post->save();
+            return [
+                'isNormalToken' => true,
+                'isCreateResponcePost' => true,
+            ];
+        } else {
+            return [
+                'isNormalToken' => false,
+                'isCreateResponcePost' => false,
+            ];
+        }
     }
     public function getGlobalPosts(Request $request): array {
         // $request->take
@@ -66,8 +88,9 @@ class PostController extends Controller
             $gotNum = intval($request->gotNum);
 
             $userId = User::where('uid', $request->uid)->first()['id'];
-            $posts  = Post::select(['content', 'id', 'user_id'])
+            $posts  = Post::select(['content', 'id', 'user_id', 'post_id'])
                             ->take($take + $gotNum)
+                            ->whereNull('post_id')
                             ->with([
                                 'userInfo' => function ($query) {
                                     $query->select(['name', 'user_name', 'user_id']);
@@ -76,6 +99,9 @@ class PostController extends Controller
                                     $query->where('user_id', $userId);
                                 },
                                 'greatPostNum',
+                                'responceNum' => function ($query) {
+                                    $query->select(['post_id']);
+                                },
                             ])
                             ->orderBy('id', 'desc')
                             ->get();
@@ -85,6 +111,7 @@ class PostController extends Controller
             return $result;
         }
     }
+    // いいねをする
     public function greatPost(Request $request) {
         // $request->uid
         // $request->token
