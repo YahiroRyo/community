@@ -16,30 +16,68 @@
 </template>
 
 <script>
-    import { reactive, onMounted }  from 'vue'
-    import { post }                 from '../../post.js'
-    import Post                     from '../Post.vue'
+    import { addPageEvent, removeAtAllFunc }    from '../../page.js'
+    import { reactive, onMounted }              from 'vue'
+    import { getUidAndToken }                   from '../../supportFirebase.js'
+    import { post }                             from '../../post.js'
+    import axios                                from 'axios'
+    import Post                                 from '../Post.vue'
 
     export default {
         components: { Post, },
         setup() {
             const data = reactive({
                 post: {
-                    objects: [],
+                    cantGetPosts:   false,
+                    objects:        [],
+                    gotNum:         0,
+                    take:           50,
                 }
             })
             const sendGood = (key) => {
                 data.post.objects[key].isGood = !data.post.objects[key].isGood
                 data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
             }
+            const getPosts = async() => {
+                if (!data.post.cantGetPosts) {
+                    const user = await getUidAndToken()
+                    const globalPostsInfos = {
+                        params: {
+                            gotNum: data.post.gotNum,
+                            take:   data.post.take,
+                            uid:    user.uid,
+                        }
+                    }
+                    axios.get('/api/get/global-posts', globalPostsInfos)
+                    .then((responce) => {
+                        console.log(responce)
+                        data.post.gotNum += data.post.take
+                        if (data.post.take > responce.data.length)
+                            data.post.cantGetPosts = true
+                        responce.data.forEach((obj) => {
+                            data.post.objects.push(
+                                new post(
+                                    obj.user_info.name,
+                                    obj.user_info.user_name,
+                                    obj.content,
+                                    false,
+                                    0,
+                                    0,
+                                )
+                            )
+                        })
+                    })
+                }
+            }
             onMounted(() => {
-                /* ---------------TODO: サーバーから投稿内容を取得するajax処理を実装--------------- */
-
-                // 仮で表示するために値を格納
-                for (let i = 0; i < 100; i++)
-                    data.post.objects.push(new post('name', 'userName', 'content', true, 1, 5))
+                getPosts()
+                addPageEvent('pageMostBottom', () => {getPosts()})
             })
             return { data, sendGood }
+        },
+        beforeRouteLeave (to, from, next) {
+            removeAtAllFunc()
+            next()
         }
     }
 </script>
