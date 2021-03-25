@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 use Kreait\Firebase\Auth;
 
-use App\Models\User;
 use App\Models\UserInfo;
+use App\Models\User;
 
 class UserController extends Controller
 ***REMOVED***
@@ -41,11 +41,11 @@ class UserController extends Controller
     // エラーをキャッチし、ロールバックをする
     // その時点で、ユーザーの作成は不可能なためisCreateAccountをfalseにしてreturnする
 
-    public function registerUser(Request $request) ***REMOVED***
+    public function registerUser(Request $request): array ***REMOVED***
         if (!$this->isNormalToken($request->token)) ***REMOVED***
             return [
-                'isNormalToken' => false,
-                'isCreateAccount' => false,
+                'isCreateAccount'   => false,
+                'isNormalToken'     => false,
             ];
         ***REMOVED*** else ***REMOVED***
             $lastInsertId = 0;
@@ -62,17 +62,17 @@ class UserController extends Controller
                 DB::rollBack();
                 DB::commit();
                 return [
-                    'isNormalToken' => true,
-                    'isCreateAccount' => false,
+                    'isCreateAccount'   => false,
+                    'isNormalToken'     => true,
                 ];
             ***REMOVED***
             try ***REMOVED***
                 // userの情報を登録
                 $userInfo = new UserInfo;
                 $userInfo->fill([
-                    'name' => $request->name,
-                    'user_id' => $lastInsertId,
                     'user_name' => $request->userName,
+                    'user_id'   => $lastInsertId,
+                    'name'      => $request->name,
                 ]);
                 $userInfo->save();
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
@@ -80,26 +80,29 @@ class UserController extends Controller
                 DB::commit();
                 if ($lastInsertId !== 0) ***REMOVED*** DB::statement("ALTER TABLE users AUTO_INCREMENT=$lastInsertId"); ***REMOVED***
                 return [
-                    'isNormalToken' => true,
-                    'isCreateAccount' => false,
+                    'isCreateAccount'   => false,
+                    'isNormalToken'     => true,
                 ];
             ***REMOVED***
             // すべてのデータを正常に保存できたらcommit
             DB::commit();
             return [
-                'isNormalToken' => true,
-                'isCreateAccount' => true,
+                'isCreateAccount'   => true,
+                'isNormalToken'     => true,
             ];
         ***REMOVED***
     ***REMOVED***
     // ユーザーの情報を取得
     public function getUserProfile(Request $request) ***REMOVED***
-        return UserInfo::where('user_name', $request->userName)->first(['name', 'user_name', 'intro']);
+        return UserInfo::where('user_name', $request->userName)
+                        ->first(['name', 'user_name', 'intro']);
     ***REMOVED***
     // 自分のユーザー情報を取得
     public function getMyUserData(Request $request) ***REMOVED***
-        $userId = User::where('uid', $request->uid)->first()['id'];
-        return UserInfo::where('user_id', $userId)->first(['name', 'user_name', 'intro']);
+        $userId = User::where('uid', $request->uid)
+                        ->first()['id'];
+        return UserInfo::where('user_id', $userId)
+                        ->first(['name', 'user_name', 'intro']);
     ***REMOVED***
     public function refreshUserProfile(Request $request) ***REMOVED***
         /* ---------------取得する変数一覧--------------- */
@@ -114,28 +117,30 @@ class UserController extends Controller
         if ($this->isNormalToken($request->token)) ***REMOVED***
             try ***REMOVED***
                 // ユーザー情報更新
-                $userId = User::where('uid', $request->uid)->first()['id'];
-                $userInfo = UserInfo::where('user_id', $userId)->first();
+                $userId = User::where('uid', $request->uid)
+                                ->first()['id'];
+                $userInfo = UserInfo::where('user_id', $userId)
+                                ->first();
                 $userInfo->fill([
-                    'name' => $request->name,
                     'user_name' => $request->userName,
-                    'intro' => $request->intro,
+                    'intro'     => $request->intro,
+                    'name'      => $request->name,
                 ]);
                 $userInfo->save();
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
                 return [
-                    'isRefreshAccount' => false,
-                    'isNormalToken' => true,
+                    'isRefreshAccount'  => false,
+                    'isNormalToken'     => true,
                 ];
             ***REMOVED***
             return [
-                'isRefreshAccount' => true,
-                'isNormalToken' => true,
+                'isRefreshAccount'  => true,
+                'isNormalToken'     => true,
             ];
         ***REMOVED*** else ***REMOVED***
             return [
-                'isRefreshAccount' => false,
-                'isNormalToken' => false,
+                'isRefreshAccount'  => false,
+                'isNormalToken'     => false,
             ];
         ***REMOVED***
     ***REMOVED***

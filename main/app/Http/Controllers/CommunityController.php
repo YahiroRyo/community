@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\DB;
 
 use Kreait\Firebase\Auth;
 
-use App\Models\User;
-use App\Models\Community;
-use App\Models\Bell;
-use App\Models\CanIJoinCommunity;
 use App\Models\IsJoiningCommunity;
+use App\Models\CanIJoinCommunity;
+use App\Models\Community;
+use App\Models\User;
+use App\Models\Bell;
 
 class CommunityController extends Controller
 ***REMOVED***
@@ -70,7 +70,7 @@ class CommunityController extends Controller
         if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) ***REMOVED***
             $result = [];
             
-            $take = intval($request->take);
+            $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
             $userId = User::where('uid', $request->uid)->first()['id'];
             $communities = Community::select(['id', 'name', 'description'])
@@ -103,8 +103,10 @@ class CommunityController extends Controller
         // $request->token
         // $request->communityId
         if ($this->isNormalToken($request->token)) ***REMOVED***
-            $userId = User::where('uid', $request->uid)->first()['id'];
-            $founderUserId = Community::where('id', $request->communityId)->first()['user_id'];
+            $founderUserId  = Community::where('id', $request->communityId)
+                                        ->first()['user_id'];
+            $userId         = User::where('uid', $request->uid)
+                                        ->first()['id'];
             // すでに加入申請がされていた場合
             $canIJoinCommunity = CanIJoinCommunity::where('user_id', $userId)
                                                     ->where('community_id', $request->communityId)
