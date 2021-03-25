@@ -25,6 +25,9 @@ export const store = createStore({
           height:           500,
           use:              false,
         },
+        post: {
+          toResponcePostId: null,
+        }
       }
     },
   })
