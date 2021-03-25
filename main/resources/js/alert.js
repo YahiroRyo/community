@@ -16,8 +16,8 @@
 // object:          alertのオブジェクトを代入
 // waitIntervals:   alertを監視しているIntervalの戻り値を格納
 
-import { store } from './store'
-import { router } from './router'
+import { router }   from './router'
+import { store }    from './store'
 
 class alert {
     constructor(content, type) {

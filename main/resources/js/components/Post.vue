@@ -19,19 +19,19 @@
     export default {
         props: {
             name: {
-                type: String,
-                required: true,
+                type:       String,
+                required:   true,
             },
             userName: {
-                type: String,
-                required: true,
+                type:       String,
+                required:   true,
             },
-            content: { type: String, },
-            goodNum: { type: Number, },
-            responceNum: { type: Number, },
-            isGood: { type: Boolean, },
-            sendGood: { type: Function, },
-            sendGoodKey: { type: Number, },
+            responceNum:    { type: Number, },
+            sendGoodKey:    { type: Number, },
+            sendGood:       { type: Function, },
+            content:        { type: String, },
+            goodNum:        { type: Number, },
+            isGood:         { type: Boolean, },
         },
     }
 </script>

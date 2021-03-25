@@ -25,12 +25,12 @@
 </template>
 
 <script>
-    import { reactive, onMounted, onUpdated } from 'vue'
-    import { useStore } from 'vuex'
-    import { useRouter, useRoute } from 'vue-router'
-    import { post } from '../../post.js'
-    import axios from 'axios'
-    import Post from '../Post.vue'
+    import { reactive, onMounted, onUpdated }   from 'vue'
+    import { useRouter, useRoute }              from 'vue-router'
+    import { useStore }                         from 'vuex'
+    import { post }                             from '../../post.js'
+    import axios                                from 'axios'
+    import Post                                 from '../Post.vue'
 
     export default {
         components: {
@@ -40,9 +40,9 @@
             const data = reactive({
                 route: useRoute(),
                 user: {
-                    name: '',
-                    userName: '',
-                    intro: '',
+                    name:       '',
+                    userName:   '',
+                    intro:      '',
                 },
                 post: {
                     objects: [],
@@ -60,9 +60,9 @@
                 }
                 axios.get('/api/get/user-profile', userProfileInfos)
                 .then((responce) => {
-                    data.user.name = responce.data.name
-                    data.user.userName = responce.data.user_name
-                    data.user.intro = responce.data.intro
+                    data.user.name      = responce.data.name
+                    data.user.userName  = responce.data.user_name
+                    data.user.intro     = responce.data.intro
                 })
                 .catch(() => {
                    createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))

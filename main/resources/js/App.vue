@@ -130,19 +130,19 @@
 </template>
 
 <script>
-    import { reactive, watch, onMounted }      from 'vue'
-    import { useStore }             from 'vuex'
-    import { useRouter, useRoute }  from 'vue-router'
-    import { displayWindow }        from './window'
-    import { alert, createAlert }   from './alert'
-    import firebase from 'firebase'
-    import axios from 'axios'
+    import { reactive, watch, onMounted }       from 'vue'
+    import { useRouter, useRoute }              from 'vue-router'
+    import { alert, createAlert }               from './alert'
+    import { displayWindow }                    from './window'
+    import { useStore }                         from 'vuex'
+    import firebase                             from 'firebase'
+    import axios                                from 'axios'
 
     /* ---------------コンポーネントインポート--------------- */
-    import WindowExample from './components/window/WindowExampleComponent.vue'
-    import Modules from './components/window/Modules.vue'
-    import CreatePost from './components/window/CreatePost.vue'
-    import Bell from './components/window/Bell.vue'
+    import WindowExample    from './components/window/WindowExampleComponent.vue'
+    import CreatePost       from './components/window/CreatePost.vue'
+    import Modules          from './components/window/Modules.vue'
+    import Bell             from './components/window/Bell.vue'
 
     export default {
         components:{
@@ -157,18 +157,18 @@
         },
         setup() {
             const data = reactive({
-                store: useStore(),
                 router: useRouter(),
-                route: useRoute(),
+                store:  useStore(),
+                route:  useRoute(),
                 window: {
-                    contentHeight: 0,
+                    contentHeight:  0,
                     isClickOutSize: false,
                 },
                 menu: {
-                    home: { isHover: false, },
-                    profile: { isHover: false, userName: '', },
-                    communities: { isHover: false, },
-                    contact: { isHover: false, },
+                    communities:    { isHover: false, },
+                    profile:        { isHover: false, userName: '', },
+                    contact:    { isHover: false, },
+                    home:           { isHover: false, },
                 },
                 testTrigger: false,
             })
@@ -212,7 +212,7 @@
             watch(() => data.store.state.user.profileUpdate, () => {
                 if (data.store.state.user.profileUpdate) {
                     data.store.state.user.profileUpdate = false
-                    data.menu.profile.userName = data.store.state.user.userName
+                    data.menu.profile.userName          = data.store.state.user.userName
                 }
             })
             onMounted(async() => {
@@ -221,8 +221,8 @@
                         const myUserDataInfos = { params: { uid: user.uid, } }
                         await axios.get('/api/get/my-user-data', myUserDataInfos)
                         .then((responce) => {
-                            data.menu.profile.userName = responce.data.user_name
-                            data.store.state.user.userName = responce.data.user_name
+                            data.menu.profile.userName      = responce.data.user_name
+                            data.store.state.user.userName  = responce.data.user_name
                         })
                     }
                 })

@@ -2,9 +2,9 @@
 </template>
 
 <script>
-    import { reactive, onMounted } from 'vue'
-    import { useRouter } from 'vue-router'
-    import firebase from 'firebase'
+    import { reactive, onMounted }  from 'vue'
+    import { useRouter }            from 'vue-router'
+    import firebase                 from 'firebase'
 
     export default {
         setup() {

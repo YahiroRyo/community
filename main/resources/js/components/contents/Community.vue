@@ -37,22 +37,20 @@
 
 <script>
     import { reactive, onMounted, ref } from 'vue'
-    import { useStore } from 'vuex'
-    import { post } from '../../post.js'
-    import { createAlert, alert } from '../../alert.js'
-    import Post from '../Post.vue'
+    import { createAlert, alert }       from '../../alert.js'
+    import { useStore }                 from 'vuex'
+    import { post }                     from '../../post.js'
+    import Post                         from '../Post.vue'
 
     export default {
-        components: {
-            Post,
-        },
+        components: { Post },
         setup() {
             const data = reactive({
                 store: useStore(),
                 post: {
-                    objects: [],
-                    content: '',
-                    images: [],
+                    objects:    [],
+                    content:    '',
+                    images:     [],
                 },
             })
             const inputFileElement = ref(null)

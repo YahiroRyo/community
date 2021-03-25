@@ -11,11 +11,11 @@
 </template>
 
 <script>
-    import { reactive, onMounted }  from 'vue'
-    import { useStore }             from 'vuex'
-    import { useRouter }            from 'vue-router'
-    import { notNormalTokenAlert }  from '../../alert.js'
-    import firebase                 from 'firebase'
+    import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
+    import { reactive, onMounted }                      from 'vue'
+    import { useStore }                                 from 'vuex'
+    import { useRouter }                                from 'vue-router'
+    import firebase                                     from 'firebase'
     
     export default {
         setup() {
@@ -34,6 +34,8 @@
             const login = async() => {
                 await firebase.auth().signInWithEmailAndPassword(data.form.email.content, data.form.password.content)
                 .then(() => {
+                    createAlert(new alert('ログインしました。', 0))
+                    data.router.push('/')
                 })
                 .catch(() => {
                     createAlert(new alert('ログインに失敗しました。', 2))

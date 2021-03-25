@@ -24,21 +24,21 @@ import { store } from './store'
 
 const displayWindow = (currentComponent) => {
     store.state.window.currentComponent = currentComponent
-    store.state.window.use = true
+    store.state.window.use              = true
 }
 const createWindow = (title = 'タイトルが設定されていません', width = 500, height = 500) => {
-    store.state.window.title = title
-    store.state.window.width = width
-    store.state.window.height = height
+    store.state.window.title    = title
+    store.state.window.width    = width
+    store.state.window.height   = height
 }
 const closeWindow = () => { store.state.window.use = false }
-const setOpenFunction = (func = null) => { store.state.window.functions.open = func }
-const setCloseFunction = (func = null) => { store.state.window.functions.close = func }
+const setOpenFunction   = (func = null) => { store.state.window.functions.open = func }
+const setCloseFunction  = (func = null) => { store.state.window.functions.close = func }
 
 export {
-    createWindow,
-    displayWindow,
-    setOpenFunction,
     setCloseFunction,
+    setOpenFunction,
+    displayWindow,
+    createWindow,
     closeWindow,
 }

@@ -1,8 +1,8 @@
-import { createApp } from 'vue'
-import { store } from './store'
-import { router } from './router'
-import App from './App.vue'
-import firebase from 'firebase'
+import { createApp }  from 'vue'
+import { router }     from './router'
+import { store }      from './store'
+import firebase       from 'firebase'
+import App            from './App.vue'
 
 const firebaseConfig = {
   apiKey: "AIzaSyCEG7R9qdyrIGJSCKSY8mDtXTruotAwJNA",

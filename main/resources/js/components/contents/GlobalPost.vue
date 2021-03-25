@@ -16,9 +16,9 @@
 </template>
 
 <script>
-    import { reactive, onMounted } from 'vue'
-    import { post } from '../../post.js'
-    import Post from '../Post.vue'
+    import { reactive, onMounted }  from 'vue'
+    import { post }                 from '../../post.js'
+    import Post                     from '../Post.vue'
 
     export default {
         components: { Post, },

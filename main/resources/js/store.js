@@ -5,25 +5,25 @@ export const store = createStore({
       return {
         // 変数の説明についてはalert.jsの一行目から参照
         alert: {
-          object: null,
-          waitIntervals: [],
+          waitIntervals:  [],
+          object:         null,
         },
         user: {
-          isLogin: false,
-          profileUpdate: false,
-          userName: '',
+          profileUpdate:  false,
+          userName:       '',
+          isLogin:        false,
         },
         // 変数の説明についてはwindow.jsの一行目から参照
         window: {
           currentComponent: 0,
-          title: 'タイトルが設定されていません',
-          width: 500,
-          height: 500,
-          use: false,
           functions: {
-            close: null,
-            open: null,
-          }
+            close:  null,
+            open:   null,
+          },
+          title:            'タイトルが設定されていません',
+          width:            500,
+          height:           500,
+          use:              false,
         },
       }
     },
