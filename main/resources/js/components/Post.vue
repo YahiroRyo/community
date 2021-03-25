@@ -6,9 +6,9 @@
         </div>
         <p class="post__font">***REMOVED******REMOVED***content***REMOVED******REMOVED***</p>
         <div class="post__flex">
-            <button @click="sendGood(sendGoodKey)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
+            <button @click="sendGood(sendKey)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
             <p class="post__status">***REMOVED******REMOVED***goodNum***REMOVED******REMOVED***</p>
-            <button class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
+            <button @click="$store.state.post.toResponcePostId = postId; displayWindow(4);" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
             <p class="post__status">***REMOVED******REMOVED***responceNum***REMOVED******REMOVED***</p>
             <button @click="" class="post__btn-display-responce">返信を表示する</button>
         </div>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import ***REMOVED*** displayWindow ***REMOVED*** from '../window'
+
     export default ***REMOVED***
         props: ***REMOVED***
             name: ***REMOVED***
@@ -27,11 +29,15 @@
                 required:   true,
             ***REMOVED***,
             responceNum:    ***REMOVED*** type: Number, ***REMOVED***,
-            sendGoodKey:    ***REMOVED*** type: Number, ***REMOVED***,
             sendGood:       ***REMOVED*** type: Function, ***REMOVED***,
+            sendKey:        ***REMOVED*** type: Number, ***REMOVED***,
             content:        ***REMOVED*** type: String, ***REMOVED***,
             goodNum:        ***REMOVED*** type: Number, ***REMOVED***,
+            postId:         ***REMOVED*** type: Number, ***REMOVED***,
             isGood:         ***REMOVED*** type: Boolean, ***REMOVED***,
         ***REMOVED***,
+        setup() ***REMOVED***
+            return ***REMOVED*** displayWindow ***REMOVED***
+        ***REMOVED***
     ***REMOVED***
 </script>
