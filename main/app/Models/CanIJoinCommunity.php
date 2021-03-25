@@ -9,7 +9,7 @@ use App\Models\UserInfo;
 
 class CanIJoinCommunity extends Model
 {
-    public $timestamps = false;
+    public $timestamps  = false;
     protected $fillable = [
         'bell_id',
         'user_id',
