@@ -25,6 +25,9 @@ export const store = createStore(***REMOVED***
           height:           500,
           use:              false,
         ***REMOVED***,
+        post: ***REMOVED***
+          toResponcePostId: null,
+        ***REMOVED***
       ***REMOVED***
     ***REMOVED***,
   ***REMOVED***)
