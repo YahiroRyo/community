@@ -90,6 +90,7 @@
                         <Modules v-else-if="$store.state.window.currentComponent === 1" />
                         <CreatePost v-else-if="$store.state.window.currentComponent === 2" />
                         <Bell v-else-if="$store.state.window.currentComponent === 3" />
+                        <CreateResponcePost v-else-if="$store.state.window.currentComponent === 4" />
                     </div>
                 </div>
             </transition>
@@ -139,10 +140,11 @@
     import axios                                from 'axios'
 
     /* ---------------コンポーネントインポート--------------- */
-    import WindowExample    from './components/window/WindowExampleComponent.vue'
-    import CreatePost       from './components/window/CreatePost.vue'
-    import Modules          from './components/window/Modules.vue'
-    import Bell             from './components/window/Bell.vue'
+    import CreateResponcePost   from './components/window/CreateResponcePost.vue'
+    import WindowExample        from './components/window/WindowExampleComponent.vue'
+    import CreatePost           from './components/window/CreatePost.vue'
+    import Modules              from './components/window/Modules.vue'
+    import Bell                 from './components/window/Bell.vue'
 
     export default {
         components:{
@@ -150,9 +152,10 @@
 
 
             /* ---------------Window用コンポーネント--------------- */
+            CreateResponcePost,
             WindowExample,
-            Modules,
             CreatePost,
+            Modules,
             Bell,
         },
         setup() {
