@@ -24,10 +24,12 @@
     // ・文字数は200字まで
     // ・画像を投稿できるのは4枚まで
 
-    import { createWindow, closeWindow }        from '../../window.js'
-    import { reactive, onMounted, ref }         from 'vue'
-    import { createAlert, alert }               from '../../alert.js'
-    import { useStore }                         from 'vuex';
+    import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
+    import { createWindow, closeWindow }                from '../../window.js'
+    import { reactive, onMounted, ref }                 from 'vue'
+    import { getUidAndToken }                           from '../../supportFirebase.js'
+    import { useStore }                                 from 'vuex'
+    import axios                                        from 'axios'
 
     export default {
         setup() {
@@ -40,9 +42,26 @@
                     images:     [],
                 },
             })
-            const createPost = () => {
-                /* ---------------TODO: サーバーに投稿内容を投げるajax処理を実装--------------- */
-                closeWindow()
+            const createPost = async() => {
+                const user = await getUidAndToken()
+                const createPostInfos = {
+                    content:    data.post.content,
+                    token:      user.token,
+                    uid:        user.uid,
+                }
+                axios.post('/api/post/create-post', createPostInfos)
+                .then((responce) => {
+                    if (responce.data.isNormalToken) {
+                        if (responce.data.isCreatePost) {
+                            createAlert(new alert('投稿をしました。', 0))
+                        } else {
+                            createAlert(new alert('投稿をすることができませんでした。', 2))
+                        }
+                    } else {
+                        notNormalTokenAlert()
+                    }
+                    closeWindow()
+                })
             }
             const selectMedia = () => {
                 // 閉じた際に、clickするとnullをクリックした判定になるため、nullじゃないかチェック
