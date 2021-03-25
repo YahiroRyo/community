@@ -8,7 +8,8 @@
                 :goodNum="post.goodNum"
                 :responceNum="post.responceNum"
                 :sendGood="sendGood"
-                :sendGoodKey="key"
+                :sendKey="key"
+                :postId="post.postId"
                 :isGood="post.isGood"
             />
         </template>
@@ -68,7 +69,6 @@
                     }
                     axios.get('/api/get/global-posts', globalPostsInfos)
                     .then((responce) => {
-                        console.log(responce)
                         data.post.gotNum += data.post.take
                         if (data.post.take > responce.data.length)
                             data.post.cantGetPosts = true
@@ -80,7 +80,7 @@
                                     obj.content,
                                     obj.is_great_post.length > 0,
                                     obj.great_post_num.length,
-                                    0,
+                                    obj.responce_num.length,
                                     obj.id,
                                 )
                             )
