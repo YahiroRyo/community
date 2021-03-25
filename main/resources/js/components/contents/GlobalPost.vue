@@ -16,12 +16,13 @@
 </template>
 
 <script>
-    import { addPageEvent, removeAtAllFunc }    from '../../page.js'
-    import { reactive, onMounted }              from 'vue'
-    import { getUidAndToken }                   from '../../supportFirebase.js'
-    import { post }                             from '../../post.js'
-    import axios                                from 'axios'
-    import Post                                 from '../Post.vue'
+    import { alert, createAlert, notNormalTokenAlert }  from '../../alert'
+    import { addPageEvent, removeAtAllFunc }            from '../../page.js'
+    import { reactive, onMounted }                      from 'vue'
+    import { getUidAndToken }                           from '../../supportFirebase.js'
+    import { post }                                     from '../../post.js'
+    import axios                                        from 'axios'
+    import Post                                         from '../Post.vue'
 
     export default {
         components: { Post, },
@@ -34,9 +35,26 @@
                     take:           50,
                 }
             })
-            const sendGood = (key) => {
-                data.post.objects[key].isGood = !data.post.objects[key].isGood
-                data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
+            const sendGood = async(key) => {
+                const user = await getUidAndToken()
+                const greatPostInfos = {
+                    postId: data.post.objects[key].postId,
+                    token:  user.token,
+                    uid:    user.uid,
+                }
+                axios.post('/api/post/great-post', greatPostInfos)
+                .then((responce) => {
+                    if (responce.data.isNormalToken) {
+                        if (responce.data.isGreat) {
+                            data.post.objects[key].isGood = !data.post.objects[key].isGood
+                            data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
+                        } else {
+                            createAlert(new alert('いいねすることができませんでした。', 2))
+                        }
+                    } else {
+                        notNormalTokenAlert()
+                    }
+                })
             }
             const getPosts = async() => {
                 if (!data.post.cantGetPosts) {
@@ -60,9 +78,10 @@
                                     obj.user_info.name,
                                     obj.user_info.user_name,
                                     obj.content,
-                                    false,
+                                    obj.is_great_post.length > 0,
+                                    obj.great_post_num.length,
                                     0,
-                                    0,
+                                    obj.id,
                                 )
                             )
                         })
