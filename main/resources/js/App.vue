@@ -130,19 +130,19 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, watch, onMounted ***REMOVED***      from 'vue'
-    import ***REMOVED*** useStore ***REMOVED***             from 'vuex'
-    import ***REMOVED*** useRouter, useRoute ***REMOVED***  from 'vue-router'
-    import ***REMOVED*** displayWindow ***REMOVED***        from './window'
-    import ***REMOVED*** alert, createAlert ***REMOVED***   from './alert'
-    import firebase from 'firebase'
-    import axios from 'axios'
+    import ***REMOVED*** reactive, watch, onMounted ***REMOVED***       from 'vue'
+    import ***REMOVED*** useRouter, useRoute ***REMOVED***              from 'vue-router'
+    import ***REMOVED*** alert, createAlert ***REMOVED***               from './alert'
+    import ***REMOVED*** displayWindow ***REMOVED***                    from './window'
+    import ***REMOVED*** useStore ***REMOVED***                         from 'vuex'
+    import firebase                             from 'firebase'
+    import axios                                from 'axios'
 
     /* ---------------コンポーネントインポート--------------- */
-    import WindowExample from './components/window/WindowExampleComponent.vue'
-    import Modules from './components/window/Modules.vue'
-    import CreatePost from './components/window/CreatePost.vue'
-    import Bell from './components/window/Bell.vue'
+    import WindowExample    from './components/window/WindowExampleComponent.vue'
+    import CreatePost       from './components/window/CreatePost.vue'
+    import Modules          from './components/window/Modules.vue'
+    import Bell             from './components/window/Bell.vue'
 
     export default ***REMOVED***
         components:***REMOVED***
@@ -157,18 +157,18 @@
         ***REMOVED***,
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
-                store: useStore(),
                 router: useRouter(),
-                route: useRoute(),
+                store:  useStore(),
+                route:  useRoute(),
                 window: ***REMOVED***
-                    contentHeight: 0,
+                    contentHeight:  0,
                     isClickOutSize: false,
                 ***REMOVED***,
                 menu: ***REMOVED***
-                    home: ***REMOVED*** isHover: false, ***REMOVED***,
-                    profile: ***REMOVED*** isHover: false, userName: '', ***REMOVED***,
-                    communities: ***REMOVED*** isHover: false, ***REMOVED***,
-                    contact: ***REMOVED*** isHover: false, ***REMOVED***,
+                    communities:    ***REMOVED*** isHover: false, ***REMOVED***,
+                    profile:        ***REMOVED*** isHover: false, userName: '', ***REMOVED***,
+                    contact:    ***REMOVED*** isHover: false, ***REMOVED***,
+                    home:           ***REMOVED*** isHover: false, ***REMOVED***,
                 ***REMOVED***,
                 testTrigger: false,
             ***REMOVED***)
@@ -212,7 +212,7 @@
             watch(() => data.store.state.user.profileUpdate, () => ***REMOVED***
                 if (data.store.state.user.profileUpdate) ***REMOVED***
                     data.store.state.user.profileUpdate = false
-                    data.menu.profile.userName = data.store.state.user.userName
+                    data.menu.profile.userName          = data.store.state.user.userName
                 ***REMOVED***
             ***REMOVED***)
             onMounted(async() => ***REMOVED***
@@ -221,8 +221,8 @@
                         const myUserDataInfos = ***REMOVED*** params: ***REMOVED*** uid: user.uid, ***REMOVED*** ***REMOVED***
                         await axios.get('/api/get/my-user-data', myUserDataInfos)
                         .then((responce) => ***REMOVED***
-                            data.menu.profile.userName = responce.data.user_name
-                            data.store.state.user.userName = responce.data.user_name
+                            data.menu.profile.userName      = responce.data.user_name
+                            data.store.state.user.userName  = responce.data.user_name
                         ***REMOVED***)
                     ***REMOVED***
                 ***REMOVED***)

@@ -25,12 +25,12 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted, onUpdated ***REMOVED*** from 'vue'
-    import ***REMOVED*** useStore ***REMOVED*** from 'vuex'
-    import ***REMOVED*** useRouter, useRoute ***REMOVED*** from 'vue-router'
-    import ***REMOVED*** post ***REMOVED*** from '../../post.js'
-    import axios from 'axios'
-    import Post from '../Post.vue'
+    import ***REMOVED*** reactive, onMounted, onUpdated ***REMOVED***   from 'vue'
+    import ***REMOVED*** useRouter, useRoute ***REMOVED***              from 'vue-router'
+    import ***REMOVED*** useStore ***REMOVED***                         from 'vuex'
+    import ***REMOVED*** post ***REMOVED***                             from '../../post.js'
+    import axios                                from 'axios'
+    import Post                                 from '../Post.vue'
 
     export default ***REMOVED***
         components: ***REMOVED***
@@ -40,9 +40,9 @@
             const data = reactive(***REMOVED***
                 route: useRoute(),
                 user: ***REMOVED***
-                    name: '',
-                    userName: '',
-                    intro: '',
+                    name:       '',
+                    userName:   '',
+                    intro:      '',
                 ***REMOVED***,
                 post: ***REMOVED***
                     objects: [],
@@ -60,9 +60,9 @@
                 ***REMOVED***
                 axios.get('/api/get/user-profile', userProfileInfos)
                 .then((responce) => ***REMOVED***
-                    data.user.name = responce.data.name
-                    data.user.userName = responce.data.user_name
-                    data.user.intro = responce.data.intro
+                    data.user.name      = responce.data.name
+                    data.user.userName  = responce.data.user_name
+                    data.user.intro     = responce.data.intro
                 ***REMOVED***)
                 .catch(() => ***REMOVED***
                    createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))

@@ -2,9 +2,9 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
-    import ***REMOVED*** useRouter ***REMOVED*** from 'vue-router'
-    import firebase from 'firebase'
+    import ***REMOVED*** reactive, onMounted ***REMOVED***  from 'vue'
+    import ***REMOVED*** useRouter ***REMOVED***            from 'vue-router'
+    import firebase                 from 'firebase'
 
     export default ***REMOVED***
         setup() ***REMOVED***

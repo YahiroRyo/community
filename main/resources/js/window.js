@@ -24,21 +24,21 @@ import ***REMOVED*** store ***REMOVED*** from './store'
 
 const displayWindow = (currentComponent) => ***REMOVED***
     store.state.window.currentComponent = currentComponent
-    store.state.window.use = true
+    store.state.window.use              = true
 ***REMOVED***
 const createWindow = (title = 'タイトルが設定されていません', width = 500, height = 500) => ***REMOVED***
-    store.state.window.title = title
-    store.state.window.width = width
-    store.state.window.height = height
+    store.state.window.title    = title
+    store.state.window.width    = width
+    store.state.window.height   = height
 ***REMOVED***
 const closeWindow = () => ***REMOVED*** store.state.window.use = false ***REMOVED***
-const setOpenFunction = (func = null) => ***REMOVED*** store.state.window.functions.open = func ***REMOVED***
-const setCloseFunction = (func = null) => ***REMOVED*** store.state.window.functions.close = func ***REMOVED***
+const setOpenFunction   = (func = null) => ***REMOVED*** store.state.window.functions.open = func ***REMOVED***
+const setCloseFunction  = (func = null) => ***REMOVED*** store.state.window.functions.close = func ***REMOVED***
 
 export ***REMOVED***
-    createWindow,
-    displayWindow,
-    setOpenFunction,
     setCloseFunction,
+    setOpenFunction,
+    displayWindow,
+    createWindow,
     closeWindow,
 ***REMOVED***

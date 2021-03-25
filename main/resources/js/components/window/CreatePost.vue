@@ -24,8 +24,8 @@
     // ・文字数は200字まで
     // ・画像を投稿できるのは4枚まで
 
-    import ***REMOVED*** reactive, onMounted, ref ***REMOVED***         from 'vue'
     import ***REMOVED*** createWindow, closeWindow ***REMOVED***        from '../../window.js'
+    import ***REMOVED*** reactive, onMounted, ref ***REMOVED***         from 'vue'
     import ***REMOVED*** createAlert, alert ***REMOVED***               from '../../alert.js'
     import ***REMOVED*** useStore ***REMOVED***                         from 'vuex';
 
@@ -36,8 +36,8 @@
             const data = reactive(***REMOVED***
                 store: useStore(),
                 post: ***REMOVED***
-                    content: '',
-                    images: [],
+                    content:    '',
+                    images:     [],
                 ***REMOVED***,
             ***REMOVED***)
             const createPost = () => ***REMOVED***

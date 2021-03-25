@@ -16,8 +16,8 @@
 // object:          alertのオブジェクトを代入
 // waitIntervals:   alertを監視しているIntervalの戻り値を格納
 
-import ***REMOVED*** store ***REMOVED*** from './store'
-import ***REMOVED*** router ***REMOVED*** from './router'
+import ***REMOVED*** router ***REMOVED***   from './router'
+import ***REMOVED*** store ***REMOVED***    from './store'
 
 class alert ***REMOVED***
     constructor(content, type) ***REMOVED***

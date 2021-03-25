@@ -16,9 +16,9 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted ***REMOVED*** from 'vue'
-    import ***REMOVED*** post ***REMOVED*** from '../../post.js'
-    import Post from '../Post.vue'
+    import ***REMOVED*** reactive, onMounted ***REMOVED***  from 'vue'
+    import ***REMOVED*** post ***REMOVED***                 from '../../post.js'
+    import Post                     from '../Post.vue'
 
     export default ***REMOVED***
         components: ***REMOVED*** Post, ***REMOVED***,

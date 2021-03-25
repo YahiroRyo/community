@@ -11,11 +11,11 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted ***REMOVED***  from 'vue'
-    import ***REMOVED*** useStore ***REMOVED***             from 'vuex'
-    import ***REMOVED*** useRouter ***REMOVED***            from 'vue-router'
-    import ***REMOVED*** notNormalTokenAlert ***REMOVED***  from '../../alert.js'
-    import firebase                 from 'firebase'
+    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
+    import ***REMOVED*** reactive, onMounted ***REMOVED***                      from 'vue'
+    import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
+    import ***REMOVED*** useRouter ***REMOVED***                                from 'vue-router'
+    import firebase                                     from 'firebase'
     
     export default ***REMOVED***
         setup() ***REMOVED***
@@ -34,6 +34,8 @@
             const login = async() => ***REMOVED***
                 await firebase.auth().signInWithEmailAndPassword(data.form.email.content, data.form.password.content)
                 .then(() => ***REMOVED***
+                    createAlert(new alert('ログインしました。', 0))
+                    data.router.push('/')
                 ***REMOVED***)
                 .catch(() => ***REMOVED***
                     createAlert(new alert('ログインに失敗しました。', 2))

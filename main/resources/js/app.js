@@ -1,8 +1,8 @@
-import ***REMOVED*** createApp ***REMOVED*** from 'vue'
-import ***REMOVED*** store ***REMOVED*** from './store'
-import ***REMOVED*** router ***REMOVED*** from './router'
-import App from './App.vue'
-import firebase from 'firebase'
+import ***REMOVED*** createApp ***REMOVED***  from 'vue'
+import ***REMOVED*** router ***REMOVED***     from './router'
+import ***REMOVED*** store ***REMOVED***      from './store'
+import firebase       from 'firebase'
+import App            from './App.vue'
 
 const firebaseConfig = ***REMOVED***
   apiKey: "AIzaSyCEG7R9qdyrIGJSCKSY8mDtXTruotAwJNA",

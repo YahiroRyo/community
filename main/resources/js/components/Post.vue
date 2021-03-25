@@ -19,19 +19,19 @@
     export default ***REMOVED***
         props: ***REMOVED***
             name: ***REMOVED***
-                type: String,
-                required: true,
+                type:       String,
+                required:   true,
             ***REMOVED***,
             userName: ***REMOVED***
-                type: String,
-                required: true,
+                type:       String,
+                required:   true,
             ***REMOVED***,
-            content: ***REMOVED*** type: String, ***REMOVED***,
-            goodNum: ***REMOVED*** type: Number, ***REMOVED***,
-            responceNum: ***REMOVED*** type: Number, ***REMOVED***,
-            isGood: ***REMOVED*** type: Boolean, ***REMOVED***,
-            sendGood: ***REMOVED*** type: Function, ***REMOVED***,
-            sendGoodKey: ***REMOVED*** type: Number, ***REMOVED***,
+            responceNum:    ***REMOVED*** type: Number, ***REMOVED***,
+            sendGoodKey:    ***REMOVED*** type: Number, ***REMOVED***,
+            sendGood:       ***REMOVED*** type: Function, ***REMOVED***,
+            content:        ***REMOVED*** type: String, ***REMOVED***,
+            goodNum:        ***REMOVED*** type: Number, ***REMOVED***,
+            isGood:         ***REMOVED*** type: Boolean, ***REMOVED***,
         ***REMOVED***,
     ***REMOVED***
 </script>

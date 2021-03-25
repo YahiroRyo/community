@@ -37,22 +37,20 @@
 
 <script>
     import ***REMOVED*** reactive, onMounted, ref ***REMOVED*** from 'vue'
-    import ***REMOVED*** useStore ***REMOVED*** from 'vuex'
-    import ***REMOVED*** post ***REMOVED*** from '../../post.js'
-    import ***REMOVED*** createAlert, alert ***REMOVED*** from '../../alert.js'
-    import Post from '../Post.vue'
+    import ***REMOVED*** createAlert, alert ***REMOVED***       from '../../alert.js'
+    import ***REMOVED*** useStore ***REMOVED***                 from 'vuex'
+    import ***REMOVED*** post ***REMOVED***                     from '../../post.js'
+    import Post                         from '../Post.vue'
 
     export default ***REMOVED***
-        components: ***REMOVED***
-            Post,
-        ***REMOVED***,
+        components: ***REMOVED*** Post ***REMOVED***,
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
                 store: useStore(),
                 post: ***REMOVED***
-                    objects: [],
-                    content: '',
-                    images: [],
+                    objects:    [],
+                    content:    '',
+                    images:     [],
                 ***REMOVED***,
             ***REMOVED***)
             const inputFileElement = ref(null)
