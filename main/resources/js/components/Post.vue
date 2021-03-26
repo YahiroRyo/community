@@ -10,13 +10,15 @@
             <p class="post__status">***REMOVED******REMOVED***goodNum***REMOVED******REMOVED***</p>
             <button @click="$store.state.post.toResponcePostId = postId; displayWindow(4);" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
             <p class="post__status">***REMOVED******REMOVED***responceNum***REMOVED******REMOVED***</p>
-            <button @click="" class="post__btn-display-responce">返信を表示する</button>
+            <button @click="data.router.push(`/responce/$***REMOVED***postId***REMOVED***`)" class="post__btn-display-responce">返信を表示する</button>
         </div>
     </div>
 </template>
 
 <script>
-    import ***REMOVED*** displayWindow ***REMOVED*** from '../window'
+    import ***REMOVED*** displayWindow ***REMOVED***    from '../window'
+    import ***REMOVED*** useRouter ***REMOVED***        from 'vue-router';
+    import ***REMOVED*** reactive ***REMOVED***         from 'vue';
 
     export default ***REMOVED***
         props: ***REMOVED***
@@ -37,7 +39,10 @@
             isGood:         ***REMOVED*** type: Boolean, ***REMOVED***,
         ***REMOVED***,
         setup() ***REMOVED***
-            return ***REMOVED*** displayWindow ***REMOVED***
+            const data = reactive(***REMOVED***
+                router: useRouter(),
+            ***REMOVED***)
+            return ***REMOVED*** data, displayWindow ***REMOVED***
         ***REMOVED***
     ***REMOVED***
 </script>
