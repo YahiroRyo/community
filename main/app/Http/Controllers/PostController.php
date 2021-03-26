@@ -111,6 +111,56 @@ class PostController extends Controller
             return $result;
         ***REMOVED***
     ***REMOVED***
+    public function getResponcePosts(Request $request) ***REMOVED***
+        // $request->take
+        // $request->postId
+        // $request->gotNum
+        $result = [];
+                    
+        $take   = intval($request->take);
+        $gotNum = intval($request->gotNum);
+
+        $userId = User::where('uid', $request->uid)->first()['id'];
+        if ($gotNum === 0) ***REMOVED***
+            array_push($result, Post::select(['content', 'id', 'user_id', 'post_id'])
+                ->where('id', $request->postId)
+                ->with([
+                    'userInfo' => function ($query) ***REMOVED***
+                        $query->select(['name', 'user_name', 'user_id']);
+                    ***REMOVED***,
+                    'isGreatPost' => function ($query) use ($userId) ***REMOVED***
+                        $query->where('user_id', $userId);
+                    ***REMOVED***,
+                    'greatPostNum',
+                    'responceNum' => function ($query) ***REMOVED***
+                        $query->select(['post_id']);
+                    ***REMOVED***,
+                ])
+                ->first());
+        ***REMOVED***
+        $posts = Post::select(['content', 'id', 'user_id', 'post_id'])
+                    ->whereNotNull('post_id')
+                    ->where('post_id', $request->postId)
+                    ->take($take + $gotNum)
+                    ->with([
+                        'userInfo' => function ($query) ***REMOVED***
+                            $query->select(['name', 'user_name', 'user_id']);
+                        ***REMOVED***,
+                        'isGreatPost' => function ($query) use ($userId) ***REMOVED***
+                            $query->where('user_id', $userId);
+                        ***REMOVED***,
+                        'greatPostNum',
+                        'responceNum' => function ($query) ***REMOVED***
+                            $query->select(['post_id']);
+                        ***REMOVED***,
+                    ])
+                    ->orderBy('id', 'desc')
+                    ->get();
+        for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
+            array_push($result, $posts[$i]);
+        ***REMOVED***
+        return $result;
+    ***REMOVED***
     // いいねをする
     public function greatPost(Request $request) ***REMOVED***
         // $request->uid
