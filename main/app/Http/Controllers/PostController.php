@@ -111,6 +111,56 @@ class PostController extends Controller
             return $result;
         }
     }
+    public function getResponcePosts(Request $request) {
+        // $request->take
+        // $request->postId
+        // $request->gotNum
+        $result = [];
+                    
+        $take   = intval($request->take);
+        $gotNum = intval($request->gotNum);
+
+        $userId = User::where('uid', $request->uid)->first()['id'];
+        if ($gotNum === 0) {
+            array_push($result, Post::select(['content', 'id', 'user_id', 'post_id'])
+                ->where('id', $request->postId)
+                ->with([
+                    'userInfo' => function ($query) {
+                        $query->select(['name', 'user_name', 'user_id']);
+                    },
+                    'isGreatPost' => function ($query) use ($userId) {
+                        $query->where('user_id', $userId);
+                    },
+                    'greatPostNum',
+                    'responceNum' => function ($query) {
+                        $query->select(['post_id']);
+                    },
+                ])
+                ->first());
+        }
+        $posts = Post::select(['content', 'id', 'user_id', 'post_id'])
+                    ->whereNotNull('post_id')
+                    ->where('post_id', $request->postId)
+                    ->take($take + $gotNum)
+                    ->with([
+                        'userInfo' => function ($query) {
+                            $query->select(['name', 'user_name', 'user_id']);
+                        },
+                        'isGreatPost' => function ($query) use ($userId) {
+                            $query->where('user_id', $userId);
+                        },
+                        'greatPostNum',
+                        'responceNum' => function ($query) {
+                            $query->select(['post_id']);
+                        },
+                    ])
+                    ->orderBy('id', 'desc')
+                    ->get();
+        for ($i = $gotNum; $i < count($posts); $i++) {
+            array_push($result, $posts[$i]);
+        }
+        return $result;
+    }
     // いいねをする
     public function greatPost(Request $request) {
         // $request->uid
