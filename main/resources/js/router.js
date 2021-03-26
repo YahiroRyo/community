@@ -2,6 +2,7 @@
 
 import ***REMOVED*** createRouter, createWebHistory***REMOVED***    from 'vue-router'
 import GlobalPost                           from './components/contents/GlobalPost.vue'
+import ShowResponce                         from './components/contents/ShowResponce.vue'
 import Login                                from './components/contents/Login.vue'
 import Logout                               from './components/contents/Logout.vue'
 import Register                             from './components/contents/Register.vue'
@@ -18,6 +19,11 @@ export const router = createRouter(***REMOVED***
             path: '/',
             name: 'global-post',
             component: GlobalPost,
+        ***REMOVED***,
+        ***REMOVED***
+            path: '/responce/:postId',
+            name: 'responce',
+            component: ShowResponce,
         ***REMOVED***,
         ***REMOVED***
             path: '/login',
