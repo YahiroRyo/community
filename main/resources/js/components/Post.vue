@@ -10,13 +10,15 @@
             <p class="post__status">{{goodNum}}</p>
             <button @click="$store.state.post.toResponcePostId = postId; displayWindow(4);" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
             <p class="post__status">{{responceNum}}</p>
-            <button @click="" class="post__btn-display-responce">返信を表示する</button>
+            <button @click="data.router.push(`/responce/${postId}`)" class="post__btn-display-responce">返信を表示する</button>
         </div>
     </div>
 </template>
 
 <script>
-    import { displayWindow } from '../window'
+    import { displayWindow }    from '../window'
+    import { useRouter }        from 'vue-router';
+    import { reactive }         from 'vue';
 
     export default {
         props: {
@@ -37,7 +39,10 @@
             isGood:         { type: Boolean, },
         },
         setup() {
-            return { displayWindow }
+            const data = reactive({
+                router: useRouter(),
+            })
+            return { data, displayWindow }
         }
     }
 </script>
