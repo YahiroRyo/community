@@ -37,8 +37,8 @@ class CommunityController extends Controller
         // $request->name
         // $request->description
         if ($this->isNormalToken($request->token)) ***REMOVED***
-            $userId = User::where('uid', $request->uid)->first()['id'];
             try ***REMOVED***
+                $userId = User::where('uid', $request->uid)->first()['id'];
                 $community = new Community;
                 $community->fill([
                     'user_id' => $userId,
@@ -72,21 +72,28 @@ class CommunityController extends Controller
             
             $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
-            $userId = User::where('uid', $request->uid)->first()['id'];
-            $communities = Community::select(['id', 'name', 'description'])
-                                    ->with([
-                                        'isJoiningCommunity' => function ($query) use ($userId) ***REMOVED***
-                                            $query->where('user_id', $userId)
-                                                    ->get();
-                                        ***REMOVED***,
-                                        'canIJoinCommunity' => function ($query) use ($userId) ***REMOVED***
-                                            $query->select(['community_id'])
-                                                    ->where('user_id', $userId)
-                                                    ->get();
-                                        ***REMOVED***
-                                    ])->take($take + $gotNum)
-                                    ->orderBy('id', 'desc')
-                                    ->get();
+            try ***REMOVED***
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $communities = Community::select(['id', 'name', 'description'])
+                                        ->with([
+                                            'isJoiningCommunity' => function ($query) use ($userId) ***REMOVED***
+                                                $query->where('user_id', $userId)
+                                                        ->get();
+                                            ***REMOVED***,
+                                            'canIJoinCommunity' => function ($query) use ($userId) ***REMOVED***
+                                                $query->select(['community_id'])
+                                                        ->where('user_id', $userId)
+                                                        ->get();
+                                            ***REMOVED***
+                                        ])->take($take + $gotNum)
+                                        ->orderBy('id', 'desc')
+                                        ->get();
+            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                return [
+                    'isGetCommunities' => false,
+                    'communities' => null
+                ];
+            ***REMOVED***
             for ($i = $gotNum; $i < count($communities); $i++) ***REMOVED***
                 array_push($result, $communities[$i]);
             ***REMOVED***
@@ -94,6 +101,7 @@ class CommunityController extends Controller
         ***REMOVED*** else ***REMOVED***
             return [
                 'isGetCommunities' => false,
+                'communities' => null,
             ];
         ***REMOVED***
     ***REMOVED***
@@ -103,15 +111,25 @@ class CommunityController extends Controller
         // $request->token
         // $request->communityId
         if ($this->isNormalToken($request->token)) ***REMOVED***
-            $founderUserId  = Community::where('id', $request->communityId)
-                                        ->first()['user_id'];
-            $userId         = User::where('uid', $request->uid)
-                                        ->first()['id'];
-            // すでに加入申請がされていた場合
-            $canIJoinCommunity = CanIJoinCommunity::where('user_id', $userId)
-                                                    ->where('community_id', $request->communityId)
-                                                    ->first();
-            if ($canIJoinCommunity === null) ***REMOVED***
+            $founderUserId;
+            $canIJoinCommunity;
+            $userId;
+            try ***REMOVED***
+                $founderUserId  = Community::where('id', $request->communityId)
+                                            ->first()['user_id'];
+                $userId         = User::where('uid', $request->uid)
+                                            ->first()['id'];
+                // すでに加入申請がされていた場合
+                $canIJoinCommunity = CanIJoinCommunity::where('user_id', $userId)
+                                                        ->where('community_id', $request->communityId)
+                                                        ->exist();
+            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                return [
+                    'isNormalToken' => true,
+                    'isCanIJoinCommunity' => false,
+                ];
+            ***REMOVED***
+            if (!$canIJoinCommunity) ***REMOVED***
                 $bellId;    // bellIdをcanIJoinCommunityで使用するため定義
                 DB::beginTransaction();
                 try ***REMOVED***

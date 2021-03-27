@@ -34,22 +34,23 @@ class PostController extends Controller
         // $request->token
         // $request->content
         if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) ***REMOVED***
-            $userId = User::where('uid', $request->uid)->first()['id'];
-            $post = new Post;
-            $post->fill([
-                'user_id' => $userId,
-                'post_id' => null,
-                'content' => $request->content,
-            ]);
-            $post->save();
+            try ***REMOVED***
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $post = new Post;
+                $post->fill([
+                    'user_id' => $userId,
+                    'post_id' => null,
+                    'content' => $request->content,
+                ]);
+                $post->save();
+            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                return [
+                    'isNormalToken' => true,
+                    'isCreatePost' => false,
+                ];
+            ***REMOVED***
             return [
-                'isNormalToken' => true,
-                'isCreatePost' => true,
-            ];
-        ***REMOVED*** else ***REMOVED***
-            return [
-                'isNormalToken' => false,
-                'isCreatePost' => false,
+                'isNor$userIdisCreatePost' => false,
             ];
         ***REMOVED***
     ***REMOVED***
@@ -60,14 +61,21 @@ class PostController extends Controller
         // $request->postId
         // $request->content
         if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) ***REMOVED***
-            $userId = User::where('uid', $request->uid)->first()['id'];
-            $post = new Post;
-            $post->fill([
-                'user_id' => $userId,
-                'post_id' => $request->postId,
-                'content' => $request->content,
-            ]);
-            $post->save();
+            try ***REMOVED***
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $post = new Post;
+                $post->fill([
+                    'user_id' => $userId,
+                    'post_id' => $request->postId,
+                    'content' => $request->content,
+                ]);
+                $post->save();
+            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                return [
+                    'isNormalToken' => true,
+                    'isCreateResponcePost' => false,
+                ];
+            ***REMOVED***
             return [
                 'isNormalToken' => true,
                 'isCreateResponcePost' => true,
@@ -223,21 +231,28 @@ class PostController extends Controller
         // $request->token
         // $request->postId
         if ($this->isNormalToken($request->token)) ***REMOVED***
-            $userId = User::where('uid', $request->uid)->first()['id'];
-            $isGreatExists = Great::where('user_id', $userId)
-                                    ->where('post_id',$request->postId)
-                                    ->exists();
-            if ($isGreatExists) ***REMOVED***
-                Great::where('user_id', $userId)
-                        ->where('post_id',$request->postId)
-                        ->delete();
-            ***REMOVED*** else ***REMOVED***
-                $great = new Great;
-                $great->fill([
-                    'user_id' => $userId,
-                    'post_id' => $request->postId,
-                ]);
-                $great->save();
+            try ***REMOVED***
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $isGreatExists = Great::where('user_id', $userId)
+                                        ->where('post_id',$request->postId)
+                                        ->exists();
+                if ($isGreatExists) ***REMOVED***
+                    Great::where('user_id', $userId)
+                            ->where('post_id',$request->postId)
+                            ->delete();
+                ***REMOVED*** else ***REMOVED***
+                    $great = new Great;
+                    $great->fill([
+                        'user_id' => $userId,
+                        'post_id' => $request->postId,
+                    ]);
+                    $great->save();
+                ***REMOVED***
+            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                return [
+                    'isNormalToken' => true,
+                    'isGreat' => false,
+                ];
             ***REMOVED***
             return [
                 'isNormalToken' => true,
