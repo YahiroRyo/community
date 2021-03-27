@@ -18,8 +18,8 @@ firebase.initializeApp(firebaseConfig)
 firebase.analytics()
 
 // ログインをしているか確認
-router.beforeEach(async(to, from, next) => ***REMOVED***
-  await firebase.auth().onAuthStateChanged((user) => ***REMOVED***
+router.beforeEach((to, from, next) => ***REMOVED***
+  firebase.auth().onAuthStateChanged((user) => ***REMOVED***
     if (user) ***REMOVED***
       store.state.user.isLogin = true
     ***REMOVED*** else ***REMOVED***
@@ -28,8 +28,8 @@ router.beforeEach(async(to, from, next) => ***REMOVED***
         router.push('/login')
       ***REMOVED***
     ***REMOVED***
+    next()
   ***REMOVED***)
-  next()
 ***REMOVED***)
 let app = createApp(App)
 app.use(store)
