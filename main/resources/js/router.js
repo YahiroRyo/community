@@ -85,7 +85,6 @@ const antiLoginUser = () => ***REMOVED***
     ***REMOVED***
 ***REMOVED***
 const antiNotLoginUser = () => ***REMOVED***
-    console.log("t")
     if (!store.state.user.isLogin) ***REMOVED***
         closeWindow()
         createAlert(new alert('ログインしていないためホームに戻ります。'))
