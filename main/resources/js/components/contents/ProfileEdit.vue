@@ -47,9 +47,13 @@
                     }
                     axios.get('/api/get/my-user-data', userProfileInfos)
                     .then((responce) => {
-                        data.user.name      = responce.data.name
-                        data.user.userName  = responce.data.user_name
-                        data.user.intro     = responce.data.intro
+                        if (responce.data.isGetMyUserData) {
+                            data.user.name      = responce.data.userData.name
+                            data.user.userName  = responce.data.userData.user_name
+                            data.user.intro     = responce.data.userData.intro
+                        } else {
+                            createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
+                        }
                     })
                     .catch(() => {
                         createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))

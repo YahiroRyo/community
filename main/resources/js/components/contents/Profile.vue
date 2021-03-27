@@ -20,21 +20,22 @@
                     :isGood="post.isGood"
                 />
             </template>
+            <h2 v-else-if="!data.user.isFount">このユーザーは存在しません。</h2>
             <h2 v-else>このユーザーのツイートは存在しません。</h2>
         </div>
     </div>
 </template>
 
 <script>
-    import { useRouter, useRoute, onBeforeRouteUpdate } from 'vue-router'
-    import { reactive, onMounted }                      from 'vue'
-    import { getUidAndToken }                           from '../../supportFirebase.js'
-    import { displayWindow }                            from '../../window.js'
-    import { ruseStore }                                from 'vuex'
-    import { useStore }                                 from 'vuex'
-    import { post }                                     from '../../post.js'
-    import axios                                        from 'axios'
-    import Post                                         from '../Post.vue'
+    import { useRouter, useRoute, onBeforeRouteUpdate, }    from 'vue-router'
+    import { reactive, onMounted, onBeforeMount }           from 'vue'
+    import { getUidAndToken }                               from '../../supportFirebase.js'
+    import { displayWindow }                                from '../../window.js'
+    import { ruseStore }                                    from 'vuex'
+    import { useStore }                                     from 'vuex'
+    import { post }                                         from '../../post.js'
+    import axios                                            from 'axios'
+    import Post                                             from '../Post.vue'
 
     export default {
         components: {
@@ -48,6 +49,7 @@
                     name:       '',
                     userName:   '',
                     intro:      '',
+                    isFound:    false,
                 },
                 post: {
                     cantGetPosts:   false,
@@ -81,17 +83,20 @@
                     displayWindow(5)
                 }
             }
-            const getUserData = () => {
+            const getUserData = async() => {
                 const userProfileInfos = {
                     params: {
                         'userName': data.route.params.userName,
                     },
                 }
-                axios.get('/api/get/user-profile', userProfileInfos)
+                await axios.get('/api/get/user-profile', userProfileInfos)
                 .then((responce) => {
-                    data.user.name      = responce.data.name
-                    data.user.userName  = responce.data.user_name
-                    data.user.intro     = responce.data.intro
+                    if (responce.data !== null) {
+                        data.user.name      = responce.data.name
+                        data.user.userName  = responce.data.user_name
+                        data.user.intro     = responce.data.intro
+                        data.user.isFound   = true
+                    }
                 })
                 .catch(() => {
                    createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
@@ -115,7 +120,6 @@
                     }
                     axios.get('/api/get/users-posts', usersPostsInfos)
                     .then((responce) => {
-                        console.log(responce)
                         data.post.gotNum += data.post.take
                         if (data.post.take > responce.data.length)
                             data.post.cantGetPosts = true
@@ -140,11 +144,14 @@
                 data.post.objects = []
                 data.post.gotNum = 0
                 getUserData()
-                getUsersPosts(to.params.userName)
+                if (data.user.isFound)
+                    getUsersPosts(to.params.userName)
             })
-            onMounted(() => {
-                getUserData()
-                getUsersPosts(data.route.params.userName)
+            
+            onMounted(async() => {
+                await getUserData()
+                if (data.user.isFound)
+                    getUsersPosts(data.route.params.userName)
             })
             return { data, sendGood }
         }

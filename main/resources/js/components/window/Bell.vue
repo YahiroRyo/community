@@ -60,13 +60,17 @@
                             }
                             await axios.get('/api/get/bells', bellsInfos)
                             .then((responce) => {
-                                data.bell.gotNum += data.bell.take
-                                if (responce.data.length < data.bell.take)
-                                    data.bell.cantTake = true
-                                responce.data = responce.data.filter((obj) => obj.dataForType !== null)
-                                responce.data.forEach((obj) => {
-                                    data.bell.objects.push(new bell(obj.type, obj.id, obj.dataForType))
-                                })
+                                if (responce.data.isGetBells) {
+                                    data.bell.gotNum += data.bell.take
+                                    if (responce.data.length < data.bell.take)
+                                        data.bell.cantTake = true
+                                    responce.data = responce.data.bells.filter((obj) => obj.dataForType !== null)
+                                    responce.data.forEach((obj) => {
+                                        data.bell.objects.push(new bell(obj.type, obj.id, obj.dataForType))
+                                    })
+                                } else {
+                                    createAlert(new alert('通知を取得することができませんでした。', 2))
+                                }
                             })
                         }
                     })

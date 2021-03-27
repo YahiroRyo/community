@@ -226,8 +226,10 @@
                         const myUserDataInfos = { params: { uid: user.uid, } }
                         await axios.get('/api/get/my-user-data', myUserDataInfos)
                         .then((responce) => {
-                            data.menu.profile.userName      = responce.data.user_name
-                            data.store.state.user.userName  = responce.data.user_name
+                            if (responce.data.isGetMyUserData) {
+                                data.menu.profile.userName      = responce.data.userData.user_name
+                                data.store.state.user.userName  = responce.data.userData.user_name
+                            }
                         })
                     }
                 })
