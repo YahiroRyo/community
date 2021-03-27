@@ -1,8 +1,7 @@
 <template>
     <div>
         <link rel="stylesheet" href="/css/components/createPost/createPost.css">
-        <p class="form-label-create-post">投稿内容を入力</p>
-        <textarea v-model="data.post.content" class="form form_dont-resize height-between-small-and-middle"></textarea>
+        <Form class="form" :useTextArea="true" v-model:inputContent="data.post.content" label="返信内容を入力" uniqueClassKey="1" />
         <!-- 文字数カウント -->
         <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, ***REMOVED***">***REMOVED******REMOVED***data.post.content.length***REMOVED******REMOVED*** | 200</p>
         <!-- 画像プレビュー -->
@@ -15,7 +14,7 @@
         </div>
         <button @click="selectMedia" class="create-post-btn"><img src="/images/materials/media.svg" class="create-post-btn__media-img"></button>
         <input ref="inputFileElement" @change="displayMedia" style="display: none;" type="file" accept="image/*" />
-        <button @click="createResponcePost" class="form form_btn">投稿する</button>
+        <button @click="createResponcePost" class="form__btn m-l-1">返信する</button>
     </div>
 </template>
 
@@ -26,8 +25,13 @@
     import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
     import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
     import axios                                        from 'axios'
+    /* ---------------コンポーネントをインポート--------------- */
+    import Form                                         from '../Form.vue'
 
     export default ***REMOVED***
+        components: ***REMOVED***
+            Form,
+        ***REMOVED***,
         setup() ***REMOVED***
             // ボタンを用いてファイルを選択させたいため、ファイル選択にrefを用いた。
             const inputFileElement = ref(null)

@@ -7,11 +7,13 @@
     display: flex;
     margin-top: 10px;
 ***REMOVED***
-.contact__form-label ***REMOVED***
-    font-size: 20px;
-    margin-top: 20px;
+.contact__input ***REMOVED***
+    margin-left: auto;
+    margin-right: auto;
+    width: 45%;
 ***REMOVED***
-.contact__form-input ***REMOVED***
-    @extend .form;
-    margin: 0 10px;
+.contact__textarea ***REMOVED***
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
 ***REMOVED***

@@ -3,8 +3,7 @@
         <link rel="stylesheet" href="/css/components/community/community.css">
         <!-- コミュニティで投稿する -->
         <div class="community-create-post-wapper">
-            <h1 class="community-create-post__title">コミュニティに投稿する</h1>
-            <textarea v-model="data.post.content" class="form form_dont-resize"></textarea>
+            <Form class="form" :useTextArea="true" v-model:inputContent="data.post.content" label="コミュニティに投稿する" uniqueClassKey="1" />
             <!-- 文字数カウント -->
             <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, ***REMOVED***">***REMOVED******REMOVED***data.post.content.length***REMOVED******REMOVED*** | 200</p>
             <!-- 画像プレビュー -->
@@ -17,7 +16,7 @@
             </div>
             <button @click="selectMedia" class="create-post-btn"><img src="/images/materials/media.svg" class="create-post-btn__media-img"></button>
             <input ref="inputFileElement" @change="displayMedia" style="display: none;" type="file" accept="image/*" />
-            <button disabled @click="createPost" class="form form_btn">投稿する</button>
+            <button disabled @click="createPost" class="form__btn">投稿する</button>
         </div>
         <!-- コミュニティの投稿一覧 -->
         <div v-for="(post, key) in data.post.objects" :key="key">
@@ -33,6 +32,15 @@
             />
         </div>
     </div>
+    <component is="style">
+        .form__textarea,
+        .form__textarea-wapper ***REMOVED***height: 30px !important;***REMOVED***
+        .form__textarea:focus ~ .form__label,
+        .form__textarea:valid ~ .form__label ***REMOVED***
+            transform: translateY(-25px);
+        ***REMOVED***
+        .form ***REMOVED*** margin-bottom: 20px !important; ***REMOVED***
+    </component>
 </template>
 
 <script>
@@ -41,9 +49,14 @@
     import ***REMOVED*** useStore ***REMOVED***                 from 'vuex'
     import ***REMOVED*** post ***REMOVED***                     from '../../post.js'
     import Post                         from '../Post.vue'
+    /* ---------------コンポーネントをインポート--------------- */
+    import Form                                         from '../Form.vue'
 
     export default ***REMOVED***
-        components: ***REMOVED*** Post ***REMOVED***,
+        components: ***REMOVED*** 
+            Post,
+            Form,
+        ***REMOVED***,
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
                 store: useStore(),

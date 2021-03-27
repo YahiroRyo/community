@@ -1,18 +1,15 @@
 <template>
     <div>
         <link rel="stylesheet" href="/css/components/register/register.css">
-        <h1 class="register__title">アカウント作成</h1>
-        <label class="form-label">メールアドレス</label>
-        <input class="form" v-model="data.form.email.content" placeholder="例: info@example.com">
-        <label class="form-label">名前</label>
-        <input class="form" v-model="data.form.name.content">
-        <label class="form-label">ユーザー名</label>
-        <input class="form" v-model="data.form.userName.content">
-        <label class="form-label">パスワード</label>
-        <input type="password" class="form" v-model="data.form.password.content">
-        <label class="form-label">パスワード確認</label>
-        <input type="password" class="form" v-model="data.form.confirmationPassword.content">
-        <button @click="register" class="form form_btn">登録</button>
+        <div class="form__wapper">
+            <h1 class="register__title">アカウント作成</h1>
+            <Form v-model:inputContent="data.form.email.content" class="form" label="メールアドレス" uniqueClassKey="1" />
+            <Form v-model:inputContent="data.form.name.content" class="form" label="名前" uniqueClassKey="2" />
+            <Form v-model:inputContent="data.form.userName.content" class="form" label="ユーザー名" uniqueClassKey="3" />
+            <Form v-model:inputContent="data.form.password.content" class="form" label="パスワード" uniqueClassKey="4" />
+            <Form v-model:inputContent="data.form.confirmationPassword.content" class="form" label="パスワード確認" uniqueClassKey="5" />
+            <button @click="register" class="form__btn">登録</button>
+        </div>
     </div>
 </template>
 
@@ -25,7 +22,13 @@
     import firebase                                     from 'firebase'
     import axios                                        from 'axios'
 
+    /* ---------------コンポーネントをインポート--------------- */
+    import Form                                         from '../Form.vue'
+
     export default ***REMOVED***
+        components: ***REMOVED***
+            Form,
+        ***REMOVED***,
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
                 store: useStore(),
