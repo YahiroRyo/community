@@ -8,7 +8,7 @@
         <div class="post__flex">
             <button @click="sendGood(sendKey)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
             <p class="post__status">***REMOVED******REMOVED***goodNum***REMOVED******REMOVED***</p>
-            <button @click="$store.state.post.toResponcePostId = postId; displayWindow(4);" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
+            <button @click="responceToPost()" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
             <p class="post__status">***REMOVED******REMOVED***responceNum***REMOVED******REMOVED***</p>
             <button @click="data.router.push(`/responce/$***REMOVED***postId***REMOVED***`)" class="post__btn-display-responce">返信を表示する</button>
         </div>
@@ -18,6 +18,7 @@
 <script>
     import ***REMOVED*** displayWindow ***REMOVED***    from '../window'
     import ***REMOVED*** useRouter ***REMOVED***        from 'vue-router';
+    import ***REMOVED*** useStore ***REMOVED***         from 'vuex';
     import ***REMOVED*** reactive ***REMOVED***         from 'vue';
 
     export default ***REMOVED***
@@ -38,11 +39,20 @@
             postId:         ***REMOVED*** type: Number, ***REMOVED***,
             isGood:         ***REMOVED*** type: Boolean, ***REMOVED***,
         ***REMOVED***,
-        setup() ***REMOVED***
+        setup(props) ***REMOVED***
             const data = reactive(***REMOVED***
                 router: useRouter(),
+                store:  useStore(),
             ***REMOVED***)
-            return ***REMOVED*** data, displayWindow ***REMOVED***
+            const responceToPost = () => ***REMOVED***
+                if (data.store.state.user.isLogin) ***REMOVED***
+                    data.store.state.post.toResponcePostId = props.postId
+                    displayWindow(4)
+                ***REMOVED*** else ***REMOVED***
+                    displayWindow(5)
+                ***REMOVED***
+            ***REMOVED***
+            return ***REMOVED*** data, responceToPost ***REMOVED***
         ***REMOVED***
     ***REMOVED***
 </script>
