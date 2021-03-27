@@ -85,7 +85,6 @@ const antiLoginUser = () => {
     }
 }
 const antiNotLoginUser = () => {
-    console.log("t")
     if (!store.state.user.isLogin) {
         closeWindow()
         createAlert(new alert('ログインしていないためホームに戻ります。'))
