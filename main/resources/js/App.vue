@@ -86,11 +86,12 @@
                     <!-- window__content内のコンポーネントは予め用意しておき、if文で切り替える -->
                     <div class="window__content" :style="`height: ${data.window.contentHeight}px;`">
                         <!-- 使いたいコンポーネントに番号を定義し、if文で表示させる -->
-                        <WindowExample v-if="$store.state.window.currentComponent === 0" />
-                        <Modules v-else-if="$store.state.window.currentComponent === 1" />
-                        <CreatePost v-else-if="$store.state.window.currentComponent === 2" />
-                        <Bell v-else-if="$store.state.window.currentComponent === 3" />
-                        <CreateResponcePost v-else-if="$store.state.window.currentComponent === 4" />
+                        <WindowExample          v-if="$store.state.window.currentComponent === 0" />
+                        <Modules                v-else-if="$store.state.window.currentComponent === 1" />
+                        <CreatePost             v-else-if="$store.state.window.currentComponent === 2" />
+                        <Bell                   v-else-if="$store.state.window.currentComponent === 3" />
+                        <CreateResponcePost     v-else-if="$store.state.window.currentComponent === 4" />
+                        <RequestLogin           v-else-if="$store.state.window.currentComponent === 5" />
                     </div>
                 </div>
             </transition>
@@ -142,10 +143,10 @@
     /* ---------------コンポーネントインポート--------------- */
     import CreateResponcePost   from './components/window/CreateResponcePost.vue'
     import WindowExample        from './components/window/WindowExampleComponent.vue'
+    import RequestLogin         from './components/window/RequestLogin.vue'
     import CreatePost           from './components/window/CreatePost.vue'
     import Modules              from './components/window/Modules.vue'
     import Bell                 from './components/window/Bell.vue'
-
     export default {
         components:{
 
@@ -154,6 +155,7 @@
             /* ---------------Window用コンポーネント--------------- */
             CreateResponcePost,
             WindowExample,
+            RequestLogin,
             CreatePost,
             Modules,
             Bell,
@@ -205,10 +207,10 @@
             watch(() => data.testTrigger, () => {
                 if (data.testTrigger) {
                     //window
-                    displayWindow(0)
+                    displayWindow(5)
                     
                     //alert
-                    createAlert(new alert('alert', 0))
+                    // createAlert(new alert('alert', 0))
                     data.testTrigger = false
                 }
             })
