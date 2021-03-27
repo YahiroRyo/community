@@ -21,6 +21,8 @@
     import { addPageEvent, removeAtAllFunc }            from '../../page.js'
     import { reactive, onMounted }                      from 'vue'
     import { getUidAndToken }                           from '../../supportFirebase.js'
+    import { displayWindow }                            from '../../window.js'
+    import { useStore }                                 from 'vuex'
     import { post }                                     from '../../post.js'
     import axios                                        from 'axios'
     import Post                                         from '../Post.vue'
@@ -29,6 +31,7 @@
         components: { Post, },
         setup() {
             const data = reactive({
+                store: useStore(),
                 post: {
                     cantGetPosts:   false,
                     objects:        [],
@@ -37,29 +40,38 @@
                 }
             })
             const sendGood = async(key) => {
-                const user = await getUidAndToken()
-                const greatPostInfos = {
-                    postId: data.post.objects[key].postId,
-                    token:  user.token,
-                    uid:    user.uid,
-                }
-                axios.post('/api/post/great-post', greatPostInfos)
-                .then((responce) => {
-                    if (responce.data.isNormalToken) {
-                        if (responce.data.isGreat) {
-                            data.post.objects[key].isGood = !data.post.objects[key].isGood
-                            data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
-                        } else {
-                            createAlert(new alert('いいねすることができませんでした。', 2))
-                        }
-                    } else {
-                        notNormalTokenAlert()
+                if (data.store.state.user.isLogin) {
+                    const user = await getUidAndToken()
+                    const greatPostInfos = {
+                        postId: data.post.objects[key].postId,
+                        token:  user.token,
+                        uid:    user.uid,
                     }
-                })
+                    axios.post('/api/post/great-post', greatPostInfos)
+                    .then((responce) => {
+                        if (responce.data.isNormalToken) {
+                            if (responce.data.isGreat) {
+                                data.post.objects[key].isGood = !data.post.objects[key].isGood
+                                data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
+                            } else {
+                                createAlert(new alert('いいねすることができませんでした。', 2))
+                            }
+                        } else {
+                            notNormalTokenAlert()
+                        }
+                    })
+                } else {
+                    displayWindow(5)
+                }
             }
             const getPosts = async() => {
                 if (!data.post.cantGetPosts) {
-                    const user = await getUidAndToken()
+                    let user = {}
+                    if (data.store.state.user.isLogin) {
+                        user = await getUidAndToken()
+                    } else {
+                        user.uid = ''
+                    }
                     const globalPostsInfos = {
                         params: {
                             gotNum: data.post.gotNum,

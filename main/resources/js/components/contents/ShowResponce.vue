@@ -78,7 +78,12 @@
             }
             const getResponcePosts = async(responceFromPostId) => {
                 if (!data.post.cantGetPosts) {
-                    const user = await getUidAndToken()
+                    let user = {}
+                    if (data.store.state.user.isLogin) {
+                        user = await getUidAndToken()
+                    } else {
+                        user.uid = ''
+                    }
                     const responcePostsInfos = {
                         params: {
                             postId: responceFromPostId,
