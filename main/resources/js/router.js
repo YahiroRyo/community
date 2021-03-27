@@ -11,6 +11,7 @@ import Communities                          from './components/contents/Communit
 import Community                            from './components/contents/Community.vue'
 import Contact                              from './components/contents/Contact.vue'
 import ProfileEdit                          from './components/contents/ProfileEdit.vue'
+import Test                                 from './components/contents/Test.vue'
 
 export const router = createRouter(***REMOVED***
     history: createWebHistory(),
@@ -64,6 +65,11 @@ export const router = createRouter(***REMOVED***
             path: '/contact',
             name: 'contact',
             component: Contact,
+        ***REMOVED***,
+        ***REMOVED***
+            path: '/.test',
+            name: 'test',
+            component: Test,
         ***REMOVED***,
     ]
 ***REMOVED***)
