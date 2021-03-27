@@ -18,8 +18,8 @@ firebase.initializeApp(firebaseConfig)
 firebase.analytics()
 
 // ログインをしているか確認
-router.beforeEach(async(to, from, next) => {
-  await firebase.auth().onAuthStateChanged((user) => {
+router.beforeEach((to, from, next) => {
+  firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       store.state.user.isLogin = true
     } else {
@@ -28,8 +28,8 @@ router.beforeEach(async(to, from, next) => {
         router.push('/login')
       }
     }
+    next()
   })
-  next()
 })
 let app = createApp(App)
 app.use(store)
