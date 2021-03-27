@@ -15,7 +15,8 @@
 
 <script>
     import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***  from '../../alert'
-    import ***REMOVED*** reactive, onMounted ***REMOVED***                      from 'vue'
+    import ***REMOVED*** reactive, onMounted, onBeforeMount ***REMOVED***       from 'vue'
+    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***          from '../../router.js'
     import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
     import ***REMOVED*** useRouter ***REMOVED***                                from 'vue-router'
     import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
@@ -83,6 +84,9 @@
                     ***REMOVED***)
                 ***REMOVED***
             ***REMOVED***
+            onBeforeMount(() => ***REMOVED***
+                antiLoginUser()
+            ***REMOVED***)
             return ***REMOVED*** data, register ***REMOVED***
         ***REMOVED***
     ***REMOVED***

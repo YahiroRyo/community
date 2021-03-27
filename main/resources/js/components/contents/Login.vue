@@ -12,7 +12,8 @@
 
 <script>
     import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
-    import ***REMOVED*** reactive, onMounted, ref ***REMOVED***                 from 'vue'
+    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***          from '../../router.js'
+    import ***REMOVED*** reactive, onBeforeMount, ref ***REMOVED***             from 'vue'
     import ***REMOVED*** useRouter ***REMOVED***                                from 'vue-router'
     import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
     import firebase                                     from 'firebase'
@@ -48,6 +49,9 @@
                     data.form.password.content = ''
                 ***REMOVED***)
             ***REMOVED***
+            onBeforeMount(() => ***REMOVED***
+                antiLoginUser()
+            ***REMOVED***)
             return ***REMOVED*** data, login ***REMOVED***
         ***REMOVED***
     ***REMOVED***

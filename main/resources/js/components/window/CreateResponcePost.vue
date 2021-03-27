@@ -20,6 +20,7 @@
 
 <script>
     import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
+    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***          from '../../router.js'
     import ***REMOVED*** createWindow, closeWindow ***REMOVED***                from '../../window.js'
     import ***REMOVED*** reactive, onMounted, ref ***REMOVED***                 from 'vue'
     import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
@@ -83,6 +84,9 @@
                     ***REMOVED***
                 ***REMOVED***
             ***REMOVED***
+            onBeforeMount(() => ***REMOVED***
+                antiNotLoginUser()
+            ***REMOVED***)
             const deleteMedia = (key) => ***REMOVED*** data.post.images.splice(key, 1) ***REMOVED***
             onMounted(() => ***REMOVED*** createWindow('投稿に返信', 500, 660) ***REMOVED***)
             return ***REMOVED*** data, createResponcePost, selectMedia, inputFileElement, displayMedia, deleteMedia, ***REMOVED***

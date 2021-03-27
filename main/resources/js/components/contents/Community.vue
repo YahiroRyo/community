@@ -44,13 +44,14 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted, ref ***REMOVED*** from 'vue'
-    import ***REMOVED*** createAlert, alert ***REMOVED***       from '../../alert.js'
-    import ***REMOVED*** useStore ***REMOVED***                 from 'vuex'
-    import ***REMOVED*** post ***REMOVED***                     from '../../post.js'
-    import Post                         from '../Post.vue'
+    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***  from '../../router.js'
+    import ***REMOVED*** reactive, onMounted, ref ***REMOVED***         from 'vue'
+    import ***REMOVED*** createAlert, alert ***REMOVED***               from '../../alert.js'
+    import ***REMOVED*** useStore ***REMOVED***                         from 'vuex'
+    import ***REMOVED*** post ***REMOVED***                             from '../../post.js'
+    import Post                                 from '../Post.vue'
     /* ---------------コンポーネントをインポート--------------- */
-    import Form                                         from '../Form.vue'
+    import Form                                 from '../Form.vue'
 
     export default ***REMOVED***
         components: ***REMOVED*** 
@@ -88,6 +89,7 @@
             ***REMOVED***
             const deleteMedia = (key) => ***REMOVED*** data.post.images.splice(key, 1) ***REMOVED***
             onMounted(() => ***REMOVED***
+                antiNotLoginUser()
                 /* ---------------TODO: サーバーからコミュニティの投稿内容を取得するajax処理を実装--------------- */
 
                 // 仮で表示するために値を格納

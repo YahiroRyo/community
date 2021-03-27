@@ -18,7 +18,8 @@
     // alertを表示させた後、data.router.push('/profile')を実行
 
     import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***      from '../../alert'
-    import ***REMOVED*** reactive, onMounted ***REMOVED***                          from 'vue'
+    import ***REMOVED*** reactive, onMounted, onBeforeMount ***REMOVED***           from 'vue'
+    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***              from '../../router.js'
     import ***REMOVED*** getUidAndToken ***REMOVED***                               from '../../supportFirebase.js'
     import ***REMOVED*** useRouter ***REMOVED***                                    from 'vue-router'
     import ***REMOVED*** useStore ***REMOVED***                                     from 'vuex'
@@ -89,6 +90,9 @@
                     data.router.push(`/profile/$***REMOVED***data.user.userName***REMOVED***`)
                 ***REMOVED***)
             ***REMOVED***
+            onBeforeMount(() => ***REMOVED***
+                antiNotLoginUser()
+            ***REMOVED***)
             onMounted(() => ***REMOVED*** getUserData() ***REMOVED***)
             return ***REMOVED*** data, refreshUserData ***REMOVED***
         ***REMOVED***
