@@ -23,10 +23,10 @@
     // ・文字数は200字まで
     // ・画像を投稿できるのは4枚まで
 
+    import { reactive, onMounted, ref, onBeforeMount }  from 'vue'
     import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
     import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
     import { createWindow, closeWindow }                from '../../window.js'
-    import { reactive, onMounted, ref }                 from 'vue'
     import { getUidAndToken }                           from '../../supportFirebase.js'
     import { useStore }                                 from 'vuex'
     import axios                                        from 'axios'

@@ -19,10 +19,10 @@
 </template>
 
 <script>
+    import { reactive, onMounted, ref, onBeforeMount }  from 'vue'
     import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
     import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
     import { createWindow, closeWindow }                from '../../window.js'
-    import { reactive, onMounted, ref }                 from 'vue'
     import { getUidAndToken }                           from '../../supportFirebase.js'
     import { useStore }                                 from 'vuex'
     import axios                                        from 'axios'
