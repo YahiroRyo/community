@@ -99,10 +99,22 @@ class UserController extends Controller
     }
     // 自分のユーザー情報を取得
     public function getMyUserData(Request $request) {
-        $userId = User::where('uid', $request->uid)
-                        ->first()['id'];
-        return UserInfo::where('user_id', $userId)
-                        ->first(['name', 'user_name', 'intro']);
+        try {
+            $userId = User::where('uid', $request->uid)
+                            ->first()['id'];
+            $userInfo = UserInfo::where('user_id', $userId)
+                            ->first(['name', 'user_name', 'intro']);
+            return [
+                'isGetMyUserData' => true,
+                'userData' => $userInfo,
+            ];
+        } catch(\Exception $e) {
+            return [
+                'isGetMyUserData' => false,
+                'userData' => null,
+            ];
+        }
+        
     }
     public function refreshUserProfile(Request $request) {
         /* ---------------取得する変数一覧--------------- */

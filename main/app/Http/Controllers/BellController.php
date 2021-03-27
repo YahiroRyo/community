@@ -19,24 +19,33 @@ class BellController extends Controller
 
             $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
-            
-            $userId = User::where('uid', $request->uid)
-                            ->first()['id'];
-            $bells  = Bell::where('user_id', $userId)
-                            ->take($take + $gotNum)
-                            ->get(['id', 'type', 'user_id']);
-            for ($i = $gotNum; $i < count($bells); $i++) {
-                if ($bells[$i]['type'] === 1) {
-                    $bells[$i]['dataForType'] = CanIJoinCommunity::where('bell_id', $bells[$i]['id'])
-                                                    ->with(['community' => function($query) {
-                                                        $query->select(['id', 'name']);
-                                                    }, 'userInfo' => function($query) {
-                                                        $query->select(['name', 'user_name', 'user_id']);
-                                                    }])->first();
+            try {
+                $userId = User::where('uid', $request->uid)
+                                ->first()['id'];
+                $bells  = Bell::where('user_id', $userId)
+                                ->take($take + $gotNum)
+                                ->get(['id', 'type', 'user_id']);
+                for ($i = $gotNum; $i < count($bells); $i++) {
+                    if ($bells[$i]['type'] === 1) {
+                        $bells[$i]['dataForType'] = CanIJoinCommunity::where('bell_id', $bells[$i]['id'])
+                                                        ->with(['community' => function($query) {
+                                                            $query->select(['id', 'name']);
+                                                        }, 'userInfo' => function($query) {
+                                                            $query->select(['name', 'user_name', 'user_id']);
+                                                        }])->first();
+                    }
+                    array_push($result, $bells[$i]);
                 }
-                array_push($result, $bells[$i]);
+            } catch(\Exception $e) {
+                return [
+                    'isGetBells' => false,
+                    'bells' => null,
+                ];
             }
-            return $result;
+            return [
+                'isGetBells' => true,
+                'bells' => $result,
+            ];
         }
     }
 }

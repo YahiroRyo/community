@@ -37,8 +37,8 @@ class CommunityController extends Controller
         // $request->name
         // $request->description
         if ($this->isNormalToken($request->token)) {
-            $userId = User::where('uid', $request->uid)->first()['id'];
             try {
+                $userId = User::where('uid', $request->uid)->first()['id'];
                 $community = new Community;
                 $community->fill([
                     'user_id' => $userId,
@@ -72,21 +72,28 @@ class CommunityController extends Controller
             
             $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
-            $userId = User::where('uid', $request->uid)->first()['id'];
-            $communities = Community::select(['id', 'name', 'description'])
-                                    ->with([
-                                        'isJoiningCommunity' => function ($query) use ($userId) {
-                                            $query->where('user_id', $userId)
-                                                    ->get();
-                                        },
-                                        'canIJoinCommunity' => function ($query) use ($userId) {
-                                            $query->select(['community_id'])
-                                                    ->where('user_id', $userId)
-                                                    ->get();
-                                        }
-                                    ])->take($take + $gotNum)
-                                    ->orderBy('id', 'desc')
-                                    ->get();
+            try {
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $communities = Community::select(['id', 'name', 'description'])
+                                        ->with([
+                                            'isJoiningCommunity' => function ($query) use ($userId) {
+                                                $query->where('user_id', $userId)
+                                                        ->get();
+                                            },
+                                            'canIJoinCommunity' => function ($query) use ($userId) {
+                                                $query->select(['community_id'])
+                                                        ->where('user_id', $userId)
+                                                        ->get();
+                                            }
+                                        ])->take($take + $gotNum)
+                                        ->orderBy('id', 'desc')
+                                        ->get();
+            } catch(\Exception $e) {
+                return [
+                    'isGetCommunities' => false,
+                    'communities' => null
+                ];
+            }
             for ($i = $gotNum; $i < count($communities); $i++) {
                 array_push($result, $communities[$i]);
             }
@@ -94,6 +101,7 @@ class CommunityController extends Controller
         } else {
             return [
                 'isGetCommunities' => false,
+                'communities' => null,
             ];
         }
     }
@@ -103,15 +111,25 @@ class CommunityController extends Controller
         // $request->token
         // $request->communityId
         if ($this->isNormalToken($request->token)) {
-            $founderUserId  = Community::where('id', $request->communityId)
-                                        ->first()['user_id'];
-            $userId         = User::where('uid', $request->uid)
-                                        ->first()['id'];
-            // すでに加入申請がされていた場合
-            $canIJoinCommunity = CanIJoinCommunity::where('user_id', $userId)
-                                                    ->where('community_id', $request->communityId)
-                                                    ->first();
-            if ($canIJoinCommunity === null) {
+            $founderUserId;
+            $canIJoinCommunity;
+            $userId;
+            try {
+                $founderUserId  = Community::where('id', $request->communityId)
+                                            ->first()['user_id'];
+                $userId         = User::where('uid', $request->uid)
+                                            ->first()['id'];
+                // すでに加入申請がされていた場合
+                $canIJoinCommunity = CanIJoinCommunity::where('user_id', $userId)
+                                                        ->where('community_id', $request->communityId)
+                                                        ->exist();
+            } catch(\Exception $e) {
+                return [
+                    'isNormalToken' => true,
+                    'isCanIJoinCommunity' => false,
+                ];
+            }
+            if (!$canIJoinCommunity) {
                 $bellId;    // bellIdをcanIJoinCommunityで使用するため定義
                 DB::beginTransaction();
                 try {

@@ -34,22 +34,23 @@ class PostController extends Controller
         // $request->token
         // $request->content
         if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) {
-            $userId = User::where('uid', $request->uid)->first()['id'];
-            $post = new Post;
-            $post->fill([
-                'user_id' => $userId,
-                'post_id' => null,
-                'content' => $request->content,
-            ]);
-            $post->save();
+            try {
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $post = new Post;
+                $post->fill([
+                    'user_id' => $userId,
+                    'post_id' => null,
+                    'content' => $request->content,
+                ]);
+                $post->save();
+            } catch(\Exception $e) {
+                return [
+                    'isNormalToken' => true,
+                    'isCreatePost' => false,
+                ];
+            }
             return [
-                'isNormalToken' => true,
-                'isCreatePost' => true,
-            ];
-        } else {
-            return [
-                'isNormalToken' => false,
-                'isCreatePost' => false,
+                'isNor$userIdisCreatePost' => false,
             ];
         }
     }
@@ -60,14 +61,21 @@ class PostController extends Controller
         // $request->postId
         // $request->content
         if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) {
-            $userId = User::where('uid', $request->uid)->first()['id'];
-            $post = new Post;
-            $post->fill([
-                'user_id' => $userId,
-                'post_id' => $request->postId,
-                'content' => $request->content,
-            ]);
-            $post->save();
+            try {
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $post = new Post;
+                $post->fill([
+                    'user_id' => $userId,
+                    'post_id' => $request->postId,
+                    'content' => $request->content,
+                ]);
+                $post->save();
+            } catch(\Exception $e) {
+                return [
+                    'isNormalToken' => true,
+                    'isCreateResponcePost' => false,
+                ];
+            }
             return [
                 'isNormalToken' => true,
                 'isCreateResponcePost' => true,
@@ -223,21 +231,28 @@ class PostController extends Controller
         // $request->token
         // $request->postId
         if ($this->isNormalToken($request->token)) {
-            $userId = User::where('uid', $request->uid)->first()['id'];
-            $isGreatExists = Great::where('user_id', $userId)
-                                    ->where('post_id',$request->postId)
-                                    ->exists();
-            if ($isGreatExists) {
-                Great::where('user_id', $userId)
-                        ->where('post_id',$request->postId)
-                        ->delete();
-            } else {
-                $great = new Great;
-                $great->fill([
-                    'user_id' => $userId,
-                    'post_id' => $request->postId,
-                ]);
-                $great->save();
+            try {
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $isGreatExists = Great::where('user_id', $userId)
+                                        ->where('post_id',$request->postId)
+                                        ->exists();
+                if ($isGreatExists) {
+                    Great::where('user_id', $userId)
+                            ->where('post_id',$request->postId)
+                            ->delete();
+                } else {
+                    $great = new Great;
+                    $great->fill([
+                        'user_id' => $userId,
+                        'post_id' => $request->postId,
+                    ]);
+                    $great->save();
+                }
+            } catch(\Exception $e) {
+                return [
+                    'isNormalToken' => true,
+                    'isGreat' => false,
+                ];
             }
             return [
                 'isNormalToken' => true,
