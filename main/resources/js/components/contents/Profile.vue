@@ -20,21 +20,22 @@
                     :isGood="post.isGood"
                 />
             </template>
+            <h2 v-else-if="!data.user.isFount">このユーザーは存在しません。</h2>
             <h2 v-else>このユーザーのツイートは存在しません。</h2>
         </div>
     </div>
 </template>
 
 <script>
-    import ***REMOVED*** useRouter, useRoute, onBeforeRouteUpdate ***REMOVED*** from 'vue-router'
-    import ***REMOVED*** reactive, onMounted ***REMOVED***                      from 'vue'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
-    import ***REMOVED*** displayWindow ***REMOVED***                            from '../../window.js'
-    import ***REMOVED*** ruseStore ***REMOVED***                                from 'vuex'
-    import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
-    import ***REMOVED*** post ***REMOVED***                                     from '../../post.js'
-    import axios                                        from 'axios'
-    import Post                                         from '../Post.vue'
+    import ***REMOVED*** useRouter, useRoute, onBeforeRouteUpdate, ***REMOVED***    from 'vue-router'
+    import ***REMOVED*** reactive, onMounted, onBeforeMount ***REMOVED***           from 'vue'
+    import ***REMOVED*** getUidAndToken ***REMOVED***                               from '../../supportFirebase.js'
+    import ***REMOVED*** displayWindow ***REMOVED***                                from '../../window.js'
+    import ***REMOVED*** ruseStore ***REMOVED***                                    from 'vuex'
+    import ***REMOVED*** useStore ***REMOVED***                                     from 'vuex'
+    import ***REMOVED*** post ***REMOVED***                                         from '../../post.js'
+    import axios                                            from 'axios'
+    import Post                                             from '../Post.vue'
 
     export default ***REMOVED***
         components: ***REMOVED***
@@ -48,6 +49,7 @@
                     name:       '',
                     userName:   '',
                     intro:      '',
+                    isFound:    false,
                 ***REMOVED***,
                 post: ***REMOVED***
                     cantGetPosts:   false,
@@ -81,17 +83,20 @@
                     displayWindow(5)
                 ***REMOVED***
             ***REMOVED***
-            const getUserData = () => ***REMOVED***
+            const getUserData = async() => ***REMOVED***
                 const userProfileInfos = ***REMOVED***
                     params: ***REMOVED***
                         'userName': data.route.params.userName,
                     ***REMOVED***,
                 ***REMOVED***
-                axios.get('/api/get/user-profile', userProfileInfos)
+                await axios.get('/api/get/user-profile', userProfileInfos)
                 .then((responce) => ***REMOVED***
-                    data.user.name      = responce.data.name
-                    data.user.userName  = responce.data.user_name
-                    data.user.intro     = responce.data.intro
+                    if (responce.data !== null) ***REMOVED***
+                        data.user.name      = responce.data.name
+                        data.user.userName  = responce.data.user_name
+                        data.user.intro     = responce.data.intro
+                        data.user.isFound   = true
+                    ***REMOVED***
                 ***REMOVED***)
                 .catch(() => ***REMOVED***
                    createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
@@ -115,7 +120,6 @@
                     ***REMOVED***
                     axios.get('/api/get/users-posts', usersPostsInfos)
                     .then((responce) => ***REMOVED***
-                        console.log(responce)
                         data.post.gotNum += data.post.take
                         if (data.post.take > responce.data.length)
                             data.post.cantGetPosts = true
@@ -140,11 +144,14 @@
                 data.post.objects = []
                 data.post.gotNum = 0
                 getUserData()
-                getUsersPosts(to.params.userName)
+                if (data.user.isFound)
+                    getUsersPosts(to.params.userName)
             ***REMOVED***)
-            onMounted(() => ***REMOVED***
-                getUserData()
-                getUsersPosts(data.route.params.userName)
+            
+            onMounted(async() => ***REMOVED***
+                await getUserData()
+                if (data.user.isFound)
+                    getUsersPosts(data.route.params.userName)
             ***REMOVED***)
             return ***REMOVED*** data, sendGood ***REMOVED***
         ***REMOVED***

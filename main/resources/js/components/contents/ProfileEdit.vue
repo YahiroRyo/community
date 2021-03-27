@@ -47,9 +47,13 @@
                     ***REMOVED***
                     axios.get('/api/get/my-user-data', userProfileInfos)
                     .then((responce) => ***REMOVED***
-                        data.user.name      = responce.data.name
-                        data.user.userName  = responce.data.user_name
-                        data.user.intro     = responce.data.intro
+                        if (responce.data.isGetMyUserData) ***REMOVED***
+                            data.user.name      = responce.data.userData.name
+                            data.user.userName  = responce.data.userData.user_name
+                            data.user.intro     = responce.data.userData.intro
+                        ***REMOVED*** else ***REMOVED***
+                            createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
+                        ***REMOVED***
                     ***REMOVED***)
                     .catch(() => ***REMOVED***
                         createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))

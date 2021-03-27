@@ -226,8 +226,10 @@
                         const myUserDataInfos = ***REMOVED*** params: ***REMOVED*** uid: user.uid, ***REMOVED*** ***REMOVED***
                         await axios.get('/api/get/my-user-data', myUserDataInfos)
                         .then((responce) => ***REMOVED***
-                            data.menu.profile.userName      = responce.data.user_name
-                            data.store.state.user.userName  = responce.data.user_name
+                            if (responce.data.isGetMyUserData) ***REMOVED***
+                                data.menu.profile.userName      = responce.data.userData.user_name
+                                data.store.state.user.userName  = responce.data.userData.user_name
+                            ***REMOVED***
                         ***REMOVED***)
                     ***REMOVED***
                 ***REMOVED***)

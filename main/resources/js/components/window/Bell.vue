@@ -60,13 +60,17 @@
                             ***REMOVED***
                             await axios.get('/api/get/bells', bellsInfos)
                             .then((responce) => ***REMOVED***
-                                data.bell.gotNum += data.bell.take
-                                if (responce.data.length < data.bell.take)
-                                    data.bell.cantTake = true
-                                responce.data = responce.data.filter((obj) => obj.dataForType !== null)
-                                responce.data.forEach((obj) => ***REMOVED***
-                                    data.bell.objects.push(new bell(obj.type, obj.id, obj.dataForType))
-                                ***REMOVED***)
+                                if (responce.data.isGetBells) ***REMOVED***
+                                    data.bell.gotNum += data.bell.take
+                                    if (responce.data.length < data.bell.take)
+                                        data.bell.cantTake = true
+                                    responce.data = responce.data.bells.filter((obj) => obj.dataForType !== null)
+                                    responce.data.forEach((obj) => ***REMOVED***
+                                        data.bell.objects.push(new bell(obj.type, obj.id, obj.dataForType))
+                                    ***REMOVED***)
+                                ***REMOVED*** else ***REMOVED***
+                                    createAlert(new alert('通知を取得することができませんでした。', 2))
+                                ***REMOVED***
                             ***REMOVED***)
                         ***REMOVED***
                     ***REMOVED***)
