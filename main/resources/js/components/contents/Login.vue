@@ -1,23 +1,29 @@
 <template>
     <div @keydown.enter="login">
         <link rel="stylesheet" href="/css/components/login/login.css">
-        <h1 class="login__title">ログイン</h1>
-        <label class="form-label">メールアドレス</label>
-        <input class="form" v-model="data.form.email.content">
-        <label class="form-label">パスワード</label>
-        <input type="password" class="form" v-model="data.form.password.content">
-        <button @click="login" class="form form_btn">ログイン</button>
+        <div class="form__wapper">
+            <h1 class="login__title">ログイン</h1>
+            <Form class="form" v-model:inputContent="data.form.email.content" label="メールアドレス" uniqueClassKey="1" />
+            <Form class="form" v-model:inputContent="data.form.password.content" type="password" label="パスワード" uniqueClassKey="2" />
+            <button @click="login" class="form__btn">ログイン</button>
+        </div>
     </div>
 </template>
 
 <script>
     import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
-    import { reactive, onMounted }                      from 'vue'
-    import { useStore }                                 from 'vuex'
+    import { reactive, onMounted, ref }                 from 'vue'
     import { useRouter }                                from 'vue-router'
+    import { useStore }                                 from 'vuex'
     import firebase                                     from 'firebase'
+
+    /* ---------------コンポーネントをインポート--------------- */
+    import Form                                         from '../Form.vue'
     
     export default {
+        components: {
+            Form
+        },
         setup() {
             const data = reactive({
                 store: useStore(),

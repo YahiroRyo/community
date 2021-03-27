@@ -28,12 +28,10 @@
         <!-- タブの選択に対しての画面 1 -->
         <transition name="router-view-anim">
             <!-- コミュニティを作成 -->
-            <div v-show="data.page" class="communities-page" appear>
-                <p class="communities__form-label">コミュニティ名</p>
-                <input v-model="data.createCommunity.name" class="form">
-                <p class="communities__form-label">コミュニティの説明</p>
-                <textarea v-model="data.createCommunity.description" class="form height-middle form_dont-resize"></textarea>
-                <button @click="createCommunity()" class="form form_btn">作成</button>
+            <div v-show="data.page" class="form__wapper m-t-3" appear>
+                <Form class="form" v-model:inputContent="data.createCommunity.name" label="コミュニティ名" uniqueClassKey="1" />
+                <Form class="form" :useTextArea="true" v-model:inputContent="data.createCommunity.description" label="コミュニティの説明" uniqueClassKey="1" />
+                <button @click="createCommunity()" class="form__btn">作成</button>
             </div>
         </transition>
     </div>
@@ -47,8 +45,13 @@
     import { useRouter }                                from 'vue-router'
     import firebase                                     from 'firebase'
     import axios                                        from 'axios'
+    /* ---------------コンポーネントをインポート--------------- */
+    import Form                                         from '../Form.vue'
 
     export default {
+        components: {
+            Form
+        },
         setup() {
             const data = reactive({
                 page:   false,
@@ -56,8 +59,8 @@
                 community: {
                     take:       50,
                     gotNum:     0,
-                    cantTake:   false,
                     objects:    [],
+                    cantTake:   false,
                 },
                 createCommunity: {
                     name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
