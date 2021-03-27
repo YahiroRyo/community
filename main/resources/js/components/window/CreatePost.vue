@@ -24,6 +24,7 @@
     // ・画像を投稿できるのは4枚まで
 
     import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
+    import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
     import { createWindow, closeWindow }                from '../../window.js'
     import { reactive, onMounted, ref }                 from 'vue'
     import { getUidAndToken }                           from '../../supportFirebase.js'
@@ -83,6 +84,9 @@
                 }
             }
             const deleteMedia = (key) => { data.post.images.splice(key, 1) }
+            onBeforeMount(() => {
+                antiNotLoginUser()
+            })
             onMounted(() => { createWindow('投稿する', 500, 660) })
             return { data, createPost, selectMedia, inputFileElement, displayMedia, deleteMedia, }
         }

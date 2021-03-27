@@ -15,7 +15,8 @@
 
 <script>
     import { alert, createAlert, notNormalTokenAlert }  from '../../alert'
-    import { reactive, onMounted }                      from 'vue'
+    import { reactive, onMounted, onBeforeMount }       from 'vue'
+    import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
     import { getUidAndToken }                           from '../../supportFirebase.js'
     import { useRouter }                                from 'vue-router'
     import { useStore }                                 from 'vuex'
@@ -83,6 +84,9 @@
                     })
                 }
             }
+            onBeforeMount(() => {
+                antiLoginUser()
+            })
             return { data, register }
         }
     }

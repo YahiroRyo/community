@@ -44,13 +44,14 @@
 </template>
 
 <script>
-    import { reactive, onMounted, ref } from 'vue'
-    import { createAlert, alert }       from '../../alert.js'
-    import { useStore }                 from 'vuex'
-    import { post }                     from '../../post.js'
-    import Post                         from '../Post.vue'
+    import { antiLoginUser, antiNotLoginUser }  from '../../router.js'
+    import { reactive, onMounted, ref }         from 'vue'
+    import { createAlert, alert }               from '../../alert.js'
+    import { useStore }                         from 'vuex'
+    import { post }                             from '../../post.js'
+    import Post                                 from '../Post.vue'
     /* ---------------コンポーネントをインポート--------------- */
-    import Form                                         from '../Form.vue'
+    import Form                                 from '../Form.vue'
 
     export default {
         components: { 
@@ -88,6 +89,7 @@
             }
             const deleteMedia = (key) => { data.post.images.splice(key, 1) }
             onMounted(() => {
+                antiNotLoginUser()
                 /* ---------------TODO: サーバーからコミュニティの投稿内容を取得するajax処理を実装--------------- */
 
                 // 仮で表示するために値を格納

@@ -38,9 +38,10 @@
 </template>
 
 <script>
+    import { reactive, watch, onMounted, onBeforeMount }from 'vue'
     import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
+    import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
     import { addPageEvent, removeAtAllFunc }            from '../../page.js'
-    import { reactive, watch, onMounted }               from 'vue'
     import { getUidAndToken }                           from '../../supportFirebase.js'
     import { useRouter }                                from 'vue-router'
     import firebase                                     from 'firebase'
@@ -202,7 +203,9 @@
             watch(() => data.createCommunity.description, () => {
                 localStorage.setItem('description', data.createCommunity.description) 
             })
-
+            onBeforeMount(() => {
+                antiNotLoginUser()
+            })
             onMounted(() => {
                 getCommunities()
                 addPageEvent('pageMostBottom', () => {getCommunities()})

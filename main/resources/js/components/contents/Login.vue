@@ -12,7 +12,8 @@
 
 <script>
     import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
-    import { reactive, onMounted, ref }                 from 'vue'
+    import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
+    import { reactive, onBeforeMount, ref }             from 'vue'
     import { useRouter }                                from 'vue-router'
     import { useStore }                                 from 'vuex'
     import firebase                                     from 'firebase'
@@ -48,6 +49,9 @@
                     data.form.password.content = ''
                 })
             }
+            onBeforeMount(() => {
+                antiLoginUser()
+            })
             return { data, login }
         }
     }

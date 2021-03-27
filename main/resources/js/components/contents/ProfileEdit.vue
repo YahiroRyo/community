@@ -18,7 +18,8 @@
     // alertを表示させた後、data.router.push('/profile')を実行
 
     import { alert, createAlert, notNormalTokenAlert }      from '../../alert'
-    import { reactive, onMounted }                          from 'vue'
+    import { reactive, onMounted, onBeforeMount }           from 'vue'
+    import { antiLoginUser, antiNotLoginUser }              from '../../router.js'
     import { getUidAndToken }                               from '../../supportFirebase.js'
     import { useRouter }                                    from 'vue-router'
     import { useStore }                                     from 'vuex'
@@ -89,6 +90,9 @@
                     data.router.push(`/profile/${data.user.userName}`)
                 })
             }
+            onBeforeMount(() => {
+                antiNotLoginUser()
+            })
             onMounted(() => { getUserData() })
             return { data, refreshUserData }
         }
