@@ -78,7 +78,12 @@
             ***REMOVED***
             const getResponcePosts = async(responceFromPostId) => ***REMOVED***
                 if (!data.post.cantGetPosts) ***REMOVED***
-                    const user = await getUidAndToken()
+                    let user = ***REMOVED******REMOVED***
+                    if (data.store.state.user.isLogin) ***REMOVED***
+                        user = await getUidAndToken()
+                    ***REMOVED*** else ***REMOVED***
+                        user.uid = ''
+                    ***REMOVED***
                     const responcePostsInfos = ***REMOVED***
                         params: ***REMOVED***
                             postId: responceFromPostId,
