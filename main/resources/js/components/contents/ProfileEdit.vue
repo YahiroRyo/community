@@ -89,7 +89,7 @@
                     ***REMOVED*** else ***REMOVED***
                         createAlert(new alert('ユーザデータを更新することができませんでした。', 2))
                     ***REMOVED***
-                    localStorage.setItem('myUserName', data.user.userName)
+                    data.store.state.user.userName = data.user.userName
                     data.store.state.user.profileUpdate = true
                     data.router.push(`/profile/$***REMOVED***data.user.userName***REMOVED***`)
                 ***REMOVED***)
