@@ -1,6 +1,9 @@
 //ルーターを設定する
 
 import { createRouter, createWebHistory}    from 'vue-router'
+import { alert, createAlert }               from './alert'
+import { closeWindow }                      from './window'
+import { store }                            from './store'
 import GlobalPost                           from './components/contents/GlobalPost.vue'
 import ShowResponce                         from './components/contents/ShowResponce.vue'
 import Login                                from './components/contents/Login.vue'
@@ -13,7 +16,7 @@ import Contact                              from './components/contents/Contact.
 import ProfileEdit                          from './components/contents/ProfileEdit.vue'
 import Test                                 from './components/contents/Test.vue'
 
-export const router = createRouter({
+const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
@@ -73,3 +76,21 @@ export const router = createRouter({
         },
     ]
 })
+
+const antiLoginUser = () => {
+    if (store.state.user.isLogin) {
+        closeWindow()
+        createAlert(new alert('ログインしているためホームに戻ります。'))
+        router.push('/')
+    }
+}
+const antiNotLoginUser = () => {
+    console.log("t")
+    if (!store.state.user.isLogin) {
+        closeWindow()
+        createAlert(new alert('ログインしていないためホームに戻ります。'))
+        router.push('/')
+    }
+}
+
+export { antiLoginUser, antiNotLoginUser, router }
