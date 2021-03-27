@@ -89,7 +89,7 @@
                     } else {
                         createAlert(new alert('ユーザデータを更新することができませんでした。', 2))
                     }
-                    localStorage.setItem('myUserName', data.user.userName)
+                    data.store.state.user.userName = data.user.userName
                     data.store.state.user.profileUpdate = true
                     data.router.push(`/profile/${data.user.userName}`)
                 })
