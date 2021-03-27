@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/* ---------------height--------------- */
 .height-small ***REMOVED***
   height: 200px; ***REMOVED***
 
@@ -11,6 +12,7 @@
 .height-full ***REMOVED***
   height: 100%; ***REMOVED***
 
+/* ---------------width--------------- */
 .width-small ***REMOVED***
   width: 200px; ***REMOVED***
 
@@ -23,9 +25,11 @@
 .width-full ***REMOVED***
   width: 100%; ***REMOVED***
 
+/* ---------------margin-left--------------- */
 .m-l-1 ***REMOVED***
   margin-left: 10px; ***REMOVED***
 
+/* ---------------margin-top--------------- */
 .m-t-1 ***REMOVED***
   margin-top: 10px; ***REMOVED***
 
@@ -34,6 +38,12 @@
 
 .m-t-3 ***REMOVED***
   margin-top: 30px; ***REMOVED***
+
+.m-c ***REMOVED***
+  margin: 0 auto !important; ***REMOVED***
+
+.t-c ***REMOVED***
+  text-align: center; ***REMOVED***
 
 *,
 ::before,
