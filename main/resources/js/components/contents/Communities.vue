@@ -3,17 +3,17 @@
         <link rel="stylesheet" href="/css/components/communities/communities.css">
         <!-- タブ -->
         <div class="tabs-wapper" style="display: flex;">
-            <div @click="data.page = false" :class="***REMOVED***'tab': true, 'tab_selecting': !data.page ***REMOVED***">
+            <div @click="data.router.push('/communities/0')" :class="***REMOVED***'tab': true, 'tab_selecting': data.route.params.page == 0 ***REMOVED***">
                 <p class="communities-tab__title">コミュニティを選択</p>
             </div>
-            <div @click="data.page = true" :class="***REMOVED***'tab': true, 'tab_selecting': data.page***REMOVED***">
+            <div @click="data.router.push('/communities/1')" :class="***REMOVED***'tab': true, 'tab_selecting': data.route.params.page == 1***REMOVED***">
                 <p class="communities-tab__title">コミュニティを作成</p>
             </div>
         </div>
         <!-- タブの選択に対しての画面 0 -->
         <transition name="router-view-anim">
             <!-- コミュニティを一覧表示 -->
-            <div v-show="!data.page" class="communities-page" key="communities-page-0">
+            <div v-show="data.route.params.page == 0" class="communities-page" key="communities-page-0">
                 <div class="post" v-for="(community, key) in data.community.objects" :key="key">
                     <div class="post__flex">
                         <p class="post__name">***REMOVED******REMOVED***community.name***REMOVED******REMOVED***</p>
@@ -28,7 +28,7 @@
         <!-- タブの選択に対しての画面 1 -->
         <transition name="router-view-anim">
             <!-- コミュニティを作成 -->
-            <div v-show="data.page" class="form__wapper m-t-3" appear>
+            <div v-show="data.route.params.page == 1" class="form__wapper m-t-3" appear>
                 <Form class="form" v-model:inputContent="data.createCommunity.name" label="コミュニティ名" uniqueClassKey="1" />
                 <Form class="form" :useTextArea="true" v-model:inputContent="data.createCommunity.description" label="コミュニティの説明" uniqueClassKey="1" />
                 <button @click="createCommunity()" class="form__btn">作成</button>
@@ -42,8 +42,8 @@
     import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
     import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***          from '../../router.js'
     import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***            from '../../page.js'
+    import ***REMOVED*** useRouter, useRoute ***REMOVED***                      from 'vue-router'
     import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
-    import ***REMOVED*** useRouter ***REMOVED***                                from 'vue-router'
     import firebase                                     from 'firebase'
     import axios                                        from 'axios'
     /* ---------------コンポーネントをインポート--------------- */
@@ -55,8 +55,8 @@
         ***REMOVED***,
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
-                page:   false,
                 router: useRouter(),
+                route:  useRoute(),
                 community: ***REMOVED***
                     take:       50,
                     gotNum:     0,
@@ -188,7 +188,7 @@
                         ***REMOVED***)
                     ***REMOVED*** else ***REMOVED***
                         // ルームへ入る
-                        data.router.push(`/communities/community/$***REMOVED***data.community.objects[key].id***REMOVED***`)
+                        data.router.push(`/community/$***REMOVED***data.community.objects[key].id***REMOVED***`)
                     ***REMOVED***
                 ***REMOVED*** else ***REMOVED***
                     createAlert(new alert('ユーザー情報を取得することに失敗しました。', 2))
