@@ -3,17 +3,17 @@
         <link rel="stylesheet" href="/css/components/communities/communities.css">
         <!-- タブ -->
         <div class="tabs-wapper" style="display: flex;">
-            <div @click="data.page = false" :class="{'tab': true, 'tab_selecting': !data.page }">
+            <div @click="data.router.push('/communities/0')" :class="{'tab': true, 'tab_selecting': data.route.params.page == 0 }">
                 <p class="communities-tab__title">コミュニティを選択</p>
             </div>
-            <div @click="data.page = true" :class="{'tab': true, 'tab_selecting': data.page}">
+            <div @click="data.router.push('/communities/1')" :class="{'tab': true, 'tab_selecting': data.route.params.page == 1}">
                 <p class="communities-tab__title">コミュニティを作成</p>
             </div>
         </div>
         <!-- タブの選択に対しての画面 0 -->
         <transition name="router-view-anim">
             <!-- コミュニティを一覧表示 -->
-            <div v-show="!data.page" class="communities-page" key="communities-page-0">
+            <div v-show="data.route.params.page == 0" class="communities-page" key="communities-page-0">
                 <div class="post" v-for="(community, key) in data.community.objects" :key="key">
                     <div class="post__flex">
                         <p class="post__name">{{community.name}}</p>
@@ -28,7 +28,7 @@
         <!-- タブの選択に対しての画面 1 -->
         <transition name="router-view-anim">
             <!-- コミュニティを作成 -->
-            <div v-show="data.page" class="form__wapper m-t-3" appear>
+            <div v-show="data.route.params.page == 1" class="form__wapper m-t-3" appear>
                 <Form class="form" v-model:inputContent="data.createCommunity.name" label="コミュニティ名" uniqueClassKey="1" />
                 <Form class="form" :useTextArea="true" v-model:inputContent="data.createCommunity.description" label="コミュニティの説明" uniqueClassKey="1" />
                 <button @click="createCommunity()" class="form__btn">作成</button>
@@ -42,8 +42,8 @@
     import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
     import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
     import { addPageEvent, removeAtAllFunc }            from '../../page.js'
+    import { useRouter, useRoute }                      from 'vue-router'
     import { getUidAndToken }                           from '../../supportFirebase.js'
-    import { useRouter }                                from 'vue-router'
     import firebase                                     from 'firebase'
     import axios                                        from 'axios'
     /* ---------------コンポーネントをインポート--------------- */
@@ -55,8 +55,8 @@
         },
         setup() {
             const data = reactive({
-                page:   false,
                 router: useRouter(),
+                route:  useRoute(),
                 community: {
                     take:       50,
                     gotNum:     0,
@@ -188,7 +188,7 @@
                         })
                     } else {
                         // ルームへ入る
-                        data.router.push(`/communities/community/${data.community.objects[key].id}`)
+                        data.router.push(`/community/${data.community.objects[key].id}`)
                     }
                 } else {
                     createAlert(new alert('ユーザー情報を取得することに失敗しました。', 2))
