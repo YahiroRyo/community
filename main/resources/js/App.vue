@@ -22,8 +22,8 @@
                 </li>
             </transition>
             <transition name="router-view-anim">
-                <li v-if="$store.state.user.isLogin" @mouseover="data.menu.communities.isHover = true" @mouseleave="data.menu.communities.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/communities',***REMOVED***">
-                    <router-link class="tab__img" to="/communities">
+                <li v-if="$store.state.user.isLogin" @mouseover="data.menu.communities.isHover = true" @mouseleave="data.menu.communities.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/communities/0' || data.route.path === '/communities/1' ,***REMOVED***">
+                    <router-link class="tab__img" to="/communities/0">
                         <img class="tab__img-icon" src="/images/materials/community.svg">
                     </router-link>
                     <transition name="pop-up-discription-anim">
@@ -59,7 +59,7 @@
                 </transition>
                 <transition name="router-view-anim">
                     <li v-if="$store.state.user.isLogin">
-                        <router-link to="/communities" class="menu__item"><img class="menu__item-icon" src="/images/materials/community.svg">コミュニティ</router-link>
+                        <router-link to="/communities/0" class="menu__item"><img class="menu__item-icon" src="/images/materials/community.svg">コミュニティ</router-link>
                     </li>
                 </transition>
                 <li>
