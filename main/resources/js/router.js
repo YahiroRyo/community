@@ -55,13 +55,13 @@ const router = createRouter({
             component: ProfileEdit,
         },
         {
-            path: '/communities',
+            path: '/communities/:page',
             name: 'communities',
             component: Communities,
         },
         {
-            path: '/communities/community/:id',
-            name: 'communities-community',
+            path: '/community/:id',
+            name: 'community',
             component: Community,
         },
         {
