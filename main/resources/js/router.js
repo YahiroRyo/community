@@ -55,13 +55,13 @@ const router = createRouter(***REMOVED***
             component: ProfileEdit,
         ***REMOVED***,
         ***REMOVED***
-            path: '/communities',
+            path: '/communities/:page',
             name: 'communities',
             component: Communities,
         ***REMOVED***,
         ***REMOVED***
-            path: '/communities/community/:id',
-            name: 'communities-community',
+            path: '/community/:id',
+            name: 'community',
             component: Community,
         ***REMOVED***,
         ***REMOVED***
