@@ -31,6 +31,37 @@ class CommunityController extends Controller
             return false;
         }
     }
+    public static function canJoinCommunity($communityId, $userId): bool {
+        return IsJoiningCommunity::where('community_id', $communityId)
+                                ->where('user_id', $userId)
+                                ->exists();
+    }
+    // コミュニティに入る権利があるか確認
+    public function getCanJoinCommunity(Request $request) {
+        // $request->uid
+        // $request->token
+        // $request->communityId
+        if ($this->isNormalToken($request->token)) {
+            try {
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                return [
+                    'isNormalToken' => true,
+                    'canJoinCommunity' => self::canJoinCommunity($request->communityId, $userId),
+                ];
+            } catch (\Exception $e) {
+                \Log::info($e);
+                return [
+                    'isNormalToken' => true,
+                    'canJoinCommunity' => false,
+                ];
+            }
+        } else {
+            return [
+                'isNormalToken' => false,
+                'canJoinCommunity' => false,
+            ];
+        }
+    }
     // コミュニティを作成
     public function createCommunity(Request $request) {
         // $request->uid
