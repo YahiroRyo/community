@@ -31,6 +31,37 @@ class CommunityController extends Controller
             return false;
         ***REMOVED***
     ***REMOVED***
+    public static function canJoinCommunity($communityId, $userId): bool ***REMOVED***
+        return IsJoiningCommunity::where('community_id', $communityId)
+                                ->where('user_id', $userId)
+                                ->exists();
+    ***REMOVED***
+    // コミュニティに入る権利があるか確認
+    public function getCanJoinCommunity(Request $request) ***REMOVED***
+        // $request->uid
+        // $request->token
+        // $request->communityId
+        if ($this->isNormalToken($request->token)) ***REMOVED***
+            try ***REMOVED***
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                return [
+                    'isNormalToken' => true,
+                    'canJoinCommunity' => self::canJoinCommunity($request->communityId, $userId),
+                ];
+            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+                \Log::info($e);
+                return [
+                    'isNormalToken' => true,
+                    'canJoinCommunity' => false,
+                ];
+            ***REMOVED***
+        ***REMOVED*** else ***REMOVED***
+            return [
+                'isNormalToken' => false,
+                'canJoinCommunity' => false,
+            ];
+        ***REMOVED***
+    ***REMOVED***
     // コミュニティを作成
     public function createCommunity(Request $request) ***REMOVED***
         // $request->uid
