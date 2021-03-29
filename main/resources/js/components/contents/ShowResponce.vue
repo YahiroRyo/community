@@ -36,9 +36,9 @@
     import { alert, createAlert, notNormalTokenAlert }  from '../../alert'
     import { addPageEvent, removeAtAllFunc }            from '../../page.js'
     import { reactive, onMounted }                      from 'vue'
+    import { post, sendGood }                           from '../../post.js'
     import { getUidAndToken }                           from '../../supportFirebase.js'
     import { useStore }                                 from 'vuex'
-    import { post }                                     from '../../post.js'
     import axios                                        from 'axios'
     import Post                                         from '../Post.vue'
 
@@ -56,27 +56,6 @@
                     take:           50,
                 },
             })
-            const sendGood = async(key) => {
-                const user = await getUidAndToken()
-                const greatPostInfos = {
-                    postId: data.post.objects[key].postId,
-                    token:  user.token,
-                    uid:    user.uid,
-                }
-                axios.post('/api/post/great-post', greatPostInfos)
-                .then((responce) => {
-                    if (responce.data.isNormalToken) {
-                        if (responce.data.isGreat) {
-                            data.post.objects[key].isGood = !data.post.objects[key].isGood
-                            data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
-                        } else {
-                            createAlert(new alert('いいねすることができませんでした。', 2))
-                        }
-                    } else {
-                        notNormalTokenAlert()
-                    }
-                })
-            }
             const getResponcePosts = async(responceFromPostId) => {
                 if (!data.post.cantGetPosts) {
                     let user = {}
@@ -95,10 +74,17 @@
                     }
                     axios.get('/api/get/responce-posts', responcePostsInfos)
                     .then((responce) => {
-                        console.log(responce)
+                        if (responce.data.length === 0) {
+                            data.post.cantGetPosts = true
+                            if (data.post.gotNum === 0) {
+                                createAlert(new alert('データが見つからなかったため、ホームへ戻ります。', 2))
+                                data.router.push('/')
+                            }
+                        }
                         data.post.gotNum += data.post.take
                         if (data.post.take > responce.data.length)
                             data.post.cantGetPosts = true
+                        
                         responce.data.forEach((obj) => {
                             data.post.objects.push(
                                 new post(
