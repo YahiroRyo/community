@@ -3,15 +3,16 @@
         <transition-group name="show-responce-anim">
             <template v-for="(post, key) in data.post.objects" :key="key">
                 <Post
-                    :name="post.name"
+                    :responceNum="post.responceNum"
+                    :communityId="!data.post.objects[0].communityId ? 0 : data.post.objects[0].communityId"
                     :userName="post.userName" 
+                    :sendGood="sendGood"
                     :content="post.content"
                     :goodNum="post.goodNum"
-                    :responceNum="post.responceNum"
-                    :sendGood="sendGood"
-                    :sendKey="key"
+                    :sendArg="data.post.objects[key]"
                     :postId="post.postId"
                     :isGood="post.isGood"
+                    :name="post.name"
                 />
             </template>
         </transition-group>
@@ -108,6 +109,7 @@
                                     obj.great_post_num.length,
                                     obj.responce_num.length,
                                     obj.id,
+                                    obj.community_id
                                 )
                             )
                         ***REMOVED***)

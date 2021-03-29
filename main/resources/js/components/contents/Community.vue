@@ -23,6 +23,7 @@
             <Post
                 :sendArg="data.post.objects[key]"
                 :responceNum="post.responceNum"
+                :communityId="Number(data.route.params.id)"
                 :userName="post.userName" 
                 :content="post.content"
                 :goodNum="post.goodNum"
@@ -141,6 +142,7 @@
                                     obj.great_post_num.length,
                                     obj.responce_num.length,
                                     obj.id,
+                                    obj.community_id,
                                 )
                             )
                         ***REMOVED***)
