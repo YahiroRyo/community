@@ -14,6 +14,7 @@ class Post extends Model
     protected $fillable = [
         'user_id',
         'post_id',
+        'community_id',
         'content',
     ];
     public function userInfo() ***REMOVED***
