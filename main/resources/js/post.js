@@ -12,7 +12,7 @@ import ***REMOVED*** getUidAndToken ***REMOVED***                           from
 import axios                                        from 'axios' 
 
 class post ***REMOVED***
-    constructor(name, userName, content, isGood, goodNum, responceNum, postId) ***REMOVED***
+    constructor(name, userName, content, isGood, goodNum, responceNum, postId, communityId) ***REMOVED***
         this.name           = name
         this.userName       = userName
         this.content        = content
@@ -20,6 +20,7 @@ class post ***REMOVED***
         this.goodNum        = goodNum
         this.responceNum    = responceNum
         this.postId         = postId
+        this.communityId    = communityId
     ***REMOVED***
 ***REMOVED***
 const sendGood = async(postObj) => ***REMOVED***
