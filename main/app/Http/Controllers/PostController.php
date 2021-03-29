@@ -39,18 +39,55 @@ class PostController extends Controller
                 $post = new Post;
                 $post->fill([
                     'user_id' => $userId,
-                    'post_id' => null,
                     'content' => $request->content,
                 ]);
                 $post->save();
             } catch(\Exception $e) {
                 return [
                     'isNormalToken' => true,
-                    'isCreatePost' => false,
+                    'isCreatePost'  => false,
                 ];
             }
             return [
-                'isNor$userIdisCreatePost' => false,
+                'isNormalToken' => true,
+                'isCreatePost'  => true,
+            ];
+        } else {
+            return [
+                'isNormalToken' => false,
+                'isCreatePost'  => false,
+            ];
+        }
+    }
+    public function createCommunityPost(Request $request) {
+        // $request->uid
+        // $request->token
+        // $request->content
+        // $request->communityId
+        if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) {
+            try {
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $post = new Post;
+                $post->fill([
+                    'community_id'  => $request->communityId,
+                    'user_id'       => $userId,
+                    'content'       => $request->content,
+                ]);
+                $post->save();
+            } catch(\Exception $e) {
+                return [
+                    'isNormalToken'         => true,
+                    'isCreateCommunityPost' => false,
+                ];
+            }
+            return [
+                'isNormalToken'         => true,
+                'isCreateCommunityPost' => true,
+            ];
+        } else {
+            return [
+                'isNormalToken'         => false,
+                'isCreateCommunityPost' => false,
             ];
         }
     }
@@ -106,6 +143,7 @@ class PostController extends Controller
             $posts  = Post::select(['content', 'id', 'user_id', 'post_id'])
                             ->take($take + $gotNum)
                             ->whereNull('post_id')
+                            ->whereNull('community_id')
                             ->with([
                                 'userInfo' => function ($query) {
                                     $query->select(['name', 'user_name', 'user_id']);
@@ -126,6 +164,7 @@ class PostController extends Controller
             return $result;
         }
     }
+    // ユーザーの投稿を取得
     public function getUsersPosts(Request $request): array {
         // $request->uid
         // $request->take
@@ -148,6 +187,7 @@ class PostController extends Controller
             $posts = Post::select(['content', 'id', 'user_id', 'post_id'])
                         ->where('user_id', $userInfos['user_id'])
                         ->whereNull('post_id')
+                        ->whereNull('community_id')
                         ->take($take + $gotNum)
                         ->with([
                             'isGreatPost' => function ($query) use ($userId) {
@@ -162,6 +202,46 @@ class PostController extends Controller
                         ->get();
             for ($i = $gotNum; $i < count($posts); $i++) {
                 $posts[$i]['user_info'] = $userInfos;
+                array_push($result, $posts[$i]);
+            }
+            return $result;
+        }
+    }
+    public function getCommunityPosts(Request $request) {
+        // $request->communityId
+        // $request->gotNum
+        // $request->take
+        // $request->uid
+        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) {
+            $result = [];
+            
+            $take   = intval($request->take);
+            $gotNum = intval($request->gotNum);
+            $userId;
+            try {
+                $userId = User::where('uid', $request->uid)->first()['id'];
+            } catch(\Exception $e) {
+                $userId = 0;
+            }
+            $posts  = Post::select(['content', 'id', 'user_id', 'post_id'])
+                            ->take($take + $gotNum)
+                            ->where('community_id', $request->communityId)
+                            ->whereNull('post_id')
+                            ->with([
+                                'userInfo' => function ($query) {
+                                    $query->select(['name', 'user_name', 'user_id']);
+                                },
+                                'isGreatPost' => function ($query) use ($userId) {
+                                    $query->where('user_id', $userId);
+                                },
+                                'greatPostNum',
+                                'responceNum' => function ($query) {
+                                    $query->select(['post_id']);
+                                },
+                            ])
+                            ->orderBy('id', 'desc')
+                            ->get();
+            for ($i = $gotNum; $i < count($posts); $i++) {
                 array_push($result, $posts[$i]);
             }
             return $result;
