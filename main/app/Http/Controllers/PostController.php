@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Great;
 use App\Models\UserInfo;
+use App\Http\Controllers\CommunityController;
 
 class PostController extends Controller
 {
@@ -59,6 +60,7 @@ class PostController extends Controller
             ];
         }
     }
+    // コミュニティ内で投稿を作成
     public function createCommunityPost(Request $request) {
         // $request->uid
         // $request->token
@@ -260,6 +262,7 @@ class PostController extends Controller
     }
     // 投稿に対しての返信を取得
     public function getResponcePosts(Request $request): array {
+        // $request->uid
         // $request->take
         // $request->postId
         // $request->gotNum
@@ -276,22 +279,27 @@ class PostController extends Controller
                 $userId = 0;
             }
             if ($gotNum === 0) {
-                array_push($result, Post::select(['content', 'id', 'user_id', 'post_id', 'community_id'])
-                    ->where('id', $request->postId)
-                    ->with([
-                        'userInfo' => function ($query) {
-                            $query->select(['name', 'user_name', 'user_id']);
-                        },
-                        'isGreatPost' => function ($query) use ($userId) {
-                            $query->where('user_id', $userId);
-                        },
-                        'greatPostNum',
-                        'responceNum' => function ($query) {
-                            $query->select(['post_id']);
-                        },
-                    ])
-                    ->first());
-            }
+                $parentPost = Post::select(['content', 'id', 'user_id', 'post_id', 'community_id'])
+                            ->where('id', $request->postId)
+                            ->with([
+                                'userInfo' => function ($query) {
+                                    $query->select(['name', 'user_name', 'user_id']);
+                                },
+                                'isGreatPost' => function ($query) use ($userId) {
+                                    $query->where('user_id', $userId);
+                                },
+                                'greatPostNum',
+                                'responceNum' => function ($query) {
+                                    $query->select(['post_id']);
+                                },
+                            ])
+                            ->first();
+                if (CommunityController::canJoinCommunity($parentPost['community_id'], $userId) || !isset($parentPost['community_id'])) {
+                    array_push($result, $parentPost);
+                } else {
+                    return $result;
+                }
+            }       
             $posts = Post::select(['content', 'id', 'user_id', 'post_id'])
                         ->whereNotNull('post_id')
                         ->where('post_id', $request->postId)
