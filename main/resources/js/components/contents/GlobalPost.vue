@@ -69,6 +69,7 @@
                                     obj.great_post_num.length,
                                     obj.responce_num.length,
                                     obj.id,
+                                    obj.community_id,
                                 )
                             )
                         })
