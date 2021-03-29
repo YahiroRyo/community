@@ -6,6 +6,10 @@
 // isGood:      投稿に対して自分がいいねを押したか
 // goodNum:     投稿のいいね数
 // responceNum: 投稿への返信数
+// postId:      投稿のID
+import { createAlert, alert, notNormalTokenAlert }  from './alert.js'
+import { getUidAndToken }                           from './supportFirebase.js'
+import axios                                        from 'axios' 
 
 class post {
     constructor(name, userName, content, isGood, goodNum, responceNum, postId) {
@@ -18,5 +22,26 @@ class post {
         this.postId         = postId
     }
 }
+const sendGood = async(postObj) => {
+    const user = await getUidAndToken()
+    const greatPostInfos = {
+        postId: postObj.postId,
+        token:  user.token,
+        uid:    user.uid,
+    }
+    axios.post('/api/post/great-post', greatPostInfos)
+    .then((responce) => {
+        if (responce.data.isNormalToken) {
+            if (responce.data.isGreat) {
+                postObj.isGood = !postObj.isGood
+                postObj.isGood ? postObj.goodNum++ : postObj.goodNum--
+            } else {
+                createAlert(new alert('いいねすることができませんでした。', 2))
+            }
+        } else {
+            notNormalTokenAlert()
+        }
+    })
+}
 
-export { post }
+export { post, sendGood }

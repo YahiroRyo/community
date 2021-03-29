@@ -6,7 +6,7 @@
         </div>
         <p class="post__font">{{content}}</p>
         <div class="post__flex">
-            <button @click="sendGood(sendKey)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
+            <button @click="sendGood(sendArg)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
             <p class="post__status">{{goodNum}}</p>
             <button @click="responceToPost()" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
             <p class="post__status">{{responceNum}}</p>
@@ -33,7 +33,7 @@
             },
             responceNum:    { type: Number, },
             sendGood:       { type: Function, },
-            sendKey:        { type: Number, },
+            sendArg:        { type: Object, },
             content:        { type: String, },
             goodNum:        { type: Number, },
             postId:         { type: Number, },
