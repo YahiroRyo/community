@@ -36,9 +36,9 @@
     import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***  from '../../alert'
     import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***            from '../../page.js'
     import ***REMOVED*** reactive, onMounted ***REMOVED***                      from 'vue'
+    import ***REMOVED*** post, sendGood ***REMOVED***                           from '../../post.js'
     import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
     import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
-    import ***REMOVED*** post ***REMOVED***                                     from '../../post.js'
     import axios                                        from 'axios'
     import Post                                         from '../Post.vue'
 
@@ -56,27 +56,6 @@
                     take:           50,
                 ***REMOVED***,
             ***REMOVED***)
-            const sendGood = async(key) => ***REMOVED***
-                const user = await getUidAndToken()
-                const greatPostInfos = ***REMOVED***
-                    postId: data.post.objects[key].postId,
-                    token:  user.token,
-                    uid:    user.uid,
-                ***REMOVED***
-                axios.post('/api/post/great-post', greatPostInfos)
-                .then((responce) => ***REMOVED***
-                    if (responce.data.isNormalToken) ***REMOVED***
-                        if (responce.data.isGreat) ***REMOVED***
-                            data.post.objects[key].isGood = !data.post.objects[key].isGood
-                            data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
-                        ***REMOVED*** else ***REMOVED***
-                            createAlert(new alert('いいねすることができませんでした。', 2))
-                        ***REMOVED***
-                    ***REMOVED*** else ***REMOVED***
-                        notNormalTokenAlert()
-                    ***REMOVED***
-                ***REMOVED***)
-            ***REMOVED***
             const getResponcePosts = async(responceFromPostId) => ***REMOVED***
                 if (!data.post.cantGetPosts) ***REMOVED***
                     let user = ***REMOVED******REMOVED***
@@ -95,10 +74,17 @@
                     ***REMOVED***
                     axios.get('/api/get/responce-posts', responcePostsInfos)
                     .then((responce) => ***REMOVED***
-                        console.log(responce)
+                        if (responce.data.length === 0) ***REMOVED***
+                            data.post.cantGetPosts = true
+                            if (data.post.gotNum === 0) ***REMOVED***
+                                createAlert(new alert('データが見つからなかったため、ホームへ戻ります。', 2))
+                                data.router.push('/')
+                            ***REMOVED***
+                        ***REMOVED***
                         data.post.gotNum += data.post.take
                         if (data.post.take > responce.data.length)
                             data.post.cantGetPosts = true
+                        
                         responce.data.forEach((obj) => ***REMOVED***
                             data.post.objects.push(
                                 new post(
