@@ -14,6 +14,7 @@ Route::post('/api/post/can-i-join-community',   [CommunityController::class, 'ca
 Route::post('/api/post/dont-join-community',    [CommunityController::class, 'dontJoinCommunity']);
 Route::post('/api/post/create-community',       [CommunityController::class, 'createCommunity']);
 Route::post('/api/post/join-community',         [CommunityController::class, 'joinCommunity']);
+Route::get('/api/get/can-join-community',       [CommunityController::class, 'getCanJoinCommunity']);
 Route::get('/api/get/communities',              [CommunityController::class, 'getCommunities']);
 
 Route::post('/api/post/refresh-user-profile',   [UserController::class, 'refreshUserProfile']);
