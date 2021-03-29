@@ -12,7 +12,7 @@ import { getUidAndToken }                           from './supportFirebase.js'
 import axios                                        from 'axios' 
 
 class post {
-    constructor(name, userName, content, isGood, goodNum, responceNum, postId) {
+    constructor(name, userName, content, isGood, goodNum, responceNum, postId, communityId) {
         this.name           = name
         this.userName       = userName
         this.content        = content
@@ -20,6 +20,7 @@ class post {
         this.goodNum        = goodNum
         this.responceNum    = responceNum
         this.postId         = postId
+        this.communityId    = communityId
     }
 }
 const sendGood = async(postObj) => {
