@@ -31,6 +31,10 @@
                 type:       String,
                 required:   true,
             },
+            communityId:    {
+                default:    0,
+                type:       Number,
+            },
             responceNum:    { type: Number, },
             sendGood:       { type: Function, },
             sendArg:        { type: Object, },
@@ -47,6 +51,9 @@
             const responceToPost = () => {
                 if (data.store.state.user.isLogin) {
                     data.store.state.post.toResponcePostId = props.postId
+                    if (props.communityId !== 0) {
+                        data.store.state.post.toResponceCommunityId = props.communityId
+                    }
                     displayWindow(4)
                 } else {
                     displayWindow(5)
