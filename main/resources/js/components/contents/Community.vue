@@ -46,13 +46,13 @@
 </template>
 
 <script>
+    import ***REMOVED*** reactive, onMounted, onBeforeMount, ref ***REMOVED***  from 'vue'
     import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
     import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***          from '../../router.js'
     import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***            from '../../page.js'
-    import ***REMOVED*** reactive, onMounted, ref ***REMOVED***                 from 'vue'
+    import ***REMOVED*** useRoute, useRouter ***REMOVED***                      from 'vue-router'
     import ***REMOVED*** post, sendGood ***REMOVED***                           from '../../post.js'
     import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
-    import ***REMOVED*** useRoute ***REMOVED***                                 from 'vue-router'
     import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
     import axios                                        from 'axios' 
     
@@ -67,8 +67,9 @@
         ***REMOVED***,
         setup() ***REMOVED***
             const data = reactive(***REMOVED***
-                route: useRoute(),
-                store: useStore(),
+                router: useRouter(),
+                route:  useRoute(),
+                store:  useStore(),
                 post: ***REMOVED***
                     cantGetPosts:   false,
                     objects:        [],
@@ -149,8 +150,36 @@
                     ***REMOVED***)
                 ***REMOVED***
             ***REMOVED***
-            onMounted(() => ***REMOVED***
+            const checkCanJoinCommunity = async() => ***REMOVED***
+                const user = await getUidAndToken()
+                const canJoinCommunity = ***REMOVED***
+                    params: ***REMOVED***
+                        uid: user.uid,
+                        token: user.token,
+                        communityId: data.route.params.id,
+                    ***REMOVED***
+                ***REMOVED***
+                axios.get('/api/get/can-join-community', canJoinCommunity)
+                .then((responce) => ***REMOVED***
+                    if (responce.data.isNormalToken) ***REMOVED***
+                        if (!responce.data.canJoinCommunity) ***REMOVED***
+                            createAlert(new alert('コミュニティに入る権利がないです。'), 2)
+                            data.router.push('/communities/0')   
+                        ***REMOVED***
+                    ***REMOVED*** else ***REMOVED***
+                        notNormalTokenAlert()
+                    ***REMOVED***
+                ***REMOVED***)
+                .catch(() => ***REMOVED***
+                    createAlert(new alert('エラーが発生しました。'), 2)
+                    data.router.push('/communities/0')   
+                ***REMOVED***)
+            ***REMOVED***
+            onBeforeMount(() => ***REMOVED***
                 antiNotLoginUser()
+                checkCanJoinCommunity()
+            ***REMOVED***)
+            onMounted(() => ***REMOVED***
                 getPosts()
                 addPageEvent('pageMostBottom', () => ***REMOVED***getPosts()***REMOVED***)
             ***REMOVED***)
