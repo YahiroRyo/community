@@ -27,6 +27,7 @@ class CommunityController extends Controller
             $isCorrectToken = $this->auth->verifyIdToken($token);
             return true;
         ***REMOVED*** catch (\Exception $e) ***REMOVED***
+            \Log::info($e);
             return false;
         ***REMOVED***
     ***REMOVED***
@@ -47,6 +48,7 @@ class CommunityController extends Controller
                 ]);
                 $community->save();
             ***REMOVED*** catch (\Exception $e) ***REMOVED***
+                \Log::info($e);
                 return [
                     'isCreateCommunity' => false,
                     'isNormalToken' => true,
@@ -89,6 +91,7 @@ class CommunityController extends Controller
                                         ->orderBy('id', 'desc')
                                         ->get();
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                \Log::info($e);
                 return [
                     'isGetCommunities' => false,
                     'communities' => null
@@ -122,8 +125,9 @@ class CommunityController extends Controller
                 // すでに加入申請がされていた場合
                 $canIJoinCommunity = CanIJoinCommunity::where('user_id', $userId)
                                                         ->where('community_id', $request->communityId)
-                                                        ->exist();
+                                                        ->exists();
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                \Log::info($e);
                 return [
                     'isNormalToken' => true,
                     'isCanIJoinCommunity' => false,
@@ -135,12 +139,13 @@ class CommunityController extends Controller
                 try ***REMOVED***
                     $bell = new Bell;
                     $bell->fill([
-                        'user_id' => $founderUserId,
-                        'type' => 1,
+                        'user_id'   => $founderUserId,
+                        'type'      => 1,
                     ]);
                     $bell->save();
                     $bellId = $bell->id;
                 ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                    \Log::info($e);
                     DB::rollBack();
                     DB::commit();
                     return [
@@ -157,6 +162,7 @@ class CommunityController extends Controller
                     ]);
                     $canIJoinCommunity->save();
                 ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                    \Log::info($e);
                     DB::rollBack();
                     DB::commit();
                     return [
@@ -199,6 +205,7 @@ class CommunityController extends Controller
                                 ->where('community_id', $request->communityId)
                                 ->delete();
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                \Log::info($e);
                 DB::rollBack();
                 DB::commit();
                 return [
@@ -209,6 +216,7 @@ class CommunityController extends Controller
             try ***REMOVED***
                 Bell::where('id', $canIJoinCommunityBellId)->delete();
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                \Log::info($e);
                 DB::rollBack();
                 DB::commit();
                 return [
@@ -241,6 +249,7 @@ class CommunityController extends Controller
                                 ->where('user_id', $request->userId)
                                 ->delete();
             ***REMOVED*** catch (\Exception $e) ***REMOVED***
+                \Log::info($e);
                 DB::rollBack();
                 DB::commit();
                 return [
@@ -256,6 +265,7 @@ class CommunityController extends Controller
                 ]);
                 $isJoiningCommunity->save();
             ***REMOVED*** catch (\Exception $e) ***REMOVED***
+                \Log::info($e);
                 DB::rollBack();
                 DB::commit();
                 return [
@@ -268,6 +278,7 @@ class CommunityController extends Controller
                     ->where('user_id', $request->userId)
                     ->delete();
             ***REMOVED*** catch (\Exception $e) ***REMOVED***
+                \Log::info($e);
                 DB::rollBack();
                 DB::commit();
                 return [
@@ -299,6 +310,7 @@ class CommunityController extends Controller
                                 ->where('user_id', $request->userId)
                                 ->delete();
             ***REMOVED*** catch (\Exception $e) ***REMOVED***
+                \Log::info($e);
                 DB::rollBack();
                 DB::commit();
                 return [
@@ -311,6 +323,7 @@ class CommunityController extends Controller
                     ->where('user_id', $request->userId)
                     ->delete();
             ***REMOVED*** catch (\Exception $e) ***REMOVED***
+                \Log::info($e);
                 DB::rollBack();
                 DB::commit();
                 return [
