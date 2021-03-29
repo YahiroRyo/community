@@ -39,18 +39,55 @@ class PostController extends Controller
                 $post = new Post;
                 $post->fill([
                     'user_id' => $userId,
-                    'post_id' => null,
                     'content' => $request->content,
                 ]);
                 $post->save();
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
                 return [
                     'isNormalToken' => true,
-                    'isCreatePost' => false,
+                    'isCreatePost'  => false,
                 ];
             ***REMOVED***
             return [
-                'isNor$userIdisCreatePost' => false,
+                'isNormalToken' => true,
+                'isCreatePost'  => true,
+            ];
+        ***REMOVED*** else ***REMOVED***
+            return [
+                'isNormalToken' => false,
+                'isCreatePost'  => false,
+            ];
+        ***REMOVED***
+    ***REMOVED***
+    public function createCommunityPost(Request $request) ***REMOVED***
+        // $request->uid
+        // $request->token
+        // $request->content
+        // $request->communityId
+        if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) ***REMOVED***
+            try ***REMOVED***
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $post = new Post;
+                $post->fill([
+                    'community_id'  => $request->communityId,
+                    'user_id'       => $userId,
+                    'content'       => $request->content,
+                ]);
+                $post->save();
+            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                return [
+                    'isNormalToken'         => true,
+                    'isCreateCommunityPost' => false,
+                ];
+            ***REMOVED***
+            return [
+                'isNormalToken'         => true,
+                'isCreateCommunityPost' => true,
+            ];
+        ***REMOVED*** else ***REMOVED***
+            return [
+                'isNormalToken'         => false,
+                'isCreateCommunityPost' => false,
             ];
         ***REMOVED***
     ***REMOVED***
@@ -106,6 +143,7 @@ class PostController extends Controller
             $posts  = Post::select(['content', 'id', 'user_id', 'post_id'])
                             ->take($take + $gotNum)
                             ->whereNull('post_id')
+                            ->whereNull('community_id')
                             ->with([
                                 'userInfo' => function ($query) ***REMOVED***
                                     $query->select(['name', 'user_name', 'user_id']);
@@ -126,6 +164,7 @@ class PostController extends Controller
             return $result;
         ***REMOVED***
     ***REMOVED***
+    // ユーザーの投稿を取得
     public function getUsersPosts(Request $request): array ***REMOVED***
         // $request->uid
         // $request->take
@@ -148,6 +187,7 @@ class PostController extends Controller
             $posts = Post::select(['content', 'id', 'user_id', 'post_id'])
                         ->where('user_id', $userInfos['user_id'])
                         ->whereNull('post_id')
+                        ->whereNull('community_id')
                         ->take($take + $gotNum)
                         ->with([
                             'isGreatPost' => function ($query) use ($userId) ***REMOVED***
@@ -162,6 +202,46 @@ class PostController extends Controller
                         ->get();
             for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
                 $posts[$i]['user_info'] = $userInfos;
+                array_push($result, $posts[$i]);
+            ***REMOVED***
+            return $result;
+        ***REMOVED***
+    ***REMOVED***
+    public function getCommunityPosts(Request $request) ***REMOVED***
+        // $request->communityId
+        // $request->gotNum
+        // $request->take
+        // $request->uid
+        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) ***REMOVED***
+            $result = [];
+            
+            $take   = intval($request->take);
+            $gotNum = intval($request->gotNum);
+            $userId;
+            try ***REMOVED***
+                $userId = User::where('uid', $request->uid)->first()['id'];
+            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                $userId = 0;
+            ***REMOVED***
+            $posts  = Post::select(['content', 'id', 'user_id', 'post_id'])
+                            ->take($take + $gotNum)
+                            ->where('community_id', $request->communityId)
+                            ->whereNull('post_id')
+                            ->with([
+                                'userInfo' => function ($query) ***REMOVED***
+                                    $query->select(['name', 'user_name', 'user_id']);
+                                ***REMOVED***,
+                                'isGreatPost' => function ($query) use ($userId) ***REMOVED***
+                                    $query->where('user_id', $userId);
+                                ***REMOVED***,
+                                'greatPostNum',
+                                'responceNum' => function ($query) ***REMOVED***
+                                    $query->select(['post_id']);
+                                ***REMOVED***,
+                            ])
+                            ->orderBy('id', 'desc')
+                            ->get();
+            for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
                 array_push($result, $posts[$i]);
             ***REMOVED***
             return $result;

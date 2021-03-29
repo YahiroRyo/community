@@ -21,9 +21,11 @@ Route::post('/api/post/register-user',          [UserController::class, 'registe
 Route::get('/api/get/user-profile',             [UserController::class, 'getUserProfile']);
 Route::get('/api/get/my-user-data',             [UserController::class, 'getMyUserData']);
 
+Route::post('/api/post/create-community-post',  [PostController::class, 'createCommunityPost']);
 Route::post('/api/post/create-responce-post',   [PostController::class, 'createResponcePost']);
 Route::post('/api/post/create-post',            [PostController::class, 'createPost']);
 Route::post('/api/post/great-post',             [PostController::class, 'greatPost']);
+Route::get('/api/get/community-posts',          [PostController::class, 'getCommunityPosts']);
 Route::get('/api/get/responce-posts',           [PostController::class, 'getResponcePosts']);
 Route::get('/api/get/global-posts',             [PostController::class, 'getGlobalPosts']);
 Route::get('/api/get/users-posts',              [PostController::class, 'getUsersPosts']);
