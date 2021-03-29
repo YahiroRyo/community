@@ -26,7 +26,8 @@ export const store = createStore({
           use:              false,
         },
         post: {
-          toResponcePostId: null,
+          toResponcePostId:       null,
+          toResponceCommunityId:  null,
         }
       }
     },
