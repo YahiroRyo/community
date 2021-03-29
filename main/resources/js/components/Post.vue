@@ -31,6 +31,10 @@
                 type:       String,
                 required:   true,
             ***REMOVED***,
+            communityId:    ***REMOVED***
+                default:    0,
+                type:       Number,
+            ***REMOVED***,
             responceNum:    ***REMOVED*** type: Number, ***REMOVED***,
             sendGood:       ***REMOVED*** type: Function, ***REMOVED***,
             sendArg:        ***REMOVED*** type: Object, ***REMOVED***,
@@ -47,6 +51,9 @@
             const responceToPost = () => ***REMOVED***
                 if (data.store.state.user.isLogin) ***REMOVED***
                     data.store.state.post.toResponcePostId = props.postId
+                    if (props.communityId !== 0) ***REMOVED***
+                        data.store.state.post.toResponceCommunityId = props.communityId
+                    ***REMOVED***
                     displayWindow(4)
                 ***REMOVED*** else ***REMOVED***
                     displayWindow(5)
