@@ -6,6 +6,10 @@
 // isGood:      投稿に対して自分がいいねを押したか
 // goodNum:     投稿のいいね数
 // responceNum: 投稿への返信数
+// postId:      投稿のID
+import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from './alert.js'
+import ***REMOVED*** getUidAndToken ***REMOVED***                           from './supportFirebase.js'
+import axios                                        from 'axios' 
 
 class post ***REMOVED***
     constructor(name, userName, content, isGood, goodNum, responceNum, postId) ***REMOVED***
@@ -18,5 +22,26 @@ class post ***REMOVED***
         this.postId         = postId
     ***REMOVED***
 ***REMOVED***
+const sendGood = async(postObj) => ***REMOVED***
+    const user = await getUidAndToken()
+    const greatPostInfos = ***REMOVED***
+        postId: postObj.postId,
+        token:  user.token,
+        uid:    user.uid,
+    ***REMOVED***
+    axios.post('/api/post/great-post', greatPostInfos)
+    .then((responce) => ***REMOVED***
+        if (responce.data.isNormalToken) ***REMOVED***
+            if (responce.data.isGreat) ***REMOVED***
+                postObj.isGood = !postObj.isGood
+                postObj.isGood ? postObj.goodNum++ : postObj.goodNum--
+            ***REMOVED*** else ***REMOVED***
+                createAlert(new alert('いいねすることができませんでした。', 2))
+            ***REMOVED***
+        ***REMOVED*** else ***REMOVED***
+            notNormalTokenAlert()
+        ***REMOVED***
+    ***REMOVED***)
+***REMOVED***
 
-export ***REMOVED*** post ***REMOVED***
+export ***REMOVED*** post, sendGood ***REMOVED***

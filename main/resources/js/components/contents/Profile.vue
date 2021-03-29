@@ -10,14 +10,15 @@
         <div class="profile__posts-wapper">
             <template v-if="data.post.objects.length > 0" v-for="(post, key) in data.post.objects" :key="key">
                 <Post
-                    :name="post.name"
+                    :sendArg="data.post.objects[key]"
+                    :responceNum="post.responceNum"
                     :userName="post.userName" 
                     :content="post.content"
                     :goodNum="post.goodNum"
-                    :responceNum="post.responceNum"
-                    :sendGood="sendGood"
-                    :sendKey="key"
+                    :postId="post.postId"
                     :isGood="post.isGood"
+                    :sendGood="sendGood"
+                    :name="post.name"
                 />
             </template>
             <h2 v-else-if="!data.user.isFount">このユーザーは存在しません。</h2>
@@ -31,9 +32,9 @@
     import ***REMOVED*** reactive, onMounted, onBeforeMount ***REMOVED***           from 'vue'
     import ***REMOVED*** getUidAndToken ***REMOVED***                               from '../../supportFirebase.js'
     import ***REMOVED*** displayWindow ***REMOVED***                                from '../../window.js'
+    import ***REMOVED*** post, sendGood ***REMOVED***                               from '../../post.js'
     import ***REMOVED*** ruseStore ***REMOVED***                                    from 'vuex'
     import ***REMOVED*** useStore ***REMOVED***                                     from 'vuex'
-    import ***REMOVED*** post ***REMOVED***                                         from '../../post.js'
     import axios                                            from 'axios'
     import Post                                             from '../Post.vue'
 
@@ -58,31 +59,6 @@
                     take:           50,
                 ***REMOVED***
             ***REMOVED***)
-            const sendGood = async(key) => ***REMOVED*** 
-                if (data.store.state.user.isLogin) ***REMOVED***
-                    const user = await getUidAndToken()
-                    const greatPostInfos = ***REMOVED***
-                        postId: data.post.objects[key].postId,
-                        token:  user.token,
-                        uid:    user.uid,
-                    ***REMOVED***
-                    axios.post('/api/post/great-post', greatPostInfos)
-                    .then((responce) => ***REMOVED***
-                        if (responce.data.isNormalToken) ***REMOVED***
-                            if (responce.data.isGreat) ***REMOVED***
-                                data.post.objects[key].isGood = !data.post.objects[key].isGood
-                                data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
-                            ***REMOVED*** else ***REMOVED***
-                                createAlert(new alert('いいねすることができませんでした。', 2))
-                            ***REMOVED***
-                        ***REMOVED*** else ***REMOVED***
-                            notNormalTokenAlert()
-                        ***REMOVED***
-                    ***REMOVED***)
-                ***REMOVED*** else ***REMOVED***
-                    displayWindow(5)
-                ***REMOVED***
-            ***REMOVED***
             const getUserData = async() => ***REMOVED***
                 const userProfileInfos = ***REMOVED***
                     params: ***REMOVED***

@@ -6,7 +6,7 @@
         </div>
         <p class="post__font">***REMOVED******REMOVED***content***REMOVED******REMOVED***</p>
         <div class="post__flex">
-            <button @click="sendGood(sendKey)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
+            <button @click="sendGood(sendArg)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
             <p class="post__status">***REMOVED******REMOVED***goodNum***REMOVED******REMOVED***</p>
             <button @click="responceToPost()" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
             <p class="post__status">***REMOVED******REMOVED***responceNum***REMOVED******REMOVED***</p>
@@ -33,7 +33,7 @@
             ***REMOVED***,
             responceNum:    ***REMOVED*** type: Number, ***REMOVED***,
             sendGood:       ***REMOVED*** type: Function, ***REMOVED***,
-            sendKey:        ***REMOVED*** type: Number, ***REMOVED***,
+            sendArg:        ***REMOVED*** type: Object, ***REMOVED***,
             content:        ***REMOVED*** type: String, ***REMOVED***,
             goodNum:        ***REMOVED*** type: Number, ***REMOVED***,
             postId:         ***REMOVED*** type: Number, ***REMOVED***,
