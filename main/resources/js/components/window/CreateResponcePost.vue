@@ -54,6 +54,9 @@
                     token:      user.token,
                     uid:        user.uid,
                 }
+                if (data.store.state.post.toResponceCommunityId) {
+                    createResponcePostInfos['communityId'] = data.store.state.post.toResponceCommunityId
+                }
                 axios.post('/api/post/create-responce-post', createResponcePostInfos)
                 .then((responce) => {
                     if (responce.data.isNormalToken) {
@@ -65,7 +68,8 @@
                     } else {
                         notNormalTokenAlert()
                     }
-                    data.store.state.post.toResponcePostId = null
+                    data.store.state.post.toResponcePostId      = null
+                    data.store.state.post.toResponceCommunityId = null
                     closeWindow()
                 })
             }
