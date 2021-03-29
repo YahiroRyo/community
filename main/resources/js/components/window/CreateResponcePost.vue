@@ -54,6 +54,9 @@
                     token:      user.token,
                     uid:        user.uid,
                 ***REMOVED***
+                if (data.store.state.post.toResponceCommunityId) ***REMOVED***
+                    createResponcePostInfos['communityId'] = data.store.state.post.toResponceCommunityId
+                ***REMOVED***
                 axios.post('/api/post/create-responce-post', createResponcePostInfos)
                 .then((responce) => ***REMOVED***
                     if (responce.data.isNormalToken) ***REMOVED***
@@ -65,7 +68,8 @@
                     ***REMOVED*** else ***REMOVED***
                         notNormalTokenAlert()
                     ***REMOVED***
-                    data.store.state.post.toResponcePostId = null
+                    data.store.state.post.toResponcePostId      = null
+                    data.store.state.post.toResponceCommunityId = null
                     closeWindow()
                 ***REMOVED***)
             ***REMOVED***
