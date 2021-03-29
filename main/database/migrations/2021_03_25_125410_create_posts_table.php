@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->integer('user_id')->unsigned();
             $table->integer('post_id')->unsigned()->nullable();
+            $table->integer('community_id')->unsigned()->nullable();
             $table->string('content', 200);
             $table->timestamps();
         });
