@@ -16,19 +16,20 @@
             </div>
             <button @click="selectMedia" class="create-post-btn"><img src="/images/materials/media.svg" class="create-post-btn__media-img"></button>
             <input ref="inputFileElement" @change="displayMedia" style="display: none;" type="file" accept="image/*" />
-            <button disabled @click="createPost" class="form__btn">投稿する</button>
+            <button @click="createPost" class="form__btn">投稿する</button>
         </div>
         <!-- コミュニティの投稿一覧 -->
         <div v-for="(post, key) in data.post.objects" :key="key">
             <Post
-                :name="post.name"
+                :sendArg="data.post.objects[key]"
+                :responceNum="post.responceNum"
                 :userName="post.userName" 
                 :content="post.content"
                 :goodNum="post.goodNum"
-                :responceNum="post.responceNum"
-                :sendGood="sendGood"
-                :sendKey="key"
+                :postId="post.postId"
                 :isGood="post.isGood"
+                :sendGood="sendGood"
+                :name="post.name"
             />
         </div>
     </div>
@@ -44,13 +45,18 @@
 </template>
 
 <script>
-    import { antiLoginUser, antiNotLoginUser }  from '../../router.js'
-    import { reactive, onMounted, ref }         from 'vue'
-    import { createAlert, alert }               from '../../alert.js'
-    import { useStore }                         from 'vuex'
-    import { post }                             from '../../post.js'
-    import Post                                 from '../Post.vue'
+    import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
+    import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
+    import { addPageEvent, removeAtAllFunc }            from '../../page.js'
+    import { reactive, onMounted, ref }                 from 'vue'
+    import { post, sendGood }                           from '../../post.js'
+    import { getUidAndToken }                           from '../../supportFirebase.js'
+    import { useRoute }                                 from 'vue-router'
+    import { useStore }                                 from 'vuex'
+    import axios                                        from 'axios' 
+    
     /* ---------------コンポーネントをインポート--------------- */
+    import Post                                 from '../Post.vue'
     import Form                                 from '../Form.vue'
 
     export default {
@@ -60,18 +66,18 @@
         },
         setup() {
             const data = reactive({
+                route: useRoute(),
                 store: useStore(),
                 post: {
-                    objects:    [],
-                    content:    '',
-                    images:     [],
+                    cantGetPosts:   false,
+                    objects:        [],
+                    content:        '',
+                    images:         [],
+                    gotNum:         0,
+                    take:           50,
                 },
             })
             const inputFileElement = ref(null)
-            const sendGood = (key) => {
-                data.post.objects[key].isGood = !data.post.objects[key].isGood
-                data.post.objects[key].isGood ? data.post.objects[key].goodNum++ : data.post.objects[key].goodNum--
-            }
             const selectMedia = () => {
                 // 閉じた際に、clickするとnullをクリックした判定になるため、nullじゃないかチェック
                 if (inputFileElement.value.click !== null) { inputFileElement.value.click() }
@@ -88,15 +94,65 @@
                 }
             }
             const deleteMedia = (key) => { data.post.images.splice(key, 1) }
+            const createPost = async() => {
+                const user = await getUidAndToken()
+                const createCommunityPostInfos = {
+                    communityId:    data.route.params.id,
+                    content:        data.post.content,
+                    token:          user.token,
+                    uid:            user.uid,
+                }
+                axios.post('/api/post/create-community-post', createCommunityPostInfos)
+                .then((responce) => {
+                    if (responce.data.isNormalToken) {
+                        if (responce.data.isCreateCommunityPost) {
+                            createAlert(new alert('投稿しました。', 0))
+                        } else {
+                            createAlert(new alert('投稿に失敗しました。', 2))
+                        }
+                    } else {
+                        notNormalTokenAlert()
+                    }
+                })
+            }
+            const getPosts = async() => {
+                if (!data.post.cantGetPosts) {
+                    const user = await getUidAndToken()
+                    const communityPostsInfos = {
+                        params: {
+                            communityId:    data.route.params.id,
+                            gotNum:         data.post.gotNum,
+                            take:           data.post.take,
+                            uid:            user.uid,
+                        }
+                    }
+                    axios.get('/api/get/community-posts', communityPostsInfos)
+                    .then((responce) => {
+                        data.post.gotNum += data.post.take
+                        if (data.post.take > responce.data.length)
+                            data.post.cantGetPosts = true
+                        responce.data.forEach((obj) => {
+                            data.post.objects.push(
+                                new post(
+                                    obj.user_info.name,
+                                    obj.user_info.user_name,
+                                    obj.content,
+                                    obj.is_great_post.length > 0,
+                                    obj.great_post_num.length,
+                                    obj.responce_num.length,
+                                    obj.id,
+                                )
+                            )
+                        })
+                    })
+                }
+            }
             onMounted(() => {
                 antiNotLoginUser()
-                /* ---------------TODO: サーバーからコミュニティの投稿内容を取得するajax処理を実装--------------- */
-
-                // 仮で表示するために値を格納
-                for (let i = 0; i < 100; i++)
-                    data.post.objects.push(new post('name', 'userName', 'content', true, 1, 5))
+                getPosts()
+                addPageEvent('pageMostBottom', () => {getPosts()})
             })
-            return { data, sendGood, inputFileElement, selectMedia, displayMedia, deleteMedia }
+            return { data, sendGood, inputFileElement, selectMedia, displayMedia, deleteMedia, createPost }
         }
     }
 </script>
