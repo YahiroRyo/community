@@ -97,15 +97,25 @@ class PostController extends Controller
         // $request->token
         // $request->postId
         // $request->content
+        // $request->communityId
         if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) ***REMOVED***
             try ***REMOVED***
                 $userId = User::where('uid', $request->uid)->first()['id'];
                 $post = new Post;
-                $post->fill([
-                    'user_id' => $userId,
-                    'post_id' => $request->postId,
-                    'content' => $request->content,
-                ]);
+                if (isset($request->communityId)) ***REMOVED***
+                    $post->fill([
+                        'user_id'       => $userId,
+                        'post_id'       => $request->postId,
+                        'content'       => $request->content,
+                        'community_id'  => $request->communityId,
+                    ]);
+                ***REMOVED*** else ***REMOVED***
+                    $post->fill([
+                        'user_id' => $userId,
+                        'post_id' => $request->postId,
+                        'content' => $request->content,
+                    ]);
+                ***REMOVED***
                 $post->save();
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
                 return [
@@ -207,6 +217,7 @@ class PostController extends Controller
             return $result;
         ***REMOVED***
     ***REMOVED***
+    // コミュニティの投稿を取得
     public function getCommunityPosts(Request $request) ***REMOVED***
         // $request->communityId
         // $request->gotNum
@@ -265,7 +276,7 @@ class PostController extends Controller
                 $userId = 0;
             ***REMOVED***
             if ($gotNum === 0) ***REMOVED***
-                array_push($result, Post::select(['content', 'id', 'user_id', 'post_id'])
+                array_push($result, Post::select(['content', 'id', 'user_id', 'post_id', 'community_id'])
                     ->where('id', $request->postId)
                     ->with([
                         'userInfo' => function ($query) ***REMOVED***
