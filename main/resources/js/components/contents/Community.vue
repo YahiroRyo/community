@@ -46,13 +46,13 @@
 </template>
 
 <script>
+    import { reactive, onMounted, onBeforeMount, ref }  from 'vue'
     import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
     import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
     import { addPageEvent, removeAtAllFunc }            from '../../page.js'
-    import { reactive, onMounted, ref }                 from 'vue'
+    import { useRoute, useRouter }                      from 'vue-router'
     import { post, sendGood }                           from '../../post.js'
     import { getUidAndToken }                           from '../../supportFirebase.js'
-    import { useRoute }                                 from 'vue-router'
     import { useStore }                                 from 'vuex'
     import axios                                        from 'axios' 
     
@@ -67,8 +67,9 @@
         },
         setup() {
             const data = reactive({
-                route: useRoute(),
-                store: useStore(),
+                router: useRouter(),
+                route:  useRoute(),
+                store:  useStore(),
                 post: {
                     cantGetPosts:   false,
                     objects:        [],
@@ -149,8 +150,36 @@
                     })
                 }
             }
-            onMounted(() => {
+            const checkCanJoinCommunity = async() => {
+                const user = await getUidAndToken()
+                const canJoinCommunity = {
+                    params: {
+                        uid: user.uid,
+                        token: user.token,
+                        communityId: data.route.params.id,
+                    }
+                }
+                axios.get('/api/get/can-join-community', canJoinCommunity)
+                .then((responce) => {
+                    if (responce.data.isNormalToken) {
+                        if (!responce.data.canJoinCommunity) {
+                            createAlert(new alert('コミュニティに入る権利がないです。'), 2)
+                            data.router.push('/communities/0')   
+                        }
+                    } else {
+                        notNormalTokenAlert()
+                    }
+                })
+                .catch(() => {
+                    createAlert(new alert('エラーが発生しました。'), 2)
+                    data.router.push('/communities/0')   
+                })
+            }
+            onBeforeMount(() => {
                 antiNotLoginUser()
+                checkCanJoinCommunity()
+            })
+            onMounted(() => {
                 getPosts()
                 addPageEvent('pageMostBottom', () => {getPosts()})
             })
