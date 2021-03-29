@@ -26,7 +26,8 @@ export const store = createStore(***REMOVED***
           use:              false,
         ***REMOVED***,
         post: ***REMOVED***
-          toResponcePostId: null,
+          toResponcePostId:       null,
+          toResponceCommunityId:  null,
         ***REMOVED***
       ***REMOVED***
     ***REMOVED***,
