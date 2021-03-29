@@ -97,15 +97,25 @@ class PostController extends Controller
         // $request->token
         // $request->postId
         // $request->content
+        // $request->communityId
         if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) {
             try {
                 $userId = User::where('uid', $request->uid)->first()['id'];
                 $post = new Post;
-                $post->fill([
-                    'user_id' => $userId,
-                    'post_id' => $request->postId,
-                    'content' => $request->content,
-                ]);
+                if (isset($request->communityId)) {
+                    $post->fill([
+                        'user_id'       => $userId,
+                        'post_id'       => $request->postId,
+                        'content'       => $request->content,
+                        'community_id'  => $request->communityId,
+                    ]);
+                } else {
+                    $post->fill([
+                        'user_id' => $userId,
+                        'post_id' => $request->postId,
+                        'content' => $request->content,
+                    ]);
+                }
                 $post->save();
             } catch(\Exception $e) {
                 return [
@@ -207,6 +217,7 @@ class PostController extends Controller
             return $result;
         }
     }
+    // コミュニティの投稿を取得
     public function getCommunityPosts(Request $request) {
         // $request->communityId
         // $request->gotNum
@@ -265,7 +276,7 @@ class PostController extends Controller
                 $userId = 0;
             }
             if ($gotNum === 0) {
-                array_push($result, Post::select(['content', 'id', 'user_id', 'post_id'])
+                array_push($result, Post::select(['content', 'id', 'user_id', 'post_id', 'community_id'])
                     ->where('id', $request->postId)
                     ->with([
                         'userInfo' => function ($query) {
