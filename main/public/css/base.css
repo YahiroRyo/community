@@ -47,6 +47,10 @@
 .t-c ***REMOVED***
   text-align: center; ***REMOVED***
 
+/* ---------------display------------------ */
+.d-b ***REMOVED***
+  display: block; ***REMOVED***
+
 *,
 ::before,
 ::after ***REMOVED***
@@ -700,7 +704,8 @@ template ***REMOVED***
 .post__font, .post__status, .post__name ***REMOVED***
   color: #797979;
   margin: 5px 0 0 5px;
-  overflow-wrap: break-word; ***REMOVED***
+  overflow-wrap: break-word;
+  white-space: pre-wrap; ***REMOVED***
 
 .post__status, .post__name ***REMOVED***
   color: black;
@@ -730,6 +735,13 @@ template ***REMOVED***
   padding: 2px 10px;
   margin: 10px 0 0 5px;
   width: auto; ***REMOVED***
+
+.post__icon-img ***REMOVED***
+  width: 75px;
+  height: 75px;
+  margin-right: 10px; ***REMOVED***
+  .post__icon-img:hover ***REMOVED***
+    cursor: pointer; ***REMOVED***
 
 /* ---------------tabの仕様・制約--------------- */
 .tabs-wapper, .header__tab-wapper ***REMOVED***
