@@ -29,16 +29,22 @@
 
 /* ---------------windowのtransition--------------- */
 .window-anim-enter-active,
-.window-anim-leave-active ***REMOVED*** transition: opacity .5s ease-in-out; ***REMOVED***
+.window-anim-leave-active ***REMOVED*** transition: .4s ease-in-out; ***REMOVED***
 
 .window-anim-enter-active,
-.window-anim-leave-to ***REMOVED*** opacity: 0; ***REMOVED***
+.window-anim-leave-to ***REMOVED***
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+***REMOVED***
 
 .window-anim-enter-to,
-.window-anim-leave ***REMOVED*** opacity: 1; ***REMOVED***
+.window-anim-leave ***REMOVED***
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+***REMOVED***
 
 .window_shake-anim ***REMOVED***
-    animation-duration: .82s;
+    animation-duration: .7s;
     animation-name: window_shake;
 ***REMOVED***
 
