@@ -14,7 +14,7 @@ import { store }                                    from './store.js'
 import axios                                        from 'axios' 
 
 class post {
-    constructor(name, userName, content, isGood, goodNum, responceNum, postId, communityId) {
+    constructor(name, userName, content, isGood, goodNum, responceNum, postId, communityId, imageName) {
         this.name           = name
         this.userName       = userName
         this.content        = content
@@ -23,6 +23,7 @@ class post {
         this.responceNum    = responceNum
         this.postId         = postId
         this.communityId    = communityId
+        this.imageName      = imageName
     }
 }
 const sendGood = async(postObj) => {
