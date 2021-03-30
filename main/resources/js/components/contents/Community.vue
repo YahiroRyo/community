@@ -5,7 +5,7 @@
         <div class="community-create-post-wapper">
             <Form class="form" :useTextArea="true" v-model:inputContent="data.post.content" label="コミュニティに投稿する" uniqueClassKey="1" />
             <!-- 文字数カウント -->
-            <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, ***REMOVED***">***REMOVED******REMOVED***data.post.content.length***REMOVED******REMOVED*** | 200</p>
+            <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': bytes(data.post.content) >= 280 ? true : false, ***REMOVED***">***REMOVED******REMOVED***bytes(data.post.content) ***REMOVED******REMOVED*** | 280</p>
             <!-- 画像プレビュー -->
             <div class="create-post-display-img-wapper" v-show="data.post.images.length > 0">
                 <transition-group name="create-post-input-img-anim">
@@ -22,6 +22,7 @@
         <div v-for="(post, key) in data.post.objects" :key="key">
             <Post
                 :sendArg="data.post.objects[key]"
+                :imageName="post.imageName"
                 :responceNum="post.responceNum"
                 :communityId="Number(data.route.params.id)"
                 :userName="post.userName" 
@@ -144,11 +145,15 @@
                                     obj.responce_num.length,
                                     obj.id,
                                     obj.community_id,
+                                    obj.image_name,
                                 )
                             )
                         ***REMOVED***)
                     ***REMOVED***)
                 ***REMOVED***
+            ***REMOVED***
+            const bytes = (str) => ***REMOVED***
+                return(encodeURIComponent(str).replace(/%../g,"x").length)
             ***REMOVED***
             const checkCanJoinCommunity = async() => ***REMOVED***
                 const user = await getUidAndToken()
@@ -183,7 +188,7 @@
                 getPosts()
                 addPageEvent('pageMostBottom', () => ***REMOVED***getPosts()***REMOVED***)
             ***REMOVED***)
-            return ***REMOVED*** data, sendGood, inputFileElement, selectMedia, displayMedia, deleteMedia, createPost ***REMOVED***
+            return ***REMOVED*** data, sendGood, inputFileElement, selectMedia, displayMedia, deleteMedia, createPost, bytes ***REMOVED***
         ***REMOVED***
     ***REMOVED***
 </script>

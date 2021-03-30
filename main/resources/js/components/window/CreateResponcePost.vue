@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="/css/components/createPost/createPost.css">
         <Form class="form" :useTextArea="true" v-model:inputContent="data.post.content" label="返信内容を入力" uniqueClassKey="1" />
         <!-- 文字数カウント -->
-        <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, ***REMOVED***">***REMOVED******REMOVED***data.post.content.length***REMOVED******REMOVED*** | 200</p>
+        <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': bytes(data.post.content) >= 280 ? true : false, ***REMOVED***">***REMOVED******REMOVED***bytes(data.post.content) ***REMOVED******REMOVED*** | 280</p>
         <!-- 画像プレビュー -->
         <div class="create-post-display-img-wapper" v-show="data.post.images.length > 0">
             <transition-group name="create-post-input-img-anim">
@@ -88,12 +88,15 @@
                     ***REMOVED***
                 ***REMOVED***
             ***REMOVED***
+            const bytes = (str) => ***REMOVED***
+                return(encodeURIComponent(str).replace(/%../g,"x").length)
+            ***REMOVED***
             onBeforeMount(() => ***REMOVED***
                 antiNotLoginUser()
             ***REMOVED***)
             const deleteMedia = (key) => ***REMOVED*** data.post.images.splice(key, 1) ***REMOVED***
             onMounted(() => ***REMOVED*** createWindow('投稿に返信', 500, 660) ***REMOVED***)
-            return ***REMOVED*** data, createResponcePost, selectMedia, inputFileElement, displayMedia, deleteMedia, ***REMOVED***
+            return ***REMOVED*** data, createResponcePost, selectMedia, inputFileElement, displayMedia, deleteMedia, bytes ***REMOVED***
         ***REMOVED***
     ***REMOVED***
 </script>
