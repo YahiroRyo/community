@@ -42,7 +42,7 @@
         </ul>
         <div class="header__other">
             <ul class="header__other__menu">
-                <li @click="displayWindow(3)" class="header__other__menu__item"><img class="header__other__menu__item__btn" src="/images/materials/bell.svg"></li>
+                <li v-if="$store.state.user.isLogin" @click="displayWindow(3)" class="header__other__menu__item"><img class="header__other__menu__item__btn" src="/images/materials/bell.svg"></li>
             </ul>
         </div>
     </header>
@@ -86,7 +86,7 @@
                     <!-- window__content内のコンポーネントは予め用意しておき、if文で切り替える -->
                     <div class="window__content" :style="`height: ${data.window.contentHeight}px;`">
                         <!-- 使いたいコンポーネントに番号を定義し、if文で表示させる -->
-                        <WindowExample          v-if="$store.state.window.currentComponent === 0" />
+                        <WindowExample          v-if="$store.state.window.currentComponent      === 0" />
                         <Modules                v-else-if="$store.state.window.currentComponent === 1" />
                         <CreatePost             v-else-if="$store.state.window.currentComponent === 2" />
                         <Bell                   v-else-if="$store.state.window.currentComponent === 3" />
