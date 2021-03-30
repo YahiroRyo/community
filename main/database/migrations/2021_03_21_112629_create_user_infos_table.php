@@ -17,6 +17,7 @@ class CreateUserInfosTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('name', 30);
             $table->string('user_name', 30);
+            $table->string('image_name', 100)->default('default.jpg');
             $table->string('intro', 200)->nullable();
         });
     }
