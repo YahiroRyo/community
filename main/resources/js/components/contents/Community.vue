@@ -5,7 +5,7 @@
         <div class="community-create-post-wapper">
             <Form class="form" :useTextArea="true" v-model:inputContent="data.post.content" label="コミュニティに投稿する" uniqueClassKey="1" />
             <!-- 文字数カウント -->
-            <p :class="{'form-label-create-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, }">{{data.post.content.length}} | 200</p>
+            <p :class="{'form-label-create-post': true, 'form-label_danger': bytes(data.post.content) >= 280 ? true : false, }">{{bytes(data.post.content) }} | 280</p>
             <!-- 画像プレビュー -->
             <div class="create-post-display-img-wapper" v-show="data.post.images.length > 0">
                 <transition-group name="create-post-input-img-anim">
@@ -22,6 +22,7 @@
         <div v-for="(post, key) in data.post.objects" :key="key">
             <Post
                 :sendArg="data.post.objects[key]"
+                :imageName="post.imageName"
                 :responceNum="post.responceNum"
                 :communityId="Number(data.route.params.id)"
                 :userName="post.userName" 
@@ -144,11 +145,15 @@
                                     obj.responce_num.length,
                                     obj.id,
                                     obj.community_id,
+                                    obj.image_name,
                                 )
                             )
                         })
                     })
                 }
+            }
+            const bytes = (str) => {
+                return(encodeURIComponent(str).replace(/%../g,"x").length)
             }
             const checkCanJoinCommunity = async() => {
                 const user = await getUidAndToken()
@@ -183,7 +188,7 @@
                 getPosts()
                 addPageEvent('pageMostBottom', () => {getPosts()})
             })
-            return { data, sendGood, inputFileElement, selectMedia, displayMedia, deleteMedia, createPost }
+            return { data, sendGood, inputFileElement, selectMedia, displayMedia, deleteMedia, createPost, bytes }
         }
     }
 </script>

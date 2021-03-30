@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="/css/components/createPost/createPost.css">
         <Form class="form" :useTextArea="true" v-model:inputContent="data.post.content" label="返信内容を入力" uniqueClassKey="1" />
         <!-- 文字数カウント -->
-        <p :class="{'form-label-create-post': true, 'form-label_danger': data.post.content.length >= 200 ? true : false, }">{{data.post.content.length}} | 200</p>
+        <p :class="{'form-label-create-post': true, 'form-label_danger': bytes(data.post.content) >= 280 ? true : false, }">{{bytes(data.post.content) }} | 280</p>
         <!-- 画像プレビュー -->
         <div class="create-post-display-img-wapper" v-show="data.post.images.length > 0">
             <transition-group name="create-post-input-img-anim">
@@ -88,12 +88,15 @@
                     }
                 }
             }
+            const bytes = (str) => {
+                return(encodeURIComponent(str).replace(/%../g,"x").length)
+            }
             onBeforeMount(() => {
                 antiNotLoginUser()
             })
             const deleteMedia = (key) => { data.post.images.splice(key, 1) }
             onMounted(() => { createWindow('投稿に返信', 500, 660) })
-            return { data, createResponcePost, selectMedia, inputFileElement, displayMedia, deleteMedia, }
+            return { data, createResponcePost, selectMedia, inputFileElement, displayMedia, deleteMedia, bytes }
         }
     }
 </script>
