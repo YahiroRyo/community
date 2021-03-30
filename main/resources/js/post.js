@@ -14,7 +14,7 @@ import ***REMOVED*** store ***REMOVED***                                    from
 import axios                                        from 'axios' 
 
 class post ***REMOVED***
-    constructor(name, userName, content, isGood, goodNum, responceNum, postId, communityId) ***REMOVED***
+    constructor(name, userName, content, isGood, goodNum, responceNum, postId, communityId, imageName) ***REMOVED***
         this.name           = name
         this.userName       = userName
         this.content        = content
@@ -23,6 +23,7 @@ class post ***REMOVED***
         this.responceNum    = responceNum
         this.postId         = postId
         this.communityId    = communityId
+        this.imageName      = imageName
     ***REMOVED***
 ***REMOVED***
 const sendGood = async(postObj) => ***REMOVED***
