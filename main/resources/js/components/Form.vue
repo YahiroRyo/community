@@ -1,8 +1,8 @@
 <template>
     <div>
         <div :style="`background-color: $***REMOVED***formBackgroundColor***REMOVED***;`" :class="***REMOVED***'form-wapper': true, 'form__textarea-wapper': useTextArea,***REMOVED***">
-            <textarea  v-if="useTextArea" @input="inputContent" :style="validate ? '' : 'color: #f9446a;'" class="form__input form__textarea" :type="type" required></textarea>
-            <input v-else @input="inputContent" :style="validate ? '' : 'color: #f9446a;'" class="form__input" :type="type" required>
+            <textarea  v-if="useTextArea" :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? '' : 'color: #f9446a;'" class="form__input form__textarea" :type="type" required></textarea>
+            <input v-else :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? '' : 'color: #f9446a;'" class="form__input" :type="type" required>
             <div :class="`form__underline form__underline$***REMOVED***uniqueClassKey***REMOVED***`"></div>
             <label :style="validate ? '' : 'color: #f9446a;'" class="form__label">***REMOVED******REMOVED***label***REMOVED******REMOVED***</label>
         </div>
@@ -111,12 +111,7 @@
                 type:       Boolean,
                 default:    false,
             ***REMOVED***,
+            inputContent:   String,
         ***REMOVED***,
-        setup(props, ***REMOVED*** emit ***REMOVED***) ***REMOVED***
-            const inputContent = (e) => ***REMOVED***
-                emit('update:inputContent', e.target.value)
-            ***REMOVED***
-            return ***REMOVED*** inputContent ***REMOVED***
-        ***REMOVED***
     ***REMOVED***
 </script>
