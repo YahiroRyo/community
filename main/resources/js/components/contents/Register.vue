@@ -78,8 +78,7 @@
                         } else if (!responce.data.isCreateAccount) {
                             createAlert(new alert('アカウントの作成に失敗しました。', 2))
                         } else {
-                            // TODO: router.goが動かない
-                            data.router.push('/')
+                            data.router.go('/')
                         }
                     })
                 }
