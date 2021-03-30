@@ -4,6 +4,7 @@
             <template v-for="(post, key) in data.post.objects" :key="key">
                 <Post
                     :responceNum="post.responceNum"
+                    :imageName="post.imageName"
                     :communityId="!data.post.objects[0].communityId ? 0 : data.post.objects[0].communityId"
                     :userName="post.userName" 
                     :sendGood="sendGood"
@@ -95,7 +96,8 @@
                                     obj.great_post_num.length,
                                     obj.responce_num.length,
                                     obj.id,
-                                    obj.community_id
+                                    obj.community_id,
+                                    obj.image_name,
                                 )
                             )
                         })
