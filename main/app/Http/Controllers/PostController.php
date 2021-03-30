@@ -34,25 +34,33 @@ class PostController extends Controller
         // $request->uid
         // $request->token
         // $request->content
-        if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) ***REMOVED***
-            try ***REMOVED***
-                $userId = User::where('uid', $request->uid)->first()['id'];
-                $post = new Post;
-                $post->fill([
-                    'user_id' => $userId,
-                    'content' => $request->content,
-                ]);
-                $post->save();
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+
+        if ($this->isNormalToken($request->token)) ***REMOVED***
+            if (strlen($request->content) <= 280) ***REMOVED***
+                try ***REMOVED***
+                    $userId = User::where('uid', $request->uid)->first()['id'];
+                    $post = new Post;
+                    $post->fill([
+                        'user_id' => $userId,
+                        'content' => $request->content,
+                    ]);
+                    $post->save();
+                ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                    return [
+                        'isNormalToken' => true,
+                        'isCreatePost'  => false,
+                    ];
+                ***REMOVED***
+                return [
+                    'isNormalToken' => true,
+                    'isCreatePost'  => true,
+                ];
+            ***REMOVED*** else ***REMOVED***
                 return [
                     'isNormalToken' => true,
                     'isCreatePost'  => false,
                 ];
             ***REMOVED***
-            return [
-                'isNormalToken' => true,
-                'isCreatePost'  => true,
-            ];
         ***REMOVED*** else ***REMOVED***
             return [
                 'isNormalToken' => false,
@@ -66,26 +74,28 @@ class PostController extends Controller
         // $request->token
         // $request->content
         // $request->communityId
-        if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) ***REMOVED***
-            try ***REMOVED***
-                $userId = User::where('uid', $request->uid)->first()['id'];
-                $post = new Post;
-                $post->fill([
-                    'community_id'  => $request->communityId,
-                    'user_id'       => $userId,
-                    'content'       => $request->content,
-                ]);
-                $post->save();
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+        if ($this->isNormalToken($request->token)) ***REMOVED***
+            if (strlen($request->content) <= 280) ***REMOVED***
+                try ***REMOVED***
+                    $userId = User::where('uid', $request->uid)->first()['id'];
+                    $post = new Post;
+                    $post->fill([
+                        'community_id'  => $request->communityId,
+                        'user_id'       => $userId,
+                        'content'       => $request->content,
+                    ]);
+                    $post->save();
+                ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                    return [
+                        'isNormalToken'         => true,
+                        'isCreateCommunityPost' => false,
+                    ];
+                ***REMOVED***
                 return [
                     'isNormalToken'         => true,
-                    'isCreateCommunityPost' => false,
+                    'isCreateCommunityPost' => true,
                 ];
             ***REMOVED***
-            return [
-                'isNormalToken'         => true,
-                'isCreateCommunityPost' => true,
-            ];
         ***REMOVED*** else ***REMOVED***
             return [
                 'isNormalToken'         => false,
@@ -100,35 +110,42 @@ class PostController extends Controller
         // $request->postId
         // $request->content
         // $request->communityId
-        if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) ***REMOVED***
-            try ***REMOVED***
-                $userId = User::where('uid', $request->uid)->first()['id'];
-                $post = new Post;
-                if (isset($request->communityId)) ***REMOVED***
-                    $post->fill([
-                        'user_id'       => $userId,
-                        'post_id'       => $request->postId,
-                        'content'       => $request->content,
-                        'community_id'  => $request->communityId,
-                    ]);
-                ***REMOVED*** else ***REMOVED***
-                    $post->fill([
-                        'user_id' => $userId,
-                        'post_id' => $request->postId,
-                        'content' => $request->content,
-                    ]);
+        if ($this->isNormalToken($request->token)) ***REMOVED***
+            if (strlen($request->content) <= 280) ***REMOVED***
+                try ***REMOVED***
+                    $userId = User::where('uid', $request->uid)->first()['id'];
+                    $post = new Post;
+                    if (isset($request->communityId)) ***REMOVED***
+                        $post->fill([
+                            'user_id'       => $userId,
+                            'post_id'       => $request->postId,
+                            'content'       => $request->content,
+                            'community_id'  => $request->communityId,
+                        ]);
+                    ***REMOVED*** else ***REMOVED***
+                        $post->fill([
+                            'user_id' => $userId,
+                            'post_id' => $request->postId,
+                            'content' => $request->content,
+                        ]);
+                    ***REMOVED***
+                    $post->save();
+                ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                    return [
+                        'isNormalToken' => true,
+                        'isCreateResponcePost' => false,
+                    ];
                 ***REMOVED***
-                $post->save();
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                return [
+                    'isNormalToken' => true,
+                    'isCreateResponcePost' => true,
+                ];
+            ***REMOVED*** else ***REMOVED***
                 return [
                     'isNormalToken' => true,
                     'isCreateResponcePost' => false,
                 ];
             ***REMOVED***
-            return [
-                'isNormalToken' => true,
-                'isCreateResponcePost' => true,
-            ];
         ***REMOVED*** else ***REMOVED***
             return [
                 'isNormalToken' => false,
