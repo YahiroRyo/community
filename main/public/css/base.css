@@ -47,6 +47,10 @@
 .t-c {
   text-align: center; }
 
+/* ---------------display------------------ */
+.d-b {
+  display: block; }
+
 *,
 ::before,
 ::after {
@@ -700,7 +704,8 @@ template {
 .post__font, .post__status, .post__name {
   color: #797979;
   margin: 5px 0 0 5px;
-  overflow-wrap: break-word; }
+  overflow-wrap: break-word;
+  white-space: pre-wrap; }
 
 .post__status, .post__name {
   color: black;
@@ -730,6 +735,13 @@ template {
   padding: 2px 10px;
   margin: 10px 0 0 5px;
   width: auto; }
+
+.post__icon-img {
+  width: 75px;
+  height: 75px;
+  margin-right: 10px; }
+  .post__icon-img:hover {
+    cursor: pointer; }
 
 /* ---------------tabの仕様・制約--------------- */
 .tabs-wapper, .header__tab-wapper {
