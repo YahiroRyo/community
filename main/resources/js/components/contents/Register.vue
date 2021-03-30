@@ -78,8 +78,7 @@
                         ***REMOVED*** else if (!responce.data.isCreateAccount) ***REMOVED***
                             createAlert(new alert('アカウントの作成に失敗しました。', 2))
                         ***REMOVED*** else ***REMOVED***
-                            // TODO: router.goが動かない
-                            data.router.push('/')
+                            data.router.go('/')
                         ***REMOVED***
                     ***REMOVED***)
                 ***REMOVED***
