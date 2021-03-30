@@ -95,7 +95,7 @@ class UserController extends Controller
     // ユーザーの情報を取得
     public function getUserProfile(Request $request) {
         return UserInfo::where('user_name', $request->userName)
-                        ->first(['name', 'user_name', 'intro']);
+                        ->first(['name', 'user_name', 'intro', 'image_name']);
     }
     // 自分のユーザー情報を取得
     public function getMyUserData(Request $request) {
@@ -103,7 +103,7 @@ class UserController extends Controller
             $userId = User::where('uid', $request->uid)
                             ->first()['id'];
             $userInfo = UserInfo::where('user_id', $userId)
-                            ->first(['name', 'user_name', 'intro']);
+                            ->first(['name', 'user_name', 'intro', 'image_name']);
             return [
                 'isGetMyUserData' => true,
                 'userData' => $userInfo,
