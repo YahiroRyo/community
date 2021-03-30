@@ -34,25 +34,33 @@ class PostController extends Controller
         // $request->uid
         // $request->token
         // $request->content
-        if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) {
-            try {
-                $userId = User::where('uid', $request->uid)->first()['id'];
-                $post = new Post;
-                $post->fill([
-                    'user_id' => $userId,
-                    'content' => $request->content,
-                ]);
-                $post->save();
-            } catch(\Exception $e) {
+
+        if ($this->isNormalToken($request->token)) {
+            if (strlen($request->content) <= 280) {
+                try {
+                    $userId = User::where('uid', $request->uid)->first()['id'];
+                    $post = new Post;
+                    $post->fill([
+                        'user_id' => $userId,
+                        'content' => $request->content,
+                    ]);
+                    $post->save();
+                } catch(\Exception $e) {
+                    return [
+                        'isNormalToken' => true,
+                        'isCreatePost'  => false,
+                    ];
+                }
+                return [
+                    'isNormalToken' => true,
+                    'isCreatePost'  => true,
+                ];
+            } else {
                 return [
                     'isNormalToken' => true,
                     'isCreatePost'  => false,
                 ];
             }
-            return [
-                'isNormalToken' => true,
-                'isCreatePost'  => true,
-            ];
         } else {
             return [
                 'isNormalToken' => false,
@@ -66,26 +74,28 @@ class PostController extends Controller
         // $request->token
         // $request->content
         // $request->communityId
-        if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) {
-            try {
-                $userId = User::where('uid', $request->uid)->first()['id'];
-                $post = new Post;
-                $post->fill([
-                    'community_id'  => $request->communityId,
-                    'user_id'       => $userId,
-                    'content'       => $request->content,
-                ]);
-                $post->save();
-            } catch(\Exception $e) {
+        if ($this->isNormalToken($request->token)) {
+            if (strlen($request->content) <= 280) {
+                try {
+                    $userId = User::where('uid', $request->uid)->first()['id'];
+                    $post = new Post;
+                    $post->fill([
+                        'community_id'  => $request->communityId,
+                        'user_id'       => $userId,
+                        'content'       => $request->content,
+                    ]);
+                    $post->save();
+                } catch(\Exception $e) {
+                    return [
+                        'isNormalToken'         => true,
+                        'isCreateCommunityPost' => false,
+                    ];
+                }
                 return [
                     'isNormalToken'         => true,
-                    'isCreateCommunityPost' => false,
+                    'isCreateCommunityPost' => true,
                 ];
             }
-            return [
-                'isNormalToken'         => true,
-                'isCreateCommunityPost' => true,
-            ];
         } else {
             return [
                 'isNormalToken'         => false,
@@ -100,35 +110,42 @@ class PostController extends Controller
         // $request->postId
         // $request->content
         // $request->communityId
-        if ($this->isNormalToken($request->token) && strlen($request->content) <= 200) {
-            try {
-                $userId = User::where('uid', $request->uid)->first()['id'];
-                $post = new Post;
-                if (isset($request->communityId)) {
-                    $post->fill([
-                        'user_id'       => $userId,
-                        'post_id'       => $request->postId,
-                        'content'       => $request->content,
-                        'community_id'  => $request->communityId,
-                    ]);
-                } else {
-                    $post->fill([
-                        'user_id' => $userId,
-                        'post_id' => $request->postId,
-                        'content' => $request->content,
-                    ]);
+        if ($this->isNormalToken($request->token)) {
+            if (strlen($request->content) <= 280) {
+                try {
+                    $userId = User::where('uid', $request->uid)->first()['id'];
+                    $post = new Post;
+                    if (isset($request->communityId)) {
+                        $post->fill([
+                            'user_id'       => $userId,
+                            'post_id'       => $request->postId,
+                            'content'       => $request->content,
+                            'community_id'  => $request->communityId,
+                        ]);
+                    } else {
+                        $post->fill([
+                            'user_id' => $userId,
+                            'post_id' => $request->postId,
+                            'content' => $request->content,
+                        ]);
+                    }
+                    $post->save();
+                } catch(\Exception $e) {
+                    return [
+                        'isNormalToken' => true,
+                        'isCreateResponcePost' => false,
+                    ];
                 }
-                $post->save();
-            } catch(\Exception $e) {
+                return [
+                    'isNormalToken' => true,
+                    'isCreateResponcePost' => true,
+                ];
+            } else {
                 return [
                     'isNormalToken' => true,
                     'isCreateResponcePost' => false,
                 ];
             }
-            return [
-                'isNormalToken' => true,
-                'isCreateResponcePost' => true,
-            ];
         } else {
             return [
                 'isNormalToken' => false,
