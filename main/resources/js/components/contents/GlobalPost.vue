@@ -4,6 +4,7 @@
             <Post
                 :sendArg="data.post.objects[key]"
                 :responceNum="post.responceNum"
+                :imageName="post.imageName"
                 :userName="post.userName" 
                 :content="post.content"
                 :goodNum="post.goodNum"
@@ -70,6 +71,7 @@
                                     obj.responce_num.length,
                                     obj.id,
                                     obj.community_id,
+                                    obj.image_name,
                                 )
                             )
                         ***REMOVED***)

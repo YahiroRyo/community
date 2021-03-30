@@ -1,10 +1,15 @@
 <template>
     <div>
         <link rel="stylesheet" href="/css/components/profile/profile.css">
-        <h1 class="profile__name">***REMOVED******REMOVED***data.user.name***REMOVED******REMOVED***</h1>
         <div class="profile__flex">
-            <p class="profile__user-name">@***REMOVED******REMOVED***data.user.userName***REMOVED******REMOVED***</p>
-            <router-link to="/profile-edit" v-if="$store.state.user.userName === data.user.userName" class="profile__btn">プロフィールを編集する</router-link>
+            <img class="profile__icon-img" :src="`/images/$***REMOVED***data.user.imageName***REMOVED***`">
+            <div class="width-full">
+                <h1 class="profile__name">***REMOVED******REMOVED***data.user.name***REMOVED******REMOVED***</h1>
+                <div class="profile__flex">
+                    <p class="profile__user-name">@***REMOVED******REMOVED***data.user.userName***REMOVED******REMOVED***</p>
+                    <router-link to="/profile-edit" v-if="$store.state.user.userName === data.user.userName" class="profile__btn">プロフィールを編集する</router-link>
+                </div>
+            </div>
         </div>
         <p class="profile__content">***REMOVED******REMOVED***data.user.intro***REMOVED******REMOVED***</p>
         <div class="profile__posts-wapper">
@@ -12,6 +17,7 @@
                 <Post
                     :sendArg="data.post.objects[key]"
                     :responceNum="post.responceNum"
+                    :imageName="post.imageName"
                     :userName="post.userName" 
                     :content="post.content"
                     :goodNum="post.goodNum"
@@ -21,7 +27,7 @@
                     :name="post.name"
                 />
             </template>
-            <h2 v-else-if="!data.user.isFount">このユーザーは存在しません。</h2>
+            <h2 v-else-if="!data.user.isFound">このユーザーは存在しません。</h2>
             <h2 v-else>このユーザーのツイートは存在しません。</h2>
         </div>
     </div>
@@ -50,6 +56,7 @@
                     name:       '',
                     userName:   '',
                     intro:      '',
+                    imageName:  '',
                     isFound:    false,
                 ***REMOVED***,
                 post: ***REMOVED***
@@ -71,6 +78,7 @@
                         data.user.name      = responce.data.name
                         data.user.userName  = responce.data.user_name
                         data.user.intro     = responce.data.intro
+                        data.user.imageName = responce.data.image_name
                         data.user.isFound   = true
                     ***REMOVED***
                 ***REMOVED***)
@@ -110,6 +118,7 @@
                                     obj.responce_num.length,
                                     obj.id,
                                     obj.community_id,
+                                    obj.image_name,
                                 )
                             )
                         ***REMOVED***)

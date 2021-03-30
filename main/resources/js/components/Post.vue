@@ -1,16 +1,21 @@
 <template>
     <div class="post">
         <div class="post__flex">
-            <router-link :to="`/profile/$***REMOVED***userName***REMOVED***`" class="post__name">***REMOVED******REMOVED***name***REMOVED******REMOVED***</router-link>
-            <p class="post__font">@***REMOVED******REMOVED***userName***REMOVED******REMOVED***</p>
-        </div>
-        <p class="post__font">***REMOVED******REMOVED***content***REMOVED******REMOVED***</p>
-        <div class="post__flex">
-            <button @click="sendGood(sendArg)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
-            <p class="post__status">***REMOVED******REMOVED***goodNum***REMOVED******REMOVED***</p>
-            <button @click="responceToPost()" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
-            <p class="post__status">***REMOVED******REMOVED***responceNum***REMOVED******REMOVED***</p>
-            <button @click="data.router.push(`/responce/$***REMOVED***postId***REMOVED***`)" class="post__btn-display-responce">返信を表示する</button>
+            <router-link :to="`/profile/$***REMOVED***userName***REMOVED***`"><img class="post__icon-img" :src="`/images/$***REMOVED***imageName***REMOVED***`"></router-link>
+            <div>
+                <div class="post__flex">
+                    <router-link :to="`/profile/$***REMOVED***userName***REMOVED***`" class="post__name">***REMOVED******REMOVED***name***REMOVED******REMOVED***</router-link>
+                    <p class="post__font">@***REMOVED******REMOVED***userName***REMOVED******REMOVED***</p>
+                </div>
+                <p class="post__font">***REMOVED******REMOVED***content***REMOVED******REMOVED***</p>
+                <div class="post__flex">
+                    <button @click="sendGood(sendArg)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
+                    <p class="post__status">***REMOVED******REMOVED***goodNum***REMOVED******REMOVED***</p>
+                    <button @click="responceToPost()" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
+                    <p class="post__status">***REMOVED******REMOVED***responceNum***REMOVED******REMOVED***</p>
+                    <button @click="data.router.push(`/responce/$***REMOVED***postId***REMOVED***`)" class="post__btn-display-responce">返信を表示する</button>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -34,6 +39,10 @@
             communityId:    ***REMOVED***
                 default:    0,
                 type:       Number,
+            ***REMOVED***,
+            imageName:      ***REMOVED***
+                default:    'default.jpg',
+                type:       String,
             ***REMOVED***,
             responceNum:    ***REMOVED*** type: Number, ***REMOVED***,
             sendGood:       ***REMOVED*** type: Function, ***REMOVED***,
