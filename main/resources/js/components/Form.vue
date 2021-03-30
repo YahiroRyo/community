@@ -1,8 +1,8 @@
 <template>
     <div>
         <div :style="`background-color: ${formBackgroundColor};`" :class="{'form-wapper': true, 'form__textarea-wapper': useTextArea,}">
-            <textarea  v-if="useTextArea" @input="inputContent" :style="validate ? '' : 'color: #f9446a;'" class="form__input form__textarea" :type="type" required></textarea>
-            <input v-else @input="inputContent" :style="validate ? '' : 'color: #f9446a;'" class="form__input" :type="type" required>
+            <textarea  v-if="useTextArea" :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? '' : 'color: #f9446a;'" class="form__input form__textarea" :type="type" required></textarea>
+            <input v-else :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? '' : 'color: #f9446a;'" class="form__input" :type="type" required>
             <div :class="`form__underline form__underline${uniqueClassKey}`"></div>
             <label :style="validate ? '' : 'color: #f9446a;'" class="form__label">{{label}}</label>
         </div>
@@ -111,12 +111,7 @@
                 type:       Boolean,
                 default:    false,
             },
+            inputContent:   String,
         },
-        setup(props, { emit }) {
-            const inputContent = (e) => {
-                emit('update:inputContent', e.target.value)
-            }
-            return { inputContent }
-        }
     }
 </script>
