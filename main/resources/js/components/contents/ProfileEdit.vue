@@ -1,14 +1,11 @@
 <template>
-    <div>
+    <div class="form__wapper">
         <link rel="stylesheet" href="/css/components/profileEdit/profileEdit.css">
         <h1 class="profile-edit__title">プロフィールを編集</h1>
-        <p class="profile-edit__form-label">名前</p>
-        <input v-model="data.user.name" class="form">
-        <p class="profile-edit__form-label">ユーザー名</p>
-        <input v-model="data.user.userName" class="form">
-        <p class="profile-edit__form-label">自己紹介</p>
-        <textarea v-model="data.user.intro" class="form form_dont-resize"></textarea>
-        <button @click="refreshUserData" class="form form_btn">保存</button>
+        <Form v-model:inputContent="data.user.name"     :inputContent="data.user.name"      class="form" label="名前"       uniqueClassKey="1" />
+        <Form v-model:inputContent="data.user.userName" :inputContent="data.user.userName"  class="form" label="ユーザー名" uniqueClassKey="2" />
+        <Form v-model:inputContent="data.user.intro"    :inputContent="data.user.intro"     class="form" label="自己紹介"   uniqueClassKey="3" :useTextArea="true" />
+        <button @click="refreshUserData" class="form__btn">保存</button>
     </div>
 </template>
 
@@ -25,8 +22,13 @@
     import { useStore }                                     from 'vuex'
     import firebase                                         from 'firebase'
     import axios                                            from 'axios'
+    /* ---------------コンポーネントをインポート--------------- */
+    import Form                                             from '../Form.vue'
 
     export default {
+        components: {
+            Form
+        },
         setup() {
             const data = reactive({
                 router: useRouter(),
