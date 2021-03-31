@@ -2,7 +2,11 @@
     <div>
         <link rel="stylesheet" href="/css/components/profile/profile.css">
         <div class="profile__flex">
-            <img class="profile__icon-img" :src="`/images/${data.user.imageName}`">
+            <div class="profile__icon-wapper">
+                <img class="profile__icon-img" :src="`/storage/profileIcons/${data.user.imageName}`">
+                <div v-if="$store.state.user.userName === data.user.userName" @click="selectProfileImage" class="profile__icon-change"><p class="profile__icon-change__text">画像を変更</p></div>
+                <input v-if="$store.state.user.userName === data.user.userName" ref="inputFileElement" @change="changeProfileImage" style="display: none;" type="file" accept="image/,.jpg,.jpeg,.png" />
+            </div>
             <div class="width-full">
                 <h1 class="profile__name">{{data.user.name}}</h1>
                 <div class="profile__flex">
@@ -15,6 +19,7 @@
         <div class="profile__posts-wapper">
             <template v-if="data.post.objects.length > 0" v-for="(post, key) in data.post.objects" :key="key">
                 <Post
+                    :postImageNames="post.imageNames"
                     :sendArg="data.post.objects[key]"
                     :responceNum="post.responceNum"
                     :imageName="post.imageName"
@@ -35,10 +40,11 @@
 
 <script>
     import { useRouter, useRoute, onBeforeRouteUpdate, }    from 'vue-router'
-    import { reactive, onMounted, onBeforeMount }           from 'vue'
+    import { reactive, onMounted, onBeforeMount, ref }      from 'vue'
+    import { alert, createAlert, notNormalTokenAlert }      from '../../alert'
+    import { post, sendGood }                               from '../../post.js'
     import { getUidAndToken }                               from '../../supportFirebase.js'
     import { displayWindow }                                from '../../window.js'
-    import { post, sendGood }                               from '../../post.js'
     import { ruseStore }                                    from 'vuex'
     import { useStore }                                     from 'vuex'
     import axios                                            from 'axios'
@@ -66,6 +72,7 @@
                     take:           50,
                 }
             })
+            const inputFileElement = ref(null)
             const getUserData = async() => {
                 const userProfileInfos = {
                     params: {
@@ -118,10 +125,45 @@
                                     obj.responce_num.length,
                                     obj.id,
                                     obj.community_id,
-                                    obj.image_name,
+                                    obj.user_info.image_name,
+                                    obj.post_image_name,
                                 )
                             )
                         })
+                    })
+                }
+            }
+            const selectProfileImage = () => {
+                if (inputFileElement.value.click !== null) { inputFileElement.value.click() }
+            }
+            const changeProfileImage = async() => {
+                if (inputFileElement.value.files.length > 0 && (
+                        inputFileElement.value.files[0].type.match("image.png") ||
+                        inputFileElement.value.files[0].type.match("image.jpg") ||
+                        inputFileElement.value.files[0].type.match("image.jpeg")
+                    )) {
+                    const user = await getUidAndToken()
+                    const refreshUserPostImageInfos = new FormData()
+                    refreshUserPostImageInfos.append('file', inputFileElement.value.files[0])
+                    refreshUserPostImageInfos.append('uid', user.uid)
+                    refreshUserPostImageInfos.append('token', user.token)
+                    axios.post('/api/post/refresh-user-profile-image', refreshUserPostImageInfos)
+                    .then((responce) => {
+                        if (responce.data.isNormalToken) {
+                            if (responce.data.isRefreshImage) {
+                                createAlert(new alert('画像を設定しました。', 0))
+                                data.post.cantGetPosts = false
+                                data.post.objects = []
+                                data.post.gotNum = 0
+                                getUserData()
+                                if (data.user.isFound)
+                                    getUsersPosts(data.route.params.userName)
+                            } else {
+                                createAlert(new alert('画像の更新に失敗しました。', 2))
+                            }
+                        } else {
+                            notNormalTokenAlert()
+                        }
                     })
                 }
             }
@@ -139,7 +181,7 @@
                 if (data.user.isFound)
                     getUsersPosts(data.route.params.userName)
             })
-            return { data, sendGood }
+            return { data, sendGood, changeProfileImage, inputFileElement, selectProfileImage }
         }
     }
 </script>
