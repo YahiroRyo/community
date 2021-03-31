@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Great;
 use App\Models\UserInfo;
+use App\Models\PostImageName;
 use App\Http\Controllers\CommunityController;
 
 class PostController extends Controller
@@ -34,9 +35,10 @@ class PostController extends Controller
         // $request->uid
         // $request->token
         // $request->content
-
+        // $request->files
         if ($this->isNormalToken($request->token)) {
             if (strlen($request->content) <= 280) {
+                $postId = null;
                 try {
                     $userId = User::where('uid', $request->uid)->first()['id'];
                     $post = new Post;
@@ -45,16 +47,58 @@ class PostController extends Controller
                         'content' => $request->content,
                     ]);
                     $post->save();
+                    $postId = $post->id;
                 } catch(\Exception $e) {
                     return [
                         'isNormalToken' => true,
                         'isCreatePost'  => false,
                     ];
                 }
+                // $postId
+                if ($request->file) {
+                    foreach($request->file as $file) {
+                        if ($file) {
+                            $baseImage = null;
+                            $tmpFileName = $file->getClientOriginalName();
+                            // アップロードファイルを一時的に保存
+                            $file->storeAs('public', $tmpFileName);
+                            switch(exif_imagetype('./storage/'.$tmpFileName)) {
+                                case IMAGETYPE_JPEG:
+                                    $baseImage = imagecreatefromjpeg('./storage/'.$tmpFileName);
+                                    break;
+                                case IMAGETYPE_PNG:
+                                    $baseImage = imagecreatefrompng('./storage/'.$tmpFileName);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            if ($baseImage) {
+                                $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
+                                list($width, $hight) = getimagesize('./storage/'.$tmpFileName);
+                                $image = imagecreatetruecolor($width, $hight);
+                                imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight);
+                                imagejpeg($image, './storage/'.$fileName);
+                                unlink('./storage/'.$tmpFileName);
+                                $postImageName = new PostImageName;
+                                $postImageName->fill([
+                                    'post_id' => $postId,
+                                    'image_name' => $fileName,
+                                ]);
+                                $postImageName->save();
+                            } else {
+                                return [
+                                    'isNormalToken' => true,
+                                    'isCreatePost'  => false,
+                                ];
+                            }
+                        }
+                    }
+                }
                 return [
                     'isNormalToken' => true,
                     'isCreatePost'  => true,
                 ];
+                
             } else {
                 return [
                     'isNormalToken' => true,
@@ -76,6 +120,7 @@ class PostController extends Controller
         // $request->communityId
         if ($this->isNormalToken($request->token)) {
             if (strlen($request->content) <= 280) {
+                $postId = null;
                 try {
                     $userId = User::where('uid', $request->uid)->first()['id'];
                     $post = new Post;
@@ -85,11 +130,51 @@ class PostController extends Controller
                         'content'       => $request->content,
                     ]);
                     $post->save();
+                    $postId = $post->id;
                 } catch(\Exception $e) {
                     return [
                         'isNormalToken'         => true,
                         'isCreateCommunityPost' => false,
                     ];
+                }
+                if ($request->file) {
+                    foreach($request->file as $file) {
+                        if ($file) {
+                            $baseImage = null;
+                            $tmpFileName = $file->getClientOriginalName();
+                            // アップロードファイルを一時的に保存
+                            $file->storeAs('public', $tmpFileName);
+                            switch(exif_imagetype('./storage/'.$tmpFileName)) {
+                                case IMAGETYPE_JPEG:
+                                    $baseImage = imagecreatefromjpeg('./storage/'.$tmpFileName);
+                                    break;
+                                case IMAGETYPE_PNG:
+                                    $baseImage = imagecreatefrompng('./storage/'.$tmpFileName);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            if ($baseImage) {
+                                $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
+                                list($width, $hight) = getimagesize('./storage/'.$tmpFileName);
+                                $image = imagecreatetruecolor($width, $hight);
+                                imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight);
+                                imagejpeg($image, './storage/'.$fileName);
+                                unlink('./storage/'.$tmpFileName);
+                                $postImageName = new PostImageName;
+                                $postImageName->fill([
+                                    'post_id' => $postId,
+                                    'image_name' => $fileName,
+                                ]);
+                                $postImageName->save();
+                            } else {
+                                return [
+                                    'isNormalToken'         => true,
+                                    'isCreateCommunityPost' => false,
+                                ];
+                            }
+                        }
+                    }
                 }
                 return [
                     'isNormalToken'         => true,
@@ -112,6 +197,7 @@ class PostController extends Controller
         // $request->communityId
         if ($this->isNormalToken($request->token)) {
             if (strlen($request->content) <= 280) {
+                $postId = null;
                 try {
                     $userId = User::where('uid', $request->uid)->first()['id'];
                     $post = new Post;
@@ -130,11 +216,51 @@ class PostController extends Controller
                         ]);
                     }
                     $post->save();
+                    $postId = $post->id;
                 } catch(\Exception $e) {
                     return [
                         'isNormalToken' => true,
                         'isCreateResponcePost' => false,
                     ];
+                }
+                if ($request->file) {
+                    foreach($request->file as $file) {
+                        if ($file) {
+                            $baseImage = null;
+                            $tmpFileName = $file->getClientOriginalName();
+                            // アップロードファイルを一時的に保存
+                            $file->storeAs('public', $tmpFileName);
+                            switch(exif_imagetype('./storage/'.$tmpFileName)) {
+                                case IMAGETYPE_JPEG:
+                                    $baseImage = imagecreatefromjpeg('./storage/'.$tmpFileName);
+                                    break;
+                                case IMAGETYPE_PNG:
+                                    $baseImage = imagecreatefrompng('./storage/'.$tmpFileName);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            if ($baseImage) {
+                                $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
+                                list($width, $hight) = getimagesize('./storage/'.$tmpFileName);
+                                $image = imagecreatetruecolor($width, $hight);
+                                imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight);
+                                imagejpeg($image, './storage/'.$fileName);
+                                unlink('./storage/'.$tmpFileName);
+                                $postImageName = new PostImageName;
+                                $postImageName->fill([
+                                    'post_id' => $postId,
+                                    'image_name' => $fileName,
+                                ]);
+                                $postImageName->save();
+                            } else {
+                                return [
+                                    'isNormalToken'         => true,
+                                    'isCreateResponcePost'  => false,
+                                ];
+                            }
+                        }
+                    }
                 }
                 return [
                     'isNormalToken' => true,
@@ -175,7 +301,7 @@ class PostController extends Controller
                             ->whereNull('community_id')
                             ->with([
                                 'userInfo' => function ($query) {
-                                    $query->select(['name', 'user_name', 'user_id']);
+                                    $query->select(['name', 'user_name', 'user_id', 'image_name']);
                                 },
                                 'isGreatPost' => function ($query) use ($userId) {
                                     $query->where('user_id', $userId);
@@ -184,6 +310,7 @@ class PostController extends Controller
                                 'responceNum' => function ($query) {
                                     $query->select(['post_id']);
                                 },
+                                'postImageName',
                             ])
                             ->orderBy('id', 'desc')
                             ->get();
@@ -212,7 +339,7 @@ class PostController extends Controller
                 $userId = 0;
             }
             $userInfos = UserInfo::where('user_name', $request->userName)
-                    ->first(['name', 'user_name', 'user_id']);
+                    ->first(['name', 'user_name', 'user_id', 'image_name']);
             $posts = Post::select(['content', 'id', 'user_id', 'post_id'])
                         ->where('user_id', $userInfos['user_id'])
                         ->whereNull('post_id')
@@ -226,6 +353,7 @@ class PostController extends Controller
                             'responceNum' => function ($query) {
                                 $query->select(['post_id']);
                             },
+                            'postImageName',
                         ])
                         ->orderBy('id', 'desc')
                         ->get();
@@ -259,7 +387,7 @@ class PostController extends Controller
                             ->whereNull('post_id')
                             ->with([
                                 'userInfo' => function ($query) {
-                                    $query->select(['name', 'user_name', 'user_id']);
+                                    $query->select(['name', 'user_name', 'user_id', 'image_name']);
                                 },
                                 'isGreatPost' => function ($query) use ($userId) {
                                     $query->where('user_id', $userId);
@@ -268,6 +396,7 @@ class PostController extends Controller
                                 'responceNum' => function ($query) {
                                     $query->select(['post_id']);
                                 },
+                                'postImageName',
                             ])
                             ->orderBy('id', 'desc')
                             ->get();
@@ -300,7 +429,7 @@ class PostController extends Controller
                             ->where('id', $request->postId)
                             ->with([
                                 'userInfo' => function ($query) {
-                                    $query->select(['name', 'user_name', 'user_id']);
+                                    $query->select(['name', 'user_name', 'user_id', 'image_name']);
                                 },
                                 'isGreatPost' => function ($query) use ($userId) {
                                     $query->where('user_id', $userId);
@@ -309,6 +438,7 @@ class PostController extends Controller
                                 'responceNum' => function ($query) {
                                     $query->select(['post_id']);
                                 },
+                                'postImageName',
                             ])
                             ->first();
                 if (CommunityController::canJoinCommunity($parentPost['community_id'], $userId) || !isset($parentPost['community_id'])) {
@@ -323,7 +453,7 @@ class PostController extends Controller
                         ->take($take + $gotNum)
                         ->with([
                             'userInfo' => function ($query) {
-                                $query->select(['name', 'user_name', 'user_id']);
+                                $query->select(['name', 'user_name', 'user_id', 'image_name']);
                             },
                             'isGreatPost' => function ($query) use ($userId) {
                                 $query->where('user_id', $userId);
@@ -332,6 +462,7 @@ class PostController extends Controller
                             'responceNum' => function ($query) {
                                 $query->select(['post_id']);
                             },
+                            'postImageName',
                         ])
                         ->orderBy('id', 'desc')
                         ->get();
