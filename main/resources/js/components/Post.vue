@@ -1,13 +1,16 @@
 <template>
     <div class="post">
-        <div class="post__flex">
-            <router-link :to="`/profile/$***REMOVED***userName***REMOVED***`"><img class="post__icon-img" :src="`/images/$***REMOVED***imageName***REMOVED***`"></router-link>
-            <div>
+        <div style="display: flex;">
+            <router-link :to="`/profile/$***REMOVED***userName***REMOVED***`"><img class="post__icon-img" :src="`/storage/profileIcons/$***REMOVED***imageName***REMOVED***`"></router-link>
+            <div class="width-full">
                 <div class="post__flex">
                     <router-link :to="`/profile/$***REMOVED***userName***REMOVED***`" class="post__name">***REMOVED******REMOVED***name***REMOVED******REMOVED***</router-link>
                     <p class="post__font">@***REMOVED******REMOVED***userName***REMOVED******REMOVED***</p>
                 </div>
                 <p class="post__font">***REMOVED******REMOVED***content***REMOVED******REMOVED***</p>
+                <div class="post__img-wapper" v-show="postImageNames.length !== 0">
+                    <div class="post__img" v-for="(postImageName, key) in postImageNames" :style="`background-image: url(/storage/$***REMOVED***postImageName.image_name***REMOVED***)`" :key="key"></div>
+                </div>
                 <div class="post__flex">
                     <button @click="sendGood(sendArg)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
                     <p class="post__status">***REMOVED******REMOVED***goodNum***REMOVED******REMOVED***</p>
@@ -44,6 +47,7 @@
                 default:    'default.jpg',
                 type:       String,
             ***REMOVED***,
+            postImageNames: ***REMOVED*** type: Array, ***REMOVED***,
             responceNum:    ***REMOVED*** type: Number, ***REMOVED***,
             sendGood:       ***REMOVED*** type: Function, ***REMOVED***,
             sendArg:        ***REMOVED*** type: Object, ***REMOVED***,
