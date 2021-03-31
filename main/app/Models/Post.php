@@ -6,6 +6,7 @@ use Kreait\Firebase\Auth;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PostImageName;
 use App\Models\UserInfo;
 use App\Models\Great;
 
@@ -28,5 +29,8 @@ class Post extends Model
     ***REMOVED***
     public function responceNum() ***REMOVED***
         return $this->hasMany(Post::class, 'post_id', 'id');
+    ***REMOVED***
+    public function postImageName() ***REMOVED***
+        return $this->hasMany(PostImageName::class, 'post_id', 'id');
     ***REMOVED***
 ***REMOVED***
