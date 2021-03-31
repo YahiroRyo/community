@@ -27,11 +27,44 @@
     margin-top: 10px;
 }
 .profile__posts-wapper { margin-top: 20px; }
-.profile__icon-img {
+.profile__icon-wapper {
+    position: relative;
     width: 100px;
     height: 100px;
     margin-right: 20px;
+}
+.profile__icon-img {
     border-radius: 50%;
     box-shadow:  5px 5px 10px #5f5f5f,
     -5px -5px 10px #ffffff;
+    display: block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+.profile__icon-change {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    transition: .3s;
+    left: 0;
+    opacity: 0;
+    width: 100px;
+    height: 100px;
+    &:hover {
+        opacity: 1;
+        cursor: pointer;
+    }
+}
+.profile__icon-change__text {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    left: 50%;
 }
