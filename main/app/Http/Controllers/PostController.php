@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Great;
 use App\Models\UserInfo;
+use App\Models\PostImageName;
 use App\Http\Controllers\CommunityController;
 
 class PostController extends Controller
@@ -34,9 +35,10 @@ class PostController extends Controller
         // $request->uid
         // $request->token
         // $request->content
-
+        // $request->files
         if ($this->isNormalToken($request->token)) ***REMOVED***
             if (strlen($request->content) <= 280) ***REMOVED***
+                $postId = null;
                 try ***REMOVED***
                     $userId = User::where('uid', $request->uid)->first()['id'];
                     $post = new Post;
@@ -45,16 +47,58 @@ class PostController extends Controller
                         'content' => $request->content,
                     ]);
                     $post->save();
+                    $postId = $post->id;
                 ***REMOVED*** catch(\Exception $e) ***REMOVED***
                     return [
                         'isNormalToken' => true,
                         'isCreatePost'  => false,
                     ];
                 ***REMOVED***
+                // $postId
+                if ($request->file) ***REMOVED***
+                    foreach($request->file as $file) ***REMOVED***
+                        if ($file) ***REMOVED***
+                            $baseImage = null;
+                            $tmpFileName = $file->getClientOriginalName();
+                            // アップロードファイルを一時的に保存
+                            $file->storeAs('public', $tmpFileName);
+                            switch(exif_imagetype('./storage/'.$tmpFileName)) ***REMOVED***
+                                case IMAGETYPE_JPEG:
+                                    $baseImage = imagecreatefromjpeg('./storage/'.$tmpFileName);
+                                    break;
+                                case IMAGETYPE_PNG:
+                                    $baseImage = imagecreatefrompng('./storage/'.$tmpFileName);
+                                    break;
+                                default:
+                                    break;
+                            ***REMOVED***
+                            if ($baseImage) ***REMOVED***
+                                $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
+                                list($width, $hight) = getimagesize('./storage/'.$tmpFileName);
+                                $image = imagecreatetruecolor($width, $hight);
+                                imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight);
+                                imagejpeg($image, './storage/'.$fileName);
+                                unlink('./storage/'.$tmpFileName);
+                                $postImageName = new PostImageName;
+                                $postImageName->fill([
+                                    'post_id' => $postId,
+                                    'image_name' => $fileName,
+                                ]);
+                                $postImageName->save();
+                            ***REMOVED*** else ***REMOVED***
+                                return [
+                                    'isNormalToken' => true,
+                                    'isCreatePost'  => false,
+                                ];
+                            ***REMOVED***
+                        ***REMOVED***
+                    ***REMOVED***
+                ***REMOVED***
                 return [
                     'isNormalToken' => true,
                     'isCreatePost'  => true,
                 ];
+                
             ***REMOVED*** else ***REMOVED***
                 return [
                     'isNormalToken' => true,
@@ -76,6 +120,7 @@ class PostController extends Controller
         // $request->communityId
         if ($this->isNormalToken($request->token)) ***REMOVED***
             if (strlen($request->content) <= 280) ***REMOVED***
+                $postId = null;
                 try ***REMOVED***
                     $userId = User::where('uid', $request->uid)->first()['id'];
                     $post = new Post;
@@ -85,11 +130,51 @@ class PostController extends Controller
                         'content'       => $request->content,
                     ]);
                     $post->save();
+                    $postId = $post->id;
                 ***REMOVED*** catch(\Exception $e) ***REMOVED***
                     return [
                         'isNormalToken'         => true,
                         'isCreateCommunityPost' => false,
                     ];
+                ***REMOVED***
+                if ($request->file) ***REMOVED***
+                    foreach($request->file as $file) ***REMOVED***
+                        if ($file) ***REMOVED***
+                            $baseImage = null;
+                            $tmpFileName = $file->getClientOriginalName();
+                            // アップロードファイルを一時的に保存
+                            $file->storeAs('public', $tmpFileName);
+                            switch(exif_imagetype('./storage/'.$tmpFileName)) ***REMOVED***
+                                case IMAGETYPE_JPEG:
+                                    $baseImage = imagecreatefromjpeg('./storage/'.$tmpFileName);
+                                    break;
+                                case IMAGETYPE_PNG:
+                                    $baseImage = imagecreatefrompng('./storage/'.$tmpFileName);
+                                    break;
+                                default:
+                                    break;
+                            ***REMOVED***
+                            if ($baseImage) ***REMOVED***
+                                $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
+                                list($width, $hight) = getimagesize('./storage/'.$tmpFileName);
+                                $image = imagecreatetruecolor($width, $hight);
+                                imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight);
+                                imagejpeg($image, './storage/'.$fileName);
+                                unlink('./storage/'.$tmpFileName);
+                                $postImageName = new PostImageName;
+                                $postImageName->fill([
+                                    'post_id' => $postId,
+                                    'image_name' => $fileName,
+                                ]);
+                                $postImageName->save();
+                            ***REMOVED*** else ***REMOVED***
+                                return [
+                                    'isNormalToken'         => true,
+                                    'isCreateCommunityPost' => false,
+                                ];
+                            ***REMOVED***
+                        ***REMOVED***
+                    ***REMOVED***
                 ***REMOVED***
                 return [
                     'isNormalToken'         => true,
@@ -112,6 +197,7 @@ class PostController extends Controller
         // $request->communityId
         if ($this->isNormalToken($request->token)) ***REMOVED***
             if (strlen($request->content) <= 280) ***REMOVED***
+                $postId = null;
                 try ***REMOVED***
                     $userId = User::where('uid', $request->uid)->first()['id'];
                     $post = new Post;
@@ -130,11 +216,51 @@ class PostController extends Controller
                         ]);
                     ***REMOVED***
                     $post->save();
+                    $postId = $post->id;
                 ***REMOVED*** catch(\Exception $e) ***REMOVED***
                     return [
                         'isNormalToken' => true,
                         'isCreateResponcePost' => false,
                     ];
+                ***REMOVED***
+                if ($request->file) ***REMOVED***
+                    foreach($request->file as $file) ***REMOVED***
+                        if ($file) ***REMOVED***
+                            $baseImage = null;
+                            $tmpFileName = $file->getClientOriginalName();
+                            // アップロードファイルを一時的に保存
+                            $file->storeAs('public', $tmpFileName);
+                            switch(exif_imagetype('./storage/'.$tmpFileName)) ***REMOVED***
+                                case IMAGETYPE_JPEG:
+                                    $baseImage = imagecreatefromjpeg('./storage/'.$tmpFileName);
+                                    break;
+                                case IMAGETYPE_PNG:
+                                    $baseImage = imagecreatefrompng('./storage/'.$tmpFileName);
+                                    break;
+                                default:
+                                    break;
+                            ***REMOVED***
+                            if ($baseImage) ***REMOVED***
+                                $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
+                                list($width, $hight) = getimagesize('./storage/'.$tmpFileName);
+                                $image = imagecreatetruecolor($width, $hight);
+                                imagecopyresampled($image, $baseImage, 0, 0, 0, 0, $width, $hight, $width, $hight);
+                                imagejpeg($image, './storage/'.$fileName);
+                                unlink('./storage/'.$tmpFileName);
+                                $postImageName = new PostImageName;
+                                $postImageName->fill([
+                                    'post_id' => $postId,
+                                    'image_name' => $fileName,
+                                ]);
+                                $postImageName->save();
+                            ***REMOVED*** else ***REMOVED***
+                                return [
+                                    'isNormalToken'         => true,
+                                    'isCreateResponcePost'  => false,
+                                ];
+                            ***REMOVED***
+                        ***REMOVED***
+                    ***REMOVED***
                 ***REMOVED***
                 return [
                     'isNormalToken' => true,
@@ -175,7 +301,7 @@ class PostController extends Controller
                             ->whereNull('community_id')
                             ->with([
                                 'userInfo' => function ($query) ***REMOVED***
-                                    $query->select(['name', 'user_name', 'user_id']);
+                                    $query->select(['name', 'user_name', 'user_id', 'image_name']);
                                 ***REMOVED***,
                                 'isGreatPost' => function ($query) use ($userId) ***REMOVED***
                                     $query->where('user_id', $userId);
@@ -184,6 +310,7 @@ class PostController extends Controller
                                 'responceNum' => function ($query) ***REMOVED***
                                     $query->select(['post_id']);
                                 ***REMOVED***,
+                                'postImageName',
                             ])
                             ->orderBy('id', 'desc')
                             ->get();
@@ -212,7 +339,7 @@ class PostController extends Controller
                 $userId = 0;
             ***REMOVED***
             $userInfos = UserInfo::where('user_name', $request->userName)
-                    ->first(['name', 'user_name', 'user_id']);
+                    ->first(['name', 'user_name', 'user_id', 'image_name']);
             $posts = Post::select(['content', 'id', 'user_id', 'post_id'])
                         ->where('user_id', $userInfos['user_id'])
                         ->whereNull('post_id')
@@ -226,6 +353,7 @@ class PostController extends Controller
                             'responceNum' => function ($query) ***REMOVED***
                                 $query->select(['post_id']);
                             ***REMOVED***,
+                            'postImageName',
                         ])
                         ->orderBy('id', 'desc')
                         ->get();
@@ -259,7 +387,7 @@ class PostController extends Controller
                             ->whereNull('post_id')
                             ->with([
                                 'userInfo' => function ($query) ***REMOVED***
-                                    $query->select(['name', 'user_name', 'user_id']);
+                                    $query->select(['name', 'user_name', 'user_id', 'image_name']);
                                 ***REMOVED***,
                                 'isGreatPost' => function ($query) use ($userId) ***REMOVED***
                                     $query->where('user_id', $userId);
@@ -268,6 +396,7 @@ class PostController extends Controller
                                 'responceNum' => function ($query) ***REMOVED***
                                     $query->select(['post_id']);
                                 ***REMOVED***,
+                                'postImageName',
                             ])
                             ->orderBy('id', 'desc')
                             ->get();
@@ -300,7 +429,7 @@ class PostController extends Controller
                             ->where('id', $request->postId)
                             ->with([
                                 'userInfo' => function ($query) ***REMOVED***
-                                    $query->select(['name', 'user_name', 'user_id']);
+                                    $query->select(['name', 'user_name', 'user_id', 'image_name']);
                                 ***REMOVED***,
                                 'isGreatPost' => function ($query) use ($userId) ***REMOVED***
                                     $query->where('user_id', $userId);
@@ -309,6 +438,7 @@ class PostController extends Controller
                                 'responceNum' => function ($query) ***REMOVED***
                                     $query->select(['post_id']);
                                 ***REMOVED***,
+                                'postImageName',
                             ])
                             ->first();
                 if (CommunityController::canJoinCommunity($parentPost['community_id'], $userId) || !isset($parentPost['community_id'])) ***REMOVED***
@@ -323,7 +453,7 @@ class PostController extends Controller
                         ->take($take + $gotNum)
                         ->with([
                             'userInfo' => function ($query) ***REMOVED***
-                                $query->select(['name', 'user_name', 'user_id']);
+                                $query->select(['name', 'user_name', 'user_id', 'image_name']);
                             ***REMOVED***,
                             'isGreatPost' => function ($query) use ($userId) ***REMOVED***
                                 $query->where('user_id', $userId);
@@ -332,6 +462,7 @@ class PostController extends Controller
                             'responceNum' => function ($query) ***REMOVED***
                                 $query->select(['post_id']);
                             ***REMOVED***,
+                            'postImageName',
                         ])
                         ->orderBy('id', 'desc')
                         ->get();
