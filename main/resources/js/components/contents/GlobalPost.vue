@@ -2,6 +2,7 @@
     <div>
         <template v-for="(post, key) in data.post.objects" :key="key">
             <Post
+                :postImageNames="post.imageNames"
                 :sendArg="data.post.objects[key]"
                 :responceNum="post.responceNum"
                 :imageName="post.imageName"
@@ -71,7 +72,8 @@
                                     obj.responce_num.length,
                                     obj.id,
                                     obj.community_id,
-                                    obj.image_name,
+                                    obj.user_info.image_name,
+                                    obj.post_image_name,
                                 )
                             )
                         ***REMOVED***)
