@@ -1,13 +1,16 @@
 <template>
     <div class="post">
-        <div class="post__flex">
-            <router-link :to="`/profile/${userName}`"><img class="post__icon-img" :src="`/images/${imageName}`"></router-link>
-            <div>
+        <div style="display: flex;">
+            <router-link :to="`/profile/${userName}`"><img class="post__icon-img" :src="`/storage/profileIcons/${imageName}`"></router-link>
+            <div class="width-full">
                 <div class="post__flex">
                     <router-link :to="`/profile/${userName}`" class="post__name">{{name}}</router-link>
                     <p class="post__font">@{{userName}}</p>
                 </div>
                 <p class="post__font">{{content}}</p>
+                <div class="post__img-wapper" v-show="postImageNames.length !== 0">
+                    <div class="post__img" v-for="(postImageName, key) in postImageNames" :style="`background-image: url(/storage/${postImageName.image_name})`" :key="key"></div>
+                </div>
                 <div class="post__flex">
                     <button @click="sendGood(sendArg)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
                     <p class="post__status">{{goodNum}}</p>
@@ -44,6 +47,7 @@
                 default:    'default.jpg',
                 type:       String,
             },
+            postImageNames: { type: Array, },
             responceNum:    { type: Number, },
             sendGood:       { type: Function, },
             sendArg:        { type: Object, },
