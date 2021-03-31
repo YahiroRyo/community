@@ -27,7 +27,6 @@ class UserController extends Controller
             return false;
         }
     }
-
     /* ---------------アカウント登録について--------------- */
     // ・変数の説明
     // $request->token:     トークン
@@ -153,6 +152,50 @@ class UserController extends Controller
             return [
                 'isRefreshAccount'  => false,
                 'isNormalToken'     => false,
+            ];
+        }
+    }
+    public function refreshUserProfileImage(Request $request) {
+        if ($this->isNormalToken($request->token)) {
+            if ($request->file) {
+                $baseImage = null;
+                $tmpFileName = $request->file->getClientOriginalName();
+                // アップロードファイルを一時的に保存
+                $request->file->storeAs('public/profileIcons', $tmpFileName);
+                switch(exif_imagetype('./storage/profileIcons/'.$tmpFileName)) {
+                    case IMAGETYPE_JPEG:
+                        $baseImage = imagecreatefromjpeg('./storage/profileIcons/'.$tmpFileName);
+                        break;
+                    case IMAGETYPE_PNG:
+                        $baseImage = imagecreatefrompng('./storage/profileIcons/'.$tmpFileName);
+                        break;
+                    default:
+                        break;
+                }
+                if ($baseImage) {
+                    $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
+                    list($width, $hight) = getimagesize('./storage/profileIcons/'.$tmpFileName);
+                    $image = imagecreatetruecolor(400, 400);
+                    imagecopyresampled($image, $baseImage, 0, 0, 0, 0, 400, 400, $width, $hight);
+                    imagejpeg($image, './storage/profileIcons/'.$fileName);
+                    unlink('./storage/profileIcons/'.$tmpFileName);
+                    $userId = User::where('uid', $request->uid)->first()['id'];
+                    $userInfo = UserInfo::where('user_id', $userId)->update(['image_name' => $fileName,]);
+                    return [
+                        'isNormalToken' => true,
+                        'isRefreshImage'    => true,
+                    ];
+                } else {
+                    return [
+                        'isNormalToken' => true,
+                        'isRefreshImage'    => false,
+                    ];
+                }
+            }
+        } else {
+            return [
+                'isNormalToken' => false,
+                'isRefreshImage'    => false,
             ];
         }
     }
