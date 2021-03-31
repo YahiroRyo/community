@@ -41,6 +41,7 @@
                 post: ***REMOVED***
                     content:    '',
                     images:     [],
+                    files:      [],
                 ***REMOVED***,
             ***REMOVED***)
             const createResponcePost = async() => ***REMOVED***
@@ -48,14 +49,16 @@
                     createAlert(new alert('返信する対象の投稿が存在しません。', 2))
                 ***REMOVED***
                 const user = await getUidAndToken()
-                const createResponcePostInfos = ***REMOVED***
-                    content:    data.post.content,
-                    postId:     data.store.state.post.toResponcePostId,
-                    token:      user.token,
-                    uid:        user.uid,
+                const createResponcePostInfos = new FormData()
+                createResponcePostInfos.append('content', data.post.content)
+                createResponcePostInfos.append('postId',  data.store.state.post.toResponcePostId)
+                createResponcePostInfos.append('token', user.token)
+                createResponcePostInfos.append('uid', user.uid)
+                for (let i = 0; i < data.post.files.length; i++) ***REMOVED***
+                    createResponcePostInfos.append(`file[$***REMOVED***i***REMOVED***]`, data.post.files[i])
                 ***REMOVED***
                 if (data.store.state.post.toResponceCommunityId) ***REMOVED***
-                    createResponcePostInfos['communityId'] = data.store.state.post.toResponceCommunityId
+                    createResponcePostInfos.append('communityId', data.store.state.post.toResponceCommunityId)
                 ***REMOVED***
                 axios.post('/api/post/create-responce-post', createResponcePostInfos)
                 .then((responce) => ***REMOVED***
@@ -80,6 +83,7 @@
             const displayMedia = () => ***REMOVED***
                 if (inputFileElement.value.files.length > 0) ***REMOVED***
                     if (data.post.images.length < 4 && inputFileElement.value.files[0].type.match("image.*")) ***REMOVED***
+                        data.post.files.push(inputFileElement.value.files[0])
                         const fileReader    = new FileReader()
                         fileReader.onload   = (() => ***REMOVED*** data.post.images.push(fileReader.result) ***REMOVED***)
                         fileReader.readAsDataURL(inputFileElement.value.files[0])
@@ -94,7 +98,10 @@
             onBeforeMount(() => ***REMOVED***
                 antiNotLoginUser()
             ***REMOVED***)
-            const deleteMedia = (key) => ***REMOVED*** data.post.images.splice(key, 1) ***REMOVED***
+            const deleteMedia = (key) => ***REMOVED***
+                data.post.images.splice(key, 1)
+                data.post.files.splice(key, 1)
+            ***REMOVED***
             onMounted(() => ***REMOVED*** createWindow('投稿に返信', 500, 660) ***REMOVED***)
             return ***REMOVED*** data, createResponcePost, selectMedia, inputFileElement, displayMedia, deleteMedia, bytes ***REMOVED***
         ***REMOVED***

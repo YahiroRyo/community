@@ -45,14 +45,17 @@
                 post: ***REMOVED***
                     content:    '',
                     images:     [],
+                    files:      [],
                 ***REMOVED***,
             ***REMOVED***)
             const createPost = async() => ***REMOVED***
                 const user = await getUidAndToken()
-                const createPostInfos = ***REMOVED***
-                    content:    data.post.content,
-                    token:      user.token,
-                    uid:        user.uid,
+                const createPostInfos = new FormData()
+                createPostInfos.append('content', data.post.content)
+                createPostInfos.append('token', user.token)
+                createPostInfos.append('uid', user.uid)
+                for (let i = 0; i < data.post.files.length; i++) ***REMOVED***
+                    createPostInfos.append(`file[$***REMOVED***i***REMOVED***]`, data.post.files[i])
                 ***REMOVED***
                 axios.post('/api/post/create-post', createPostInfos)
                 .then((responce) => ***REMOVED***
@@ -75,6 +78,7 @@
             const displayMedia = () => ***REMOVED***
                 if (inputFileElement.value.files.length > 0) ***REMOVED***
                     if (data.post.images.length < 4 && inputFileElement.value.files[0].type.match("image.*")) ***REMOVED***
+                        data.post.files.push(inputFileElement.value.files[0])
                         const fileReader    = new FileReader()
                         fileReader.onload   = (() => ***REMOVED*** data.post.images.push(fileReader.result) ***REMOVED***)
                         fileReader.readAsDataURL(inputFileElement.value.files[0])
@@ -86,7 +90,10 @@
             const bytes = (str) => ***REMOVED***
                 return(encodeURIComponent(str).replace(/%../g,"x").length)
             ***REMOVED***
-            const deleteMedia = (key) => ***REMOVED*** data.post.images.splice(key, 1) ***REMOVED***
+            const deleteMedia = (key) => ***REMOVED***
+                data.post.images.splice(key, 1)
+                data.post.files.splice(key, 1)
+            ***REMOVED***
             onBeforeMount(() => ***REMOVED***
                 antiNotLoginUser()
             ***REMOVED***)
