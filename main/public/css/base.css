@@ -737,11 +737,29 @@ template ***REMOVED***
   width: auto; ***REMOVED***
 
 .post__icon-img ***REMOVED***
+  border-radius: 50%;
   width: 75px;
   height: 75px;
   margin-right: 10px; ***REMOVED***
   .post__icon-img:hover ***REMOVED***
     cursor: pointer; ***REMOVED***
+
+.post__img-wapper ***REMOVED***
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 20px; ***REMOVED***
+
+.post__img ***REMOVED***
+  background-size: cover;
+  background-position: center center;
+  box-sizing: border-box;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  margin: 10px auto 0 auto;
+  overflow: hidden;
+  height: 200px;
+  width: 48%; ***REMOVED***
 
 /* ---------------tabの仕様・制約--------------- */
 .tabs-wapper, .header__tab-wapper ***REMOVED***
