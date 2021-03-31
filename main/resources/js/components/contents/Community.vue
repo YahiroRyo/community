@@ -21,6 +21,7 @@
         <!-- コミュニティの投稿一覧 -->
         <div v-for="(post, key) in data.post.objects" :key="key">
             <Post
+                :postImageNames="post.imageNames"
                 :sendArg="data.post.objects[key]"
                 :imageName="post.imageName"
                 :responceNum="post.responceNum"
@@ -77,6 +78,7 @@
                     content:        '',
                     images:         [],
                     gotNum:         0,
+                    files:          [],
                     take:           50,
                 },
             })
@@ -88,6 +90,7 @@
             const displayMedia = () => {
                 if (inputFileElement.value.files.length > 0) {
                     if (data.post.images.length < 4 && inputFileElement.value.files[0].type.match("image.*")) {
+                        data.post.files.push(inputFileElement.value.files[0])
                         const fileReader    = new FileReader()
                         fileReader.onload   = (() => { data.post.images.push(fileReader.result) })
                         fileReader.readAsDataURL(inputFileElement.value.files[0])
@@ -96,14 +99,19 @@
                     }
                 }
             }
-            const deleteMedia = (key) => { data.post.images.splice(key, 1) }
+            const deleteMedia = (key) => {
+                data.post.images.splice(key, 1)
+                data.post.files.splice(key, 1)
+            }
             const createPost = async() => {
                 const user = await getUidAndToken()
-                const createCommunityPostInfos = {
-                    communityId:    data.route.params.id,
-                    content:        data.post.content,
-                    token:          user.token,
-                    uid:            user.uid,
+                const createCommunityPostInfos = new FormData()
+                createCommunityPostInfos.append('communityId', data.route.params.id)
+                createCommunityPostInfos.append('content', data.post.content)
+                createCommunityPostInfos.append('token', user.token)
+                createCommunityPostInfos.append('uid', user.uid)
+                for (let i = 0; i < data.post.files.length; i++) {
+                    createCommunityPostInfos.append(`file[${i}]`, data.post.files[i])
                 }
                 axios.post('/api/post/create-community-post', createCommunityPostInfos)
                 .then((responce) => {
@@ -145,7 +153,8 @@
                                     obj.responce_num.length,
                                     obj.id,
                                     obj.community_id,
-                                    obj.image_name,
+                                    obj.user_info.image_name,
+                                    obj.post_image_name,
                                 )
                             )
                         })

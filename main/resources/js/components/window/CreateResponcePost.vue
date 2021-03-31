@@ -41,6 +41,7 @@
                 post: {
                     content:    '',
                     images:     [],
+                    files:      [],
                 },
             })
             const createResponcePost = async() => {
@@ -48,14 +49,16 @@
                     createAlert(new alert('返信する対象の投稿が存在しません。', 2))
                 }
                 const user = await getUidAndToken()
-                const createResponcePostInfos = {
-                    content:    data.post.content,
-                    postId:     data.store.state.post.toResponcePostId,
-                    token:      user.token,
-                    uid:        user.uid,
+                const createResponcePostInfos = new FormData()
+                createResponcePostInfos.append('content', data.post.content)
+                createResponcePostInfos.append('postId',  data.store.state.post.toResponcePostId)
+                createResponcePostInfos.append('token', user.token)
+                createResponcePostInfos.append('uid', user.uid)
+                for (let i = 0; i < data.post.files.length; i++) {
+                    createResponcePostInfos.append(`file[${i}]`, data.post.files[i])
                 }
                 if (data.store.state.post.toResponceCommunityId) {
-                    createResponcePostInfos['communityId'] = data.store.state.post.toResponceCommunityId
+                    createResponcePostInfos.append('communityId', data.store.state.post.toResponceCommunityId)
                 }
                 axios.post('/api/post/create-responce-post', createResponcePostInfos)
                 .then((responce) => {
@@ -80,6 +83,7 @@
             const displayMedia = () => {
                 if (inputFileElement.value.files.length > 0) {
                     if (data.post.images.length < 4 && inputFileElement.value.files[0].type.match("image.*")) {
+                        data.post.files.push(inputFileElement.value.files[0])
                         const fileReader    = new FileReader()
                         fileReader.onload   = (() => { data.post.images.push(fileReader.result) })
                         fileReader.readAsDataURL(inputFileElement.value.files[0])
@@ -94,7 +98,10 @@
             onBeforeMount(() => {
                 antiNotLoginUser()
             })
-            const deleteMedia = (key) => { data.post.images.splice(key, 1) }
+            const deleteMedia = (key) => {
+                data.post.images.splice(key, 1)
+                data.post.files.splice(key, 1)
+            }
             onMounted(() => { createWindow('投稿に返信', 500, 660) })
             return { data, createResponcePost, selectMedia, inputFileElement, displayMedia, deleteMedia, bytes }
         }

@@ -45,14 +45,17 @@
                 post: {
                     content:    '',
                     images:     [],
+                    files:      [],
                 },
             })
             const createPost = async() => {
                 const user = await getUidAndToken()
-                const createPostInfos = {
-                    content:    data.post.content,
-                    token:      user.token,
-                    uid:        user.uid,
+                const createPostInfos = new FormData()
+                createPostInfos.append('content', data.post.content)
+                createPostInfos.append('token', user.token)
+                createPostInfos.append('uid', user.uid)
+                for (let i = 0; i < data.post.files.length; i++) {
+                    createPostInfos.append(`file[${i}]`, data.post.files[i])
                 }
                 axios.post('/api/post/create-post', createPostInfos)
                 .then((responce) => {
@@ -75,6 +78,7 @@
             const displayMedia = () => {
                 if (inputFileElement.value.files.length > 0) {
                     if (data.post.images.length < 4 && inputFileElement.value.files[0].type.match("image.*")) {
+                        data.post.files.push(inputFileElement.value.files[0])
                         const fileReader    = new FileReader()
                         fileReader.onload   = (() => { data.post.images.push(fileReader.result) })
                         fileReader.readAsDataURL(inputFileElement.value.files[0])
@@ -86,7 +90,10 @@
             const bytes = (str) => {
                 return(encodeURIComponent(str).replace(/%../g,"x").length)
             }
-            const deleteMedia = (key) => { data.post.images.splice(key, 1) }
+            const deleteMedia = (key) => {
+                data.post.images.splice(key, 1)
+                data.post.files.splice(key, 1)
+            }
             onBeforeMount(() => {
                 antiNotLoginUser()
             })
