@@ -57,8 +57,26 @@
     width: auto;
 }
 .post__icon-img {
+    border-radius: 50%;
     width: 75px;
     height: 75px;
     margin-right: 10px;
     &:hover { cursor: pointer; }
+}
+.post__img-wapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 20px;
+}
+.post__img {
+    background-size: cover;
+    background-position: center center;
+    box-sizing: border-box;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    margin: 10px auto 0 auto;
+    overflow: hidden;
+    height: 200px;
+    width: 48%;
 }
