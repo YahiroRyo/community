@@ -9,7 +9,7 @@
                 </div>
                 <p class="post__font">{{content}}</p>
                 <div class="post__img-wapper" v-show="postImageNames.length !== 0">
-                    <div class="post__img" v-for="(postImageName, key) in postImageNames" :style="`background-image: url(/storage/${postImageName.image_name})`" :key="key"></div>
+                    <div class="post__img"  v-for="(postImageName, key) in postImageNames" @click="displayImage(key)" :style="`background-image: url(/storage/${postImageName.image_name})`" :key="key"></div>
                 </div>
                 <div class="post__flex">
                     <button @click="sendGood(sendArg)" class="post__btn"><img class="post__btn__img" :src="'/images/materials/' + (isGood ? 'clickedHeart.svg' : 'heart.svg')"></button>
@@ -72,7 +72,12 @@
                     displayWindow(5)
                 }
             }
-            return { data, responceToPost }
+            const displayImage = (key) => {
+                data.store.state.post.image = props.postImageNames
+                data.store.state.post.imageKey = key
+                displayWindow(6)
+            }
+            return { data, responceToPost, displayImage }
         }
     }
 </script>
