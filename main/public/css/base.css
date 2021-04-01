@@ -760,6 +760,8 @@ template {
   overflow: hidden;
   height: 200px;
   width: 48%; }
+  .post__img:hover {
+    cursor: pointer; }
 
 /* ---------------tabの仕様・制約--------------- */
 .tabs-wapper, .header__tab-wapper {
