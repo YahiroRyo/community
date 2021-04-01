@@ -760,6 +760,8 @@ template ***REMOVED***
   overflow: hidden;
   height: 200px;
   width: 48%; ***REMOVED***
+  .post__img:hover ***REMOVED***
+    cursor: pointer; ***REMOVED***
 
 /* ---------------tabの仕様・制約--------------- */
 .tabs-wapper, .header__tab-wapper ***REMOVED***
