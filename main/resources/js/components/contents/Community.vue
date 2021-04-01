@@ -22,29 +22,29 @@
         <div v-for="(post, key) in data.post.objects" :key="key">
             <Post
                 :postImageNames="post.imageNames"
-                :sendArg="data.post.objects[key]"
-                :imageName="post.imageName"
-                :responceNum="post.responceNum"
                 :communityId="Number(data.route.params.id)"
+                :responceNum="post.responceNum"
+                :imageName="post.imageName"
                 :userName="post.userName" 
+                :sendGood="sendGood"
+                :sendArg="data.post.objects[key]"
                 :content="post.content"
                 :goodNum="post.goodNum"
                 :postId="post.postId"
                 :isGood="post.isGood"
-                :sendGood="sendGood"
                 :name="post.name"
             />
         </div>
+            <component is="style">
+            .form__textarea,
+            .form__textarea-wapper ***REMOVED***height: 30px !important;***REMOVED***
+            .form__textarea:focus ~ .form__label,
+            .form__textarea:valid ~ .form__label ***REMOVED***
+                transform: translateY(-25px);
+            ***REMOVED***
+            .form ***REMOVED*** margin-bottom: 20px !important; ***REMOVED***
+        </component>
     </div>
-    <component is="style">
-        .form__textarea,
-        .form__textarea-wapper ***REMOVED***height: 30px !important;***REMOVED***
-        .form__textarea:focus ~ .form__label,
-        .form__textarea:valid ~ .form__label ***REMOVED***
-            transform: translateY(-25px);
-        ***REMOVED***
-        .form ***REMOVED*** margin-bottom: 20px !important; ***REMOVED***
-    </component>
 </template>
 
 <script>
