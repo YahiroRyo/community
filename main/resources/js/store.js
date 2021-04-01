@@ -28,7 +28,9 @@ export const store = createStore(***REMOVED***
         post: ***REMOVED***
           toResponcePostId:       null,
           toResponceCommunityId:  null,
-        ***REMOVED***
+          imageKey:               0,
+          image:                  [],
+        ***REMOVED***,
       ***REMOVED***
     ***REMOVED***,
   ***REMOVED***)
