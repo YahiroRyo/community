@@ -113,6 +113,9 @@ body {
 .mobile-phone-menu__item__img {
     width: 30px;
     height: 30px;
+    &:hover {
+        cursor: pointer;
+    }
 }
 /*
 =====================
