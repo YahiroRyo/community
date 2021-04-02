@@ -27,14 +27,14 @@
                     <div v-show="data.menu.communities.isHover" class="pop-up-discription"><p class="pop-up-discription__content">コミュニティ</p></div>
                 </transition>
             </li>
-            <li @mouseover="data.menu.contact.isHover = true" @mouseleave="data.menu.contact.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/contact',***REMOVED***">
+            <!-- <li @mouseover="data.menu.contact.isHover = true" @mouseleave="data.menu.contact.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/contact',***REMOVED***">
                 <router-link class="tab__img" to="/contact">
                     <img class="tab__img-icon" src="/images/materials/info.svg">
                 </router-link>
                 <transition name="pop-up-discription-anim">
                     <div v-show="data.menu.contact.isHover" class="pop-up-discription"><p class="pop-up-discription__content">お問い合わせ</p></div>
                 </transition>
-            </li>
+            </li> -->
         </ul>
         <div class="header__other">
             <ul class="header__other__menu">
@@ -54,16 +54,15 @@
                     <li v-if="$store.state.user.isLogin">
                         <router-link to="/communities/0" class="menu__item"><img class="menu__item-icon" src="/images/materials/community.svg">コミュニティ</router-link>
                     </li>
-                <li>
+                <!-- <li>
                     <router-link to="/contact" class="menu__item"><img class="menu__item-icon" src="/images/materials/info.svg">お問い合わせ</router-link>
                 </li>
                 <li>
                     <button @click="displayWindow(1)" class="menu__item">モジュール</button>
                 </li>
                 <li>
-                    <!-- テストしているモジュールのフラグをtrueにするボタン -->
                     <button class="menu__item" style="color: red;" @click="data.testTrigger = true">Test Trigger</button>
-                </li>
+                </li> -->
             </ul>
         </nav>
         <main id="main">
