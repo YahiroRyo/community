@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="/css/components/createPost/createPost.css">
         <Form class="form" :useTextArea="true" v-model:inputContent="data.post.content" label="投稿内容を入力" uniqueClassKey="1" />
         <!-- 文字数カウント -->
-        <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': bytes(data.post.content) >= 280 ? true : false, ***REMOVED***">***REMOVED******REMOVED***bytes(data.post.content) ***REMOVED******REMOVED*** | 280</p>
+        <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': bytes(data.post.content) >= 280, ***REMOVED***">***REMOVED******REMOVED***bytes(data.post.content) ***REMOVED******REMOVED*** | 280</p>
         <!-- 画像プレビュー -->
         <div class="create-post-display-img-wapper" v-show="data.post.images.length > 0">
             <transition-group name="create-post-input-img-anim">
@@ -14,7 +14,7 @@
         </div>
         <button @click="selectMedia" class="create-post-btn"><img src="/images/materials/media.svg" class="create-post-btn__media-img"></button>
         <input ref="inputFileElement" @change="displayMedia" style="display: none;" type="file" accept="image/*" />
-        <button @click="createPost" class="form__btn m-l-1">投稿する</button>
+        <button :disabled="data.post.content.length === 0 || bytes(data.post.content) >= 280" @click="createPost" class="form__btn m-l-1">投稿する</button>
     </div>
 </template>
 
@@ -101,7 +101,7 @@
                 if (data.store.state.windowSize.width <= 414) ***REMOVED***
                     createWindow('投稿する', data.store.state.windowSize.width - 10, data.store.state.windowSize.height - 20)
                 ***REMOVED*** else ***REMOVED***
-                    createWindow('投稿する', 500, 660)
+                    createWindow('投稿する', 500, 680)
                 ***REMOVED***
             ***REMOVED***)
             return ***REMOVED*** data, createPost, selectMedia, inputFileElement, displayMedia, deleteMedia, bytes ***REMOVED***
