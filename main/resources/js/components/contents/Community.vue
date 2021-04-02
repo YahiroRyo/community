@@ -121,6 +121,10 @@
                     if (responce.data.isNormalToken) ***REMOVED***
                         if (responce.data.isCreateCommunityPost) ***REMOVED***
                             createAlert(new alert('投稿しました。', 0))
+                            data.post.content = ''
+                            data.post.images = []
+                            data.post.files = []
+                            inputFileElement.value = null
                         ***REMOVED*** else ***REMOVED***
                             createAlert(new alert('投稿に失敗しました。', 2))
                         ***REMOVED***
