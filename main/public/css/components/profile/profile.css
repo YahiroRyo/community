@@ -60,7 +60,8 @@
   line-height: 2.5; ***REMOVED***
 
 .profile__content ***REMOVED***
-  margin-top: 10px; ***REMOVED***
+  margin-top: 10px;
+  overflow-wrap: break-word; ***REMOVED***
 
 .profile__posts-wapper ***REMOVED***
   margin-top: 20px; ***REMOVED***
