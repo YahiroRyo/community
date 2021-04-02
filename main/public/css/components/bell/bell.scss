@@ -31,3 +31,19 @@
     left: 50%;
     transform: translate(-50%, -50%);
 ***REMOVED***
+
+
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) ***REMOVED***
+    .post__flex ***REMOVED*** display: block; ***REMOVED***
+    .bell__btn-app,
+    .bell__btn-disallow ***REMOVED***
+        margin: 10px auto 0 auto;
+        line-height: 2.5;
+        font-size: 14px;
+    ***REMOVED***
+***REMOVED***

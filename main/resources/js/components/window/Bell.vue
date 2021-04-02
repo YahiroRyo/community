@@ -14,7 +14,7 @@
             </div>
         </template>
         <template v-else>
-            <h1 class="bell__not-exist">通知がないです。</h1>
+            <h1 class="bell__not-exist">通知が存在しません。</h1>
         </template>
     </div>
 </template>
@@ -33,6 +33,7 @@
     import ***REMOVED*** reactive, onMounted ***REMOVED***                                          from 'vue'
     import ***REMOVED*** getUidAndToken ***REMOVED***                                               from '../../supportFirebase.js'
     import ***REMOVED*** useRouter ***REMOVED***                                                    from 'vue-router'
+    import ***REMOVED*** useStore ***REMOVED***                                                     from 'vuex'
     import firebase                                                         from 'firebase'
     import axios                                                            from 'axios'
 
@@ -45,6 +46,7 @@
                     gotNum: 0,
                     isCantTake: false,
                 ***REMOVED***,
+                store: useStore(),
                 router: useRouter(),
             ***REMOVED***)
             const getBells = async() => ***REMOVED***
@@ -139,7 +141,13 @@
                 data.router.push(`/profile/$***REMOVED***userName***REMOVED***`)
             ***REMOVED***
             onMounted(() => ***REMOVED***
-                createWindow('通知', 1000, 750)
+                if (data.store.state.windowSize.width <= 414) ***REMOVED***
+                    createWindow('通知', data.store.state.windowSize.width - 10, data.store.state.windowSize.height - 10)
+                ***REMOVED*** else if (data.store.state.windowSize.width <= 768) ***REMOVED***
+                    createWindow('通知', data.store.state.windowSize.width - 10, data.store.state.windowSize.height - 10)
+                ***REMOVED*** else ***REMOVED***
+                    createWindow('通知', 1000, 750)
+                ***REMOVED***
                 getBells()
             ***REMOVED***)
             return ***REMOVED*** data, goToProfile, joinApp, joinDisallow ***REMOVED***

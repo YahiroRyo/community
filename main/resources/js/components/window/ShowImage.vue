@@ -70,6 +70,14 @@
                 text-align: center;
                 margin: 0 auto;
             ***REMOVED***
+            /*
+            =====================
+            スマホ レスポンシブ
+            =====================
+            */
+            @media screen and (max-width: 414px) ***REMOVED***
+                .show-image_more-height ***REMOVED*** height: 50vh ***REMOVED***
+            ***REMOVED***
         </component>
     </div>
 </template>
