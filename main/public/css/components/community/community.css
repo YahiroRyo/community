@@ -88,7 +88,7 @@
   padding: 30px; }
 
 .form {
-  margin: 30px 0;
+  margin: 45px 0;
   background-color: white; }
 
 .form__btn {
@@ -100,6 +100,10 @@
   transition: .3s; }
   .form__btn:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+
+.form-label_danger {
+  color: red;
+  font-weight: bold; }
 
 .create-post-btn {
   background-color: white;
@@ -171,6 +175,20 @@
     transform: scale(0.1); }
   100% {
     transform: scale(0); } }
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) {
+  .post__flex {
+    display: block; }
+
+  .bell__btn-app,
+  .bell__btn-disallow {
+    margin: 10px auto 0 auto;
+    line-height: 2.5;
+    font-size: 14px; } }
 .community-create-post-wapper {
   background-color: white;
   border-radius: 16px;
@@ -185,7 +203,8 @@
   z-index: 1; }
 
 .community-create-post__title {
-  font-size: 18px; }
+  font-size: 18px;
+  user-select: none; }
 
 .community-create-post-wapper-trigger {
   background-color: white;

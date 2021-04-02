@@ -15,7 +15,10 @@
     width: 100%;
     z-index: 1;
 }
-.community-create-post__title { font-size: 18px; }
+.community-create-post__title {
+    font-size: 18px;
+    user-select: none;
+}
 .community-create-post-wapper-trigger {
     background-color: white;
     border-radius: 16px;
