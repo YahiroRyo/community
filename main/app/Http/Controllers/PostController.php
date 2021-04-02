@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use Kreait\Firebase\Auth;
@@ -38,6 +39,7 @@ class PostController extends Controller
         // $request->files
         if ($this->isNormalToken($request->token)) ***REMOVED***
             if (strlen($request->content) <= 280) ***REMOVED***
+                DB::beginTransaction();
                 $postId = null;
                 try ***REMOVED***
                     $userId = User::where('uid', $request->uid)->first()['id'];
@@ -49,6 +51,8 @@ class PostController extends Controller
                     $post->save();
                     $postId = $post->id;
                 ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                    DB::rollBack();
+                    DB::commit();
                     return [
                         'isNormalToken' => true,
                         'isCreatePost'  => false,
@@ -86,6 +90,8 @@ class PostController extends Controller
                                 ]);
                                 $postImageName->save();
                             ***REMOVED*** else ***REMOVED***
+                                DB::rollBack();
+                                DB::commit();
                                 return [
                                     'isNormalToken' => true,
                                     'isCreatePost'  => false,
@@ -94,6 +100,7 @@ class PostController extends Controller
                         ***REMOVED***
                     ***REMOVED***
                 ***REMOVED***
+                DB::commit();
                 return [
                     'isNormalToken' => true,
                     'isCreatePost'  => true,
@@ -120,6 +127,7 @@ class PostController extends Controller
         // $request->communityId
         if ($this->isNormalToken($request->token)) ***REMOVED***
             if (strlen($request->content) <= 280) ***REMOVED***
+                DB::beginTransaction();
                 $postId = null;
                 try ***REMOVED***
                     $userId = User::where('uid', $request->uid)->first()['id'];
@@ -132,6 +140,8 @@ class PostController extends Controller
                     $post->save();
                     $postId = $post->id;
                 ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                    DB::rollBack();
+                    DB::commit();
                     return [
                         'isNormalToken'         => true,
                         'isCreateCommunityPost' => false,
@@ -168,6 +178,8 @@ class PostController extends Controller
                                 ]);
                                 $postImageName->save();
                             ***REMOVED*** else ***REMOVED***
+                                DB::rollBack();
+                                DB::commit();
                                 return [
                                     'isNormalToken'         => true,
                                     'isCreateCommunityPost' => false,
@@ -176,6 +188,7 @@ class PostController extends Controller
                         ***REMOVED***
                     ***REMOVED***
                 ***REMOVED***
+                DB::commit();
                 return [
                     'isNormalToken'         => true,
                     'isCreateCommunityPost' => true,
@@ -197,6 +210,7 @@ class PostController extends Controller
         // $request->communityId
         if ($this->isNormalToken($request->token)) ***REMOVED***
             if (strlen($request->content) <= 280) ***REMOVED***
+                DB::beginTransaction();
                 $postId = null;
                 try ***REMOVED***
                     $userId = User::where('uid', $request->uid)->first()['id'];
@@ -254,6 +268,8 @@ class PostController extends Controller
                                 ]);
                                 $postImageName->save();
                             ***REMOVED*** else ***REMOVED***
+                                DB::rollBack();
+                                DB::commit();
                                 return [
                                     'isNormalToken'         => true,
                                     'isCreateResponcePost'  => false,
@@ -262,6 +278,7 @@ class PostController extends Controller
                         ***REMOVED***
                     ***REMOVED***
                 ***REMOVED***
+                DB::commit();
                 return [
                     'isNormalToken' => true,
                     'isCreateResponcePost' => true,
