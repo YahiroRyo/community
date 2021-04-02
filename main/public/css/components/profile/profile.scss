@@ -26,6 +26,7 @@
 .profile__content {
     @extend .profile__font;
     margin-top: 10px;
+    overflow-wrap: break-word;
 }
 .profile__posts-wapper { margin-top: 20px; }
 .profile__icon-wapper {
