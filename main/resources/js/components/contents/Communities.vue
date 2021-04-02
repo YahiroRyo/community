@@ -29,23 +29,35 @@
         <transition name="router-view-anim">
             <!-- コミュニティを作成 -->
             <div v-show="data.route.params.page == 1" class="form__wapper m-t-3" appear>
-                <Form class="form" v-model:inputContent="data.createCommunity.name" label="コミュニティ名" uniqueClassKey="1" />
-                <Form class="form" :useTextArea="true" v-model:inputContent="data.createCommunity.description" label="コミュニティの説明" uniqueClassKey="1" />
-                <button @click="createCommunity()" class="form__btn">作成</button>
+                <Form @click="data.createCommunity.name.isClick = true" v-model:inputContent="validate.name.$model" class="form" label="コミュニティ名" uniqueClassKey="0" 
+                    :validate="validate.name.$errors.length > 0 && data.createCommunity.name.isClick"
+                    :error="validate.name.required.$invalid ? 'コミュニティ名は必須入力です。' :
+                            validate.name.maxLength.$invalid ? '50文字を超過しています。' : null"
+                />
+                <Form @click="data.createCommunity.description.isClick = true" v-model:inputContent="validate.description.$model" :useTextArea="true" class="form" label="コミュニティの説明" uniqueClassKey="1"
+                    :validate="validate.description.$errors.length > 0 && data.createCommunity.description.isClick"
+                    :error="validate.description.required.$invalid ? 'コミュニティの説明は必須入力です。' :
+                            validate.description.maxLength.$invalid ? '500文字を超過しています。' : null"
+                />
+                <button :disabled="validate.$invalid" @click="createCommunity()" class="form__btn">作成</button>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import { reactive, watch, onMounted, onBeforeMount }from 'vue'
-    import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
-    import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
-    import { addPageEvent, removeAtAllFunc }            from '../../page.js'
-    import { useRouter, useRoute }                      from 'vue-router'
-    import { getUidAndToken }                           from '../../supportFirebase.js'
-    import firebase                                     from 'firebase'
-    import axios                                        from 'axios'
+    import { reactive, watch, onMounted, onBeforeMount, toRef } from 'vue'
+    import { createAlert, alert, notNormalTokenAlert }          from '../../alert.js'
+    import { antiLoginUser, antiNotLoginUser }                  from '../../router.js'
+    import { addPageEvent, removeAtAllFunc }                    from '../../page.js'
+    import { useRouter, useRoute }                              from 'vue-router'
+    import { getUidAndToken }                                   from '../../supportFirebase.js'
+    import firebase                                             from 'firebase'
+    import axios                                                from 'axios'
+    /* ---------------validation関係--------------- */
+    import { required, minLength, maxLength  } from "@vuelidate/validators"
+    import { useVuelidate } from "@vuelidate/core"
+
     /* ---------------コンポーネントをインポート--------------- */
     import Form                                         from '../Form.vue'
 
@@ -64,8 +76,14 @@
                     cantTake:   false,
                 },
                 createCommunity: {
-                    name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
-                    description: localStorage.getItem('description') ? localStorage.getItem('description') : '',
+                    name: {
+                        content: localStorage.getItem('name') ? localStorage.getItem('name') : '',
+                        isClick: false,
+                    },
+                    description: {
+                        content: localStorage.getItem('description') ? localStorage.getItem('description') : '',
+                        isClick: false,
+                    },
                 },
             })
             const getCommunities = async() => {
@@ -119,8 +137,8 @@
                     const createCommunityInfos = {
                         uid: user.uid,
                         token: user.token,
-                        name: data.createCommunity.name,
-                        description: data.createCommunity.description,
+                        name: data.createCommunity.name.content,
+                        description: data.createCommunity.description.content,
                     }
                     axios.post('/api/post/create-community', createCommunityInfos)
                     .then((responce) => {
@@ -131,7 +149,7 @@
                             data.createCommunity.description = ''
                             localStorage.removeItem('name')
                             localStorage.removeItem('description')
-                            data.router.go(data.router.path)
+                            data.router.go('communities/1')
                         } else if (!responce.data.isNormalToken) {
                             notNormalTokenAlert()
                         } else {
@@ -194,6 +212,14 @@
                     createAlert(new alert('ユーザー情報を取得することに失敗しました。', 2))
                 }
             }
+            const rules = {
+                name:                   { required, maxLength: maxLength(50), },
+                description:            { required, maxLength: maxLength(500), },
+            }
+            const validate = useVuelidate(rules, {
+                name:                   toRef(data.createCommunity.name, 'content'),
+                description:            toRef(data.createCommunity.description, 'content'),
+            })
             
             /* ---------------createCommunity変数について--------------- */
             // 他のURLに飛ぶと値が消滅してしまうため、ローカルストレージに入力した値を保存
@@ -209,8 +235,9 @@
             onMounted(() => {
                 getCommunities()
                 addPageEvent('pageMostBottom', () => {getCommunities()})
+                validate.value.$touch()
             })
-            return { data, createCommunity, goToCommunity }
+            return { data, createCommunity, goToCommunity, validate }
         },
         beforeRouteLeave (to, from, next) {
             removeAtAllFunc()
