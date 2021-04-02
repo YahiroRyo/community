@@ -121,6 +121,10 @@
                     if (responce.data.isNormalToken) {
                         if (responce.data.isCreateCommunityPost) {
                             createAlert(new alert('投稿しました。', 0))
+                            data.post.content = ''
+                            data.post.images = []
+                            data.post.files = []
+                            inputFileElement.value = null
                         } else {
                             createAlert(new alert('投稿に失敗しました。', 2))
                         }
