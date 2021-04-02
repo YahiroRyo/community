@@ -32,3 +32,13 @@
     width: 200px;
     margin-left: auto;
 }
+
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) {
+    .communities-tab__title { font-size: 14px; }
+    .communitiest__btn { line-height: 2.5; }
+}

@@ -2,7 +2,8 @@
     <div>
         <link rel="stylesheet" href="/css/components/community/community.css">
         <!-- コミュニティで投稿する -->
-        <div class="community-create-post-wapper">
+        <div class="community-create-post-wapper" v-show="data.post.isOpen">
+            <img v-if="$store.state.windowSize.width <= 414" @click="data.post.isOpen = false" style="width: 16px; height: 16px;" src="/images/materials/close.svg">
             <Form class="form" :useTextArea="true" v-model:inputContent="data.post.content" label="コミュニティに投稿する" uniqueClassKey="1" />
             <!-- 文字数カウント -->
             <p :class="{'form-label-create-post': true, 'form-label_danger': bytes(data.post.content) >= 280 ? true : false, }">{{bytes(data.post.content) }} | 280</p>
@@ -18,6 +19,7 @@
             <input ref="inputFileElement" @change="displayMedia" style="display: none;" type="file" accept="image/*" />
             <button @click="createPost" class="form__btn">投稿する</button>
         </div>
+        <button class="community-create-post-wapper-trigger" v-show="!data.post.isOpen" @click="data.post.isOpen = true">投稿する</button>
         <!-- コミュニティの投稿一覧 -->
         <div v-for="(post, key) in data.post.objects" :key="key">
             <Post
@@ -76,6 +78,7 @@
                     cantGetPosts:   false,
                     objects:        [],
                     content:        '',
+                    isOpen:         false,
                     images:         [],
                     gotNum:         0,
                     files:          [],
@@ -196,6 +199,9 @@
             onMounted(() => {
                 getPosts()
                 addPageEvent('pageMostBottom', () => {getPosts()})
+                if (data.store.state.windowSize.width > 414) {
+                    data.post.isOpen = true
+                }
             })
             return { data, sendGood, inputFileElement, selectMedia, displayMedia, deleteMedia, createPost, bytes }
         }

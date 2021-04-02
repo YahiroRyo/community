@@ -1,7 +1,8 @@
 @import '../../brandColor';
 @import '../../modules/button.scss';
 
-.profile__flex {
+.profile__flex,
+.profile__other__flex {
     align-items: center;
     display: flex;
 }
@@ -67,4 +68,25 @@
     transform: translate(-50%, -50%);
     width: 100px;
     left: 50%;
+}
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) {
+    .profile__icon-wapper,
+    .profile__icon-img,
+    .profile__icon-change {
+        width: 80px;
+        height: 80px;
+    }
+    .profile__name { font-size: 20px; }
+    .profile__other__flex { display: block; }
+    .profile__btn {
+        font-size: 14px;
+        margin: 10px 0 0 0;
+        width: auto;
+        padding: 0;
+    }
 }

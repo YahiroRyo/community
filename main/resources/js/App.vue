@@ -104,11 +104,18 @@
                     <component :is="Component"></component>
                 </transition>
             </router-view>
+            <ul class="mobile-phone-menu">
+                <li v-if="$store.state.user.isLogin" @click="displayWindow(3)" class="mobile-phone-menu__item"><img class="mobile-phone-menu__item__img" src="/images/materials/bell.svg"></li>
+                <li v-if="$store.state.user.isLogin" @click="displayWindow(2)" class="mobile-phone-menu__item"><img class="mobile-phone-menu__item__img" src="/images/materials/post.svg"></li>
+                <li v-if="$store.state.user.isLogin" class="mobile-phone-menu__item" @click="$router.push('/logout')"><img class="mobile-phone-menu__item__img" src="/images/materials/logout.svg"></li>
+                <li v-if="!$store.state.user.isLogin" @click="$router.push('/login')" class="mobile-phone-menu__item"><img class="mobile-phone-menu__item__img" src="/images/materials/login.svg"></li>
+                <li v-if="!$store.state.user.isLogin" @click="$router.push('/register')" class="mobile-phone-menu__item"><img class="mobile-phone-menu__item__img" src="/images/materials/register.svg"></li>
+            </ul>
         </main>
         <div class="other">
             <ul class="other__item-wapper">
                 <li v-if="$store.state.user.isLogin" @click="displayWindow(2)" class="other__item"><img class="other__item-icon" src="/images/materials/post.svg">投稿する</li>
-                <li v-if="$store.state.user.isLogin" ><router-link to="/logout" class="other__item">ログアウト</router-link></li>
+                <li v-if="$store.state.user.isLogin" @click="$router.push('/logout')" class="other__item"><img class="other__item-icon" src="/images/materials/logout.svg">ログアウト</li>
                 <li v-if="!$store.state.user.isLogin" ><router-link to="/login" class="other__item">ログイン</router-link></li>
                 <li v-if="!$store.state.user.isLogin" ><router-link to="/register" class="other__item">アカウント登録</router-link></li>
             </ul>
@@ -117,13 +124,13 @@
 </template>
 
 <script>
-    import { reactive, watch, onMounted }       from 'vue'
-    import { useRouter, useRoute }              from 'vue-router'
-    import { alert, createAlert }               from './alert'
-    import { displayWindow }                    from './window'
-    import { useStore }                         from 'vuex'
-    import firebase                             from 'firebase'
-    import axios                                from 'axios'
+    import { reactive, watch, onMounted, onBeforeMount }    from 'vue'
+    import { useRouter, useRoute }                          from 'vue-router'
+    import { alert, createAlert }                           from './alert'
+    import { displayWindow }                                from './window'
+    import { useStore }                                     from 'vuex'
+    import firebase                                         from 'firebase'
+    import axios                                            from 'axios'
 
     /* ---------------コンポーネントインポート--------------- */
     import CreateResponcePost   from './components/window/CreateResponcePost.vue'
@@ -206,6 +213,14 @@
                     data.store.state.user.profileUpdate = false
                     data.menu.profile.userName          = data.store.state.user.userName
                 }
+            })
+            onBeforeMount(() => {
+                window.addEventListener('resize', (e) => {
+                    data.store.state.windowSize.width   = window.innerWidth
+                    data.store.state.windowSize.height  = window.innerHeight
+                })
+                data.store.state.windowSize.width   = window.innerWidth
+                data.store.state.windowSize.height  = window.innerHeight
             })
             onMounted(async() => {
                 await firebase.auth().onAuthStateChanged(async(user) => {
