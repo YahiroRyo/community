@@ -634,7 +634,7 @@ template {
   padding: 30px; }
 
 .form {
-  margin: 30px 0;
+  margin: 45px 0;
   background-color: white; }
 
 .form__btn {
@@ -646,6 +646,13 @@ template {
   transition: .3s; }
   .form__btn:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
+  .form__btn:disabled {
+    background: linear-gradient(145deg, #e6e6e6, #ffffff);
+    box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff; }
+
+.form-label_danger {
+  color: red;
+  font-weight: bold; }
 
 .btn, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn, .menu__item, .other__item {
   border-radius: 5px;
@@ -924,6 +931,8 @@ body {
 .mobile-phone-menu__item__img {
   width: 30px;
   height: 30px; }
+  .mobile-phone-menu__item__img:hover {
+    cursor: pointer; }
 
 /*
 =====================
