@@ -1,17 +1,18 @@
 <template>
     <div>
         <div :style="`background-color: $***REMOVED***formBackgroundColor***REMOVED***;`" :class="***REMOVED***'form-wapper': true, 'form__textarea-wapper': useTextArea,***REMOVED***">
-            <textarea  v-if="useTextArea" :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? '' : 'color: #f9446a;'" class="form__input form__textarea" :type="type" required></textarea>
-            <input v-else :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? '' : 'color: #f9446a;'" class="form__input" :type="type" required>
+            <textarea  v-if="useTextArea" :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? 'color: #f9446a;' : ''" class="form__input form__textarea" :type="type" required></textarea>
+            <input v-else :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? 'color: #f9446a;' : ''" class="form__input" :type="type" required>
             <div :class="`form__underline form__underline$***REMOVED***uniqueClassKey***REMOVED***`"></div>
-            <label :style="validate ? '' : 'color: #f9446a;'" class="form__label">***REMOVED******REMOVED***label***REMOVED******REMOVED***</label>
+            <label :style="validate ? 'color: #f9446a;' : ''" class="form__label">***REMOVED******REMOVED***label***REMOVED******REMOVED***</label>
+            <p v-if="validate" class="form-error-text">***REMOVED******REMOVED***error***REMOVED******REMOVED***</p>
         </div>
         <component is="style">
             .form__underline***REMOVED******REMOVED***uniqueClassKey***REMOVED******REMOVED*** ***REMOVED***
-                ***REMOVED******REMOVED***validate ? 'background: silver;' : 'background: #f9446a;' ***REMOVED******REMOVED***
+                ***REMOVED******REMOVED***validate ? 'background: #f9446a;' : 'background: silver;' ***REMOVED******REMOVED***
             ***REMOVED***
             .form__underline***REMOVED******REMOVED***uniqueClassKey***REMOVED******REMOVED***:before ***REMOVED***
-                ***REMOVED******REMOVED***validate ? 'background: #0BB3A2;' : 'background: #f9446a;' ***REMOVED******REMOVED***
+                ***REMOVED******REMOVED***validate ? 'background: #f9446a;' : 'background: #0BB3A2;;' ***REMOVED******REMOVED***
             ***REMOVED***
         </component>
     </div>
@@ -80,6 +81,12 @@
     .form__input:valid ~ .form__underline:before***REMOVED***
         transform: scaleX(1);
     ***REMOVED***
+    .form-error-text ***REMOVED***
+        color: #f9446a;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 5px;
+    ***REMOVED***
 </style>
 
 <script>
@@ -100,7 +107,7 @@
                 type:       String,
             ***REMOVED***,
             validate:   ***REMOVED***
-                default:    true,
+                default:    false,
                 type:       Boolean,
             ***REMOVED***,
             uniqueClassKey: ***REMOVED***
@@ -111,6 +118,7 @@
                 type:       Boolean,
                 default:    false,
             ***REMOVED***,
+            error: ***REMOVED*** type: String, ***REMOVED***,
             inputContent:   String,
         ***REMOVED***,
     ***REMOVED***
