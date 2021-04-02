@@ -44,7 +44,8 @@
   color: #333;
   display: block;
   font-size: 18px;
-  margin: 0 auto; ***REMOVED***
+  margin: 0 auto;
+  user-select: none; ***REMOVED***
 
 .tabs-wapper ***REMOVED***
   position: sticky;
@@ -72,7 +73,8 @@
 
 .communitiest__btn ***REMOVED***
   width: 200px;
-  margin-left: auto; ***REMOVED***
+  margin-left: auto;
+  user-select: none; ***REMOVED***
 
 /*
 =====================

@@ -88,7 +88,7 @@
   padding: 30px; ***REMOVED***
 
 .form ***REMOVED***
-  margin: 30px 0;
+  margin: 45px 0;
   background-color: white; ***REMOVED***
 
 .form__btn ***REMOVED***
@@ -100,6 +100,10 @@
   transition: .3s; ***REMOVED***
   .form__btn:hover ***REMOVED***
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); ***REMOVED***
+
+.form-label_danger ***REMOVED***
+  color: red;
+  font-weight: bold; ***REMOVED***
 
 .create-post-btn ***REMOVED***
   background-color: white;
@@ -171,6 +175,20 @@
     transform: scale(0.1); ***REMOVED***
   100% ***REMOVED***
     transform: scale(0); ***REMOVED*** ***REMOVED***
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) ***REMOVED***
+  .post__flex ***REMOVED***
+    display: block; ***REMOVED***
+
+  .bell__btn-app,
+  .bell__btn-disallow ***REMOVED***
+    margin: 10px auto 0 auto;
+    line-height: 2.5;
+    font-size: 14px; ***REMOVED*** ***REMOVED***
 .community-create-post-wapper ***REMOVED***
   background-color: white;
   border-radius: 16px;
@@ -185,7 +203,8 @@
   z-index: 1; ***REMOVED***
 
 .community-create-post__title ***REMOVED***
-  font-size: 18px; ***REMOVED***
+  font-size: 18px;
+  user-select: none; ***REMOVED***
 
 .community-create-post-wapper-trigger ***REMOVED***
   background-color: white;

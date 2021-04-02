@@ -5,6 +5,7 @@
     display: block;
     font-size: 18px;
     margin: 0 auto;
+    user-select: none;
 ***REMOVED***
 .tabs-wapper ***REMOVED***
     position: sticky;
@@ -31,6 +32,7 @@
     @extend .btn_normal;
     width: 200px;
     margin-left: auto;
+    user-select: none;
 ***REMOVED***
 
 /*
