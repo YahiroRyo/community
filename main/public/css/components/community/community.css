@@ -187,4 +187,34 @@
 .community-create-post__title ***REMOVED***
   font-size: 18px; ***REMOVED***
 
+.community-create-post-wapper-trigger ***REMOVED***
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  color: #333;
+  padding: 5px;
+  position: sticky;
+  top: 80px;
+  text-align: center;
+  margin-bottom: 20px;
+  overflow-y: auto;
+  width: 100%;
+  height: 50px;
+  z-index: 1; ***REMOVED***
+
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) ***REMOVED***
+  .communities-tab__title ***REMOVED***
+    font-size: 14px; ***REMOVED***
+
+  .communitiest__btn ***REMOVED***
+    line-height: 2.5; ***REMOVED***
+
+  .community-create-post-wapper-trigger ***REMOVED***
+    display: block; ***REMOVED*** ***REMOVED***
+
 /*# sourceMappingURL=community.css.map */

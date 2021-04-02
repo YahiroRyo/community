@@ -763,6 +763,22 @@ template ***REMOVED***
   .post__img:hover ***REMOVED***
     cursor: pointer; ***REMOVED***
 
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) ***REMOVED***
+  .post__btn-display-responce,
+  .post__name,
+  .post__font,
+  .post__status,
+  .post__name ***REMOVED***
+    font-size: 14px; ***REMOVED***
+
+  .post__icon-img ***REMOVED***
+    width: 50px;
+    height: 50px; ***REMOVED*** ***REMOVED***
 /* ---------------tabの仕様・制約--------------- */
 .tabs-wapper, .header__tab-wapper ***REMOVED***
   align-items: center;
@@ -888,6 +904,27 @@ body ***REMOVED***
   height: 20px;
   margin-right: 10px; ***REMOVED***
 
+.mobile-phone-menu ***REMOVED***
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  bottom: 0;
+  display: none;
+  position: fixed;
+  left: 0;
+  height: 75px;
+  width: 100%; ***REMOVED***
+
+.mobile-phone-menu__item ***REMOVED***
+  align-items: center;
+  display: flex;
+  margin: 0 auto;
+  height: 100%; ***REMOVED***
+
+.mobile-phone-menu__item__img ***REMOVED***
+  width: 30px;
+  height: 30px; ***REMOVED***
+
 /*
 =====================
         other      
@@ -1004,5 +1041,55 @@ body ***REMOVED***
 .pop-up-discription-anim-enter-to,
 .pop-up-discription-anim-leave ***REMOVED***
   opacity: 1; ***REMOVED***
+
+/*
+=====================
+  ipad レスポンシブ
+=====================
+*/
+@media screen and (max-width: 1024px) ***REMOVED***
+  .menu,
+  .other,
+  .header__other ***REMOVED***
+    display: none; ***REMOVED***
+
+  #main ***REMOVED***
+    width: 95vw;
+    margin: 0 auto 75px auto; ***REMOVED***
+
+  .header__tab-wapper ***REMOVED***
+    width: 90vw; ***REMOVED***
+
+  .header__icon-wapper ***REMOVED***
+    width: 10vw; ***REMOVED***
+
+  .mobile-phone-menu ***REMOVED***
+    display: flex; ***REMOVED*** ***REMOVED***
+@media screen and (max-width: 768px) ***REMOVED***
+  .header__tab-wapper ***REMOVED***
+    width: 85vw; ***REMOVED***
+
+  .header__icon-wapper ***REMOVED***
+    width: 15vw; ***REMOVED*** ***REMOVED***
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) ***REMOVED***
+  .header__icon-wapper ***REMOVED***
+    display: none; ***REMOVED***
+
+  .header__tab-wapper ***REMOVED***
+    width: 95vw; ***REMOVED***
+
+  .tab__img-icon,
+  .mobile-phone-menu ***REMOVED***
+    height: 50px; ***REMOVED***
+
+  .mobile-phone-menu__item__img,
+  .tab__img-icon ***REMOVED***
+    width: 25px;
+    height: 25px; ***REMOVED*** ***REMOVED***
 
 /*# sourceMappingURL=base.css.map */

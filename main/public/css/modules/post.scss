@@ -81,3 +81,18 @@
     width: 48%;
     &:hover ***REMOVED*** cursor: pointer; ***REMOVED***
 ***REMOVED***
+
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) ***REMOVED***
+    .post__btn-display-responce,
+    .post__name,
+    .post__font ***REMOVED*** font-size: 14px; ***REMOVED***
+    .post__icon-img ***REMOVED***
+        width: 50px;
+        height: 50px;
+    ***REMOVED***
+***REMOVED***

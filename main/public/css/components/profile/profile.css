@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .btn, .profile__btn ***REMOVED***
   border-radius: 5px;
   display: block;
@@ -39,7 +40,8 @@
   width: 50px;
   height: 50px; ***REMOVED***
 
-.profile__flex ***REMOVED***
+.profile__flex,
+.profile__other__flex ***REMOVED***
   align-items: center;
   display: flex; ***REMOVED***
 
@@ -101,5 +103,29 @@
   transform: translate(-50%, -50%);
   width: 100px;
   left: 50%; ***REMOVED***
+
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) ***REMOVED***
+  .profile__icon-wapper,
+  .profile__icon-img,
+  .profile__icon-change ***REMOVED***
+    width: 80px;
+    height: 80px; ***REMOVED***
+
+  .profile__name ***REMOVED***
+    font-size: 20px; ***REMOVED***
+
+  .profile__other__flex ***REMOVED***
+    display: block; ***REMOVED***
+
+  .profile__btn ***REMOVED***
+    font-size: 14px;
+    margin: 10px 0 0 0;
+    width: auto;
+    padding: 0; ***REMOVED*** ***REMOVED***
 
 /*# sourceMappingURL=profile.css.map */

@@ -16,7 +16,7 @@
                     <p class="post__status">***REMOVED******REMOVED***goodNum***REMOVED******REMOVED***</p>
                     <button @click="responceToPost()" class="post__btn"><img class="post__btn__img" src="/images/materials/responce.svg"></button>
                     <p class="post__status">***REMOVED******REMOVED***responceNum***REMOVED******REMOVED***</p>
-                    <button @click="data.router.push(`/responce/$***REMOVED***postId***REMOVED***`)" class="post__btn-display-responce">返信を表示する</button>
+                    <button @click="data.router.push(`/responce/$***REMOVED***postId***REMOVED***`)" class="post__btn-display-responce">返信を表示</button>
                 </div>
             </div>
         </div>

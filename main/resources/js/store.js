@@ -31,6 +31,10 @@ export const store = createStore(***REMOVED***
           imageKey:               0,
           image:                  [],
         ***REMOVED***,
+        windowSize: ***REMOVED***
+          height: 0,
+          width:  0,
+        ***REMOVED***,
       ***REMOVED***
     ***REMOVED***,
   ***REMOVED***)

@@ -9,7 +9,7 @@
             </div>
             <div class="width-full">
                 <h1 class="profile__name">***REMOVED******REMOVED***data.user.name***REMOVED******REMOVED***</h1>
-                <div class="profile__flex">
+                <div class="profile__other__flex">
                     <p class="profile__user-name">@***REMOVED******REMOVED***data.user.userName***REMOVED******REMOVED***</p>
                     <router-link to="/profile-edit" v-if="$store.state.user.userName === data.user.userName" class="profile__btn">プロフィールを編集する</router-link>
                 </div>
