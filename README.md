@@ -41,3 +41,5 @@ npm i vue-router@next
 npm install axios  
 composer require kreait/firebase-php  
 composer require kreait/laravel-firebase  
+npm install @vuelidate/core@2.0.0-alpha.4 --legacy-peer-deps  
+npm install @vuelidate/validators@2.0.0-alpha.2 --legacy-peer-deps  
