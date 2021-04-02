@@ -29,23 +29,35 @@
         <transition name="router-view-anim">
             <!-- コミュニティを作成 -->
             <div v-show="data.route.params.page == 1" class="form__wapper m-t-3" appear>
-                <Form class="form" v-model:inputContent="data.createCommunity.name" label="コミュニティ名" uniqueClassKey="1" />
-                <Form class="form" :useTextArea="true" v-model:inputContent="data.createCommunity.description" label="コミュニティの説明" uniqueClassKey="1" />
-                <button @click="createCommunity()" class="form__btn">作成</button>
+                <Form @click="data.createCommunity.name.isClick = true" v-model:inputContent="validate.name.$model" class="form" label="コミュニティ名" uniqueClassKey="0" 
+                    :validate="validate.name.$errors.length > 0 && data.createCommunity.name.isClick"
+                    :error="validate.name.required.$invalid ? 'コミュニティ名は必須入力です。' :
+                            validate.name.maxLength.$invalid ? '50文字を超過しています。' : null"
+                />
+                <Form @click="data.createCommunity.description.isClick = true" v-model:inputContent="validate.description.$model" :useTextArea="true" class="form" label="コミュニティの説明" uniqueClassKey="1"
+                    :validate="validate.description.$errors.length > 0 && data.createCommunity.description.isClick"
+                    :error="validate.description.required.$invalid ? 'コミュニティの説明は必須入力です。' :
+                            validate.description.maxLength.$invalid ? '500文字を超過しています。' : null"
+                />
+                <button :disabled="validate.$invalid" @click="createCommunity()" class="form__btn">作成</button>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import ***REMOVED*** reactive, watch, onMounted, onBeforeMount ***REMOVED***from 'vue'
-    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
-    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***          from '../../router.js'
-    import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***            from '../../page.js'
-    import ***REMOVED*** useRouter, useRoute ***REMOVED***                      from 'vue-router'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
-    import firebase                                     from 'firebase'
-    import axios                                        from 'axios'
+    import ***REMOVED*** reactive, watch, onMounted, onBeforeMount, toRef ***REMOVED*** from 'vue'
+    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***          from '../../alert.js'
+    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***                  from '../../router.js'
+    import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***                    from '../../page.js'
+    import ***REMOVED*** useRouter, useRoute ***REMOVED***                              from 'vue-router'
+    import ***REMOVED*** getUidAndToken ***REMOVED***                                   from '../../supportFirebase.js'
+    import firebase                                             from 'firebase'
+    import axios                                                from 'axios'
+    /* ---------------validation関係--------------- */
+    import ***REMOVED*** required, minLength, maxLength  ***REMOVED*** from "@vuelidate/validators"
+    import ***REMOVED*** useVuelidate ***REMOVED*** from "@vuelidate/core"
+
     /* ---------------コンポーネントをインポート--------------- */
     import Form                                         from '../Form.vue'
 
@@ -64,8 +76,14 @@
                     cantTake:   false,
                 ***REMOVED***,
                 createCommunity: ***REMOVED***
-                    name: localStorage.getItem('name') ? localStorage.getItem('name') : '',
-                    description: localStorage.getItem('description') ? localStorage.getItem('description') : '',
+                    name: ***REMOVED***
+                        content: localStorage.getItem('name') ? localStorage.getItem('name') : '',
+                        isClick: false,
+                    ***REMOVED***,
+                    description: ***REMOVED***
+                        content: localStorage.getItem('description') ? localStorage.getItem('description') : '',
+                        isClick: false,
+                    ***REMOVED***,
                 ***REMOVED***,
             ***REMOVED***)
             const getCommunities = async() => ***REMOVED***
@@ -119,8 +137,8 @@
                     const createCommunityInfos = ***REMOVED***
                         uid: user.uid,
                         token: user.token,
-                        name: data.createCommunity.name,
-                        description: data.createCommunity.description,
+                        name: data.createCommunity.name.content,
+                        description: data.createCommunity.description.content,
                     ***REMOVED***
                     axios.post('/api/post/create-community', createCommunityInfos)
                     .then((responce) => ***REMOVED***
@@ -131,7 +149,7 @@
                             data.createCommunity.description = ''
                             localStorage.removeItem('name')
                             localStorage.removeItem('description')
-                            data.router.go(data.router.path)
+                            data.router.go('communities/1')
                         ***REMOVED*** else if (!responce.data.isNormalToken) ***REMOVED***
                             notNormalTokenAlert()
                         ***REMOVED*** else ***REMOVED***
@@ -194,6 +212,14 @@
                     createAlert(new alert('ユーザー情報を取得することに失敗しました。', 2))
                 ***REMOVED***
             ***REMOVED***
+            const rules = ***REMOVED***
+                name:                   ***REMOVED*** required, maxLength: maxLength(50), ***REMOVED***,
+                description:            ***REMOVED*** required, maxLength: maxLength(500), ***REMOVED***,
+            ***REMOVED***
+            const validate = useVuelidate(rules, ***REMOVED***
+                name:                   toRef(data.createCommunity.name, 'content'),
+                description:            toRef(data.createCommunity.description, 'content'),
+            ***REMOVED***)
             
             /* ---------------createCommunity変数について--------------- */
             // 他のURLに飛ぶと値が消滅してしまうため、ローカルストレージに入力した値を保存
@@ -209,8 +235,9 @@
             onMounted(() => ***REMOVED***
                 getCommunities()
                 addPageEvent('pageMostBottom', () => ***REMOVED***getCommunities()***REMOVED***)
+                validate.value.$touch()
             ***REMOVED***)
-            return ***REMOVED*** data, createCommunity, goToCommunity ***REMOVED***
+            return ***REMOVED*** data, createCommunity, goToCommunity, validate ***REMOVED***
         ***REMOVED***,
         beforeRouteLeave (to, from, next) ***REMOVED***
             removeAtAllFunc()
