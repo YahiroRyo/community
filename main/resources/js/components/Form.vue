@@ -1,17 +1,18 @@
 <template>
     <div>
         <div :style="`background-color: ${formBackgroundColor};`" :class="{'form-wapper': true, 'form__textarea-wapper': useTextArea,}">
-            <textarea  v-if="useTextArea" :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? '' : 'color: #f9446a;'" class="form__input form__textarea" :type="type" required></textarea>
-            <input v-else :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? '' : 'color: #f9446a;'" class="form__input" :type="type" required>
+            <textarea  v-if="useTextArea" :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? 'color: #f9446a;' : ''" class="form__input form__textarea" :type="type" required></textarea>
+            <input v-else :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? 'color: #f9446a;' : ''" class="form__input" :type="type" required>
             <div :class="`form__underline form__underline${uniqueClassKey}`"></div>
-            <label :style="validate ? '' : 'color: #f9446a;'" class="form__label">{{label}}</label>
+            <label :style="validate ? 'color: #f9446a;' : ''" class="form__label">{{label}}</label>
+            <p v-if="validate" class="form-error-text">{{error}}</p>
         </div>
         <component is="style">
             .form__underline{{uniqueClassKey}} {
-                {{validate ? 'background: silver;' : 'background: #f9446a;' }}
+                {{validate ? 'background: #f9446a;' : 'background: silver;' }}
             }
             .form__underline{{uniqueClassKey}}:before {
-                {{validate ? 'background: #0BB3A2;' : 'background: #f9446a;' }}
+                {{validate ? 'background: #f9446a;' : 'background: #0BB3A2;;' }}
             }
         </component>
     </div>
@@ -80,6 +81,12 @@
     .form__input:valid ~ .form__underline:before{
         transform: scaleX(1);
     }
+    .form-error-text {
+        color: #f9446a;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 5px;
+    }
 </style>
 
 <script>
@@ -100,7 +107,7 @@
                 type:       String,
             },
             validate:   {
-                default:    true,
+                default:    false,
                 type:       Boolean,
             },
             uniqueClassKey: {
@@ -111,6 +118,7 @@
                 type:       Boolean,
                 default:    false,
             },
+            error: { type: String, },
             inputContent:   String,
         },
     }
