@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .btn, .bell__btn, .bell__btn-app, .bell__btn-disallow {
   border-radius: 5px;
   display: block;
@@ -67,5 +68,20 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
+
+/*
+=====================
+ スマホ レスポンシブ
+=====================
+*/
+@media screen and (max-width: 414px) {
+  .post__flex {
+    display: block; }
+
+  .bell__btn-app,
+  .bell__btn-disallow {
+    margin: 10px auto 0 auto;
+    line-height: 2.5;
+    font-size: 14px; } }
 
 /*# sourceMappingURL=bell.css.map */

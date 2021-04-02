@@ -102,7 +102,13 @@
                 data.post.images.splice(key, 1)
                 data.post.files.splice(key, 1)
             }
-            onMounted(() => { createWindow('投稿に返信', 500, 660) })
+            onMounted(() => {
+                if (data.store.state.windowSize.width <= 414) {
+                    createWindow('投稿に返信', data.store.state.windowSize.width - 10, data.store.state.windowSize.height - 20)
+                } else {
+                    createWindow('投稿に返信', 500, 660)
+                }
+            })
             return { data, createResponcePost, selectMedia, inputFileElement, displayMedia, deleteMedia, bytes }
         }
     }

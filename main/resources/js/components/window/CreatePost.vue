@@ -97,7 +97,13 @@
             onBeforeMount(() => {
                 antiNotLoginUser()
             })
-            onMounted(() => { createWindow('投稿する', 500, 660) })
+            onMounted(() => {
+                if (data.store.state.windowSize.width <= 414) {
+                    createWindow('投稿する', data.store.state.windowSize.width - 10, data.store.state.windowSize.height - 20)
+                } else {
+                    createWindow('投稿する', 500, 660)
+                }
+            })
             return { data, createPost, selectMedia, inputFileElement, displayMedia, deleteMedia, bytes }
         }
     }

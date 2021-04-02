@@ -70,6 +70,14 @@
                 text-align: center;
                 margin: 0 auto;
             }
+            /*
+            =====================
+            スマホ レスポンシブ
+            =====================
+            */
+            @media screen and (max-width: 414px) {
+                .show-image_more-height { height: 50vh }
+            }
         </component>
     </div>
 </template>

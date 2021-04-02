@@ -14,7 +14,7 @@
             </div>
         </template>
         <template v-else>
-            <h1 class="bell__not-exist">通知がないです。</h1>
+            <h1 class="bell__not-exist">通知が存在しません。</h1>
         </template>
     </div>
 </template>
@@ -33,6 +33,7 @@
     import { reactive, onMounted }                                          from 'vue'
     import { getUidAndToken }                                               from '../../supportFirebase.js'
     import { useRouter }                                                    from 'vue-router'
+    import { useStore }                                                     from 'vuex'
     import firebase                                                         from 'firebase'
     import axios                                                            from 'axios'
 
@@ -45,6 +46,7 @@
                     gotNum: 0,
                     isCantTake: false,
                 },
+                store: useStore(),
                 router: useRouter(),
             })
             const getBells = async() => {
@@ -139,7 +141,13 @@
                 data.router.push(`/profile/${userName}`)
             }
             onMounted(() => {
-                createWindow('通知', 1000, 750)
+                if (data.store.state.windowSize.width <= 414) {
+                    createWindow('通知', data.store.state.windowSize.width - 10, data.store.state.windowSize.height - 10)
+                } else if (data.store.state.windowSize.width <= 768) {
+                    createWindow('通知', data.store.state.windowSize.width - 10, data.store.state.windowSize.height - 10)
+                } else {
+                    createWindow('通知', 1000, 750)
+                }
                 getBells()
             })
             return { data, goToProfile, joinApp, joinDisallow }
