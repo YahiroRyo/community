@@ -1,9 +1,8 @@
 <template>
     <div>
-        <Form uniqueClassKey="1" label="Name" :validate="false" class="test__form" />
-        <Form label="mail" uniqueClassKey="2" class="test__form" />
-        <Form label="userName" uniqueClassKey="3" class="test__form" />
-        <Form label="password" uniqueClassKey="4" type="password" class="test__form" />
+        <button @click="anim" class="form__btn">
+            test
+        </button>
     </div>
 </template>
 
@@ -21,5 +20,21 @@
         components: ***REMOVED***
             Form,
         ***REMOVED***,
+        setup() ***REMOVED***
+            const btnAnim = (e) => ***REMOVED***
+                let x = e.clientX - e.target.offsetLeft
+                let y = e.clientY - e.target.offsetTop
+
+                let ripples = document.createElement('span')
+                ripples.style.left = x + 'px'
+                ripples.style.top = y + 'px'
+                e.target.appendChild(ripples)
+                setTimeout(() => ***REMOVED***
+                    ripples.remove()
+                ***REMOVED***, 100000)
+            ***REMOVED***
+            const anim = (e) => ***REMOVED***
+            ***REMOVED***
+        ***REMOVED***
     ***REMOVED***
 </script>

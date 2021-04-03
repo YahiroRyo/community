@@ -131,7 +131,10 @@
                 ***REMOVED***
             ***REMOVED***
             const createCommunity = async() => ***REMOVED***
-                /* ---------------TODO: サーバーへコミュニティを作成するajax処理を実装--------------- */
+                if (validate.value.$invalid) ***REMOVED***
+                    createAlert(new alert('不正な値です。', 2))
+                    return
+                ***REMOVED***
                 const user = await getUidAndToken()
                 if (!user.isError) ***REMOVED***
                     const createCommunityInfos = ***REMOVED***

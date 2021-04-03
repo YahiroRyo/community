@@ -99,6 +99,10 @@
             ***REMOVED***
             // ユーザー情報を更新する
             const refreshUserData = async() => ***REMOVED***
+                if (validate.value.$invalid) ***REMOVED***
+                    createAlert(new alert('不正な値です。', 2))
+                    return
+                ***REMOVED***
                 const user = await getUidAndToken()
                 const refreshUserProfileInfos = ***REMOVED***
                     userName:   data.user.userName.content,
