@@ -59,6 +59,7 @@ class UserController extends Controller
                 // userで登録したidを保持しておく
                 $lastInsertId = $user->id;
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                \Log::info($e);
                 DB::rollBack();
                 DB::commit();
                 return [
@@ -76,6 +77,7 @@ class UserController extends Controller
                 ]);
                 $userInfo->save();
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                \Log::info($e);
                 DB::rollBack();
                 DB::commit();
                 if ($lastInsertId !== 0) ***REMOVED*** DB::statement("ALTER TABLE users AUTO_INCREMENT=$lastInsertId"); ***REMOVED***
