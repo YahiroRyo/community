@@ -99,6 +99,10 @@
             }
             // ユーザー情報を更新する
             const refreshUserData = async() => {
+                if (validate.value.$invalid) {
+                    createAlert(new alert('不正な値です。', 2))
+                    return
+                }
                 const user = await getUidAndToken()
                 const refreshUserProfileInfos = {
                     userName:   data.user.userName.content,

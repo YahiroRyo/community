@@ -70,6 +70,7 @@ class CommunityController extends Controller
         // $request->description
         if ($this->isNormalToken($request->token)) {
             try {
+                $this->validate($request, Community::rules());
                 $userId = User::where('uid', $request->uid)->first()['id'];
                 $community = new Community;
                 $community->fill([

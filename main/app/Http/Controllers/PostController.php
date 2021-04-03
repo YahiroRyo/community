@@ -39,6 +39,7 @@ class PostController extends Controller
         // $request->files
         if ($this->isNormalToken($request->token)) {
             if (strlen($request->content) <= 280) {
+                $this->validate($request, Post::rules());
                 DB::beginTransaction();
                 $postId = null;
                 try {
@@ -127,6 +128,7 @@ class PostController extends Controller
         // $request->communityId
         if ($this->isNormalToken($request->token)) {
             if (strlen($request->content) <= 280) {
+                $this->validate($request, Post::rules());
                 DB::beginTransaction();
                 $postId = null;
                 try {
@@ -210,6 +212,7 @@ class PostController extends Controller
         // $request->communityId
         if ($this->isNormalToken($request->token)) {
             if (strlen($request->content) <= 280) {
+                $this->validate($request, Post::rules());
                 DB::beginTransaction();
                 $postId = null;
                 try {

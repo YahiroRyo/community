@@ -15,4 +15,21 @@ class UserInfo extends Model
         'user_name',
         'intro',
     ];
+    public static function rules() {
+        return [
+            'name' => [
+                'required',
+                'max:30',
+            ],
+            'userName' => [
+                'required',
+                'regex:regex:/^[a-zA-Z0-9-]+$/',
+                'max:30',
+            ],
+            'intro' => [
+                'required',
+                'max:200',
+            ],
+        ];
+    }
 }

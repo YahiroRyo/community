@@ -45,6 +45,10 @@
                 },
             })
             const createResponcePost = async() => {
+                if (data.post.content.length === 0 || bytes(data.post.content) >= 280) {
+                    createAlert(new alert('不正な値です。', 2))
+                    return
+                }
                 if (!data.store.state.post.toResponcePostId) {
                     createAlert(new alert('返信する対象の投稿が存在しません。', 2))
                 }

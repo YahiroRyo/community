@@ -49,6 +49,10 @@
                 },
             })
             const createPost = async() => {
+                if (data.post.content.length === 0 || bytes(data.post.content) >= 280) {
+                    createAlert(new alert('不正な値です。', 2))
+                    return
+                }
                 const user = await getUidAndToken()
                 const createPostInfos = new FormData()
                 createPostInfos.append('content', data.post.content)

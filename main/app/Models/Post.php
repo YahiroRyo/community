@@ -18,6 +18,14 @@ class Post extends Model
         'community_id',
         'content',
     ];
+    public static function rules() {
+        return [
+            'content' => [
+                'required',
+                'max:280',
+            ],
+        ];
+    }
     public function userInfo() {
         return $this->hasOne(UserInfo::class, 'user_id', 'user_id');
     }

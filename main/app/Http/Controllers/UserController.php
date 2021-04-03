@@ -48,6 +48,7 @@ class UserController extends Controller
             ];
         } else {
             $lastInsertId = 0;
+            $this->validate($request, User::rules());
             // ロールバックをできるようにバックアップポイント作成
             DB::beginTransaction();
             try {
@@ -127,6 +128,7 @@ class UserController extends Controller
 
         if ($this->isNormalToken($request->token)) {
             try {
+                $this->validate($request, UserInfo::rules());
                 // ユーザー情報更新
                 $userId = User::where('uid', $request->uid)
                                 ->first()['id'];

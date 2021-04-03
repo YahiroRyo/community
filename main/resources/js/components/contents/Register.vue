@@ -101,6 +101,10 @@
                 confirmationPassword:   toRef(data.form.confirmationPassword, 'content'),
             })
             const register = async() => {
+                if (validate.value.$invalid) {
+                    createAlert(new alert('不正な値です。', 2))
+                    return
+                }
                 let isError = false
                 // firebaseアカウントを作成
                 await firebase.auth().createUserWithEmailAndPassword(data.form.email.content, data.form.password.content)

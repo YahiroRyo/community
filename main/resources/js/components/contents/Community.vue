@@ -107,6 +107,10 @@
                 data.post.files.splice(key, 1)
             }
             const createPost = async() => {
+                if (data.post.content.length === 0 || bytes(data.post.content) >= 280) {
+                    createAlert(new alert('不正な値です。', 2))
+                    return
+                }
                 const user = await getUidAndToken()
                 const createCommunityPostInfos = new FormData()
                 createCommunityPostInfos.append('communityId', data.route.params.id)

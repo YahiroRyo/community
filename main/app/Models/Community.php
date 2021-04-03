@@ -14,10 +14,23 @@ class Community extends Model
         'name',
         'description',
     ];
+    public static function rules() {
+        return [
+            'name' => [
+                'required',
+                'max:50',
+            ],
+            'description' => [
+                'required',
+                'max:500',
+            ],
+        ];
+    }
     public function isJoiningCommunity() {
         return $this->hasOne(IsJoiningCommunity::class);
     }
     public function canIJoinCommunity() {
         return $this->hasOne(CanIJoinCommunity::class);
     }
+    
 }
