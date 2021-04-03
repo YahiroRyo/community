@@ -23,7 +23,7 @@ class UserInfo extends Model
             ],
             'userName' => [
                 'required',
-                'regex:regex:/^[a-zA-Z0-9-]+$/',
+                'regex:/^[a-zA-Z0-9-]+$/',
                 'max:30',
             ],
             'intro' => [
