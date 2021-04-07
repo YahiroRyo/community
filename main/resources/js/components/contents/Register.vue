@@ -106,6 +106,25 @@
                     return
                 }
                 let isError = false
+                const canUseUserNameInfos = {
+                    params: {
+                        userName: data.form.userName.content,
+                    }
+                }
+                await axios.get('/api/get/can-use-user-name', canUseUserNameInfos)
+                .then((responce) => {
+                    if (responce.data) {
+                        // ユーザーネームが存在する
+                        isError = true
+                        createAlert(new alert('そのユーザーネームは既に使用されています。', 2))
+                    }
+                })
+                .catch(() => {
+                    isError = true
+                    for (key in data.form) { data.form[key].content = '' }
+                    createAlert(new alert('アカウントの作成に失敗しました。', 1))
+                })
+                if (isError) { return }
                 // firebaseアカウントを作成
                 await firebase.auth().createUserWithEmailAndPassword(data.form.email.content, data.form.password.content)
                 .then((responce) => {
@@ -115,28 +134,27 @@
                     for (key in data.form) { data.form[key].content = '' }
                     createAlert(new alert('アカウントの作成に失敗しました。', 1))
                 })
-                if (!isError) {
-                    const user = await getUidAndToken()
-                    const registerUserInfos = {
-                        userName:   data.form.userName.content,
-                        token:      user.token,
-                        name:       data.form.name.content,
-                        uid:        user.uid,
-                    }
-                    await axios.post('/api/post/register-user', registerUserInfos)
-                    .then(async(responce) => {
-                        if (!responce.data.isNormalToken) {
-                            createAlert(new alert('無効なアクセストークンです。', 2))
-                        } else if (!responce.data.isCreateAccount) {
-                            createAlert(new alert('アカウントの作成に失敗しました。', 2))
-                        } else {
-                            data.router.push('/')
-                            setTimeout(() => {
-                                data.router.go('/')
-                            }, 100)
-                        }
-                    })
+                if (isError) { return }
+                const user = await getUidAndToken()
+                const registerUserInfos = {
+                    userName:   data.form.userName.content,
+                    token:      user.token,
+                    name:       data.form.name.content,
+                    uid:        user.uid,
                 }
+                await axios.post('/api/post/register-user', registerUserInfos)
+                .then(async(responce) => {
+                    if (!responce.data.isNormalToken) {
+                        createAlert(new alert('無効なアクセストークンです。', 2))
+                    } else if (!responce.data.isCreateAccount) {
+                        createAlert(new alert('アカウントの作成に失敗しました。', 2))
+                    } else {
+                        data.router.push('/')
+                        setTimeout(() => {
+                            data.router.go('/')
+                        }, 100)
+                    }
+                })
             }
             onBeforeMount(() => {
                 antiLoginUser()
