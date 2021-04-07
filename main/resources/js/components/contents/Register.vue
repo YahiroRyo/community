@@ -130,7 +130,10 @@
                         } else if (!responce.data.isCreateAccount) {
                             createAlert(new alert('アカウントの作成に失敗しました。', 2))
                         } else {
-                            data.router.go('/')
+                            data.router.push('/')
+                            setTimeout(() => {
+                                data.router.go('/')
+                            }, 100)
                         }
                     })
                 }
