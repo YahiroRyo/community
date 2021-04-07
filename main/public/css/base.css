@@ -513,7 +513,7 @@ template {
     transform: translate(calc(-50% - 8px), -50%); }
   40%, 60% {
     transform: translate(calc(-50% + 8px), -50%); } }
-.btn, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn, .menu__item, .other__item {
+.btn, .post__btn, .post__btn-display-responce, .post__btn-delete, .header__other__menu__item__btn, .menu__item, .other__item {
   border-radius: 5px;
   display: block;
   font-size: 18px;
@@ -521,16 +521,16 @@ template {
   line-height: 3;
   padding: 0 10px;
   width: 100%; }
-  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover {
+  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .post__btn-delete:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover {
     transition: .2s;
     cursor: pointer; }
 
 .btn_item:hover, .menu__item:hover, .other__item:hover {
   background-color: #d1d1d1; }
 
-.btn_normal, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn {
+.btn_normal, .post__btn, .post__btn-display-responce, .post__btn-delete, .header__other__menu__item__btn {
   background-color: #d1d1d1; }
-  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover {
+  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .post__btn-delete:hover, .header__other__menu__item__btn:hover {
     background-color: #b8b8b8; }
 
 .btn_success {
@@ -656,7 +656,7 @@ template {
   color: red;
   font-weight: bold; }
 
-.btn, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn, .menu__item, .other__item {
+.btn, .post__btn, .post__btn-display-responce, .post__btn-delete, .header__other__menu__item__btn, .menu__item, .other__item {
   border-radius: 5px;
   display: block;
   font-size: 18px;
@@ -664,16 +664,16 @@ template {
   line-height: 3;
   padding: 0 10px;
   width: 100%; }
-  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover {
+  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .post__btn-delete:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover {
     transition: .2s;
     cursor: pointer; }
 
 .btn_item:hover, .menu__item:hover, .other__item:hover {
   background-color: #d1d1d1; }
 
-.btn_normal, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn {
+.btn_normal, .post__btn, .post__btn-display-responce, .post__btn-delete, .header__other__menu__item__btn {
   background-color: #d1d1d1; }
-  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover {
+  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .post__btn-delete:hover, .header__other__menu__item__btn:hover {
     background-color: #b8b8b8; }
 
 .btn_success {
@@ -738,7 +738,7 @@ template {
   width: 16px;
   height: 16px; }
 
-.post__btn-display-responce {
+.post__btn-display-responce, .post__btn-delete {
   font-size: 16px;
   line-height: 2;
   padding: 2px 10px;
@@ -772,13 +772,21 @@ template {
   .post__img:hover {
     cursor: pointer; }
 
+.post__btn-delete {
+  background-color: #eee;
+  color: #f00;
+  font-size: 14px;
+  margin: 5px 0 0 auto; }
+  .post__btn-delete:hover {
+    background-color: #ddd; }
+
 /*
 =====================
  スマホ レスポンシブ
 =====================
 */
 @media screen and (max-width: 414px) {
-  .post__btn-display-responce,
+  .post__btn-display-responce, .post__btn-delete,
   .post__name,
   .post__font,
   .post__status,
@@ -906,7 +914,8 @@ body {
   margin-bottom: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; }
+  white-space: nowrap;
+  user-select: none; }
 
 .menu__item-icon {
   width: 20px;
@@ -950,7 +959,8 @@ body {
   margin-bottom: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; }
+  white-space: nowrap;
+  user-select: none; }
 
 .other__item-icon {
   margin-right: 10px;
@@ -982,7 +992,8 @@ body {
 
 .pop-up-discription__content {
   color: #333;
-  text-align: center; }
+  text-align: center;
+  user-select: none; }
 
 /* ---------------スクロールバーのデザイン--------------- */
 ::-webkit-scrollbar {
