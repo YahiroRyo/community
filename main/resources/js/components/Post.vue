@@ -6,6 +6,7 @@
                 <div class="post__flex">
                     <router-link :to="`/profile/${userName}`" class="post__name">{{name}}</router-link>
                     <p class="post__font">@{{userName}}</p>
+                    <button v-if="isMainPost" @click="deletePost(key)" class="post__btn-delete">消去する</button>
                 </div>
                 <p class="post__font">{{content}}</p>
                 <div class="post__img-wapper" v-show="postImageNames.length !== 0">
@@ -49,6 +50,7 @@
             },
             postImageNames: { type: Array, },
             responceNum:    { type: Number, },
+            isMainPost:     { type: Boolean, },
             sendGood:       { type: Function, },
             sendArg:        { type: Object, },
             content:        { type: String, },
@@ -77,7 +79,11 @@
                 data.store.state.post.imageKey = key
                 displayWindow(6)
             }
-            return { data, responceToPost, displayImage }
+            const deletePost = () => {
+                data.store.state.post.deletePostId = props.postId
+                displayWindow(7)
+            }
+            return { data, responceToPost, displayImage, deletePost }
         }
     }
 </script>
