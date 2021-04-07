@@ -87,6 +87,7 @@ body ***REMOVED***
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    user-select: none;
 ***REMOVED***
 .menu__item-icon ***REMOVED***
     width: 20px;
@@ -132,6 +133,7 @@ body ***REMOVED***
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    user-select: none;
 ***REMOVED***
 .other__item-icon ***REMOVED***
     margin-right: 10px;
@@ -165,6 +167,7 @@ body ***REMOVED***
 .pop-up-discription__content ***REMOVED***
     color: $non-colored-color-gray-6;
     text-align: center;
+    user-select: none;
 ***REMOVED***
 
 /* ---------------スクロールバーのデザイン--------------- */
