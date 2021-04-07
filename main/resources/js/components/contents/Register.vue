@@ -106,6 +106,25 @@
                     return
                 ***REMOVED***
                 let isError = false
+                const canUseUserNameInfos = ***REMOVED***
+                    params: ***REMOVED***
+                        userName: data.form.userName.content,
+                    ***REMOVED***
+                ***REMOVED***
+                await axios.get('/api/get/can-use-user-name', canUseUserNameInfos)
+                .then((responce) => ***REMOVED***
+                    if (responce.data) ***REMOVED***
+                        // ユーザーネームが存在する
+                        isError = true
+                        createAlert(new alert('そのユーザーネームは既に使用されています。', 2))
+                    ***REMOVED***
+                ***REMOVED***)
+                .catch(() => ***REMOVED***
+                    isError = true
+                    for (key in data.form) ***REMOVED*** data.form[key].content = '' ***REMOVED***
+                    createAlert(new alert('アカウントの作成に失敗しました。', 1))
+                ***REMOVED***)
+                if (isError) ***REMOVED*** return ***REMOVED***
                 // firebaseアカウントを作成
                 await firebase.auth().createUserWithEmailAndPassword(data.form.email.content, data.form.password.content)
                 .then((responce) => ***REMOVED***
@@ -115,28 +134,27 @@
                     for (key in data.form) ***REMOVED*** data.form[key].content = '' ***REMOVED***
                     createAlert(new alert('アカウントの作成に失敗しました。', 1))
                 ***REMOVED***)
-                if (!isError) ***REMOVED***
-                    const user = await getUidAndToken()
-                    const registerUserInfos = ***REMOVED***
-                        userName:   data.form.userName.content,
-                        token:      user.token,
-                        name:       data.form.name.content,
-                        uid:        user.uid,
-                    ***REMOVED***
-                    await axios.post('/api/post/register-user', registerUserInfos)
-                    .then(async(responce) => ***REMOVED***
-                        if (!responce.data.isNormalToken) ***REMOVED***
-                            createAlert(new alert('無効なアクセストークンです。', 2))
-                        ***REMOVED*** else if (!responce.data.isCreateAccount) ***REMOVED***
-                            createAlert(new alert('アカウントの作成に失敗しました。', 2))
-                        ***REMOVED*** else ***REMOVED***
-                            data.router.push('/')
-                            setTimeout(() => ***REMOVED***
-                                data.router.go('/')
-                            ***REMOVED***, 100)
-                        ***REMOVED***
-                    ***REMOVED***)
+                if (isError) ***REMOVED*** return ***REMOVED***
+                const user = await getUidAndToken()
+                const registerUserInfos = ***REMOVED***
+                    userName:   data.form.userName.content,
+                    token:      user.token,
+                    name:       data.form.name.content,
+                    uid:        user.uid,
                 ***REMOVED***
+                await axios.post('/api/post/register-user', registerUserInfos)
+                .then(async(responce) => ***REMOVED***
+                    if (!responce.data.isNormalToken) ***REMOVED***
+                        createAlert(new alert('無効なアクセストークンです。', 2))
+                    ***REMOVED*** else if (!responce.data.isCreateAccount) ***REMOVED***
+                        createAlert(new alert('アカウントの作成に失敗しました。', 2))
+                    ***REMOVED*** else ***REMOVED***
+                        data.router.push('/')
+                        setTimeout(() => ***REMOVED***
+                            data.router.go('/')
+                        ***REMOVED***, 100)
+                    ***REMOVED***
+                ***REMOVED***)
             ***REMOVED***
             onBeforeMount(() => ***REMOVED***
                 antiLoginUser()
