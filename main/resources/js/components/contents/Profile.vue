@@ -74,10 +74,10 @@
                 }
             })
             const inputFileElement = ref(null)
-            const getUserData = async() => {
+            const getUserData = async(userName) => {
                 const userProfileInfos = {
                     params: {
-                        'userName': data.route.params.userName,
+                        'userName': userName,
                     },
                 }
                 await axios.get('/api/get/user-profile', userProfileInfos)
@@ -169,17 +169,18 @@
                     })
                 }
             }
-            onBeforeRouteUpdate((to, from) => {
-                data.post.cantGetPosts = false
-                data.post.objects = []
-                data.post.gotNum = 0
-                getUserData()
+            onBeforeRouteUpdate(async(to, from) => {
+                data.post.cantGetPosts  = false
+                data.post.objects       = []
+                data.post.gotNum        = 0
+                data.user.isFound       = false
+                await getUserData(to.params.userName)
                 if (data.user.isFound)
                     getUsersPosts(to.params.userName)
             })
             
             onMounted(async() => {
-                await getUserData()
+                await getUserData(data.route.params.userName)
                 if (data.user.isFound)
                     getUsersPosts(data.route.params.userName)
             })
