@@ -136,12 +136,21 @@ class UserController extends Controller
                                 ->first()['id'];
                 $userInfo = UserInfo::where('user_id', $userId)
                                 ->first();
-                $userInfo->fill([
-                    'user_name' => $request->userName,
-                    'intro'     => $request->intro,
-                    'name'      => $request->name,
-                ]);
-                $userInfo->save();
+                $canCangeUserName = (UserInfo::where('user_id', $userId)
+                                            ->where('user_name', $request->userName)
+                                            ->exists() ||
+                                    !UserInfo::where('user_name', $request->userName)
+                                        ->exists());
+                if ($canCangeUserName) {
+                    $userInfo->fill([
+                        'user_name' => $request->userName,
+                        'intro'     => $request->intro,
+                        'name'      => $request->name,
+                    ]);
+                    $userInfo->save();
+                } else {
+                    throw new Exception('ユーザーネームが既に存在している。');
+                }
             } catch(\Exception $e) {
                 return [
                     'isRefreshAccount'  => false,
@@ -202,5 +211,9 @@ class UserController extends Controller
                 'isRefreshImage'    => false,
             ];
         }
+    }
+    public function canUseUserName(Request $request) {
+        // $request->userName
+        return UserInfo::where('user_name', $request->userName)->exists();
     }
 }
