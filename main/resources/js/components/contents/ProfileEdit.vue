@@ -119,6 +119,8 @@
                         notNormalTokenAlert()
                     ***REMOVED*** else ***REMOVED***
                         createAlert(new alert('ユーザデータを更新することができませんでした。', 2))
+                        data.router.push('/')
+                        return
                     ***REMOVED***
                     data.store.state.user.userName = data.user.userName.content
                     data.store.state.user.profileUpdate = true
