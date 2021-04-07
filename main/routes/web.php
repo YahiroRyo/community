@@ -20,6 +20,7 @@ Route::get('/api/get/communities',                  [CommunityController::class,
 Route::post('/api/post/refresh-user-profile-image', [UserController::class, 'refreshUserProfileImage']);
 Route::post('/api/post/refresh-user-profile',       [UserController::class, 'refreshUserProfile']);
 Route::post('/api/post/register-user',              [UserController::class, 'registerUser']);
+Route::get('/api/get/can-use-user-name',            [UserController::class, 'canUseUserName']);
 Route::get('/api/get/user-profile',                 [UserController::class, 'getUserProfile']);
 Route::get('/api/get/my-user-data',                 [UserController::class, 'getMyUserData']);
 
