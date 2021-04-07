@@ -335,6 +335,7 @@ class PostController extends Controller
                             ->orderBy('id', 'desc')
                             ->get();
             for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
+                $posts[$i]['main_user_id'] = $userId;
                 array_push($result, $posts[$i]);
             ***REMOVED***
             return $result;
@@ -378,7 +379,8 @@ class PostController extends Controller
                         ->orderBy('id', 'desc')
                         ->get();
             for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
-                $posts[$i]['user_info'] = $userInfos;
+                $posts[$i]['main_user_id']  = $userId;
+                $posts[$i]['user_info']     = $userInfos;
                 array_push($result, $posts[$i]);
             ***REMOVED***
             return $result;
@@ -421,6 +423,7 @@ class PostController extends Controller
                             ->orderBy('id', 'desc')
                             ->get();
             for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
+                $posts[$i]['main_user_id'] = $userId;
                 array_push($result, $posts[$i]);
             ***REMOVED***
             return $result;
@@ -461,7 +464,8 @@ class PostController extends Controller
                                 'postImageName',
                             ])
                             ->first();
-                if (CommunityController::canJoinCommunity($parentPost['community_id'], $userId) || !isset($parentPost['community_id'])) ***REMOVED***
+                if ($parentPost && (CommunityController::canJoinCommunity($parentPost['community_id'], $userId) || !isset($parentPost['community_id']))) ***REMOVED***
+                    $parentPost['main_user_id'] = $userId;
                     array_push($result, $parentPost);
                 ***REMOVED*** else ***REMOVED***
                     return $result;
@@ -487,6 +491,7 @@ class PostController extends Controller
                         ->orderBy('id', 'desc')
                         ->get();
             for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
+                $posts[$i]['main_user_id'] = $userId;
                 array_push($result, $posts[$i]);
             ***REMOVED***
             return $result;
@@ -529,6 +534,43 @@ class PostController extends Controller
             return [
                 'isNormalToken' => false,
                 'isGreat' => false,
+            ];
+        ***REMOVED***
+    ***REMOVED***
+    // 投稿を消去
+    public function deletePost(Request $request) ***REMOVED***
+        // $request->postId
+        // $request->token
+        // $request->uid
+        if ($this->isNormalToken($request->token)) ***REMOVED***
+            try ***REMOVED***
+                $userId = User::where('uid', $request->uid)->first()['id'];
+                $post = Post::where('user_id', $userId)
+                            ->where('id', $request->postId)
+                            ->exists();
+                if ($post) ***REMOVED***
+                    Post::where('id', $request->postId)
+                          ->delete();
+                    return [
+                        'isNormalToken' => true,
+                        'isDeletePost' => true,
+                    ];
+                ***REMOVED*** else ***REMOVED***
+                    return [
+                        'isNormalToken' => true,
+                        'isDeletePost' => false,
+                    ];
+                ***REMOVED***
+            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+                return [
+                    'isNormalToken' => true,
+                    'isDeletePost' => false,
+                ];
+            ***REMOVED***
+        ***REMOVED*** else ***REMOVED***
+            return [
+                'isNormalToken' => false,
+                'isDeletePost' => false,
             ];
         ***REMOVED***
     ***REMOVED***
