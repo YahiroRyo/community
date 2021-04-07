@@ -513,7 +513,7 @@ template ***REMOVED***
     transform: translate(calc(-50% - 8px), -50%); ***REMOVED***
   40%, 60% ***REMOVED***
     transform: translate(calc(-50% + 8px), -50%); ***REMOVED*** ***REMOVED***
-.btn, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn, .menu__item, .other__item ***REMOVED***
+.btn, .post__btn, .post__btn-display-responce, .post__btn-delete, .header__other__menu__item__btn, .menu__item, .other__item ***REMOVED***
   border-radius: 5px;
   display: block;
   font-size: 18px;
@@ -521,16 +521,16 @@ template ***REMOVED***
   line-height: 3;
   padding: 0 10px;
   width: 100%; ***REMOVED***
-  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover ***REMOVED***
+  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .post__btn-delete:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover ***REMOVED***
     transition: .2s;
     cursor: pointer; ***REMOVED***
 
 .btn_item:hover, .menu__item:hover, .other__item:hover ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
 
-.btn_normal, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn ***REMOVED***
+.btn_normal, .post__btn, .post__btn-display-responce, .post__btn-delete, .header__other__menu__item__btn ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover ***REMOVED***
+  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .post__btn-delete:hover, .header__other__menu__item__btn:hover ***REMOVED***
     background-color: #b8b8b8; ***REMOVED***
 
 .btn_success ***REMOVED***
@@ -656,7 +656,7 @@ template ***REMOVED***
   color: red;
   font-weight: bold; ***REMOVED***
 
-.btn, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn, .menu__item, .other__item ***REMOVED***
+.btn, .post__btn, .post__btn-display-responce, .post__btn-delete, .header__other__menu__item__btn, .menu__item, .other__item ***REMOVED***
   border-radius: 5px;
   display: block;
   font-size: 18px;
@@ -664,16 +664,16 @@ template ***REMOVED***
   line-height: 3;
   padding: 0 10px;
   width: 100%; ***REMOVED***
-  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover ***REMOVED***
+  .btn:hover, .post__btn:hover, .post__btn-display-responce:hover, .post__btn-delete:hover, .header__other__menu__item__btn:hover, .menu__item:hover, .other__item:hover ***REMOVED***
     transition: .2s;
     cursor: pointer; ***REMOVED***
 
 .btn_item:hover, .menu__item:hover, .other__item:hover ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
 
-.btn_normal, .post__btn, .post__btn-display-responce, .header__other__menu__item__btn ***REMOVED***
+.btn_normal, .post__btn, .post__btn-display-responce, .post__btn-delete, .header__other__menu__item__btn ***REMOVED***
   background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .header__other__menu__item__btn:hover ***REMOVED***
+  .btn_normal:hover, .post__btn:hover, .post__btn-display-responce:hover, .post__btn-delete:hover, .header__other__menu__item__btn:hover ***REMOVED***
     background-color: #b8b8b8; ***REMOVED***
 
 .btn_success ***REMOVED***
@@ -738,7 +738,7 @@ template ***REMOVED***
   width: 16px;
   height: 16px; ***REMOVED***
 
-.post__btn-display-responce ***REMOVED***
+.post__btn-display-responce, .post__btn-delete ***REMOVED***
   font-size: 16px;
   line-height: 2;
   padding: 2px 10px;
@@ -772,13 +772,21 @@ template ***REMOVED***
   .post__img:hover ***REMOVED***
     cursor: pointer; ***REMOVED***
 
+.post__btn-delete ***REMOVED***
+  background-color: #eee;
+  color: #f00;
+  font-size: 14px;
+  margin: 5px 0 0 auto; ***REMOVED***
+  .post__btn-delete:hover ***REMOVED***
+    background-color: #ddd; ***REMOVED***
+
 /*
 =====================
  スマホ レスポンシブ
 =====================
 */
 @media screen and (max-width: 414px) ***REMOVED***
-  .post__btn-display-responce,
+  .post__btn-display-responce, .post__btn-delete,
   .post__name,
   .post__font,
   .post__status,
@@ -906,7 +914,8 @@ body ***REMOVED***
   margin-bottom: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; ***REMOVED***
+  white-space: nowrap;
+  user-select: none; ***REMOVED***
 
 .menu__item-icon ***REMOVED***
   width: 20px;
@@ -950,7 +959,8 @@ body ***REMOVED***
   margin-bottom: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; ***REMOVED***
+  white-space: nowrap;
+  user-select: none; ***REMOVED***
 
 .other__item-icon ***REMOVED***
   margin-right: 10px;
@@ -982,7 +992,8 @@ body ***REMOVED***
 
 .pop-up-discription__content ***REMOVED***
   color: #333;
-  text-align: center; ***REMOVED***
+  text-align: center;
+  user-select: none; ***REMOVED***
 
 /* ---------------スクロールバーのデザイン--------------- */
 ::-webkit-scrollbar ***REMOVED***
