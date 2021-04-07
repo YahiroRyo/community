@@ -26,6 +26,7 @@ Route::get('/api/get/my-user-data',                 [UserController::class, 'get
 Route::post('/api/post/create-community-post',      [PostController::class, 'createCommunityPost']);
 Route::post('/api/post/create-responce-post',       [PostController::class, 'createResponcePost']);
 Route::post('/api/post/create-post',                [PostController::class, 'createPost']);
+Route::post('/api/post/delete-post',                [PostController::class, 'deletePost']);
 Route::post('/api/post/great-post',                 [PostController::class, 'greatPost']);
 Route::get('/api/get/community-posts',              [PostController::class, 'getCommunityPosts']);
 Route::get('/api/get/responce-posts',               [PostController::class, 'getResponcePosts']);
