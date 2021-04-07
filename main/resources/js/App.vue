@@ -84,6 +84,7 @@
                         <CreateResponcePost     v-else-if="$store.state.window.currentComponent === 4" />
                         <RequestLogin           v-else-if="$store.state.window.currentComponent === 5" />
                         <ShowImage              v-else-if="$store.state.window.currentComponent === 6" />
+                        <DeletePost             v-else-if="$store.state.window.currentComponent === 7" />
                     </div>
                 </div>
             </transition>
@@ -135,6 +136,7 @@
     import CreateResponcePost   from './components/window/CreateResponcePost.vue'
     import WindowExample        from './components/window/WindowExampleComponent.vue'
     import RequestLogin         from './components/window/RequestLogin.vue'
+    import DeletePost           from './components/window/DeletePost.vue'
     import CreatePost           from './components/window/CreatePost.vue'
     import ShowImage            from './components/window/ShowImage.vue'
     import Modules              from './components/window/Modules.vue'
@@ -148,6 +150,7 @@
             CreateResponcePost,
             WindowExample,
             RequestLogin,
+            DeletePost,
             CreatePost,
             ShowImage,
             Modules,
