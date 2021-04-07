@@ -6,6 +6,7 @@
                     :postImageNames="post.imageNames"
                     :responceNum="post.responceNum"
                     :imageName="post.imageName"
+                    :isMainPost="post.isMainPost"
                     :communityId="!data.post.objects[0].communityId ? 0 : data.post.objects[0].communityId"
                     :userName="post.userName" 
                     :sendGood="sendGood"
@@ -100,6 +101,7 @@
                                     obj.community_id,
                                     obj.user_info.image_name,
                                     obj.post_image_name,
+                                    obj.user_id === obj.main_user_id,
                                 )
                             )
                         })
