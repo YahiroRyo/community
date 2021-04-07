@@ -5,6 +5,7 @@
                 :postImageNames="post.imageNames"
                 :sendArg="data.post.objects[key]"
                 :responceNum="post.responceNum"
+                :isMainPost="post.isMainPost"
                 :imageName="post.imageName"
                 :userName="post.userName" 
                 :content="post.content"
@@ -74,6 +75,7 @@
                                     obj.community_id,
                                     obj.user_info.image_name,
                                     obj.post_image_name,
+                                    obj.user_id === obj.main_user_id,
                                 )
                             )
                         ***REMOVED***)

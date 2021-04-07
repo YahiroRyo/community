@@ -26,6 +26,7 @@
                 :postImageNames="post.imageNames"
                 :communityId="Number(data.route.params.id)"
                 :responceNum="post.responceNum"
+                :isMainPost="post.isMainPost"
                 :imageName="post.imageName"
                 :userName="post.userName" 
                 :sendGood="sendGood"
@@ -166,6 +167,7 @@
                                     obj.community_id,
                                     obj.user_info.image_name,
                                     obj.post_image_name,
+                                    obj.user_id === obj.main_user_id,
                                 )
                             )
                         ***REMOVED***)
