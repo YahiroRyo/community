@@ -130,7 +130,10 @@
                         ***REMOVED*** else if (!responce.data.isCreateAccount) ***REMOVED***
                             createAlert(new alert('アカウントの作成に失敗しました。', 2))
                         ***REMOVED*** else ***REMOVED***
-                            data.router.go('/')
+                            data.router.push('/')
+                            setTimeout(() => ***REMOVED***
+                                data.router.go('/')
+                            ***REMOVED***, 100)
                         ***REMOVED***
                     ***REMOVED***)
                 ***REMOVED***
