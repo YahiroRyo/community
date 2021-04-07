@@ -74,10 +74,10 @@
                 ***REMOVED***
             ***REMOVED***)
             const inputFileElement = ref(null)
-            const getUserData = async() => ***REMOVED***
+            const getUserData = async(userName) => ***REMOVED***
                 const userProfileInfos = ***REMOVED***
                     params: ***REMOVED***
-                        'userName': data.route.params.userName,
+                        'userName': userName,
                     ***REMOVED***,
                 ***REMOVED***
                 await axios.get('/api/get/user-profile', userProfileInfos)
@@ -169,17 +169,18 @@
                     ***REMOVED***)
                 ***REMOVED***
             ***REMOVED***
-            onBeforeRouteUpdate((to, from) => ***REMOVED***
-                data.post.cantGetPosts = false
-                data.post.objects = []
-                data.post.gotNum = 0
-                getUserData()
+            onBeforeRouteUpdate(async(to, from) => ***REMOVED***
+                data.post.cantGetPosts  = false
+                data.post.objects       = []
+                data.post.gotNum        = 0
+                data.user.isFound       = false
+                await getUserData(to.params.userName)
                 if (data.user.isFound)
                     getUsersPosts(to.params.userName)
             ***REMOVED***)
             
             onMounted(async() => ***REMOVED***
-                await getUserData()
+                await getUserData(data.route.params.userName)
                 if (data.user.isFound)
                     getUsersPosts(data.route.params.userName)
             ***REMOVED***)
