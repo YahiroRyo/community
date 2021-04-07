@@ -81,6 +81,15 @@
     width: 48%;
     &:hover { cursor: pointer; }
 }
+.post__btn-delete {
+    @extend .post__btn-display-responce;
+    background-color: #eee;
+    color: #f00;
+    font-size: 14px;
+    margin: 5px 0 0 auto;
+    &:hover { background-color: #ddd; }
+}
+
 
 /*
 =====================
