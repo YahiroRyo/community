@@ -81,6 +81,15 @@
     width: 48%;
     &:hover ***REMOVED*** cursor: pointer; ***REMOVED***
 ***REMOVED***
+.post__btn-delete ***REMOVED***
+    @extend .post__btn-display-responce;
+    background-color: #eee;
+    color: #f00;
+    font-size: 14px;
+    margin: 5px 0 0 auto;
+    &:hover ***REMOVED*** background-color: #ddd; ***REMOVED***
+***REMOVED***
+
 
 /*
 =====================
