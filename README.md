@@ -40,10 +40,11 @@ main/resources/js/app.js内の`require('./bootstrap');`を削除 ------ ここ�
 ---------- ここから環境構築のためのコマンド ----------  
 cd main  
 composer install 
-composer update 
+composer update  
 sudo npm install vuex@next --save  
 sudo npm i vue-router@next  
 sudo npm install axios  
+sudo npm install --save firebase  
 composer require kreait/firebase-php  
 composer require kreait/laravel-firebase  
 sudo npm install @vuelidate/core@2.0.0-alpha.4 --legacy-peer-deps  
