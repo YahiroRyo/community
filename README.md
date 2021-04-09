@@ -35,11 +35,16 @@ vue-router 4.0.5
 composer create-project --prefer-dist laravel/laravel main  
 composer require laravel/ui  
 npm install -g npm  
-main/resources/js/app.js内の`require('./bootstrap');`を削除  
-npm install vuex@next --save  
-npm i vue-router@next  
-npm install axios  
+main/resources/js/app.js内の`require('./bootstrap');`を削除 ------ ここまでのコマンド入力は不要  
+
+---------- ここから環境構築のためのコマンド ----------  
+composer install 
+composer update 
+sudo npm install vuex@next --save  
+sudo npm i vue-router@next  
+sudo npm install axios  
 composer require kreait/firebase-php  
 composer require kreait/laravel-firebase  
-npm install @vuelidate/core@2.0.0-alpha.4 --legacy-peer-deps  
-npm install @vuelidate/validators@2.0.0-alpha.2 --legacy-peer-deps  
+sudo npm install @vuelidate/core@2.0.0-alpha.4 --legacy-peer-deps  
+sudo npm install @vuelidate/validators@2.0.0-alpha.2 --legacy-peer-deps  
+.envファイルをGoogleドライブからダウンロード後、それをmainファイル直下に貼り付け  
