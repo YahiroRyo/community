@@ -38,6 +38,7 @@ npm install -g npm
 main/resources/js/app.js内の`require('./bootstrap');`を削除 ------ ここまでのコマンド入力は不要  
 
 ---------- ここから環境構築のためのコマンド ----------  
+cd main  
 composer install 
 composer update 
 sudo npm install vuex@next --save  
@@ -47,4 +48,7 @@ composer require kreait/firebase-php
 composer require kreait/laravel-firebase  
 sudo npm install @vuelidate/core@2.0.0-alpha.4 --legacy-peer-deps  
 sudo npm install @vuelidate/validators@2.0.0-alpha.2 --legacy-peer-deps  
+php artisan storage:link  
+mkdir public/storage/profileIcons  
+cp public/images/default.jpg public/storage/profileIcons/default.jpg  
 .envファイルをGoogleドライブからダウンロード後、それをmainファイル直下に貼り付け  
