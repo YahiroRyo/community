@@ -11,6 +11,16 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.webpackConfig(***REMOVED***
+  devServer: ***REMOVED***
+    host: '0.0.0.0',
+    proxy: ***REMOVED***
+      '*': 'http://localhost:8000'
+    ***REMOVED***
+  ***REMOVED***
+***REMOVED***);
+
+
 mix.js('resources/js/app.js', 'public/js')
     .vue()
     .sass('resources/sass/app.scss', 'public/css');
