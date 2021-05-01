@@ -10,9 +10,14 @@ RUN apt-get install -y --no-install-recommends \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
+    libwebp-dev \
+    libpq-dev \
     libmcrypt-dev \
-    libicu-dev
+    libicu-dev \
+    libonig-dev
 
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+&&  docker-php-ext-install -j$(nproc) gd
 
 # nodejs install
 RUN apt-get -y install nodejs npm \
@@ -22,7 +27,7 @@ RUN apt-get -y install nodejs npm \
 RUN apt-get -y clean 
 
 # php modules install
-RUN docker-php-ext-install -j$(nproc) gd intl mysqli pdo_mysql opcache 
+RUN docker-php-ext-install -j$(nproc) intl mbstring exif mysqli pdo_mysql opcache 
 
 # Xdebug install
 RUN pecl install xdebug \
@@ -34,5 +39,3 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 && php composer-setup.php \
 && mv composer.phar /usr/local/bin/composer
 
-# git instal
-RUN apt-get -y install git-all
