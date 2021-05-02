@@ -40,9 +40,10 @@
             ***REMOVED***)
             const login = async() => ***REMOVED***
                 await firebase.auth().signInWithEmailAndPassword(data.form.email.content, data.form.password.content)
-                .then(() => ***REMOVED***
+                .then(async(responce) => ***REMOVED***
                     createAlert(new alert('ログインしました。', 0))
                     data.router.push('/')
+                    await firebase.auth().refreshAccessToken()
                 ***REMOVED***)
                 .catch(() => ***REMOVED***
                     createAlert(new alert('ログインに失敗しました。', 2))
