@@ -24,7 +24,6 @@
                 height: 35px !important;
                 transition: .3s;
                 padding: 10px;
-                margin: 20px 0 0 20px;
             ***REMOVED***
             .window__content ***REMOVED*** height: 90vh !important; ***REMOVED***
             .window__close-btn:hover ***REMOVED*** background-color: rgba(0, 0, 0, 0.9); ***REMOVED***

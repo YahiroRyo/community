@@ -152,7 +152,6 @@ class UserController extends Controller
                     throw new Exception('ユーザーネームが既に存在している。');
                 ***REMOVED***
             ***REMOVED*** catch(\Exception $e) ***REMOVED***
-                \Log::info($e);
                 return [
                     'isRefreshAccount'  => false,
                     'isNormalToken'     => true,
