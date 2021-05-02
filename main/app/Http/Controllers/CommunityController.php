@@ -49,7 +49,6 @@ class CommunityController extends Controller
                     'canJoinCommunity' => self::canJoinCommunity($request->communityId, $userId),
                 ];
             } catch (\Exception $e) {
-                \Log::info($e);
                 return [
                     'isNormalToken' => true,
                     'canJoinCommunity' => false,

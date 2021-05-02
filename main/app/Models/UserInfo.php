@@ -27,7 +27,6 @@ class UserInfo extends Model
                 'max:30',
             ],
             'intro' => [
-                'required',
                 'max:200',
             ],
         ];

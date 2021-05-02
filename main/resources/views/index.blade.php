@@ -6,7 +6,7 @@
   <meta name="description" content="" />
   <link rel="icon" href="/images/icon.svg">
   <title>community</title>
-  <script src="{{ mix('../js/app.js') }}" defer></script>
+  <script src="{{ asset('/js/app.js') }}" defer></script>
 </head>
 <body>
   <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>

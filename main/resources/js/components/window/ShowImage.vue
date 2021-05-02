@@ -24,6 +24,7 @@
                 height: 35px !important;
                 transition: .3s;
                 padding: 10px;
+                margin: 20px 0 0 20px;
             }
             .window__content { height: 90vh !important; }
             .window__close-btn:hover { background-color: rgba(0, 0, 0, 0.9); }
