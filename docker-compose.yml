@@ -11,7 +11,6 @@ services:
                 depends_on:
                         - php
         php:
-                container_name: php
                 build: ./php
                 ports:
                         - 8080:8080
@@ -23,6 +22,9 @@ services:
                 image: mysql:5.7
                 restart: always
                 container_name: db-host
+                volumes:
+                        - ./mysql_lib:/var/lib/mysql
+                        - ./mysql_conf:/etc/mysql/conf.d
                 environment:
                         MYSQL_DATABASE: community
                         MYSQL_USER: community
