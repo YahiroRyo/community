@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
-***REMOVED***
+{
     /**
      * Handle an incoming request.
      *
@@ -18,15 +18,15 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle(Request $request, Closure $next, ...$guards)
-    ***REMOVED***
+    {
         $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) ***REMOVED***
-            if (Auth::guard($guard)->check()) ***REMOVED***
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
                 return redirect(RouteServiceProvider::HOME);
-            ***REMOVED***
-        ***REMOVED***
+            }
+        }
 
         return $next($request);
-    ***REMOVED***
-***REMOVED***
+    }
+}

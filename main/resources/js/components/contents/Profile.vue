@@ -3,19 +3,19 @@
         <link rel="stylesheet" href="/css/components/profile/profile.css">
         <div class="profile__flex">
             <div class="profile__icon-wapper">
-                <img class="profile__icon-img" :src="`/storage/profileIcons/$***REMOVED***data.user.imageName***REMOVED***`">
+                <img class="profile__icon-img" :src="`/storage/profileIcons/${data.user.imageName}`">
                 <div v-if="$store.state.user.userName === data.user.userName" @click="selectProfileImage" class="profile__icon-change"><p class="profile__icon-change__text">画像を変更</p></div>
                 <input v-if="$store.state.user.userName === data.user.userName" ref="inputFileElement" @change="changeProfileImage" style="display: none;" type="file" accept="image/,.jpg,.jpeg,.png" />
             </div>
             <div class="width-full">
-                <h1 class="profile__name">***REMOVED******REMOVED***data.user.name***REMOVED******REMOVED***</h1>
+                <h1 class="profile__name">{{data.user.name}}</h1>
                 <div class="profile__other__flex">
-                    <p class="profile__user-name">@***REMOVED******REMOVED***data.user.userName***REMOVED******REMOVED***</p>
+                    <p class="profile__user-name">@{{data.user.userName}}</p>
                     <router-link to="/profile-edit" v-if="$store.state.user.userName === data.user.userName" class="profile__btn">プロフィールを編集する</router-link>
                 </div>
             </div>
         </div>
-        <p class="profile__content">***REMOVED******REMOVED***data.user.intro***REMOVED******REMOVED***</p>
+        <p class="profile__content">{{data.user.intro}}</p>
         <div class="profile__posts-wapper">
             <template v-if="data.post.objects.length > 0" v-for="(post, key) in data.post.objects" :key="key">
                 <Post
@@ -40,82 +40,82 @@
 </template>
 
 <script>
-    import ***REMOVED*** useRouter, useRoute, onBeforeRouteUpdate, ***REMOVED***    from 'vue-router'
-    import ***REMOVED*** reactive, onMounted, onBeforeMount, ref ***REMOVED***      from 'vue'
-    import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***      from '../../alert'
-    import ***REMOVED*** post, sendGood ***REMOVED***                               from '../../post.js'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                               from '../../supportFirebase.js'
-    import ***REMOVED*** displayWindow ***REMOVED***                                from '../../window.js'
-    import ***REMOVED*** ruseStore ***REMOVED***                                    from 'vuex'
-    import ***REMOVED*** useStore ***REMOVED***                                     from 'vuex'
+    import { useRouter, useRoute, onBeforeRouteUpdate, }    from 'vue-router'
+    import { reactive, onMounted, onBeforeMount, ref }      from 'vue'
+    import { alert, createAlert, notNormalTokenAlert }      from '../../alert'
+    import { post, sendGood }                               from '../../post.js'
+    import { getUidAndToken }                               from '../../supportFirebase.js'
+    import { displayWindow }                                from '../../window.js'
+    import { ruseStore }                                    from 'vuex'
+    import { useStore }                                     from 'vuex'
     import axios                                            from 'axios'
     import Post                                             from '../Post.vue'
 
-    export default ***REMOVED***
-        components: ***REMOVED***
+    export default {
+        components: {
             Post
-        ***REMOVED***,
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+        },
+        setup() {
+            const data = reactive({
                 store: useStore(),
                 route: useRoute(),
-                user: ***REMOVED***
+                user: {
                     name:       '',
                     userName:   '',
                     intro:      '',
                     imageName:  '',
                     isFound:    false,
-                ***REMOVED***,
-                post: ***REMOVED***
+                },
+                post: {
                     cantGetPosts:   false,
                     objects:        [],
                     gotNum:         0,
                     take:           50,
-                ***REMOVED***
-            ***REMOVED***)
+                }
+            })
             const inputFileElement = ref(null)
-            const getUserData = async(userName) => ***REMOVED***
-                const userProfileInfos = ***REMOVED***
-                    params: ***REMOVED***
+            const getUserData = async(userName) => {
+                const userProfileInfos = {
+                    params: {
                         'userName': userName,
-                    ***REMOVED***,
-                ***REMOVED***
+                    },
+                }
                 await axios.get('/api/get/user-profile', userProfileInfos)
-                .then((responce) => ***REMOVED***
-                    if (responce.data !== null) ***REMOVED***
+                .then((responce) => {
+                    if (responce.data !== null) {
                         data.user.name      = responce.data.name
                         data.user.userName  = responce.data.user_name
                         data.user.intro     = responce.data.intro
                         data.user.imageName = responce.data.image_name
                         data.user.isFound   = true
-                    ***REMOVED***
-                ***REMOVED***)
-                .catch(() => ***REMOVED***
+                    }
+                })
+                .catch(() => {
                    createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
-                ***REMOVED***)
-            ***REMOVED***
-            const getUsersPosts = async(userName) => ***REMOVED***
-                if (!data.post.cantGetPosts) ***REMOVED***
-                    let user = ***REMOVED******REMOVED***
-                    if (data.store.state.user.isLogin) ***REMOVED***
+                })
+            }
+            const getUsersPosts = async(userName) => {
+                if (!data.post.cantGetPosts) {
+                    let user = {}
+                    if (data.store.state.user.isLogin) {
                         user = await getUidAndToken()
-                    ***REMOVED*** else ***REMOVED***
+                    } else {
                         user.uid = ''
-                    ***REMOVED***
-                    const usersPostsInfos = ***REMOVED***
-                        params: ***REMOVED***
+                    }
+                    const usersPostsInfos = {
+                        params: {
                             userName:   userName,
                             gotNum:     data.post.gotNum,
                             take:       data.post.take,
                             uid:        user.uid,
-                        ***REMOVED***
-                    ***REMOVED***
+                        }
+                    }
                     axios.get('/api/get/users-posts', usersPostsInfos)
-                    .then((responce) => ***REMOVED***
+                    .then((responce) => {
                         data.post.gotNum += data.post.take
                         if (data.post.take > responce.data.length)
                             data.post.cantGetPosts = true
-                        responce.data.forEach((obj) => ***REMOVED***
+                        responce.data.forEach((obj) => {
                             data.post.objects.push(
                                 new post(
                                     obj.user_info.name,
@@ -131,28 +131,28 @@
                                     obj.user_id === obj.main_user_id,
                                 )
                             )
-                        ***REMOVED***)
-                    ***REMOVED***)
-                ***REMOVED***
-            ***REMOVED***
-            const selectProfileImage = () => ***REMOVED***
-                if (inputFileElement.value.click !== null) ***REMOVED*** inputFileElement.value.click() ***REMOVED***
-            ***REMOVED***
-            const changeProfileImage = async() => ***REMOVED***
+                        })
+                    })
+                }
+            }
+            const selectProfileImage = () => {
+                if (inputFileElement.value.click !== null) { inputFileElement.value.click() }
+            }
+            const changeProfileImage = async() => {
                 if (inputFileElement.value.files.length > 0 && (
                         inputFileElement.value.files[0].type.match("image.png") ||
                         inputFileElement.value.files[0].type.match("image.jpg") ||
                         inputFileElement.value.files[0].type.match("image.jpeg")
-                    )) ***REMOVED***
+                    )) {
                     const user = await getUidAndToken()
                     const refreshUserPostImageInfos = new FormData()
                     refreshUserPostImageInfos.append('file', inputFileElement.value.files[0])
                     refreshUserPostImageInfos.append('uid', user.uid)
                     refreshUserPostImageInfos.append('token', user.token)
                     axios.post('/api/post/refresh-user-profile-image', refreshUserPostImageInfos)
-                    .then((responce) => ***REMOVED***
-                        if (responce.data.isNormalToken) ***REMOVED***
-                            if (responce.data.isRefreshImage) ***REMOVED***
+                    .then((responce) => {
+                        if (responce.data.isNormalToken) {
+                            if (responce.data.isRefreshImage) {
                                 createAlert(new alert('画像を設定しました。', 0))
                                 data.post.cantGetPosts = false
                                 data.post.objects = []
@@ -160,16 +160,16 @@
                                 getUserData()
                                 if (data.user.isFound)
                                     getUsersPosts(data.route.params.userName)
-                            ***REMOVED*** else ***REMOVED***
+                            } else {
                                 createAlert(new alert('画像の更新に失敗しました。', 2))
-                            ***REMOVED***
-                        ***REMOVED*** else ***REMOVED***
+                            }
+                        } else {
                             notNormalTokenAlert()
-                        ***REMOVED***
-                    ***REMOVED***)
-                ***REMOVED***
-            ***REMOVED***
-            onBeforeRouteUpdate(async(to, from) => ***REMOVED***
+                        }
+                    })
+                }
+            }
+            onBeforeRouteUpdate(async(to, from) => {
                 data.post.cantGetPosts  = false
                 data.post.objects       = []
                 data.post.gotNum        = 0
@@ -177,14 +177,14 @@
                 await getUserData(to.params.userName)
                 if (data.user.isFound)
                     getUsersPosts(to.params.userName)
-            ***REMOVED***)
+            })
             
-            onMounted(async() => ***REMOVED***
+            onMounted(async() => {
                 await getUserData(data.route.params.userName)
                 if (data.user.isFound)
                     getUsersPosts(data.route.params.userName)
-            ***REMOVED***)
-            return ***REMOVED*** data, sendGood, changeProfileImage, inputFileElement, selectProfileImage ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
+            })
+            return { data, sendGood, changeProfileImage, inputFileElement, selectProfileImage }
+        }
+    }
 </script>

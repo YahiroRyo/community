@@ -3,7 +3,7 @@
     <header id="header">
         <router-link class="header__icon-wapper" to="/"><img class="header__icon" src="/images/icon.svg"></router-link>
         <ul class="header__tab-wapper">
-            <li @mouseover="data.menu.home.isHover = true" @mouseleave="data.menu.home.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/',***REMOVED***">
+            <li @mouseover="data.menu.home.isHover = true" @mouseleave="data.menu.home.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/',}">
                 <router-link class="tab__img" to="/">
                     <img class="tab__img-icon" src="/images/materials/home.svg">
                 </router-link>
@@ -11,15 +11,15 @@
                     <div v-show="data.menu.home.isHover" class="pop-up-discription"><p class="pop-up-discription__content">ホーム</p></div>
                 </transition>
             </li>
-            <li v-if="$store.state.user.isLogin" @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === `/profile/$***REMOVED***data.menu.profile.userName***REMOVED***`,***REMOVED***">
-                <router-link class="tab__img" :to="`/profile/$***REMOVED***data.menu.profile.userName***REMOVED***`">
+            <li v-if="$store.state.user.isLogin" @mouseover="data.menu.profile.isHover = true" @mouseleave="data.menu.profile.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === `/profile/${data.menu.profile.userName}`,}">
+                <router-link class="tab__img" :to="`/profile/${data.menu.profile.userName}`">
                     <img class="tab__img-icon" src="/images/materials/profile.svg">
                 </router-link>
                 <transition name="pop-up-discription-anim">
                     <div v-show="data.menu.profile.isHover" class="pop-up-discription"><p class="pop-up-discription__content">プロフィール</p></div>
                 </transition>
             </li>
-            <li v-if="$store.state.user.isLogin" @mouseover="data.menu.communities.isHover = true" @mouseleave="data.menu.communities.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/communities/0' || data.route.path === '/communities/1' ,***REMOVED***">
+            <li v-if="$store.state.user.isLogin" @mouseover="data.menu.communities.isHover = true" @mouseleave="data.menu.communities.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/communities/0' || data.route.path === '/communities/1' ,}">
                 <router-link class="tab__img" to="/communities/0">
                     <img class="tab__img-icon" src="/images/materials/community.svg">
                 </router-link>
@@ -27,7 +27,7 @@
                     <div v-show="data.menu.communities.isHover" class="pop-up-discription"><p class="pop-up-discription__content">コミュニティ</p></div>
                 </transition>
             </li>
-            <!-- <li @mouseover="data.menu.contact.isHover = true" @mouseleave="data.menu.contact.isHover = false" :class="***REMOVED***'tab tab_circle': true, 'tab_selecting': data.route.path === '/contact',***REMOVED***">
+            <!-- <li @mouseover="data.menu.contact.isHover = true" @mouseleave="data.menu.contact.isHover = false" :class="{'tab tab_circle': true, 'tab_selecting': data.route.path === '/contact',}">
                 <router-link class="tab__img" to="/contact">
                     <img class="tab__img-icon" src="/images/materials/info.svg">
                 </router-link>
@@ -49,7 +49,7 @@
                     <router-link to="/" class="menu__item"><img class="menu__item-icon" src="/images/materials/home.svg">グローバルな投稿を閲覧</router-link>
                 </li>
                     <li v-if="$store.state.user.isLogin">
-                        <router-link :to="`/profile/$***REMOVED***data.menu.profile.userName***REMOVED***`" class="menu__item"><img class="menu__item-icon" src="/images/materials/profile.svg">プロフィール</router-link>
+                        <router-link :to="`/profile/${data.menu.profile.userName}`" class="menu__item"><img class="menu__item-icon" src="/images/materials/profile.svg">プロフィール</router-link>
                     </li>
                     <li v-if="$store.state.user.isLogin">
                         <router-link to="/communities/0" class="menu__item"><img class="menu__item-icon" src="/images/materials/community.svg">コミュニティ</router-link>
@@ -71,11 +71,11 @@
             <!-- window module -->
             <transition name="window-anim">
                 <!-- onMounted時に表示するコンポーネントがwindowの情報を指定できるようにするため、v-ifを使用 -->
-                <div v-if="$store.state.window.use" :style="`width: $***REMOVED***$store.state.window.width***REMOVED***px; height: $***REMOVED***$store.state.window.height***REMOVED***px;`" :class="***REMOVED***'window': true, 'window_shake-anim': data.window.isClickOutSize, ***REMOVED***">
+                <div v-if="$store.state.window.use" :style="`width: ${$store.state.window.width}px; height: ${$store.state.window.height}px;`" :class="{'window': true, 'window_shake-anim': data.window.isClickOutSize, }">
                     <img @click="$store.state.window.use = false" class="window__close-btn" src="/images/materials/close.svg">
-                    <h1 class="window__title">***REMOVED******REMOVED***$store.state.window.title***REMOVED******REMOVED***</h1>
+                    <h1 class="window__title">{{$store.state.window.title}}</h1>
                     <!-- window__content内のコンポーネントは予め用意しておき、if文で切り替える -->
-                    <div class="window__content" :style="`height: $***REMOVED***data.window.contentHeight***REMOVED***px;`">
+                    <div class="window__content" :style="`height: ${data.window.contentHeight}px;`">
                         <!-- 使いたいコンポーネントに番号を定義し、if文で表示させる -->
                         <WindowExample          v-if="$store.state.window.currentComponent      === 0" />
                         <Modules                v-else-if="$store.state.window.currentComponent === 1" />
@@ -95,11 +95,11 @@
                     ($store.state.alert.object.type === 1) ?    'alert alert_attention'     : 'alert alert_danger'"
                     >
                     <img class="alert__icon" src="/images/materials/surprised.svg">
-                    <p class="alert__content">***REMOVED******REMOVED***$store.state.alert.object.content***REMOVED******REMOVED***</p>
+                    <p class="alert__content">{{$store.state.alert.object.content}}</p>
                 </div>
             </transition>
             <!-- ルーターに対してのコンポーネント表示 -->
-            <router-view v-slot="***REMOVED*** Component ***REMOVED***">
+            <router-view v-slot="{ Component }">
                 <transition name="router-view-anim">
                     <component :is="Component"></component>
                 </transition>
@@ -124,11 +124,11 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, watch, onMounted, onBeforeMount ***REMOVED***    from 'vue'
-    import ***REMOVED*** useRouter, useRoute ***REMOVED***                          from 'vue-router'
-    import ***REMOVED*** alert, createAlert ***REMOVED***                           from './alert'
-    import ***REMOVED*** displayWindow ***REMOVED***                                from './window'
-    import ***REMOVED*** useStore ***REMOVED***                                     from 'vuex'
+    import { reactive, watch, onMounted, onBeforeMount }    from 'vue'
+    import { useRouter, useRoute }                          from 'vue-router'
+    import { alert, createAlert }                           from './alert'
+    import { displayWindow }                                from './window'
+    import { useStore }                                     from 'vuex'
     import firebase                                         from 'firebase'
     import axios                                            from 'axios'
 
@@ -141,8 +141,8 @@
     import ShowImage            from './components/window/ShowImage.vue'
     import Modules              from './components/window/Modules.vue'
     import Bell                 from './components/window/Bell.vue'
-    export default ***REMOVED***
-        components:***REMOVED***
+    export default {
+        components:{
 
 
 
@@ -155,30 +155,30 @@
             ShowImage,
             Modules,
             Bell,
-        ***REMOVED***,
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+        },
+        setup() {
+            const data = reactive({
                 router: useRouter(),
                 store:  useStore(),
                 route:  useRoute(),
-                window: ***REMOVED***
+                window: {
                     contentHeight:  0,
                     isClickOutSize: false,
-                ***REMOVED***,
-                menu: ***REMOVED***
-                    communities:    ***REMOVED*** isHover: false, ***REMOVED***,
-                    profile:        ***REMOVED*** isHover: false, userName: '', ***REMOVED***,
-                    contact:    ***REMOVED*** isHover: false, ***REMOVED***,
-                    home:           ***REMOVED*** isHover: false, ***REMOVED***,
-                ***REMOVED***,
+                },
+                menu: {
+                    communities:    { isHover: false, },
+                    profile:        { isHover: false, userName: '', },
+                    contact:    { isHover: false, },
+                    home:           { isHover: false, },
+                },
                 testTrigger: false,
-            ***REMOVED***)
-            watch(() => data.store.state.window.use, () => ***REMOVED***
-                if (data.store.state.window.use) ***REMOVED***
+            })
+            watch(() => data.store.state.window.use, () => {
+                if (data.store.state.window.use) {
                     // 他のコンポーネントでwindowのプロパティを設定するため、遅延が発生してしまう。
                     // その遅延に合わせるため、setTimeoutを使用
-                    setTimeout(() => ***REMOVED***
-                        if (data.store.state.window.functions.open) ***REMOVED*** data.store.state.window.functions.open() ***REMOVED***
+                    setTimeout(() => {
+                        if (data.store.state.window.functions.open) { data.store.state.window.functions.open() }
                         
                         /* ---------------window.height -120計算方法--------------- */
                         // windowのpadding                          -25px
@@ -189,57 +189,57 @@
                         // window__contentを不自然に表示しないため  -20px
                         // 計 -120px
                         data.window.contentHeight = data.store.state.window.height - 125;
-                    ***REMOVED***, 100)
-                ***REMOVED*** else ***REMOVED***
-                    if (data.store.state.window.functions.close) ***REMOVED*** data.store.state.window.functions.close() ***REMOVED***
-                ***REMOVED***
-            ***REMOVED***)
-            watch(() => data.window.isClickOutSize, () => ***REMOVED***
-                if (data.window.isClickOutSize) ***REMOVED***
-                    setTimeout(() => ***REMOVED*** data.window.isClickOutSize = false ***REMOVED***, 1000)
-                ***REMOVED***
-            ***REMOVED***)
+                    }, 100)
+                } else {
+                    if (data.store.state.window.functions.close) { data.store.state.window.functions.close() }
+                }
+            })
+            watch(() => data.window.isClickOutSize, () => {
+                if (data.window.isClickOutSize) {
+                    setTimeout(() => { data.window.isClickOutSize = false }, 1000)
+                }
+            })
             // 挙動を確かめるためのtestTriggerフラグをwatchしている
-            watch(() => data.testTrigger, () => ***REMOVED***
-                if (data.testTrigger) ***REMOVED***
+            watch(() => data.testTrigger, () => {
+                if (data.testTrigger) {
                     //window
                     displayWindow(5)
                     
                     //alert
                     // createAlert(new alert('alert', 0))
                     data.testTrigger = false
-                ***REMOVED***
-            ***REMOVED***)
-            watch(() => data.store.state.user.profileUpdate, () => ***REMOVED***
-                if (data.store.state.user.profileUpdate) ***REMOVED***
+                }
+            })
+            watch(() => data.store.state.user.profileUpdate, () => {
+                if (data.store.state.user.profileUpdate) {
                     data.store.state.user.profileUpdate = false
                     data.menu.profile.userName          = data.store.state.user.userName
-                ***REMOVED***
-            ***REMOVED***)
-            onBeforeMount(() => ***REMOVED***
-                window.addEventListener('resize', (e) => ***REMOVED***
+                }
+            })
+            onBeforeMount(() => {
+                window.addEventListener('resize', (e) => {
                     data.store.state.windowSize.width   = window.innerWidth
                     data.store.state.windowSize.height  = window.innerHeight
-                ***REMOVED***)
+                })
                 data.store.state.windowSize.width   = window.innerWidth
                 data.store.state.windowSize.height  = window.innerHeight
-            ***REMOVED***)
-            onMounted(async() => ***REMOVED***
-                await firebase.auth().onAuthStateChanged(async(user) => ***REMOVED***
-                    if (user) ***REMOVED***
-                        const myUserDataInfos = ***REMOVED*** params: ***REMOVED*** uid: user.uid, ***REMOVED*** ***REMOVED***
+            })
+            onMounted(async() => {
+                await firebase.auth().onAuthStateChanged(async(user) => {
+                    if (user) {
+                        const myUserDataInfos = { params: { uid: user.uid, } }
                         await axios.get('/api/get/my-user-data', myUserDataInfos)
-                        .then((responce) => ***REMOVED***
-                            if (responce.data.isGetMyUserData) ***REMOVED***
+                        .then((responce) => {
+                            if (responce.data.isGetMyUserData) {
                                 data.menu.profile.userName      = responce.data.userData.user_name
                                 data.store.state.user.userName  = responce.data.userData.user_name
-                            ***REMOVED***
-                        ***REMOVED***)
-                    ***REMOVED***
-                ***REMOVED***)
+                            }
+                        })
+                    }
+                })
                 
-            ***REMOVED***)
-            return ***REMOVED*** displayWindow, data ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
+            })
+            return { displayWindow, data }
+        }
+    }
 </script>

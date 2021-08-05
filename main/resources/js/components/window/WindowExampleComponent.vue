@@ -40,17 +40,17 @@
 </template>
 
 <script>
-    import ***REMOVED*** setOpenFunction, setCloseFunction, createWindow ***REMOVED*** from '../../window'
+    import { setOpenFunction, setCloseFunction, createWindow } from '../../window'
 
-    export default ***REMOVED***
-        mounted() ***REMOVED***
+    export default {
+        mounted() {
             createWindow('WindowExampleComponent', 500, 500)
-            setOpenFunction(() => ***REMOVED***
+            setOpenFunction(() => {
                 console.log("open")
-            ***REMOVED***)
-            setCloseFunction(() => ***REMOVED***
+            })
+            setCloseFunction(() => {
                 console.log("close")
-            ***REMOVED***)
-        ***REMOVED***
-    ***REMOVED***
+            })
+        }
+    }
 </script>

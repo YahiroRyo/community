@@ -1,6 +1,6 @@
 @import '../brandColor';
 
-.window ***REMOVED***
+.window {
     background-color: white;
     box-shadow: 5px 5px $non-colored-color-gray-5;
     border-radius: 5px;
@@ -11,46 +11,46 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 4;
-***REMOVED***
-.window__title ***REMOVED***
+}
+.window__title {
     font-size: 32px;
     font-weight: normal;
     margin-top: 10px;
-***REMOVED***
-.window__content ***REMOVED***
+}
+.window__content {
     margin-top: 10px;
     overflow-y: auto;
-***REMOVED***
-.window__close-btn ***REMOVED***
+}
+.window__close-btn {
     width: 24px;
     height: 24px;
-    &:hover ***REMOVED*** cursor: pointer; ***REMOVED***
-***REMOVED***
+    &:hover { cursor: pointer; }
+}
 
 /* ---------------windowのtransition--------------- */
 .window-anim-enter-active,
-.window-anim-leave-active ***REMOVED*** transition: .4s ease-in-out; ***REMOVED***
+.window-anim-leave-active { transition: .4s ease-in-out; }
 
 .window-anim-enter-active,
-.window-anim-leave-to ***REMOVED***
+.window-anim-leave-to {
     transform: translate(-50%, -50%) scale(0);
     opacity: 0;
-***REMOVED***
+}
 
 .window-anim-enter-to,
-.window-anim-leave ***REMOVED***
+.window-anim-leave {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
-***REMOVED***
+}
 
-.window_shake-anim ***REMOVED***
+.window_shake-anim {
     animation-duration: .7s;
     animation-name: window_shake;
-***REMOVED***
+}
 
-@keyframes window_shake ***REMOVED***
-    10%, 90%        ***REMOVED*** transform: translate(calc(-50% - 2px), -50%); ***REMOVED***
-    20%, 80%        ***REMOVED*** transform: translate(calc(-50% + 4px), -50%); ***REMOVED***
-    30%, 50%, 70%   ***REMOVED*** transform: translate(calc(-50% - 8px), -50%); ***REMOVED***
-    40%, 60%        ***REMOVED*** transform: translate(calc(-50% + 8px), -50%); ***REMOVED***
-***REMOVED***
+@keyframes window_shake {
+    10%, 90%        { transform: translate(calc(-50% - 2px), -50%); }
+    20%, 80%        { transform: translate(calc(-50% + 4px), -50%); }
+    30%, 50%, 70%   { transform: translate(calc(-50% - 8px), -50%); }
+    40%, 60%        { transform: translate(calc(-50% + 8px), -50%); }
+}

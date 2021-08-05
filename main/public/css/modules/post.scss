@@ -1,7 +1,7 @@
 @import '../brandColor';
 @import 'button.scss';
 
-.post ***REMOVED***
+.post {
     background-color: white;
     border-radius: 16px;
     box-shadow: 0 5px $non-colored-color-gray-5;
@@ -9,27 +9,27 @@
     min-height: 50px;
     margin-bottom: 10px;
     padding: 15px;
-***REMOVED***
-.post__flex ***REMOVED***
+}
+.post__flex {
     align-items: center;
     display: flex;
-***REMOVED***
-.post__font ***REMOVED***
+}
+.post__font {
     color: $non-colored-color-gray-5;
     margin: 5px 0 0 5px;
     overflow-wrap: break-word;
     white-space: pre-wrap;
-***REMOVED***
-.post__status ***REMOVED***
+}
+.post__status {
     @extend .post__font;
     color: black;
     margin-right: 5px;
-***REMOVED***
-.post__name ***REMOVED***
+}
+.post__name {
     @extend .post__status;
     font-weight: bold;
-***REMOVED***
-.post__btn ***REMOVED***
+}
+.post__btn {
     @extend .btn;
     @extend .btn_normal;
     @extend .btn_circle;
@@ -38,16 +38,16 @@
     margin-top: 10px;
     width: 30px;
     height: 30px;
-***REMOVED***
-.post__btn__img ***REMOVED***
+}
+.post__btn__img {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 16px;
     height: 16px;
-***REMOVED***
-.post__btn-display-responce ***REMOVED***
+}
+.post__btn-display-responce {
     @extend .btn;
     @extend .btn_normal;
     font-size: 16px;
@@ -55,21 +55,21 @@
     padding: 2px 10px;
     margin: 10px 0 0 5px;
     width: auto;
-***REMOVED***
-.post__icon-img ***REMOVED***
+}
+.post__icon-img {
     border-radius: 50%;
     width: 75px;
     height: 75px;
     margin-right: 10px;
-    &:hover ***REMOVED*** cursor: pointer; ***REMOVED***
-***REMOVED***
-.post__img-wapper ***REMOVED***
+    &:hover { cursor: pointer; }
+}
+.post__img-wapper {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
-***REMOVED***
-.post__img ***REMOVED***
+}
+.post__img {
     background-size: cover;
     background-position: center center;
     box-sizing: border-box;
@@ -79,16 +79,16 @@
     overflow: hidden;
     height: 200px;
     width: 48%;
-    &:hover ***REMOVED*** cursor: pointer; ***REMOVED***
-***REMOVED***
-.post__btn-delete ***REMOVED***
+    &:hover { cursor: pointer; }
+}
+.post__btn-delete {
     @extend .post__btn-display-responce;
     background-color: #eee;
     color: #f00;
     font-size: 14px;
     margin: 5px 0 0 auto;
-    &:hover ***REMOVED*** background-color: #ddd; ***REMOVED***
-***REMOVED***
+    &:hover { background-color: #ddd; }
+}
 
 
 /*
@@ -96,12 +96,12 @@
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
+@media screen and (max-width: 414px) {
     .post__btn-display-responce,
     .post__name,
-    .post__font ***REMOVED*** font-size: 14px; ***REMOVED***
-    .post__icon-img ***REMOVED***
+    .post__font { font-size: 14px; }
+    .post__icon-img {
         width: 50px;
         height: 50px;
-    ***REMOVED***
-***REMOVED***
+    }
+}

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
-***REMOVED***
+{
     protected $fillable = [
         'uid',
     ];
-    public static function rules() ***REMOVED***
+    public static function rules() {
         return [
             'name' => [
                 'required',
@@ -22,5 +22,5 @@ class User extends Model
                 'max:30',
             ],
         ];
-    ***REMOVED***
-***REMOVED***
+    }
+}

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
 class Handler extends ExceptionHandler
-***REMOVED***
+{
     /**
      * A list of the exception types that are not reported.
      *
@@ -33,9 +33,9 @@ class Handler extends ExceptionHandler
      * @return void
      */
     public function register()
-    ***REMOVED***
-        $this->reportable(function (Throwable $e) ***REMOVED***
+    {
+        $this->reportable(function (Throwable $e) {
             //
-        ***REMOVED***);
-    ***REMOVED***
-***REMOVED***
+        });
+    }
+}

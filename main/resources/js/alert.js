@@ -16,44 +16,44 @@
 // object:          alertのオブジェクトを代入
 // waitIntervals:   alertを監視しているIntervalの戻り値を格納
 
-import ***REMOVED*** router ***REMOVED***   from './router'
-import ***REMOVED*** store ***REMOVED***    from './store'
+import { router }   from './router'
+import { store }    from './store'
 
-class alert ***REMOVED***
-    constructor(content, type) ***REMOVED***
+class alert {
+    constructor(content, type) {
         this.content    = content
         this.type       = type
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
-const addAlert = (alertObj) => ***REMOVED***
+const addAlert = (alertObj) => {
     store.state.alert.object = alertObj
-    setTimeout(() => ***REMOVED*** store.state.alert.object = null ***REMOVED***, 5000)
-***REMOVED***
-const createAlert = (alertObj) => ***REMOVED***
-    if (store.state.alert.object === 0) ***REMOVED***
+    setTimeout(() => { store.state.alert.object = null }, 5000)
+}
+const createAlert = (alertObj) => {
+    if (store.state.alert.object === 0) {
         addAlert(alertObj)
-    ***REMOVED*** else ***REMOVED***
-        const interval = setInterval((alertObj) => ***REMOVED***
-            if (store.state.alert.object === null) ***REMOVED***
+    } else {
+        const interval = setInterval((alertObj) => {
+            if (store.state.alert.object === null) {
                 clearInterval(store.state.alert.waitIntervals[0])
                 store.state.alert.waitIntervals.shift()
                 addAlert(alertObj)
-            ***REMOVED***
-        ***REMOVED***, 200, alertObj)
+            }
+        }, 200, alertObj)
         store.state.alert.waitIntervals.push(interval)
-    ***REMOVED***
-***REMOVED***
-const notNormalTokenAlert = () => ***REMOVED***
+    }
+}
+const notNormalTokenAlert = () => {
     createAlert(new alert('無効なアクセストークンのためログアウトします。', 2))
     // router.pushをそのまま実行すると何故か実行されないため、setTimeoutを用いる
-    setTimeout(() => ***REMOVED***
+    setTimeout(() => {
         router.push('/logout')
-    ***REMOVED***, 50)
-***REMOVED***
+    }, 50)
+}
 
-export ***REMOVED***
+export {
     alert,
     createAlert,
     notNormalTokenAlert,
-***REMOVED***
+}

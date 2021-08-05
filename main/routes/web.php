@@ -34,6 +34,6 @@ Route::get('/api/get/responce-posts',               [PostController::class, 'get
 Route::get('/api/get/global-posts',                 [PostController::class, 'getGlobalPosts']);
 Route::get('/api/get/users-posts',                  [PostController::class, 'getUsersPosts']);
 
-Route::get('/***REMOVED***any?***REMOVED***', function () ***REMOVED***
+Route::get('/{any?}', function () {
     return view('index');
-***REMOVED***)->where('any', '.+');
+})->where('any', '.+');

@@ -6,29 +6,29 @@
 </template>
 
 <script>
-    import ***REMOVED*** setOpenFunction, setCloseFunction, createWindow, closeWindow ***REMOVED***     from '../../window'
-    import ***REMOVED*** reactive, onMounted ***REMOVED***                                              from 'vue'
-    import ***REMOVED*** useRouter ***REMOVED***                                                        from 'vue-router'
-    import ***REMOVED*** useStore ***REMOVED***                                              from 'vuex'
+    import { setOpenFunction, setCloseFunction, createWindow, closeWindow }     from '../../window'
+    import { reactive, onMounted }                                              from 'vue'
+    import { useRouter }                                                        from 'vue-router'
+    import { useStore }                                              from 'vuex'
 
-    export default ***REMOVED***
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+    export default {
+        setup() {
+            const data = reactive({
                 router: useRouter(),
                 store: useStore(),
-            ***REMOVED***)
-            const goToLogin = () => ***REMOVED***
+            })
+            const goToLogin = () => {
                 closeWindow()
                 data.router.push('/login')
-            ***REMOVED***
-            onMounted(() => ***REMOVED***
-                if (data.store.state.windowSize.width <= 414) ***REMOVED***
+            }
+            onMounted(() => {
+                if (data.store.state.windowSize.width <= 414) {
                     createWindow('ログインしてください', data.store.state.windowSize.width - 10, 250)
-                ***REMOVED*** else ***REMOVED***
+                } else {
                     createWindow('ログインしてください', 500, 250)
-                ***REMOVED***
-            ***REMOVED***)
-            return ***REMOVED*** goToLogin ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
+                }
+            })
+            return { goToLogin }
+        }
+    }
 </script>

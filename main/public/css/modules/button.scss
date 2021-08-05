@@ -1,6 +1,6 @@
 @import '../brandColor';
 
-.btn ***REMOVED***
+.btn {
     border-radius: 5px;
     display: block;
     font-size: 18px;
@@ -8,31 +8,31 @@
     line-height: 3;
     padding: 0 10px;
     width: 100%;
-    &:hover ***REMOVED***
+    &:hover {
         transition: .2s;
         cursor: pointer;
-    ***REMOVED***
-***REMOVED***
-.btn_item ***REMOVED*** &:hover ***REMOVED*** background-color: $non-colored-color-gray-3; ***REMOVED*** ***REMOVED***
-.btn_normal ***REMOVED***
+    }
+}
+.btn_item { &:hover { background-color: $non-colored-color-gray-3; } }
+.btn_normal {
     background-color: $non-colored-color-gray-3;
-    &:hover ***REMOVED*** background-color: darken($non-colored-color-gray-3, 10%); ***REMOVED***
-***REMOVED***
-.btn_success ***REMOVED***
+    &:hover { background-color: darken($non-colored-color-gray-3, 10%); }
+}
+.btn_success {
     background-color: $accent-color-success;
-    &:hover ***REMOVED*** background-color: darken($accent-color-success, 10%); ***REMOVED***
-***REMOVED***
-.btn_attention ***REMOVED***
+    &:hover { background-color: darken($accent-color-success, 10%); }
+}
+.btn_attention {
     background-color: $accent-color-attention;
-    &:hover ***REMOVED*** background-color: darken($accent-color-attention, 10%); ***REMOVED***
-***REMOVED***
-.btn_danger ***REMOVED***
+    &:hover { background-color: darken($accent-color-attention, 10%); }
+}
+.btn_danger {
     background-color: $accent-color-danger;
     color: white;
-    &:hover ***REMOVED*** background-color: darken($accent-color-danger, 10%); ***REMOVED***
-***REMOVED***
-.btn_circle ***REMOVED***
+    &:hover { background-color: darken($accent-color-danger, 10%); }
+}
+.btn_circle {
     border-radius: 50%;
     width: 50px;
     height: 50px;
-***REMOVED***
+}

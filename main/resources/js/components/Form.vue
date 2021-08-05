@@ -1,74 +1,74 @@
 <template>
     <div>
-        <div :style="`background-color: $***REMOVED***formBackgroundColor***REMOVED***;`" :class="***REMOVED***'form-wapper': true, 'form__textarea-wapper': useTextArea,***REMOVED***">
+        <div :style="`background-color: ${formBackgroundColor};`" :class="{'form-wapper': true, 'form__textarea-wapper': useTextArea,}">
             <textarea  v-if="useTextArea" :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? 'color: #f9446a;' : ''" class="form__input form__textarea" :type="type" required></textarea>
             <input v-else :value="inputContent" @input="$emit('update:inputContent', $event.target.value)" :style="validate ? 'color: #f9446a;' : ''" class="form__input" :type="type" required>
-            <div :class="`form__underline form__underline$***REMOVED***uniqueClassKey***REMOVED***`"></div>
-            <label :style="validate ? 'color: #f9446a;' : ''" class="form__label">***REMOVED******REMOVED***label***REMOVED******REMOVED***</label>
-            <p v-if="validate" class="form-error-text">***REMOVED******REMOVED***error***REMOVED******REMOVED***</p>
+            <div :class="`form__underline form__underline${uniqueClassKey}`"></div>
+            <label :style="validate ? 'color: #f9446a;' : ''" class="form__label">{{label}}</label>
+            <p v-if="validate" class="form-error-text">{{error}}</p>
         </div>
         <component is="style">
-            .form__underline***REMOVED******REMOVED***uniqueClassKey***REMOVED******REMOVED*** ***REMOVED***
-                ***REMOVED******REMOVED***validate ? 'background: #f9446a;' : 'background: silver;' ***REMOVED******REMOVED***
-            ***REMOVED***
-            .form__underline***REMOVED******REMOVED***uniqueClassKey***REMOVED******REMOVED***:before ***REMOVED***
-                ***REMOVED******REMOVED***validate ? 'background: #f9446a;' : 'background: #0BB3A2;;' ***REMOVED******REMOVED***
-            ***REMOVED***
+            .form__underline{{uniqueClassKey}} {
+                {{validate ? 'background: #f9446a;' : 'background: silver;' }}
+            }
+            .form__underline{{uniqueClassKey}}:before {
+                {{validate ? 'background: #f9446a;' : 'background: #0BB3A2;;' }}
+            }
         </component>
     </div>
 </template>
 
 <style>
-    .form-wapper ***REMOVED***
+    .form-wapper {
         height: 40px;
         position: relative;
         width: 100%;
         margin: 0 auto;
         transition: .3s;
-    ***REMOVED***
-    .form__input ***REMOVED***
+    }
+    .form__input {
         height: 100%;
         width: 100%;
         font-size: 16px;
         border-bottom: 2px solid silver;
-    ***REMOVED***
+    }
     .form__input:focus ~ .form__label,
-    .form__input:valid ~ .form__label ***REMOVED***
+    .form__input:valid ~ .form__label {
         transform: translateY(-20px);
         font-size: 15px;
         color: #0BB3A2;
-    ***REMOVED***
-    .form__label ***REMOVED***
+    }
+    .form__label {
         position: absolute;
         bottom: 10px;
         left: 0;
         color: grey;
         pointer-events: none;
         transition: all .3s ease;
-    ***REMOVED***
+    }
     .form__input:focus ~ .form__label,
-    .form__input:valid ~ .form__label ***REMOVED***
+    .form__input:valid ~ .form__label {
         transform: translateY(-25px);
         font-size: 15px;
         color: #0BB3A2;
-    ***REMOVED***
+    }
     .form__textarea,
-    .form__textarea-wapper ***REMOVED***height: 300px;***REMOVED***
-    .form__textarea ***REMOVED*** resize: none; ***REMOVED***
+    .form__textarea-wapper {height: 300px;}
+    .form__textarea { resize: none; }
 
     .form__textarea:focus ~ .form__label,
-    .form__textarea:valid ~ .form__label ***REMOVED***
+    .form__textarea:valid ~ .form__label {
         transform: translateY(-295px);
         font-size: 15px;
         color: #0BB3A2;
-    ***REMOVED***
-    .form__underline***REMOVED***
+    }
+    .form__underline{
         position: absolute;
         height: 2px;
         width: 100%;
         bottom: 0;
-    ***REMOVED***
-    .form__underline:before***REMOVED***
+    }
+    .form__underline:before{
         position: absolute;
         content: "";
         height: 100%;
@@ -76,50 +76,50 @@
         transform: scaleX(0);
         transform-origin: center;
         transition: transform .3s ease;
-    ***REMOVED***
+    }
     .form__input:focus ~ .form__underline:before,
-    .form__input:valid ~ .form__underline:before***REMOVED***
+    .form__input:valid ~ .form__underline:before{
         transform: scaleX(1);
-    ***REMOVED***
-    .form-error-text ***REMOVED***
+    }
+    .form-error-text {
         color: #f9446a;
         font-size: 14px;
         font-weight: bold;
         margin-top: 5px;
-    ***REMOVED***
+    }
 </style>
 
 <script>
-    import ***REMOVED*** watch ***REMOVED*** from 'vue'
+    import { watch } from 'vue'
 
-    export default ***REMOVED***
-        props: ***REMOVED***
-            label: ***REMOVED***
+    export default {
+        props: {
+            label: {
                 type:       String,
                 required:   true,
-            ***REMOVED***,
-            type: ***REMOVED***
+            },
+            type: {
                 default:    'text',
                 type:       String,
-            ***REMOVED***,
-            formBackgroundColor: ***REMOVED***
+            },
+            formBackgroundColor: {
                 default:    '#fff',
                 type:       String,
-            ***REMOVED***,
-            validate:   ***REMOVED***
+            },
+            validate:   {
                 default:    false,
                 type:       Boolean,
-            ***REMOVED***,
-            uniqueClassKey: ***REMOVED***
+            },
+            uniqueClassKey: {
                 type:       String,
                 required:   true,
-            ***REMOVED***,
-            useTextArea: ***REMOVED***
+            },
+            useTextArea: {
                 type:       Boolean,
                 default:    false,
-            ***REMOVED***,
-            error: ***REMOVED*** type: String, ***REMOVED***,
+            },
+            error: { type: String, },
             inputContent:   String,
-        ***REMOVED***,
-    ***REMOVED***
+        },
+    }
 </script>

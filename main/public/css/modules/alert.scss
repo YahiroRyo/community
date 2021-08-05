@@ -1,6 +1,6 @@
 @import '../brandColor';
 
-.alert ***REMOVED***
+.alert {
     align-items: center;
     bottom: 20px;
     border-radius: 5px;
@@ -11,57 +11,57 @@
     width: 500px;
     right: 20px;
     z-index: 3;
-***REMOVED***
-.alert_success ***REMOVED***
+}
+.alert_success {
     background-color: $accent-color-success;
     box-shadow: 5px 5px darken($accent-color-success, 30%);
-***REMOVED***
-.alert_attention ***REMOVED***
+}
+.alert_attention {
     background-color: $accent-color-attention;
     box-shadow: 5px 5px darken($accent-color-attention, 30%);
-***REMOVED***
-.alert_danger ***REMOVED***
+}
+.alert_danger {
     background-color: $accent-color-danger;
     box-shadow: 5px 5px darken($accent-color-danger, 30%);
-***REMOVED***
-.alert__content ***REMOVED*** margin: 0 auto 0 5px; ***REMOVED***
-.alert__icon ***REMOVED***
+}
+.alert__content { margin: 0 auto 0 5px; }
+.alert__icon {
     margin-left: auto;
     width: 16px;
     height: 16px;
-***REMOVED***
+}
 /* ---------------alertsのtransition--------------- */
 .alerts-anim-enter-active,
-.alerts-anim-leave-active ***REMOVED*** transition: opacity .5s ease-in-out, transform .5s ease; ***REMOVED***
+.alerts-anim-leave-active { transition: opacity .5s ease-in-out, transform .5s ease; }
 
 .alerts-anim-enter-active,
-.alerts-anim-leave-to ***REMOVED***
+.alerts-anim-leave-to {
     opacity: 0;
     transform: translateX(100px);
-***REMOVED***
+}
 
 .alerts-anim-enter-to,
-.alerts-anim-leave ***REMOVED***
+.alerts-anim-leave {
     opacity: 1;
     transform: translateX(0);
-***REMOVED***
+}
 
 /* ---------------スマホ・タブレット用のalert--------------- */
-@media screen and (max-width: 1100px) ***REMOVED***
-    .alert ***REMOVED***
+@media screen and (max-width: 1100px) {
+    .alert {
         border-radius: 0;
         width: 100vw;
         top: 0;
         left: 0;
         bottom: auto;
         right: auto;
-    ***REMOVED***
-    .alert_success ***REMOVED*** box-shadow: 0 5px darken($accent-color-success, 30%); ***REMOVED***
-    .alert_attention ***REMOVED*** box-shadow: 0 5px darken($accent-color-attention, 30%); ***REMOVED***
-    .alert_danger ***REMOVED*** box-shadow: 0 5px darken($accent-color-danger, 30%); ***REMOVED***
+    }
+    .alert_success { box-shadow: 0 5px darken($accent-color-success, 30%); }
+    .alert_attention { box-shadow: 0 5px darken($accent-color-attention, 30%); }
+    .alert_danger { box-shadow: 0 5px darken($accent-color-danger, 30%); }
     .alerts-anim-enter-active,
-    .alerts-anim-leave-to ***REMOVED*** transform: translate(0, -100px); ***REMOVED***
+    .alerts-anim-leave-to { transform: translate(0, -100px); }
 
     .alerts-anim-enter-to,
-    .alerts-anim-leave ***REMOVED*** transform: translate(0, 0); ***REMOVED***
-***REMOVED***
+    .alerts-anim-leave { transform: translate(0, 0); }
+}

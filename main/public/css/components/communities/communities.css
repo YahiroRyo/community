@@ -1,91 +1,91 @@
 @charset "UTF-8";
-.btn, .communitiest__btn ***REMOVED***
+.btn, .communitiest__btn {
   border-radius: 5px;
   display: block;
   font-size: 18px;
   text-align: center;
   line-height: 3;
   padding: 0 10px;
-  width: 100%; ***REMOVED***
-  .btn:hover, .communitiest__btn:hover ***REMOVED***
+  width: 100%; }
+  .btn:hover, .communitiest__btn:hover {
     transition: .2s;
-    cursor: pointer; ***REMOVED***
+    cursor: pointer; }
 
-.btn_item:hover ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
+.btn_item:hover {
+  background-color: #d1d1d1; }
 
-.btn_normal, .communitiest__btn ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .communitiest__btn:hover ***REMOVED***
-    background-color: #b8b8b8; ***REMOVED***
+.btn_normal, .communitiest__btn {
+  background-color: #d1d1d1; }
+  .btn_normal:hover, .communitiest__btn:hover {
+    background-color: #b8b8b8; }
 
-.btn_success ***REMOVED***
-  background-color: #4cdb8f; ***REMOVED***
-  .btn_success:hover ***REMOVED***
-    background-color: #29cb75; ***REMOVED***
+.btn_success {
+  background-color: #4cdb8f; }
+  .btn_success:hover {
+    background-color: #29cb75; }
 
-.btn_attention ***REMOVED***
-  background-color: #fcd419; ***REMOVED***
-  .btn_attention:hover ***REMOVED***
-    background-color: #dfb803; ***REMOVED***
+.btn_attention {
+  background-color: #fcd419; }
+  .btn_attention:hover {
+    background-color: #dfb803; }
 
-.btn_danger ***REMOVED***
+.btn_danger {
   background-color: #f9446a;
-  color: white; ***REMOVED***
-  .btn_danger:hover ***REMOVED***
-    background-color: #f71343; ***REMOVED***
+  color: white; }
+  .btn_danger:hover {
+    background-color: #f71343; }
 
-.btn_circle ***REMOVED***
+.btn_circle {
   border-radius: 50%;
   width: 50px;
-  height: 50px; ***REMOVED***
+  height: 50px; }
 
-.communities-tab__title ***REMOVED***
+.communities-tab__title {
   color: #333;
   display: block;
   font-size: 18px;
   margin: 0 auto;
-  user-select: none; ***REMOVED***
+  user-select: none; }
 
-.tabs-wapper ***REMOVED***
+.tabs-wapper {
   position: sticky;
   top: 80px;
-  z-index: 2; ***REMOVED***
+  z-index: 2; }
 
-.tab:hover ***REMOVED***
-  cursor: pointer; ***REMOVED***
+.tab:hover {
+  cursor: pointer; }
 
-.post__font ***REMOVED***
+.post__font {
   display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical; ***REMOVED***
+  -webkit-box-orient: vertical; }
 
-.communities-page ***REMOVED***
-  margin-top: 20px; ***REMOVED***
+.communities-page {
+  margin-top: 20px; }
 
-.communities__form-label ***REMOVED***
-  margin-top: 10px; ***REMOVED***
+.communities__form-label {
+  margin-top: 10px; }
 
-.btn_normal, .communitiest__btn ***REMOVED***
+.btn_normal, .communitiest__btn {
   font-size: 16px;
-  margin-left: 10px; ***REMOVED***
+  margin-left: 10px; }
 
-.communitiest__btn ***REMOVED***
+.communitiest__btn {
   width: 200px;
   margin-left: auto;
-  user-select: none; ***REMOVED***
+  user-select: none; }
 
 /*
 =====================
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
-  .communities-tab__title ***REMOVED***
-    font-size: 14px; ***REMOVED***
+@media screen and (max-width: 414px) {
+  .communities-tab__title {
+    font-size: 14px; }
 
-  .communitiest__btn ***REMOVED***
-    line-height: 2.5; ***REMOVED*** ***REMOVED***
+  .communitiest__btn {
+    line-height: 2.5; } }
 
 /*# sourceMappingURL=communities.css.map */

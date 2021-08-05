@@ -7,21 +7,21 @@
 </template>
 
 <style>
-    .test__form ***REMOVED***
+    .test__form {
         padding: 20px;
         background-color: white;
-    ***REMOVED***
+    }
 </style>
 
 <script>
     import Form from '../Form.vue'
 
-    export default ***REMOVED***
-        components: ***REMOVED***
+    export default {
+        components: {
             Form,
-        ***REMOVED***,
-        setup() ***REMOVED***
-            const btnAnim = (e) => ***REMOVED***
+        },
+        setup() {
+            const btnAnim = (e) => {
                 let x = e.clientX - e.target.offsetLeft
                 let y = e.clientY - e.target.offsetTop
 
@@ -29,12 +29,12 @@
                 ripples.style.left = x + 'px'
                 ripples.style.top = y + 'px'
                 e.target.appendChild(ripples)
-                setTimeout(() => ***REMOVED***
+                setTimeout(() => {
                     ripples.remove()
-                ***REMOVED***, 100000)
-            ***REMOVED***
-            const anim = (e) => ***REMOVED***
-            ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
+                }, 100000)
+            }
+            const anim = (e) => {
+            }
+        }
+    }
 </script>

@@ -15,34 +15,34 @@ use App\Models\PostImageName;
 use App\Http\Controllers\CommunityController;
 
 class PostController extends Controller
-***REMOVED***
+{
     private $auth;
 
     public function __construct(Auth $auth)
-    ***REMOVED***
+    {
         $this->auth = $auth;
-    ***REMOVED***
+    }
     // トークンが正常なものか確認
-    public function isNormalToken($token): bool ***REMOVED***
-        try ***REMOVED***
+    public function isNormalToken($token): bool {
+        try {
             $isCorrectToken = $this->auth->verifyIdToken($token);
             return true;
-        ***REMOVED*** catch (\Exception $e) ***REMOVED***
+        } catch (\Exception $e) {
             return false;
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // 投稿作成
-    public function createPost(Request $request) ***REMOVED***
+    public function createPost(Request $request) {
         // $request->uid
         // $request->token
         // $request->content
         // $request->files
-        if ($this->isNormalToken($request->token)) ***REMOVED***
-            if (strlen($request->content) <= 280) ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
+            if (strlen($request->content) <= 280) {
                 $this->validate($request, Post::rules());
                 DB::beginTransaction();
                 $postId = null;
-                try ***REMOVED***
+                try {
                     $userId = User::where('uid', $request->uid)->first()['id'];
                     $post = new Post;
                     $post->fill([
@@ -51,23 +51,23 @@ class PostController extends Controller
                     ]);
                     $post->save();
                     $postId = $post->id;
-                ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                } catch(\Exception $e) {
                     DB::rollBack();
                     DB::commit();
                     return [
                         'isNormalToken' => true,
                         'isCreatePost'  => false,
                     ];
-                ***REMOVED***
+                }
                 // $postId
-                if ($request->file) ***REMOVED***
-                    foreach($request->file as $file) ***REMOVED***
-                        if ($file) ***REMOVED***
+                if ($request->file) {
+                    foreach($request->file as $file) {
+                        if ($file) {
                             $baseImage = null;
                             $tmpFileName = $file->getClientOriginalName();
                             // アップロードファイルを一時的に保存
                             $file->storeAs('public', $tmpFileName);
-                            switch(exif_imagetype('./storage/'.$tmpFileName)) ***REMOVED***
+                            switch(exif_imagetype('./storage/'.$tmpFileName)) {
                                 case IMAGETYPE_JPEG:
                                     $baseImage = imagecreatefromjpeg('./storage/'.$tmpFileName);
                                     break;
@@ -76,8 +76,8 @@ class PostController extends Controller
                                     break;
                                 default:
                                     break;
-                            ***REMOVED***
-                            if ($baseImage) ***REMOVED***
+                            }
+                            if ($baseImage) {
                                 $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
                                 list($width, $hight) = getimagesize('./storage/'.$tmpFileName);
                                 $image = imagecreatetruecolor($width, $hight);
@@ -90,48 +90,48 @@ class PostController extends Controller
                                     'image_name' => $fileName,
                                 ]);
                                 $postImageName->save();
-                            ***REMOVED*** else ***REMOVED***
+                            } else {
                                 DB::rollBack();
                                 DB::commit();
                                 return [
                                     'isNormalToken' => true,
                                     'isCreatePost'  => false,
                                 ];
-                            ***REMOVED***
-                        ***REMOVED***
-                    ***REMOVED***
-                ***REMOVED***
+                            }
+                        }
+                    }
+                }
                 DB::commit();
                 return [
                     'isNormalToken' => true,
                     'isCreatePost'  => true,
                 ];
                 
-            ***REMOVED*** else ***REMOVED***
+            } else {
                 return [
                     'isNormalToken' => true,
                     'isCreatePost'  => false,
                 ];
-            ***REMOVED***
-        ***REMOVED*** else ***REMOVED***
+            }
+        } else {
             return [
                 'isNormalToken' => false,
                 'isCreatePost'  => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // コミュニティ内で投稿を作成
-    public function createCommunityPost(Request $request) ***REMOVED***
+    public function createCommunityPost(Request $request) {
         // $request->uid
         // $request->token
         // $request->content
         // $request->communityId
-        if ($this->isNormalToken($request->token)) ***REMOVED***
-            if (strlen($request->content) <= 280) ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
+            if (strlen($request->content) <= 280) {
                 $this->validate($request, Post::rules());
                 DB::beginTransaction();
                 $postId = null;
-                try ***REMOVED***
+                try {
                     $userId = User::where('uid', $request->uid)->first()['id'];
                     $post = new Post;
                     $post->fill([
@@ -141,22 +141,22 @@ class PostController extends Controller
                     ]);
                     $post->save();
                     $postId = $post->id;
-                ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                } catch(\Exception $e) {
                     DB::rollBack();
                     DB::commit();
                     return [
                         'isNormalToken'         => true,
                         'isCreateCommunityPost' => false,
                     ];
-                ***REMOVED***
-                if ($request->file) ***REMOVED***
-                    foreach($request->file as $file) ***REMOVED***
-                        if ($file) ***REMOVED***
+                }
+                if ($request->file) {
+                    foreach($request->file as $file) {
+                        if ($file) {
                             $baseImage = null;
                             $tmpFileName = $file->getClientOriginalName();
                             // アップロードファイルを一時的に保存
                             $file->storeAs('public', $tmpFileName);
-                            switch(exif_imagetype('./storage/'.$tmpFileName)) ***REMOVED***
+                            switch(exif_imagetype('./storage/'.$tmpFileName)) {
                                 case IMAGETYPE_JPEG:
                                     $baseImage = imagecreatefromjpeg('./storage/'.$tmpFileName);
                                     break;
@@ -165,8 +165,8 @@ class PostController extends Controller
                                     break;
                                 default:
                                     break;
-                            ***REMOVED***
-                            if ($baseImage) ***REMOVED***
+                            }
+                            if ($baseImage) {
                                 $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
                                 list($width, $hight) = getimagesize('./storage/'.$tmpFileName);
                                 $image = imagecreatetruecolor($width, $hight);
@@ -179,75 +179,75 @@ class PostController extends Controller
                                     'image_name' => $fileName,
                                 ]);
                                 $postImageName->save();
-                            ***REMOVED*** else ***REMOVED***
+                            } else {
                                 DB::rollBack();
                                 DB::commit();
                                 return [
                                     'isNormalToken'         => true,
                                     'isCreateCommunityPost' => false,
                                 ];
-                            ***REMOVED***
-                        ***REMOVED***
-                    ***REMOVED***
-                ***REMOVED***
+                            }
+                        }
+                    }
+                }
                 DB::commit();
                 return [
                     'isNormalToken'         => true,
                     'isCreateCommunityPost' => true,
                 ];
-            ***REMOVED***
-        ***REMOVED*** else ***REMOVED***
+            }
+        } else {
             return [
                 'isNormalToken'         => false,
                 'isCreateCommunityPost' => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // 返信を作成
-    public function createResponcePost(Request $request) ***REMOVED***
+    public function createResponcePost(Request $request) {
         // $request->uid
         // $request->token
         // $request->postId
         // $request->content
         // $request->communityId
-        if ($this->isNormalToken($request->token)) ***REMOVED***
-            if (strlen($request->content) <= 280) ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
+            if (strlen($request->content) <= 280) {
                 $this->validate($request, Post::rules());
                 DB::beginTransaction();
                 $postId = null;
-                try ***REMOVED***
+                try {
                     $userId = User::where('uid', $request->uid)->first()['id'];
                     $post = new Post;
-                    if (isset($request->communityId)) ***REMOVED***
+                    if (isset($request->communityId)) {
                         $post->fill([
                             'user_id'       => $userId,
                             'post_id'       => $request->postId,
                             'content'       => $request->content,
                             'community_id'  => $request->communityId,
                         ]);
-                    ***REMOVED*** else ***REMOVED***
+                    } else {
                         $post->fill([
                             'user_id' => $userId,
                             'post_id' => $request->postId,
                             'content' => $request->content,
                         ]);
-                    ***REMOVED***
+                    }
                     $post->save();
                     $postId = $post->id;
-                ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                } catch(\Exception $e) {
                     return [
                         'isNormalToken' => true,
                         'isCreateResponcePost' => false,
                     ];
-                ***REMOVED***
-                if ($request->file) ***REMOVED***
-                    foreach($request->file as $file) ***REMOVED***
-                        if ($file) ***REMOVED***
+                }
+                if ($request->file) {
+                    foreach($request->file as $file) {
+                        if ($file) {
                             $baseImage = null;
                             $tmpFileName = $file->getClientOriginalName();
                             // アップロードファイルを一時的に保存
                             $file->storeAs('public', $tmpFileName);
-                            switch(exif_imagetype('./storage/'.$tmpFileName)) ***REMOVED***
+                            switch(exif_imagetype('./storage/'.$tmpFileName)) {
                                 case IMAGETYPE_JPEG:
                                     $baseImage = imagecreatefromjpeg('./storage/'.$tmpFileName);
                                     break;
@@ -256,8 +256,8 @@ class PostController extends Controller
                                     break;
                                 default:
                                     break;
-                            ***REMOVED***
-                            if ($baseImage) ***REMOVED***
+                            }
+                            if ($baseImage) {
                                 $fileName = md5(uniqid(rand(1000, 9999), true)).'.jpg';
                                 list($width, $hight) = getimagesize('./storage/'.$tmpFileName);
                                 $image = imagecreatetruecolor($width, $hight);
@@ -270,95 +270,95 @@ class PostController extends Controller
                                     'image_name' => $fileName,
                                 ]);
                                 $postImageName->save();
-                            ***REMOVED*** else ***REMOVED***
+                            } else {
                                 DB::rollBack();
                                 DB::commit();
                                 return [
                                     'isNormalToken'         => true,
                                     'isCreateResponcePost'  => false,
                                 ];
-                            ***REMOVED***
-                        ***REMOVED***
-                    ***REMOVED***
-                ***REMOVED***
+                            }
+                        }
+                    }
+                }
                 DB::commit();
                 return [
                     'isNormalToken' => true,
                     'isCreateResponcePost' => true,
                 ];
-            ***REMOVED*** else ***REMOVED***
+            } else {
                 return [
                     'isNormalToken' => true,
                     'isCreateResponcePost' => false,
                 ];
-            ***REMOVED***
-        ***REMOVED*** else ***REMOVED***
+            }
+        } else {
             return [
                 'isNormalToken' => false,
                 'isCreateResponcePost' => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // グローバルな投稿を取得
-    public function getGlobalPosts(Request $request): array ***REMOVED***
+    public function getGlobalPosts(Request $request): array {
         // $request->take
         // $request->gotNum
         // $request->uid
-        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) ***REMOVED***
+        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) {
             $result = [];
             
             $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
             $userId;
-            try ***REMOVED***
+            try {
                 $userId = User::where('uid', $request->uid)->first()['id'];
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+            } catch(\Exception $e) {
                 $userId = 0;
-            ***REMOVED***
+            }
             $posts  = Post::select(['content', 'id', 'user_id', 'post_id'])
                             ->take($take + $gotNum)
                             ->whereNull('post_id')
                             ->whereNull('community_id')
                             ->with([
-                                'userInfo' => function ($query) ***REMOVED***
+                                'userInfo' => function ($query) {
                                     $query->select(['name', 'user_name', 'user_id', 'image_name']);
-                                ***REMOVED***,
-                                'isGreatPost' => function ($query) use ($userId) ***REMOVED***
+                                },
+                                'isGreatPost' => function ($query) use ($userId) {
                                     $query->where('user_id', $userId);
-                                ***REMOVED***,
+                                },
                                 'greatPostNum',
-                                'responceNum' => function ($query) ***REMOVED***
+                                'responceNum' => function ($query) {
                                     $query->select(['post_id']);
-                                ***REMOVED***,
+                                },
                                 'postImageName',
                             ])
                             ->orderBy('id', 'desc')
                             ->get();
-            for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
+            for ($i = $gotNum; $i < count($posts); $i++) {
                 $posts[$i]['main_user_id'] = $userId;
                 array_push($result, $posts[$i]);
-            ***REMOVED***
+            }
             return $result;
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // ユーザーの投稿を取得
-    public function getUsersPosts(Request $request): array ***REMOVED***
+    public function getUsersPosts(Request $request): array {
         // $request->uid
         // $request->take
         // $request->gotNum
         // $request->userName
-        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) ***REMOVED***
+        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) {
             $result = [];
 
             $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
 
             $userId;
-            try ***REMOVED***
+            try {
                 $userId = User::where('uid', $request->uid)->first()['id'];
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+            } catch(\Exception $e) {
                 $userId = 0;
-            ***REMOVED***
+            }
             $userInfos = UserInfo::where('user_name', $request->userName)
                     ->first(['name', 'user_name', 'user_id', 'image_name']);
             $posts = Post::select(['content', 'id', 'user_id', 'post_id'])
@@ -367,211 +367,211 @@ class PostController extends Controller
                         ->whereNull('community_id')
                         ->take($take + $gotNum)
                         ->with([
-                            'isGreatPost' => function ($query) use ($userId) ***REMOVED***
+                            'isGreatPost' => function ($query) use ($userId) {
                                 $query->where('user_id', $userId);
-                            ***REMOVED***,
+                            },
                             'greatPostNum',
-                            'responceNum' => function ($query) ***REMOVED***
+                            'responceNum' => function ($query) {
                                 $query->select(['post_id']);
-                            ***REMOVED***,
+                            },
                             'postImageName',
                         ])
                         ->orderBy('id', 'desc')
                         ->get();
-            for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
+            for ($i = $gotNum; $i < count($posts); $i++) {
                 $posts[$i]['main_user_id']  = $userId;
                 $posts[$i]['user_info']     = $userInfos;
                 array_push($result, $posts[$i]);
-            ***REMOVED***
+            }
             return $result;
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // コミュニティの投稿を取得
-    public function getCommunityPosts(Request $request) ***REMOVED***
+    public function getCommunityPosts(Request $request) {
         // $request->communityId
         // $request->gotNum
         // $request->take
         // $request->uid
-        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) ***REMOVED***
+        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) {
             $result = [];
             
             $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
             $userId;
-            try ***REMOVED***
+            try {
                 $userId = User::where('uid', $request->uid)->first()['id'];
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+            } catch(\Exception $e) {
                 $userId = 0;
-            ***REMOVED***
+            }
             $posts  = Post::select(['content', 'id', 'user_id', 'post_id'])
                             ->take($take + $gotNum)
                             ->where('community_id', $request->communityId)
                             ->whereNull('post_id')
                             ->with([
-                                'userInfo' => function ($query) ***REMOVED***
+                                'userInfo' => function ($query) {
                                     $query->select(['name', 'user_name', 'user_id', 'image_name']);
-                                ***REMOVED***,
-                                'isGreatPost' => function ($query) use ($userId) ***REMOVED***
+                                },
+                                'isGreatPost' => function ($query) use ($userId) {
                                     $query->where('user_id', $userId);
-                                ***REMOVED***,
+                                },
                                 'greatPostNum',
-                                'responceNum' => function ($query) ***REMOVED***
+                                'responceNum' => function ($query) {
                                     $query->select(['post_id']);
-                                ***REMOVED***,
+                                },
                                 'postImageName',
                             ])
                             ->orderBy('id', 'desc')
                             ->get();
-            for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
+            for ($i = $gotNum; $i < count($posts); $i++) {
                 $posts[$i]['main_user_id'] = $userId;
                 array_push($result, $posts[$i]);
-            ***REMOVED***
+            }
             return $result;
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // 投稿に対しての返信を取得
-    public function getResponcePosts(Request $request): array ***REMOVED***
+    public function getResponcePosts(Request $request): array {
         // $request->uid
         // $request->take
         // $request->postId
         // $request->gotNum
-        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) ***REMOVED***
+        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) {
             $result = [];
                         
             $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
 
             $userId;
-            try ***REMOVED***
+            try {
                 $userId = User::where('uid', $request->uid)->first()['id'];
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+            } catch(\Exception $e) {
                 $userId = 0;
-            ***REMOVED***
-            if ($gotNum === 0) ***REMOVED***
+            }
+            if ($gotNum === 0) {
                 $parentPost = Post::select(['content', 'id', 'user_id', 'post_id', 'community_id'])
                             ->where('id', $request->postId)
                             ->with([
-                                'userInfo' => function ($query) ***REMOVED***
+                                'userInfo' => function ($query) {
                                     $query->select(['name', 'user_name', 'user_id', 'image_name']);
-                                ***REMOVED***,
-                                'isGreatPost' => function ($query) use ($userId) ***REMOVED***
+                                },
+                                'isGreatPost' => function ($query) use ($userId) {
                                     $query->where('user_id', $userId);
-                                ***REMOVED***,
+                                },
                                 'greatPostNum',
-                                'responceNum' => function ($query) ***REMOVED***
+                                'responceNum' => function ($query) {
                                     $query->select(['post_id']);
-                                ***REMOVED***,
+                                },
                                 'postImageName',
                             ])
                             ->first();
-                if ($parentPost && (CommunityController::canJoinCommunity($parentPost['community_id'], $userId) || !isset($parentPost['community_id']))) ***REMOVED***
+                if ($parentPost && (CommunityController::canJoinCommunity($parentPost['community_id'], $userId) || !isset($parentPost['community_id']))) {
                     $parentPost['main_user_id'] = $userId;
                     array_push($result, $parentPost);
-                ***REMOVED*** else ***REMOVED***
+                } else {
                     return $result;
-                ***REMOVED***
-            ***REMOVED***       
+                }
+            }       
             $posts = Post::select(['content', 'id', 'user_id', 'post_id'])
                         ->whereNotNull('post_id')
                         ->where('post_id', $request->postId)
                         ->take($take + $gotNum)
                         ->with([
-                            'userInfo' => function ($query) ***REMOVED***
+                            'userInfo' => function ($query) {
                                 $query->select(['name', 'user_name', 'user_id', 'image_name']);
-                            ***REMOVED***,
-                            'isGreatPost' => function ($query) use ($userId) ***REMOVED***
+                            },
+                            'isGreatPost' => function ($query) use ($userId) {
                                 $query->where('user_id', $userId);
-                            ***REMOVED***,
+                            },
                             'greatPostNum',
-                            'responceNum' => function ($query) ***REMOVED***
+                            'responceNum' => function ($query) {
                                 $query->select(['post_id']);
-                            ***REMOVED***,
+                            },
                             'postImageName',
                         ])
                         ->orderBy('id', 'desc')
                         ->get();
-            for ($i = $gotNum; $i < count($posts); $i++) ***REMOVED***
+            for ($i = $gotNum; $i < count($posts); $i++) {
                 $posts[$i]['main_user_id'] = $userId;
                 array_push($result, $posts[$i]);
-            ***REMOVED***
+            }
             return $result;
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // いいねをする
-    public function greatPost(Request $request) ***REMOVED***
+    public function greatPost(Request $request) {
         // $request->uid
         // $request->token
         // $request->postId
-        if ($this->isNormalToken($request->token)) ***REMOVED***
-            try ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
+            try {
                 $userId = User::where('uid', $request->uid)->first()['id'];
                 $isGreatExists = Great::where('user_id', $userId)
                                         ->where('post_id',$request->postId)
                                         ->exists();
-                if ($isGreatExists) ***REMOVED***
+                if ($isGreatExists) {
                     Great::where('user_id', $userId)
                             ->where('post_id',$request->postId)
                             ->delete();
-                ***REMOVED*** else ***REMOVED***
+                } else {
                     $great = new Great;
                     $great->fill([
                         'user_id' => $userId,
                         'post_id' => $request->postId,
                     ]);
                     $great->save();
-                ***REMOVED***
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                }
+            } catch(\Exception $e) {
                 return [
                     'isNormalToken' => true,
                     'isGreat' => false,
                 ];
-            ***REMOVED***
+            }
             return [
                 'isNormalToken' => true,
                 'isGreat' => true,
             ];
-        ***REMOVED*** else ***REMOVED***
+        } else {
             return [
                 'isNormalToken' => false,
                 'isGreat' => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // 投稿を消去
-    public function deletePost(Request $request) ***REMOVED***
+    public function deletePost(Request $request) {
         // $request->postId
         // $request->token
         // $request->uid
-        if ($this->isNormalToken($request->token)) ***REMOVED***
-            try ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
+            try {
                 $userId = User::where('uid', $request->uid)->first()['id'];
                 $post = Post::where('user_id', $userId)
                             ->where('id', $request->postId)
                             ->exists();
-                if ($post) ***REMOVED***
+                if ($post) {
                     Post::where('id', $request->postId)
                           ->delete();
                     return [
                         'isNormalToken' => true,
                         'isDeletePost' => true,
                     ];
-                ***REMOVED*** else ***REMOVED***
+                } else {
                     return [
                         'isNormalToken' => true,
                         'isDeletePost' => false,
                     ];
-                ***REMOVED***
-            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+                }
+            } catch (\Exception $e) {
                 return [
                     'isNormalToken' => true,
                     'isDeletePost' => false,
                 ];
-            ***REMOVED***
-        ***REMOVED*** else ***REMOVED***
+            }
+        } else {
             return [
                 'isNormalToken' => false,
                 'isDeletePost' => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
-***REMOVED***
+        }
+    }
+}

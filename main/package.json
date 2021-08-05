@@ -1,6 +1,6 @@
-***REMOVED***
+{
     "private": true,
-    "scripts": ***REMOVED***
+    "scripts": {
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",
@@ -8,8 +8,8 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production"
-    ***REMOVED***,
-    "devDependencies": ***REMOVED***
+    },
+    "devDependencies": {
         "@vue/compiler-sfc": "^3.0.7",
         "axios": "^0.21.1",
         "bootstrap": "^4.0.0",
@@ -24,12 +24,12 @@
         "vue": "^3.0.7",
         "vue-loader": "^16.1.2",
         "vue-template-compiler": "^2.6.10"
-    ***REMOVED***,
-    "dependencies": ***REMOVED***
+    },
+    "dependencies": {
         "@vuelidate/core": "^2.0.0-alpha.4",
         "@vuelidate/validators": "^2.0.0-alpha.2",
         "firebase": "^8.3.1",
         "vue-router": "^4.0.6",
         "vuex": "^4.0.0"
-    ***REMOVED***
-***REMOVED***
+    }
+}

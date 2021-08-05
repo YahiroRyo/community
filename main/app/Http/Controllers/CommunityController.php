@@ -14,62 +14,62 @@ use App\Models\User;
 use App\Models\Bell;
 
 class CommunityController extends Controller
-***REMOVED***
+{
     private $auth;
 
     public function __construct(Auth $auth)
-    ***REMOVED***
+    {
         $this->auth = $auth;
-    ***REMOVED***
+    }
     // トークンが正常なものか確認
-    public function isNormalToken($token): bool ***REMOVED***
-        try ***REMOVED***
+    public function isNormalToken($token): bool {
+        try {
             $isCorrectToken = $this->auth->verifyIdToken($token);
             return true;
-        ***REMOVED*** catch (\Exception $e) ***REMOVED***
+        } catch (\Exception $e) {
             \Log::info($e);
             return false;
-        ***REMOVED***
-    ***REMOVED***
-    public static function canJoinCommunity($communityId, $userId): bool ***REMOVED***
+        }
+    }
+    public static function canJoinCommunity($communityId, $userId): bool {
         return IsJoiningCommunity::where('community_id', $communityId)
                                 ->where('user_id', $userId)
                                 ->exists();
-    ***REMOVED***
+    }
     // コミュニティに入る権利があるか確認
-    public function getCanJoinCommunity(Request $request) ***REMOVED***
+    public function getCanJoinCommunity(Request $request) {
         // $request->uid
         // $request->token
         // $request->communityId
-        if ($this->isNormalToken($request->token)) ***REMOVED***
-            try ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
+            try {
                 $userId = User::where('uid', $request->uid)->first()['id'];
                 return [
                     'isNormalToken' => true,
                     'canJoinCommunity' => self::canJoinCommunity($request->communityId, $userId),
                 ];
-            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+            } catch (\Exception $e) {
                 \Log::info($e);
                 return [
                     'isNormalToken' => true,
                     'canJoinCommunity' => false,
                 ];
-            ***REMOVED***
-        ***REMOVED*** else ***REMOVED***
+            }
+        } else {
             return [
                 'isNormalToken' => false,
                 'canJoinCommunity' => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // コミュニティを作成
-    public function createCommunity(Request $request) ***REMOVED***
+    public function createCommunity(Request $request) {
         // $request->uid
         // $request->token
         // $request->name
         // $request->description
-        if ($this->isNormalToken($request->token)) ***REMOVED***
-            try ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
+            try {
                 $this->validate($request, Community::rules());
                 $userId = User::where('uid', $request->uid)->first()['id'];
                 $community = new Community;
@@ -79,77 +79,77 @@ class CommunityController extends Controller
                     'description' => $request->description,
                 ]);
                 $community->save();
-            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+            } catch (\Exception $e) {
                 \Log::info($e);
                 return [
                     'isCreateCommunity' => false,
                     'isNormalToken' => true,
                 ];
-            ***REMOVED***
+            }
             return [
                 'isCreateCommunity' => true,
                 'isNormalToken' => true,
             ];
-        ***REMOVED***
+        }
         return [
             'isCreateCommunity' => false,
             'isNormalToken' => false,
         ];
-    ***REMOVED***
+    }
     // コミュニティを取得
-    public function getCommunities(Request $request) ***REMOVED***
+    public function getCommunities(Request $request) {
         // $request->uid
         // $request->take
         // $request->gotNum
-        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) ***REMOVED***
+        if (ctype_digit(strval($request->take)) && (ctype_digit(strval($request->gotNum)) || !$request->gotNum)) {
             $result = [];
             
             $take   = intval($request->take);
             $gotNum = intval($request->gotNum);
-            try ***REMOVED***
+            try {
                 $userId = User::where('uid', $request->uid)->first()['id'];
                 $communities = Community::select(['id', 'name', 'description'])
                                         ->with([
-                                            'isJoiningCommunity' => function ($query) use ($userId) ***REMOVED***
+                                            'isJoiningCommunity' => function ($query) use ($userId) {
                                                 $query->where('user_id', $userId)
                                                         ->get();
-                                            ***REMOVED***,
-                                            'canIJoinCommunity' => function ($query) use ($userId) ***REMOVED***
+                                            },
+                                            'canIJoinCommunity' => function ($query) use ($userId) {
                                                 $query->select(['community_id'])
                                                         ->where('user_id', $userId)
                                                         ->get();
-                                            ***REMOVED***
+                                            }
                                         ])->take($take + $gotNum)
                                         ->orderBy('id', 'desc')
                                         ->get();
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+            } catch(\Exception $e) {
                 \Log::info($e);
                 return [
                     'isGetCommunities' => false,
                     'communities' => null
                 ];
-            ***REMOVED***
-            for ($i = $gotNum; $i < count($communities); $i++) ***REMOVED***
+            }
+            for ($i = $gotNum; $i < count($communities); $i++) {
                 array_push($result, $communities[$i]);
-            ***REMOVED***
+            }
             return [ 'isGetCommunities' => true, 'communities' => $result, ];
-        ***REMOVED*** else ***REMOVED***
+        } else {
             return [
                 'isGetCommunities' => false,
                 'communities' => null,
             ];
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // 加入申請
-    public function canIJoinCommunity(Request $request) ***REMOVED***
+    public function canIJoinCommunity(Request $request) {
         // $request->uid
         // $request->token
         // $request->communityId
-        if ($this->isNormalToken($request->token)) ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
             $founderUserId;
             $canIJoinCommunity;
             $userId;
-            try ***REMOVED***
+            try {
                 $founderUserId  = Community::where('id', $request->communityId)
                                             ->first()['user_id'];
                 $userId         = User::where('uid', $request->uid)
@@ -158,17 +158,17 @@ class CommunityController extends Controller
                 $canIJoinCommunity = CanIJoinCommunity::where('user_id', $userId)
                                                         ->where('community_id', $request->communityId)
                                                         ->exists();
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+            } catch(\Exception $e) {
                 \Log::info($e);
                 return [
                     'isNormalToken' => true,
                     'isCanIJoinCommunity' => false,
                 ];
-            ***REMOVED***
-            if (!$canIJoinCommunity) ***REMOVED***
+            }
+            if (!$canIJoinCommunity) {
                 $bellId;    // bellIdをcanIJoinCommunityで使用するため定義
                 DB::beginTransaction();
-                try ***REMOVED***
+                try {
                     $bell = new Bell;
                     $bell->fill([
                         'user_id'   => $founderUserId,
@@ -176,7 +176,7 @@ class CommunityController extends Controller
                     ]);
                     $bell->save();
                     $bellId = $bell->id;
-                ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                } catch(\Exception $e) {
                     \Log::info($e);
                     DB::rollBack();
                     DB::commit();
@@ -184,8 +184,8 @@ class CommunityController extends Controller
                         'isNormalToken' => true,
                         'isCanIJoinCommunity' => false,
                     ];
-                ***REMOVED***
-                try ***REMOVED***
+                }
+                try {
                     $canIJoinCommunity = new CanIJoinCommunity;
                     $canIJoinCommunity->fill([
                         'bell_id' => $bellId,
@@ -193,7 +193,7 @@ class CommunityController extends Controller
                         'community_id' => $request->communityId,
                     ]);
                     $canIJoinCommunity->save();
-                ***REMOVED*** catch(\Exception $e) ***REMOVED***
+                } catch(\Exception $e) {
                     \Log::info($e);
                     DB::rollBack();
                     DB::commit();
@@ -201,42 +201,42 @@ class CommunityController extends Controller
                         'isNormalToken' => true,
                         'isCanIJoinCommunity' => false,
                     ];
-                ***REMOVED***
+                }
                 DB::commit();
                 return [
                     'isNormalToken' => true,
                     'isCanIJoinCommunity' => true,
                 ];
-            ***REMOVED*** else ***REMOVED***
+            } else {
                 return [
                     'isNormalToken' => true,
                     'isCanIJoinCommunity' => true,
                 ];
-            ***REMOVED***
-        ***REMOVED*** else ***REMOVED***
+            }
+        } else {
             return [
                 'isNormalToken' => false,
                 'isCanIJoinCommunity' => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // コミュニティへの加入申請を取り消し
-    public function cancelJoinCommunity(Request $request) ***REMOVED***
+    public function cancelJoinCommunity(Request $request) {
         // $request->token
         // $request->uid
         // $request->communityId
-        if ($this->isNormalToken($request->token)) ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
             $userId = User::where('uid', $request->uid)->first()['id'];
             $canIJoinCommunityBellId;
             DB::beginTransaction();
-            try ***REMOVED***
+            try {
                 $canIJoinCommunityBellId = CanIJoinCommunity::where('user_id', $userId)
                                 ->where('community_id', $request->communityId)
                                 ->first()['bell_id'];
                 CanIJoinCommunity::where('user_id', $userId)
                                 ->where('community_id', $request->communityId)
                                 ->delete();
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+            } catch(\Exception $e) {
                 \Log::info($e);
                 DB::rollBack();
                 DB::commit();
@@ -244,10 +244,10 @@ class CommunityController extends Controller
                     'isNormalToken' => true,
                     'isCancelJoinCommunity' => false,
                 ];
-            ***REMOVED***
-            try ***REMOVED***
+            }
+            try {
                 Bell::where('id', $canIJoinCommunityBellId)->delete();
-            ***REMOVED*** catch(\Exception $e) ***REMOVED***
+            } catch(\Exception $e) {
                 \Log::info($e);
                 DB::rollBack();
                 DB::commit();
@@ -255,32 +255,32 @@ class CommunityController extends Controller
                     'isNormalToken' => true,
                     'isCancelJoinCommunity' => false,
                 ];
-            ***REMOVED***
+            }
             DB::commit();
             return [
                 'isNormalToken' => true,
                 'isCancelJoinCommunity' => true,
             ];
-        ***REMOVED*** else ***REMOVED***
+        } else {
             return [
                 'isNormalToken' => false,
                 'isCancelJoinCommunity' => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // コミュニティに参加
-    public function joinCommunity(Request $request) ***REMOVED***
+    public function joinCommunity(Request $request) {
         // $request->token
         // $request->communityId
         // $request->userId
         // $request->bellId
-        if ($this->isNormalToken($request->token)) ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
             DB::beginTransaction();
-            try ***REMOVED***
+            try {
                 CanIJoinCommunity::where('bell_id', $request->bellId)
                                 ->where('user_id', $request->userId)
                                 ->delete();
-            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+            } catch (\Exception $e) {
                 \Log::info($e);
                 DB::rollBack();
                 DB::commit();
@@ -288,15 +288,15 @@ class CommunityController extends Controller
                     'isNormalToken' => true,
                     'isJoinCommunity' => false,
                 ];
-            ***REMOVED***
-            try ***REMOVED***
+            }
+            try {
                 $isJoiningCommunity = new IsJoiningCommunity;
                 $isJoiningCommunity->fill([
                     'user_id' => $request->userId,
                     'community_id' => $request->communityId,
                 ]);
                 $isJoiningCommunity->save();
-            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+            } catch (\Exception $e) {
                 \Log::info($e);
                 DB::rollBack();
                 DB::commit();
@@ -304,12 +304,12 @@ class CommunityController extends Controller
                     'isNormalToken' => true,
                     'isJoinCommunity' => false,
                 ];
-            ***REMOVED***
-            try ***REMOVED***
+            }
+            try {
                 Bell::where('id', $request->bellId)
                     ->where('user_id', $request->userId)
                     ->delete();
-            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+            } catch (\Exception $e) {
                 \Log::info($e);
                 DB::rollBack();
                 DB::commit();
@@ -317,31 +317,31 @@ class CommunityController extends Controller
                     'isNormalToken' => true,
                     'isJoinCommunity' => false,
                 ];
-            ***REMOVED***
+            }
             DB::commit();
             return [
                 'isNormalToken' => true,
                 'isJoinCommunity' => true,
             ];
-        ***REMOVED*** else ***REMOVED***
+        } else {
             return [
                 'isNormalToken' => false,
                 'isJoinCommunity' => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
     // コミュニティへの加入申請を拒否
-    public function dontJoinCommunity(Request $request) ***REMOVED***
+    public function dontJoinCommunity(Request $request) {
         // $request->token
         // $request->userId
         // $request->bellId
-        if ($this->isNormalToken($request->token)) ***REMOVED***
+        if ($this->isNormalToken($request->token)) {
             DB::beginTransaction();
-            try ***REMOVED***
+            try {
                 CanIJoinCommunity::where('bell_id', $request->bellId)
                                 ->where('user_id', $request->userId)
                                 ->delete();
-            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+            } catch (\Exception $e) {
                 \Log::info($e);
                 DB::rollBack();
                 DB::commit();
@@ -349,12 +349,12 @@ class CommunityController extends Controller
                     'isNormalToken' => true,
                     'isDontJoinCommunity' => false,
                 ];
-            ***REMOVED***
-            try ***REMOVED***
+            }
+            try {
                 Bell::where('id', $request->bellId)
                     ->where('user_id', $request->userId)
                     ->delete();
-            ***REMOVED*** catch (\Exception $e) ***REMOVED***
+            } catch (\Exception $e) {
                 \Log::info($e);
                 DB::rollBack();
                 DB::commit();
@@ -362,17 +362,17 @@ class CommunityController extends Controller
                     'isNormalToken' => true,
                     'isDontJoinCommunity' => false,
                 ];
-            ***REMOVED***
+            }
             DB::commit();
             return [
                 'isNormalToken' => true,
                 'isDontJoinCommunity' => true,
             ];
-        ***REMOVED*** else ***REMOVED***
+        } else {
             return [
                 'isNormalToken' => false,
                 'isDontJoinCommunity' => false,
             ];
-        ***REMOVED***
-    ***REMOVED***
-***REMOVED***
+        }
+    }
+}

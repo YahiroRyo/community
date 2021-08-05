@@ -20,25 +20,25 @@
 // functions.open:      開いたときに実行されるメソッド
 // functions.close:     閉じたときに実行されるメソッド
 
-import ***REMOVED*** store ***REMOVED*** from './store'
+import { store } from './store'
 
-const displayWindow = (currentComponent) => ***REMOVED***
+const displayWindow = (currentComponent) => {
     store.state.window.currentComponent = currentComponent
     store.state.window.use              = true
-***REMOVED***
-const createWindow = (title = 'タイトルが設定されていません', width = 500, height = 500) => ***REMOVED***
+}
+const createWindow = (title = 'タイトルが設定されていません', width = 500, height = 500) => {
     store.state.window.title    = title
     store.state.window.width    = width
     store.state.window.height   = height
-***REMOVED***
-const closeWindow = () => ***REMOVED*** store.state.window.use = false ***REMOVED***
-const setOpenFunction   = (func = null) => ***REMOVED*** store.state.window.functions.open = func ***REMOVED***
-const setCloseFunction  = (func = null) => ***REMOVED*** store.state.window.functions.close = func ***REMOVED***
+}
+const closeWindow = () => { store.state.window.use = false }
+const setOpenFunction   = (func = null) => { store.state.window.functions.open = func }
+const setCloseFunction  = (func = null) => { store.state.window.functions.close = func }
 
-export ***REMOVED***
+export {
     setCloseFunction,
     setOpenFunction,
     displayWindow,
     createWindow,
     closeWindow,
-***REMOVED***
+}

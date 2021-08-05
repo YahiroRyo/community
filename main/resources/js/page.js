@@ -15,40 +15,40 @@ let pageMostBottom      = 0  //pageの最下部
 let scrollHeight        = 0    //bodyの高さ
 let isUseInit           = false   //初期化フラグ
 
-const getScrollHeight   = () => ***REMOVED***  return document.body.clientHeight ***REMOVED***
-const getPageMostBottom = () => ***REMOVED*** return scrollHeight - window.innerHeight ***REMOVED***
-const initScroll        = () => ***REMOVED***
+const getScrollHeight   = () => {  return document.body.clientHeight }
+const getPageMostBottom = () => { return scrollHeight - window.innerHeight }
+const initScroll        = () => {
     //ページの高さが確定するまでに、時間がかかるためsetTimeoutを用いてロードを待つ
     //TODO: ロードのアニメーションを追加するかも
-    setTimeout(() => ***REMOVED***
+    setTimeout(() => {
         scrollHeight    = getScrollHeight()
         pageMostBottom  = getPageMostBottom()
         isUseInit       = true
-    ***REMOVED***, 100)
-***REMOVED***
+    }, 100)
+}
 
-window.addEventListener('scroll', () => ***REMOVED***
-    if (!isUseInit) ***REMOVED*** initScroll() ***REMOVED***
+window.addEventListener('scroll', () => {
+    if (!isUseInit) { initScroll() }
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-    if (scrollTop >= pageMostBottom) ***REMOVED***
-        if (pageBottomFunc && !isUsePageBottomFunc) ***REMOVED***
+    if (scrollTop >= pageMostBottom) {
+        if (pageBottomFunc && !isUsePageBottomFunc) {
             pageBottomFunc()
             isUsePageBottomFunc = true
-            setTimeout(() => ***REMOVED***
+            setTimeout(() => {
                 isUsePageBottomFunc = false
-            ***REMOVED***, 100)
-        ***REMOVED***
-    ***REMOVED***
-***REMOVED***)
-const addPageEvent = (eventName, func) => ***REMOVED***
-    if (eventName == 'pageMostBottom') ***REMOVED*** pageBottomFunc = func ***REMOVED***
-***REMOVED***
+            }, 100)
+        }
+    }
+})
+const addPageEvent = (eventName, func) => {
+    if (eventName == 'pageMostBottom') { pageBottomFunc = func }
+}
 
 //ページが遷移する際に使わなければならないメソッド
 //すべてのフックメソッドを初期化する
-const removeAtAllFunc = () => ***REMOVED***
+const removeAtAllFunc = () => {
     pageBottomFunc  = null
     isUseInit       = false
-***REMOVED***
+}
 
-export ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***
+export { addPageEvent, removeAtAllFunc }

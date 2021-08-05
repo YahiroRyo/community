@@ -8,17 +8,17 @@ use App\Models\Community;
 use App\Models\UserInfo;
 
 class CanIJoinCommunity extends Model
-***REMOVED***
+{
     public $timestamps  = false;
     protected $fillable = [
         'bell_id',
         'user_id',
         'community_id',
     ];
-    public function community() ***REMOVED***
+    public function community() {
         return $this->hasOne(Community::class, 'id', 'community_id');
-    ***REMOVED***
-    public function userInfo() ***REMOVED***
+    }
+    public function userInfo() {
         return $this->hasOne(UserInfo::class, 'user_id', 'user_id');
-    ***REMOVED***
-***REMOVED***
+    }
+}

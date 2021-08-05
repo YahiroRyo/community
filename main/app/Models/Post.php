@@ -11,34 +11,34 @@ use App\Models\UserInfo;
 use App\Models\Great;
 
 class Post extends Model
-***REMOVED***
+{
     protected $fillable = [
         'user_id',
         'post_id',
         'community_id',
         'content',
     ];
-    public static function rules() ***REMOVED***
+    public static function rules() {
         return [
             'content' => [
                 'required',
                 'max:280',
             ],
         ];
-    ***REMOVED***
-    public function userInfo() ***REMOVED***
+    }
+    public function userInfo() {
         return $this->hasOne(UserInfo::class, 'user_id', 'user_id');
-    ***REMOVED***
-    public function isGreatPost() ***REMOVED***
+    }
+    public function isGreatPost() {
         return $this->hasMany(Great::class, 'post_id', 'id');
-    ***REMOVED***
-    public function greatPostNum() ***REMOVED***
+    }
+    public function greatPostNum() {
         return $this->hasMany(Great::class, 'post_id', 'id');
-    ***REMOVED***
-    public function responceNum() ***REMOVED***
+    }
+    public function responceNum() {
         return $this->hasMany(Post::class, 'post_id', 'id');
-    ***REMOVED***
-    public function postImageName() ***REMOVED***
+    }
+    public function postImageName() {
         return $this->hasMany(PostImageName::class, 'post_id', 'id');
-    ***REMOVED***
-***REMOVED***
+    }
+}

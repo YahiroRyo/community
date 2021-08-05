@@ -1,41 +1,41 @@
-import ***REMOVED*** createStore ***REMOVED*** from 'vuex'
+import { createStore } from 'vuex'
 
-export const store = createStore(***REMOVED***
-    state() ***REMOVED***
-      return ***REMOVED***
+export const store = createStore({
+    state() {
+      return {
         // 変数の説明についてはalert.jsの一行目から参照
-        alert: ***REMOVED***
+        alert: {
           waitIntervals:  [],
           object:         null,
-        ***REMOVED***,
-        user: ***REMOVED***
+        },
+        user: {
           profileUpdate:  false,
           userName:       '',
           isLogin:        false,
-        ***REMOVED***,
+        },
         // 変数の説明についてはwindow.jsの一行目から参照
-        window: ***REMOVED***
+        window: {
           currentComponent: 0,
-          functions: ***REMOVED***
+          functions: {
             close:  null,
             open:   null,
-          ***REMOVED***,
+          },
           title:            'タイトルが設定されていません',
           width:            500,
           height:           500,
           use:              false,
-        ***REMOVED***,
-        post: ***REMOVED***
+        },
+        post: {
           toResponcePostId:       null,
           toResponceCommunityId:  null,
           deletePostId:           0,
           imageKey:               0,
           image:                  [],
-        ***REMOVED***,
-        windowSize: ***REMOVED***
+        },
+        windowSize: {
           height: 0,
           width:  0,
-        ***REMOVED***,
-      ***REMOVED***
-    ***REMOVED***,
-  ***REMOVED***)
+        },
+      }
+    },
+  })

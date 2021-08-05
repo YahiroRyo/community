@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class UserInfo extends Model
-***REMOVED***
+{
     public $timestamps  = false;
     public $primaryKey  = 'user_id';
     protected $fillable = [
@@ -15,7 +15,7 @@ class UserInfo extends Model
         'user_name',
         'intro',
     ];
-    public static function rules() ***REMOVED***
+    public static function rules() {
         return [
             'name' => [
                 'required',
@@ -30,5 +30,5 @@ class UserInfo extends Model
                 'max:200',
             ],
         ];
-    ***REMOVED***
-***REMOVED***
+    }
+}

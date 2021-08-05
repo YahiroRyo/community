@@ -21,9 +21,9 @@
     /* ---------------コンポーネントをインポート--------------- */
     import Form                                         from '../Form.vue'
 
-    export default ***REMOVED***
-        components: ***REMOVED***
+    export default {
+        components: {
             Form
-        ***REMOVED***,
-    ***REMOVED***
+        },
+    }
 </script>

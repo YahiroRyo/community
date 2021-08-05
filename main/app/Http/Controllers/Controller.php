@@ -8,6 +8,6 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Controller extends BaseController
-***REMOVED***
+{
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-***REMOVED***
+}

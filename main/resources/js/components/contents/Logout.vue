@@ -2,21 +2,21 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted, onBeforeMount ***REMOVED***   from 'vue'
-    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***      from '../../router.js'
-    import ***REMOVED*** useRouter ***REMOVED***                            from 'vue-router'
+    import { reactive, onMounted, onBeforeMount }   from 'vue'
+    import { antiLoginUser, antiNotLoginUser }      from '../../router.js'
+    import { useRouter }                            from 'vue-router'
     import firebase                                 from 'firebase'
 
-    export default ***REMOVED***
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED*** router: useRouter(), ***REMOVED***)
-            onBeforeMount(() => ***REMOVED***
+    export default {
+        setup() {
+            const data = reactive({ router: useRouter(), })
+            onBeforeMount(() => {
                 antiNotLoginUser()
-            ***REMOVED***)
-            onMounted(async() => ***REMOVED***
+            })
+            onMounted(async() => {
                 await firebase.auth().signOut()
                 data.router.push('/')
-            ***REMOVED***)
-        ***REMOVED***
-    ***REMOVED***
+            })
+        }
+    }
 </script>

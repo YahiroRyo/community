@@ -20,49 +20,49 @@
 </template>
 
 <script>
-    import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***  from '../../alert'
-    import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***            from '../../page.js'
-    import ***REMOVED*** reactive, onMounted ***REMOVED***                      from 'vue'
-    import ***REMOVED*** post, sendGood ***REMOVED***                           from '../../post.js'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
-    import ***REMOVED*** displayWindow ***REMOVED***                            from '../../window.js'
-    import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
+    import { alert, createAlert, notNormalTokenAlert }  from '../../alert'
+    import { addPageEvent, removeAtAllFunc }            from '../../page.js'
+    import { reactive, onMounted }                      from 'vue'
+    import { post, sendGood }                           from '../../post.js'
+    import { getUidAndToken }                           from '../../supportFirebase.js'
+    import { displayWindow }                            from '../../window.js'
+    import { useStore }                                 from 'vuex'
     import axios                                        from 'axios'
     import Post                                         from '../Post.vue'
 
-    export default ***REMOVED***
-        components: ***REMOVED*** Post, ***REMOVED***,
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+    export default {
+        components: { Post, },
+        setup() {
+            const data = reactive({
                 store: useStore(),
-                post: ***REMOVED***
+                post: {
                     cantGetPosts:   false,
                     objects:        [],
                     gotNum:         0,
                     take:           50,
-                ***REMOVED***
-            ***REMOVED***)
-            const getPosts = async() => ***REMOVED***
-                if (!data.post.cantGetPosts) ***REMOVED***
-                    let user = ***REMOVED******REMOVED***
-                    if (data.store.state.user.isLogin) ***REMOVED***
+                }
+            })
+            const getPosts = async() => {
+                if (!data.post.cantGetPosts) {
+                    let user = {}
+                    if (data.store.state.user.isLogin) {
                         user = await getUidAndToken()
-                    ***REMOVED*** else ***REMOVED***
+                    } else {
                         user.uid = ''
-                    ***REMOVED***
-                    const globalPostsInfos = ***REMOVED***
-                        params: ***REMOVED***
+                    }
+                    const globalPostsInfos = {
+                        params: {
                             gotNum: data.post.gotNum,
                             take:   data.post.take,
                             uid:    user.uid,
-                        ***REMOVED***
-                    ***REMOVED***
+                        }
+                    }
                     axios.get('/api/get/global-posts', globalPostsInfos)
-                    .then((responce) => ***REMOVED***
+                    .then((responce) => {
                         data.post.gotNum += data.post.take
                         if (data.post.take > responce.data.length)
                             data.post.cantGetPosts = true
-                        responce.data.forEach((obj) => ***REMOVED***
+                        responce.data.forEach((obj) => {
                             data.post.objects.push(
                                 new post(
                                     obj.user_info.name,
@@ -78,19 +78,19 @@
                                     obj.user_id === obj.main_user_id,
                                 )
                             )
-                        ***REMOVED***)
-                    ***REMOVED***)
-                ***REMOVED***
-            ***REMOVED***
-            onMounted(() => ***REMOVED***
+                        })
+                    })
+                }
+            }
+            onMounted(() => {
                 getPosts()
-                addPageEvent('pageMostBottom', () => ***REMOVED***getPosts()***REMOVED***)
-            ***REMOVED***)
-            return ***REMOVED*** data, sendGood ***REMOVED***
-        ***REMOVED***,
-        beforeRouteLeave (to, from, next) ***REMOVED***
+                addPageEvent('pageMostBottom', () => {getPosts()})
+            })
+            return { data, sendGood }
+        },
+        beforeRouteLeave (to, from, next) {
             removeAtAllFunc()
             next()
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
 </script>

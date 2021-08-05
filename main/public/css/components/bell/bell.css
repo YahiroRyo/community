@@ -1,87 +1,87 @@
 @charset "UTF-8";
-.btn, .bell__btn, .bell__btn-app, .bell__btn-disallow ***REMOVED***
+.btn, .bell__btn, .bell__btn-app, .bell__btn-disallow {
   border-radius: 5px;
   display: block;
   font-size: 18px;
   text-align: center;
   line-height: 3;
   padding: 0 10px;
-  width: 100%; ***REMOVED***
-  .btn:hover, .bell__btn:hover, .bell__btn-app:hover, .bell__btn-disallow:hover ***REMOVED***
+  width: 100%; }
+  .btn:hover, .bell__btn:hover, .bell__btn-app:hover, .bell__btn-disallow:hover {
     transition: .2s;
-    cursor: pointer; ***REMOVED***
+    cursor: pointer; }
 
-.btn_item:hover ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
+.btn_item:hover {
+  background-color: #d1d1d1; }
 
-.btn_normal, .bell__btn, .bell__btn-app, .bell__btn-disallow ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .bell__btn:hover, .bell__btn-app:hover, .bell__btn-disallow:hover ***REMOVED***
-    background-color: #b8b8b8; ***REMOVED***
+.btn_normal, .bell__btn, .bell__btn-app, .bell__btn-disallow {
+  background-color: #d1d1d1; }
+  .btn_normal:hover, .bell__btn:hover, .bell__btn-app:hover, .bell__btn-disallow:hover {
+    background-color: #b8b8b8; }
 
-.btn_success ***REMOVED***
-  background-color: #4cdb8f; ***REMOVED***
-  .btn_success:hover ***REMOVED***
-    background-color: #29cb75; ***REMOVED***
+.btn_success {
+  background-color: #4cdb8f; }
+  .btn_success:hover {
+    background-color: #29cb75; }
 
-.btn_attention ***REMOVED***
-  background-color: #fcd419; ***REMOVED***
-  .btn_attention:hover ***REMOVED***
-    background-color: #dfb803; ***REMOVED***
+.btn_attention {
+  background-color: #fcd419; }
+  .btn_attention:hover {
+    background-color: #dfb803; }
 
-.btn_danger ***REMOVED***
+.btn_danger {
   background-color: #f9446a;
-  color: white; ***REMOVED***
-  .btn_danger:hover ***REMOVED***
-    background-color: #f71343; ***REMOVED***
+  color: white; }
+  .btn_danger:hover {
+    background-color: #f71343; }
 
-.btn_circle ***REMOVED***
+.btn_circle {
   border-radius: 50%;
   width: 50px;
-  height: 50px; ***REMOVED***
+  height: 50px; }
 
-.bell__btn, .bell__btn-app, .bell__btn-disallow ***REMOVED***
+.bell__btn, .bell__btn-app, .bell__btn-disallow {
   font-size: 16px;
   margin-left: auto;
-  width: 200px; ***REMOVED***
+  width: 200px; }
 
-.bell__btn-app ***REMOVED***
-  background-color: #4cdb8f; ***REMOVED***
-  .bell__btn-app:hover ***REMOVED***
-    background-color: #20a15c; ***REMOVED***
+.bell__btn-app {
+  background-color: #4cdb8f; }
+  .bell__btn-app:hover {
+    background-color: #20a15c; }
 
-.bell__btn-disallow ***REMOVED***
-  background-color: #f9446a; ***REMOVED***
-  .bell__btn-disallow:hover ***REMOVED***
-    background-color: #d00731; ***REMOVED***
+.bell__btn-disallow {
+  background-color: #f9446a; }
+  .bell__btn-disallow:hover {
+    background-color: #d00731; }
 
-.bell__go-to-profile ***REMOVED***
+.bell__go-to-profile {
   color: black;
   display: inline-block;
-  font-weight: bold; ***REMOVED***
-  .bell__go-to-profile:hover ***REMOVED***
-    cursor: pointer; ***REMOVED***
+  font-weight: bold; }
+  .bell__go-to-profile:hover {
+    cursor: pointer; }
 
-.bell__not-exist ***REMOVED***
+.bell__not-exist {
   font-size: 32px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); ***REMOVED***
+  transform: translate(-50%, -50%); }
 
 /*
 =====================
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
-  .post__flex ***REMOVED***
-    display: block; ***REMOVED***
+@media screen and (max-width: 414px) {
+  .post__flex {
+    display: block; }
 
   .bell__btn-app,
-  .bell__btn-disallow ***REMOVED***
+  .bell__btn-disallow {
     margin: 10px auto 0 auto;
     line-height: 2.5;
-    font-size: 14px; ***REMOVED*** ***REMOVED***
+    font-size: 14px; } }
 
 /*# sourceMappingURL=bell.css.map */

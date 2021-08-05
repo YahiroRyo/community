@@ -1,86 +1,86 @@
 @charset "UTF-8";
-.btn, .profile__btn ***REMOVED***
+.btn, .profile__btn {
   border-radius: 5px;
   display: block;
   font-size: 18px;
   text-align: center;
   line-height: 3;
   padding: 0 10px;
-  width: 100%; ***REMOVED***
-  .btn:hover, .profile__btn:hover ***REMOVED***
+  width: 100%; }
+  .btn:hover, .profile__btn:hover {
     transition: .2s;
-    cursor: pointer; ***REMOVED***
+    cursor: pointer; }
 
-.btn_item:hover ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
+.btn_item:hover {
+  background-color: #d1d1d1; }
 
-.btn_normal, .profile__btn ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .profile__btn:hover ***REMOVED***
-    background-color: #b8b8b8; ***REMOVED***
+.btn_normal, .profile__btn {
+  background-color: #d1d1d1; }
+  .btn_normal:hover, .profile__btn:hover {
+    background-color: #b8b8b8; }
 
-.btn_success ***REMOVED***
-  background-color: #4cdb8f; ***REMOVED***
-  .btn_success:hover ***REMOVED***
-    background-color: #29cb75; ***REMOVED***
+.btn_success {
+  background-color: #4cdb8f; }
+  .btn_success:hover {
+    background-color: #29cb75; }
 
-.btn_attention ***REMOVED***
-  background-color: #fcd419; ***REMOVED***
-  .btn_attention:hover ***REMOVED***
-    background-color: #dfb803; ***REMOVED***
+.btn_attention {
+  background-color: #fcd419; }
+  .btn_attention:hover {
+    background-color: #dfb803; }
 
-.btn_danger ***REMOVED***
+.btn_danger {
   background-color: #f9446a;
-  color: white; ***REMOVED***
-  .btn_danger:hover ***REMOVED***
-    background-color: #f71343; ***REMOVED***
+  color: white; }
+  .btn_danger:hover {
+    background-color: #f71343; }
 
-.btn_circle ***REMOVED***
+.btn_circle {
   border-radius: 50%;
   width: 50px;
-  height: 50px; ***REMOVED***
+  height: 50px; }
 
 .profile__flex,
-.profile__other__flex ***REMOVED***
+.profile__other__flex {
   align-items: center;
-  display: flex; ***REMOVED***
+  display: flex; }
 
-.profile__font, .profile__user-name, .profile__content ***REMOVED***
+.profile__font, .profile__user-name, .profile__content {
   color: #797979;
-  margin-top: 5px; ***REMOVED***
+  margin-top: 5px; }
 
-.profile__name ***REMOVED***
+.profile__name {
   font-size: 24px;
-  font-weight: bold; ***REMOVED***
+  font-weight: bold; }
 
-.profile__btn ***REMOVED***
+.profile__btn {
   font-size: 16px;
   margin-left: auto;
   width: 200px;
-  line-height: 2.5; ***REMOVED***
+  line-height: 2.5; }
 
-.profile__content ***REMOVED***
+.profile__content {
   margin-top: 10px;
-  overflow-wrap: break-word; ***REMOVED***
+  overflow-wrap: break-word; }
 
-.profile__posts-wapper ***REMOVED***
-  margin-top: 20px; ***REMOVED***
+.profile__posts-wapper {
+  margin-top: 20px; }
 
-.profile__icon-wapper ***REMOVED***
+.profile__icon-wapper {
   position: relative;
   width: 100px;
   height: 100px;
-  margin-right: 20px; ***REMOVED***
+  margin-right: 20px; }
 
-.profile__icon-img ***REMOVED***
+.profile__icon-img {
   border-radius: 50%;
   box-shadow: 5px 5px 10px #5f5f5f, -5px -5px 10px #ffffff;
   display: block;
   position: relative;
   width: 100px;
-  height: 100px; ***REMOVED***
+  height: 100px; }
 
-.profile__icon-change ***REMOVED***
+.profile__icon-change {
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   position: absolute;
@@ -89,12 +89,12 @@
   left: 0;
   opacity: 0;
   width: 100px;
-  height: 100px; ***REMOVED***
-  .profile__icon-change:hover ***REMOVED***
+  height: 100px; }
+  .profile__icon-change:hover {
     opacity: 1;
-    cursor: pointer; ***REMOVED***
+    cursor: pointer; }
 
-.profile__icon-change__text ***REMOVED***
+.profile__icon-change__text {
   color: white;
   font-size: 14px;
   font-weight: bold;
@@ -103,30 +103,30 @@
   top: 50%;
   transform: translate(-50%, -50%);
   width: 100px;
-  left: 50%; ***REMOVED***
+  left: 50%; }
 
 /*
 =====================
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
+@media screen and (max-width: 414px) {
   .profile__icon-wapper,
   .profile__icon-img,
-  .profile__icon-change ***REMOVED***
+  .profile__icon-change {
     width: 80px;
-    height: 80px; ***REMOVED***
+    height: 80px; }
 
-  .profile__name ***REMOVED***
-    font-size: 20px; ***REMOVED***
+  .profile__name {
+    font-size: 20px; }
 
-  .profile__other__flex ***REMOVED***
-    display: block; ***REMOVED***
+  .profile__other__flex {
+    display: block; }
 
-  .profile__btn ***REMOVED***
+  .profile__btn {
     font-size: 14px;
     margin: 10px 0 0 0;
     width: auto;
-    padding: 0; ***REMOVED*** ***REMOVED***
+    padding: 0; } }
 
 /*# sourceMappingURL=profile.css.map */

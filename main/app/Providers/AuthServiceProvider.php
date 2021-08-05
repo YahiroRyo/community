@@ -6,7 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
-***REMOVED***
+{
     /**
      * The policy mappings for the application.
      *
@@ -22,9 +22,9 @@ class AuthServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    ***REMOVED***
+    {
         $this->registerPolicies();
 
         //
-    ***REMOVED***
-***REMOVED***
+    }
+}

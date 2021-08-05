@@ -7,14 +7,14 @@
 // goodNum:     投稿のいいね数
 // responceNum: 投稿への返信数
 // postId:      投稿のID
-import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from './alert.js'
-import ***REMOVED*** getUidAndToken ***REMOVED***                           from './supportFirebase.js'
-import ***REMOVED*** displayWindow ***REMOVED***                            from './window.js'
-import ***REMOVED*** store ***REMOVED***                                    from './store.js'
+import { createAlert, alert, notNormalTokenAlert }  from './alert.js'
+import { getUidAndToken }                           from './supportFirebase.js'
+import { displayWindow }                            from './window.js'
+import { store }                                    from './store.js'
 import axios                                        from 'axios' 
 
-class post ***REMOVED***
-    constructor(name, userName, content, isGood, goodNum, responceNum, postId, communityId, imageName, imageNames, isMainPost) ***REMOVED***
+class post {
+    constructor(name, userName, content, isGood, goodNum, responceNum, postId, communityId, imageName, imageNames, isMainPost) {
         this.name           = name
         this.userName       = userName
         this.content        = content
@@ -26,32 +26,32 @@ class post ***REMOVED***
         this.imageName      = imageName
         this.imageNames     = imageNames
         this.isMainPost     = isMainPost
-    ***REMOVED***
-***REMOVED***
-const sendGood = async(postObj) => ***REMOVED***
-    if (store.state.user.isLogin) ***REMOVED***
+    }
+}
+const sendGood = async(postObj) => {
+    if (store.state.user.isLogin) {
         const user = await getUidAndToken()
-        const greatPostInfos = ***REMOVED***
+        const greatPostInfos = {
             postId: postObj.postId,
             token:  user.token,
             uid:    user.uid,
-        ***REMOVED***
+        }
         axios.post('/api/post/great-post', greatPostInfos)
-        .then((responce) => ***REMOVED***
-            if (responce.data.isNormalToken) ***REMOVED***
-                if (responce.data.isGreat) ***REMOVED***
+        .then((responce) => {
+            if (responce.data.isNormalToken) {
+                if (responce.data.isGreat) {
                     postObj.isGood = !postObj.isGood
                     postObj.isGood ? postObj.goodNum++ : postObj.goodNum--
-                ***REMOVED*** else ***REMOVED***
+                } else {
                     createAlert(new alert('いいねすることができませんでした。', 2))
-                ***REMOVED***
-            ***REMOVED*** else ***REMOVED***
+                }
+            } else {
                 notNormalTokenAlert()
-            ***REMOVED***
-        ***REMOVED***)
-    ***REMOVED*** else ***REMOVED***
+            }
+        })
+    } else {
         displayWindow(5)
-    ***REMOVED***
-***REMOVED***
+    }
+}
 
-export ***REMOVED*** post, sendGood ***REMOVED***
+export { post, sendGood }

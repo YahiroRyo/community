@@ -20,9 +20,9 @@
     </div>
 </template>
 <script>
-    import ***REMOVED*** setOpenFunction, setCloseFunction, createWindow ***REMOVED*** from '../../window'
+    import { setOpenFunction, setCloseFunction, createWindow } from '../../window'
 
-    export default ***REMOVED***
-        mounted() ***REMOVED*** createWindow('Modules', 1000, 500) ***REMOVED***
-    ***REMOVED***
+    export default {
+        mounted() { createWindow('Modules', 1000, 500) }
+    }
 </script>

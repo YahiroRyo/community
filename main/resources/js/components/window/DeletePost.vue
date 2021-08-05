@@ -6,54 +6,54 @@
 </template>
 
 <script>
-    import ***REMOVED*** setCloseFunction, createWindow, closeWindow ***REMOVED***  from '../../window'
-    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***      from '../../alert.js'
-    import ***REMOVED*** onMounted, reactive ***REMOVED***                          from 'vue'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                               from '../../supportFirebase.js'
-    import ***REMOVED*** useRouter ***REMOVED***                                    from 'vue-router'
-    import ***REMOVED*** useStore ***REMOVED***                                     from 'vuex'
+    import { setCloseFunction, createWindow, closeWindow }  from '../../window'
+    import { createAlert, alert, notNormalTokenAlert }      from '../../alert.js'
+    import { onMounted, reactive }                          from 'vue'
+    import { getUidAndToken }                               from '../../supportFirebase.js'
+    import { useRouter }                                    from 'vue-router'
+    import { useStore }                                     from 'vuex'
     import axios                                            from 'axios'
 
-    export default ***REMOVED***
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+    export default {
+        setup() {
+            const data = reactive({
                 store:  useStore(),
                 router: useRouter(),
-            ***REMOVED***)
-            const deletePost = async() => ***REMOVED***
+            })
+            const deletePost = async() => {
                 // 投稿を消去する処理
                 const user = await getUidAndToken()
-                const deletePostInfos = ***REMOVED***
+                const deletePostInfos = {
                     postId: data.store.state.post.deletePostId,
                     token:  user.token,
                     uid:    user.uid,
-                ***REMOVED***
+                }
                 axios.post('/api/post/delete-post', deletePostInfos)
-                .then((responce) => ***REMOVED***
-                    if (responce.isNormalToken) ***REMOVED***
-                        if (responce.isDeletePost) ***REMOVED***
+                .then((responce) => {
+                    if (responce.isNormalToken) {
+                        if (responce.isDeletePost) {
                             createAlert(new alert('投稿を消去しました。', 0))
-                        ***REMOVED*** else ***REMOVED***
+                        } else {
                             createAlert(new alert('投稿の消去に失敗しました。', 2))
-                        ***REMOVED***
-                    ***REMOVED*** else ***REMOVED***
+                        }
+                    } else {
                         notNormalTokenAlert()
-                    ***REMOVED***
-                ***REMOVED***)
+                    }
+                })
                 closeWindow()
-            ***REMOVED***
-            onMounted(() => ***REMOVED***
-                if (data.store.state.windowSize.width <= 414) ***REMOVED***
+            }
+            onMounted(() => {
+                if (data.store.state.windowSize.width <= 414) {
                     createWindow('ツイートの消去確認', data.store.state.windowSize.width - 10, 250)
-                ***REMOVED*** else ***REMOVED***
+                } else {
                     createWindow('ツイートの消去確認', 500, 250)
-                ***REMOVED***
-                setCloseFunction(() => ***REMOVED***
+                }
+                setCloseFunction(() => {
                     data.store.state.post.deletePostId = 0
                     data.router.go('/')
-                ***REMOVED***)
-            ***REMOVED***)
-            return ***REMOVED*** data, deletePost ***REMOVED***
-        ***REMOVED***        
-    ***REMOVED***
+                })
+            })
+            return { data, deletePost }
+        }        
+    }
 </script>

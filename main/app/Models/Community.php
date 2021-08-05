@@ -8,13 +8,13 @@ use App\Models\IsJoiningCommunity;
 use App\Models\CanIJoinCommunity;
 
 class Community extends Model
-***REMOVED***
+{
     protected $fillable = [
         'user_id',
         'name',
         'description',
     ];
-    public static function rules() ***REMOVED***
+    public static function rules() {
         return [
             'name' => [
                 'required',
@@ -25,12 +25,12 @@ class Community extends Model
                 'max:500',
             ],
         ];
-    ***REMOVED***
-    public function isJoiningCommunity() ***REMOVED***
+    }
+    public function isJoiningCommunity() {
         return $this->hasOne(IsJoiningCommunity::class);
-    ***REMOVED***
-    public function canIJoinCommunity() ***REMOVED***
+    }
+    public function canIJoinCommunity() {
         return $this->hasOne(CanIJoinCommunity::class);
-    ***REMOVED***
+    }
     
-***REMOVED***
+}

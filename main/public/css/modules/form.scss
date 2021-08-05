@@ -1,34 +1,34 @@
 @import '../brandColor';
 
-.form__wapper ***REMOVED***
+.form__wapper {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     background-color: white;
     border-radius: 16px;
     padding: 30px;
-***REMOVED***
-.form ***REMOVED***
+}
+.form {
     margin: 45px 0;
     background-color: white;
-***REMOVED***
-.form__btn ***REMOVED***
+}
+.form__btn {
     padding: 20px;
     background-color: white;
     margin-top: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 16px;
     transition: .3s;
-    &:hover ***REMOVED*** box-shadow: 0 0 10px rgba(0, 0, 0, .5); ***REMOVED***
-    &:disabled ***REMOVED***
+    &:hover { box-shadow: 0 0 10px rgba(0, 0, 0, .5); }
+    &:disabled {
         background: linear-gradient(145deg, #e6e6e6, #ffffff);
         box-shadow:  20px 20px 60px #d9d9d9,
                     -20px -20px 60px #ffffff;
-    ***REMOVED***
-    &:disabled:hover ***REMOVED***
+    }
+    &:disabled:hover {
         box-shadow:  20px 20px 60px #d9d9d9,
                     -20px -20px 60px #ffffff;
-    ***REMOVED***
-***REMOVED***
-.form-label_danger ***REMOVED***
+    }
+}
+.form-label_danger {
     color: red;
     font-weight: bold;
-***REMOVED***
+}

@@ -5,21 +5,21 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateBellsTable extends Migration
-***REMOVED***
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up()
-    ***REMOVED***
-        Schema::create('bells', function (Blueprint $table) ***REMOVED***
+    {
+        Schema::create('bells', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned();
             $table->integer('type')->unsigned();
             $table->timestamps();
-        ***REMOVED***);
-    ***REMOVED***
+        });
+    }
 
     /**
      * Reverse the migrations.
@@ -27,7 +27,7 @@ class CreateBellsTable extends Migration
      * @return void
      */
     public function down()
-    ***REMOVED***
+    {
         Schema::dropIfExists('bells');
-    ***REMOVED***
-***REMOVED***
+    }
+}

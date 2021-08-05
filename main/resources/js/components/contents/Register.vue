@@ -39,128 +39,128 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted, onBeforeMount, toRef, watch ***REMOVED***from 'vue'
-    import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***  from '../../alert'
-    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***          from '../../router.js'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
-    import ***REMOVED*** useRouter ***REMOVED***                                from 'vue-router'
-    import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
+    import { reactive, onMounted, onBeforeMount, toRef, watch }from 'vue'
+    import { alert, createAlert, notNormalTokenAlert }  from '../../alert'
+    import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
+    import { getUidAndToken }                           from '../../supportFirebase.js'
+    import { useRouter }                                from 'vue-router'
+    import { useStore }                                 from 'vuex'
     import firebase                                     from 'firebase'
     import axios                                        from 'axios'
 
     /* ---------------validation関係--------------- */
-    import ***REMOVED*** required, email, minLength, maxLength, alphaNum,  ***REMOVED*** from "@vuelidate/validators"
-    import ***REMOVED*** useVuelidate ***REMOVED*** from "@vuelidate/core"
+    import { required, email, minLength, maxLength, alphaNum,  } from "@vuelidate/validators"
+    import { useVuelidate } from "@vuelidate/core"
 
     /* ---------------コンポーネントをインポート--------------- */
     import Form                                         from '../Form.vue'
 
-    export default ***REMOVED***
-        components: ***REMOVED***
+    export default {
+        components: {
             Form,
-        ***REMOVED***,
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+        },
+        setup() {
+            const data = reactive({
                 store: useStore(),
                 router: useRouter(),
-                form: ***REMOVED***
-                    email: ***REMOVED***
+                form: {
+                    email: {
                         isClick: false,
                         content: '',
-                    ***REMOVED***,
-                    name: ***REMOVED***
+                    },
+                    name: {
                         isClick: false,
                         content: '',
-                    ***REMOVED***,
-                    userName: ***REMOVED***
+                    },
+                    userName: {
                         isClick: false,
                         content: '',
-                    ***REMOVED***,
-                    password: ***REMOVED***
+                    },
+                    password: {
                         isClick: false,
                         content: '',
-                    ***REMOVED***,
-                    confirmationPassword: ***REMOVED***
+                    },
+                    confirmationPassword: {
                         isClick: false,
                         content: '',
-                    ***REMOVED***,
-                ***REMOVED***,
-            ***REMOVED***)
-            const rules = ***REMOVED***
-                email:                  ***REMOVED*** required, email, ***REMOVED***,
-                name:                   ***REMOVED*** required, maxLength: maxLength(30), ***REMOVED***,
-                userName:               ***REMOVED*** required, alphaNum, maxLength: maxLength(30), ***REMOVED***,
-                password:               ***REMOVED*** required, minLength: minLength(4), ***REMOVED***,
-                confirmationPassword:   ***REMOVED*** required, confirmation: () => ***REMOVED*** return data.form.confirmationPassword.content === data.form.password.content ***REMOVED***, ***REMOVED***,
-            ***REMOVED***
-            const validate = useVuelidate(rules, ***REMOVED***
+                    },
+                },
+            })
+            const rules = {
+                email:                  { required, email, },
+                name:                   { required, maxLength: maxLength(30), },
+                userName:               { required, alphaNum, maxLength: maxLength(30), },
+                password:               { required, minLength: minLength(4), },
+                confirmationPassword:   { required, confirmation: () => { return data.form.confirmationPassword.content === data.form.password.content }, },
+            }
+            const validate = useVuelidate(rules, {
                 email:                  toRef(data.form.email, 'content'),
                 name:                   toRef(data.form.name, 'content'),
                 userName:               toRef(data.form.userName, 'content'),
                 password:               toRef(data.form.password, 'content'),
                 confirmationPassword:   toRef(data.form.confirmationPassword, 'content'),
-            ***REMOVED***)
-            const register = async() => ***REMOVED***
-                if (validate.value.$invalid) ***REMOVED***
+            })
+            const register = async() => {
+                if (validate.value.$invalid) {
                     createAlert(new alert('不正な値です。', 2))
                     return
-                ***REMOVED***
+                }
                 let isError = false
-                const canUseUserNameInfos = ***REMOVED***
-                    params: ***REMOVED***
+                const canUseUserNameInfos = {
+                    params: {
                         userName: data.form.userName.content,
-                    ***REMOVED***
-                ***REMOVED***
+                    }
+                }
                 await axios.get('/api/get/can-use-user-name', canUseUserNameInfos)
-                .then((responce) => ***REMOVED***
-                    if (responce.data) ***REMOVED***
+                .then((responce) => {
+                    if (responce.data) {
                         // ユーザーネームが存在する
                         isError = true
                         createAlert(new alert('そのユーザーネームは既に使用されています。', 2))
-                    ***REMOVED***
-                ***REMOVED***)
-                .catch(() => ***REMOVED***
+                    }
+                })
+                .catch(() => {
                     isError = true
-                    for (key in data.form) ***REMOVED*** data.form[key].content = '' ***REMOVED***
+                    for (key in data.form) { data.form[key].content = '' }
                     createAlert(new alert('アカウントの作成に失敗しました。', 1))
-                ***REMOVED***)
-                if (isError) ***REMOVED*** return ***REMOVED***
+                })
+                if (isError) { return }
                 // firebaseアカウントを作成
                 await firebase.auth().createUserWithEmailAndPassword(data.form.email.content, data.form.password.content)
-                .then((responce) => ***REMOVED***
-                ***REMOVED***)
-                .catch(() => ***REMOVED***
+                .then((responce) => {
+                })
+                .catch(() => {
                     isError = true
-                    for (key in data.form) ***REMOVED*** data.form[key].content = '' ***REMOVED***
+                    for (key in data.form) { data.form[key].content = '' }
                     createAlert(new alert('アカウントの作成に失敗しました。', 1))
-                ***REMOVED***)
-                if (isError) ***REMOVED*** return ***REMOVED***
+                })
+                if (isError) { return }
                 const user = await getUidAndToken()
-                const registerUserInfos = ***REMOVED***
+                const registerUserInfos = {
                     userName:   data.form.userName.content,
                     token:      user.token,
                     name:       data.form.name.content,
                     uid:        user.uid,
-                ***REMOVED***
+                }
                 await axios.post('/api/post/register-user', registerUserInfos)
-                .then(async(responce) => ***REMOVED***
-                    if (!responce.data.isNormalToken) ***REMOVED***
+                .then(async(responce) => {
+                    if (!responce.data.isNormalToken) {
                         createAlert(new alert('無効なアクセストークンです。', 2))
-                    ***REMOVED*** else if (!responce.data.isCreateAccount) ***REMOVED***
+                    } else if (!responce.data.isCreateAccount) {
                         createAlert(new alert('アカウントの作成に失敗しました。', 2))
-                    ***REMOVED*** else ***REMOVED***
+                    } else {
                         data.router.push('/')
-                        setTimeout(() => ***REMOVED***
+                        setTimeout(() => {
                             data.router.go('/')
-                        ***REMOVED***, 100)
-                    ***REMOVED***
-                ***REMOVED***)
-            ***REMOVED***
-            onBeforeMount(() => ***REMOVED***
+                        }, 100)
+                    }
+                })
+            }
+            onBeforeMount(() => {
                 antiLoginUser()
                 validate.value.$touch()
-            ***REMOVED***)
-            return ***REMOVED*** data, register, validate ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
+            })
+            return { data, register, validate }
+        }
+    }
 </script>

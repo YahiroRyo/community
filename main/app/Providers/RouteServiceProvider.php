@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
-***REMOVED***
+{
     /**
      * The path to the "home" route for your application.
      *
@@ -34,10 +34,10 @@ class RouteServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    ***REMOVED***
+    {
         $this->configureRateLimiting();
 
-        $this->routes(function () ***REMOVED***
+        $this->routes(function () {
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
@@ -46,8 +46,8 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
-        ***REMOVED***);
-    ***REMOVED***
+        });
+    }
 
     /**
      * Configure the rate limiters for the application.
@@ -55,9 +55,9 @@ class RouteServiceProvider extends ServiceProvider
      * @return void
      */
     protected function configureRateLimiting()
-    ***REMOVED***
-        RateLimiter::for('api', function (Request $request) ***REMOVED***
+    {
+        RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
-        ***REMOVED***);
-    ***REMOVED***
-***REMOVED***
+        });
+    }
+}

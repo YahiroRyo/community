@@ -1,120 +1,120 @@
 @charset "UTF-8";
-.btn, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+.btn, .create-post-btn, .create-post-input-img__btn {
   border-radius: 5px;
   display: block;
   font-size: 18px;
   text-align: center;
   line-height: 3;
   padding: 0 10px;
-  width: 100%; ***REMOVED***
-  .btn:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
+  width: 100%; }
+  .btn:hover, .create-post-btn:hover, .create-post-input-img__btn:hover {
     transition: .2s;
-    cursor: pointer; ***REMOVED***
+    cursor: pointer; }
 
-.btn_item:hover ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
+.btn_item:hover {
+  background-color: #d1d1d1; }
 
-.btn_normal, .create-post-btn, .create-post-input-img__btn ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
-    background-color: #b8b8b8; ***REMOVED***
+.btn_normal, .create-post-btn, .create-post-input-img__btn {
+  background-color: #d1d1d1; }
+  .btn_normal:hover, .create-post-btn:hover, .create-post-input-img__btn:hover {
+    background-color: #b8b8b8; }
 
-.btn_success ***REMOVED***
-  background-color: #4cdb8f; ***REMOVED***
-  .btn_success:hover ***REMOVED***
-    background-color: #29cb75; ***REMOVED***
+.btn_success {
+  background-color: #4cdb8f; }
+  .btn_success:hover {
+    background-color: #29cb75; }
 
-.btn_attention ***REMOVED***
-  background-color: #fcd419; ***REMOVED***
-  .btn_attention:hover ***REMOVED***
-    background-color: #dfb803; ***REMOVED***
+.btn_attention {
+  background-color: #fcd419; }
+  .btn_attention:hover {
+    background-color: #dfb803; }
 
-.btn_danger ***REMOVED***
+.btn_danger {
   background-color: #f9446a;
-  color: white; ***REMOVED***
-  .btn_danger:hover ***REMOVED***
-    background-color: #f71343; ***REMOVED***
+  color: white; }
+  .btn_danger:hover {
+    background-color: #f71343; }
 
-.btn_circle, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+.btn_circle, .create-post-btn, .create-post-input-img__btn {
   border-radius: 50%;
   width: 50px;
-  height: 50px; ***REMOVED***
+  height: 50px; }
 
-.btn, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+.btn, .create-post-btn, .create-post-input-img__btn {
   border-radius: 5px;
   display: block;
   font-size: 18px;
   text-align: center;
   line-height: 3;
   padding: 0 10px;
-  width: 100%; ***REMOVED***
-  .btn:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
+  width: 100%; }
+  .btn:hover, .create-post-btn:hover, .create-post-input-img__btn:hover {
     transition: .2s;
-    cursor: pointer; ***REMOVED***
+    cursor: pointer; }
 
-.btn_item:hover ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
+.btn_item:hover {
+  background-color: #d1d1d1; }
 
-.btn_normal, .create-post-btn, .create-post-input-img__btn ***REMOVED***
-  background-color: #d1d1d1; ***REMOVED***
-  .btn_normal:hover, .create-post-btn:hover, .create-post-input-img__btn:hover ***REMOVED***
-    background-color: #b8b8b8; ***REMOVED***
+.btn_normal, .create-post-btn, .create-post-input-img__btn {
+  background-color: #d1d1d1; }
+  .btn_normal:hover, .create-post-btn:hover, .create-post-input-img__btn:hover {
+    background-color: #b8b8b8; }
 
-.btn_success ***REMOVED***
-  background-color: #4cdb8f; ***REMOVED***
-  .btn_success:hover ***REMOVED***
-    background-color: #29cb75; ***REMOVED***
+.btn_success {
+  background-color: #4cdb8f; }
+  .btn_success:hover {
+    background-color: #29cb75; }
 
-.btn_attention ***REMOVED***
-  background-color: #fcd419; ***REMOVED***
-  .btn_attention:hover ***REMOVED***
-    background-color: #dfb803; ***REMOVED***
+.btn_attention {
+  background-color: #fcd419; }
+  .btn_attention:hover {
+    background-color: #dfb803; }
 
-.btn_danger ***REMOVED***
+.btn_danger {
   background-color: #f9446a;
-  color: white; ***REMOVED***
-  .btn_danger:hover ***REMOVED***
-    background-color: #f71343; ***REMOVED***
+  color: white; }
+  .btn_danger:hover {
+    background-color: #f71343; }
 
-.btn_circle, .create-post-btn, .create-post-input-img__btn ***REMOVED***
+.btn_circle, .create-post-btn, .create-post-input-img__btn {
   border-radius: 50%;
   width: 50px;
-  height: 50px; ***REMOVED***
+  height: 50px; }
 
-.form__wapper ***REMOVED***
+.form__wapper {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   background-color: white;
   border-radius: 16px;
-  padding: 30px; ***REMOVED***
+  padding: 30px; }
 
-.form ***REMOVED***
+.form {
   margin: 45px 0;
-  background-color: white; ***REMOVED***
+  background-color: white; }
 
-.form__btn ***REMOVED***
+.form__btn {
   padding: 20px;
   background-color: white;
   margin-top: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
-  transition: .3s; ***REMOVED***
-  .form__btn:hover ***REMOVED***
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); ***REMOVED***
+  transition: .3s; }
+  .form__btn:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
 
-.form-label_danger ***REMOVED***
+.form-label_danger {
   color: red;
-  font-weight: bold; ***REMOVED***
+  font-weight: bold; }
 
-.create-post-btn ***REMOVED***
+.create-post-btn {
   background-color: white;
-  margin-top: 10px; ***REMOVED***
+  margin-top: 10px; }
 
-.create-post-btn__media-img ***REMOVED***
+.create-post-btn__media-img {
   width: 25px;
   height: 45px;
-  margin-bottom: 5px; ***REMOVED***
+  margin-bottom: 5px; }
 
-.create-post-input-img ***REMOVED***
+.create-post-input-img {
   background-size: cover;
   background-position: center center;
   box-sizing: border-box;
@@ -123,73 +123,73 @@
   margin: 10px auto 0 auto;
   overflow: hidden;
   height: 200px;
-  width: 48%; ***REMOVED***
+  width: 48%; }
 
-.create-post-display-img-wapper ***REMOVED***
+.create-post-display-img-wapper {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 20px; ***REMOVED***
+  margin-top: 20px; }
 
-.create-post-input-img__btn ***REMOVED***
+.create-post-input-img__btn {
   background-color: rgba(0, 0, 0, 0);
   width: 30px;
   height: 30px;
   position: relative;
-  margin: 10px 0 0 10px; ***REMOVED***
-  .create-post-input-img__btn:hover ***REMOVED***
-    background-color: rgba(0, 0, 0, 0.5); ***REMOVED***
+  margin: 10px 0 0 10px; }
+  .create-post-input-img__btn:hover {
+    background-color: rgba(0, 0, 0, 0.5); }
 
-.create-post-input-img__btn__img ***REMOVED***
+.create-post-input-img__btn__img {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 16px;
-  height: 16px; ***REMOVED***
+  height: 16px; }
 
 /* ---------------create-post-input-img-animのtransition--------------- */
 .create-post-input-img-anim-enter-active,
-.create-post-input-img-anim-leave-active ***REMOVED***
-  animation-duration: .5s; ***REMOVED***
+.create-post-input-img-anim-leave-active {
+  animation-duration: .5s; }
 
-.create-post-input-img-anim-enter-active ***REMOVED***
-  animation-name: scaleToBig; ***REMOVED***
+.create-post-input-img-anim-enter-active {
+  animation-name: scaleToBig; }
 
-.create-post-input-img-anim-leave-active ***REMOVED***
-  animation-name: scaleToSmall; ***REMOVED***
+.create-post-input-img-anim-leave-active {
+  animation-name: scaleToSmall; }
 
-@keyframes scaleToBig ***REMOVED***
-  0% ***REMOVED***
-    transform: scale(0); ***REMOVED***
-  20% ***REMOVED***
-    transform: scale(1.2); ***REMOVED***
-  30% ***REMOVED***
-    transform: scale(0.9); ***REMOVED***
-  100% ***REMOVED***
-    transform: scale(1); ***REMOVED*** ***REMOVED***
-@keyframes scaleToSmall ***REMOVED***
-  0% ***REMOVED***
-    transform: scale(1); ***REMOVED***
-  20% ***REMOVED***
-    transform: scale(0.1); ***REMOVED***
-  100% ***REMOVED***
-    transform: scale(0); ***REMOVED*** ***REMOVED***
+@keyframes scaleToBig {
+  0% {
+    transform: scale(0); }
+  20% {
+    transform: scale(1.2); }
+  30% {
+    transform: scale(0.9); }
+  100% {
+    transform: scale(1); } }
+@keyframes scaleToSmall {
+  0% {
+    transform: scale(1); }
+  20% {
+    transform: scale(0.1); }
+  100% {
+    transform: scale(0); } }
 /*
 =====================
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
-  .post__flex ***REMOVED***
-    display: block; ***REMOVED***
+@media screen and (max-width: 414px) {
+  .post__flex {
+    display: block; }
 
   .bell__btn-app,
-  .bell__btn-disallow ***REMOVED***
+  .bell__btn-disallow {
     margin: 10px auto 0 auto;
     line-height: 2.5;
-    font-size: 14px; ***REMOVED*** ***REMOVED***
-.community-create-post-wapper ***REMOVED***
+    font-size: 14px; } }
+.community-create-post-wapper {
   background-color: white;
   border-radius: 16px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -200,13 +200,13 @@
   height: 290px;
   overflow-y: auto;
   width: 100%;
-  z-index: 1; ***REMOVED***
+  z-index: 1; }
 
-.community-create-post__title ***REMOVED***
+.community-create-post__title {
   font-size: 18px;
-  user-select: none; ***REMOVED***
+  user-select: none; }
 
-.community-create-post-wapper-trigger ***REMOVED***
+.community-create-post-wapper-trigger {
   background-color: white;
   border-radius: 16px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -219,21 +219,21 @@
   overflow-y: auto;
   width: 100%;
   height: 50px;
-  z-index: 1; ***REMOVED***
+  z-index: 1; }
 
 /*
 =====================
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
-  .communities-tab__title ***REMOVED***
-    font-size: 14px; ***REMOVED***
+@media screen and (max-width: 414px) {
+  .communities-tab__title {
+    font-size: 14px; }
 
-  .communitiest__btn ***REMOVED***
-    line-height: 2.5; ***REMOVED***
+  .communitiest__btn {
+    line-height: 2.5; }
 
-  .community-create-post-wapper-trigger ***REMOVED***
-    display: block; ***REMOVED*** ***REMOVED***
+  .community-create-post-wapper-trigger {
+    display: block; } }
 
 /*# sourceMappingURL=community.css.map */

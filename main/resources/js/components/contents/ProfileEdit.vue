@@ -26,123 +26,123 @@
     // ・何らかのエラーが出た場合
     // alertを表示させた後、data.router.push('/profile')を実行
 
-    import ***REMOVED*** reactive, onMounted, onBeforeMount, toRef ***REMOVED***           from 'vue'
-    import ***REMOVED*** alert, createAlert, notNormalTokenAlert ***REMOVED***      from '../../alert'
-    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***              from '../../router.js'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                               from '../../supportFirebase.js'
-    import ***REMOVED*** useRouter ***REMOVED***                                    from 'vue-router'
-    import ***REMOVED*** useStore ***REMOVED***                                     from 'vuex'
+    import { reactive, onMounted, onBeforeMount, toRef }           from 'vue'
+    import { alert, createAlert, notNormalTokenAlert }      from '../../alert'
+    import { antiLoginUser, antiNotLoginUser }              from '../../router.js'
+    import { getUidAndToken }                               from '../../supportFirebase.js'
+    import { useRouter }                                    from 'vue-router'
+    import { useStore }                                     from 'vuex'
     import firebase                                         from 'firebase'
     import axios                                            from 'axios'
     /* ---------------validation関係--------------- */
-    import ***REMOVED*** required, email, minLength, maxLength, alphaNum,  ***REMOVED*** from "@vuelidate/validators"
-    import ***REMOVED*** useVuelidate ***REMOVED*** from "@vuelidate/core"
+    import { required, email, minLength, maxLength, alphaNum,  } from "@vuelidate/validators"
+    import { useVuelidate } from "@vuelidate/core"
     
     /* ---------------コンポーネントをインポート--------------- */
     import Form                                             from '../Form.vue'
 
-    export default ***REMOVED***
-        components: ***REMOVED***
+    export default {
+        components: {
             Form
-        ***REMOVED***,
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+        },
+        setup() {
+            const data = reactive({
                 router: useRouter(),
                 store: useStore(),
-                user: ***REMOVED***
-                    userName: ***REMOVED***
+                user: {
+                    userName: {
                         content: '',
                         isClick: false,
-                    ***REMOVED***,
-                    name: ***REMOVED***
+                    },
+                    name: {
                         content: '',
                         isClick: false,
-                    ***REMOVED***,
-                    intro: ***REMOVED***
+                    },
+                    intro: {
                         content: '',
                         isClick: false,
-                    ***REMOVED***,
-                ***REMOVED***,
-            ***REMOVED***)
+                    },
+                },
+            })
             // ユーザーデータの取得
             // uidを投げたらユーザー情報が返ってくる
-            const getUserData = async() => ***REMOVED***
+            const getUserData = async() => {
                 const user = await getUidAndToken()
-                if (!user.isError) ***REMOVED***
-                    const userProfileInfos = ***REMOVED***
-                        params: ***REMOVED*** 'uid': user.uid, ***REMOVED***,
-                    ***REMOVED***
+                if (!user.isError) {
+                    const userProfileInfos = {
+                        params: { 'uid': user.uid, },
+                    }
                     axios.get('/api/get/my-user-data', userProfileInfos)
-                    .then((responce) => ***REMOVED***
-                        if (responce.data.isGetMyUserData) ***REMOVED***
+                    .then((responce) => {
+                        if (responce.data.isGetMyUserData) {
                             data.user.name.content      = responce.data.userData.name
                             data.user.userName.content  = responce.data.userData.user_name
                             data.user.intro.content     = responce.data.userData.intro
-                        ***REMOVED*** else ***REMOVED***
+                        } else {
                             createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
-                        ***REMOVED***
-                    ***REMOVED***)
-                    .catch(() => ***REMOVED***
+                        }
+                    })
+                    .catch(() => {
                         createAlert(new alert('ユーザーデータの取得に失敗しました。', 2))
                         // 失敗した場合は、プロフィールに飛ぶ
-                        setTimeout(() => ***REMOVED***
+                        setTimeout(() => {
                             data.router.push('/profile')
-                        ***REMOVED***, 50)
-                    ***REMOVED***)
-                ***REMOVED*** else ***REMOVED***
+                        }, 50)
+                    })
+                } else {
                     createAlert(new alert('ユーザー情報を取得することに失敗しました。', 2))
                     // 失敗した場合は、プロフィールに飛ぶ
-                    setTimeout(() => ***REMOVED***
+                    setTimeout(() => {
                         data.router.push('/profile')
-                    ***REMOVED***, 50)
-                ***REMOVED***
-            ***REMOVED***
+                    }, 50)
+                }
+            }
             // ユーザー情報を更新する
-            const refreshUserData = async() => ***REMOVED***
-                if (validate.value.$invalid) ***REMOVED***
+            const refreshUserData = async() => {
+                if (validate.value.$invalid) {
                     createAlert(new alert('不正な値です。', 2))
                     return
-                ***REMOVED***
+                }
                 const user = await getUidAndToken()
-                const refreshUserProfileInfos = ***REMOVED***
+                const refreshUserProfileInfos = {
                     userName:   data.user.userName.content,
                     token:      user.token,
                     intro:      data.user.intro.content,
                     name:       data.user.name.content,
                     uid:        user.uid,
-                ***REMOVED***
+                }
                 axios.post('/api/post/refresh-user-profile', refreshUserProfileInfos)
-                .then((responce) => ***REMOVED***
-                    if (responce.data.isRefreshAccount) ***REMOVED***
+                .then((responce) => {
+                    if (responce.data.isRefreshAccount) {
                         createAlert(new alert('ユーザデータを更新しました。', 0))
-                    ***REMOVED*** else if (!responce.data.isNormalToken) ***REMOVED***
+                    } else if (!responce.data.isNormalToken) {
                         notNormalTokenAlert()
-                    ***REMOVED*** else ***REMOVED***
+                    } else {
                         createAlert(new alert('ユーザデータを更新することができませんでした。', 2))
                         data.router.push('/')
                         return
-                    ***REMOVED***
+                    }
                     data.store.state.user.userName = data.user.userName.content
                     data.store.state.user.profileUpdate = true
-                    data.router.push(`/profile/$***REMOVED***data.user.userName.content***REMOVED***`)
-                ***REMOVED***)
-            ***REMOVED***
-            const rules = ***REMOVED***
-                name:                   ***REMOVED*** required, maxLength: maxLength(30), ***REMOVED***,
-                userName:               ***REMOVED*** required, alphaNum, maxLength: maxLength(30), ***REMOVED***,
-                intro:                  ***REMOVED*** maxLength: maxLength(200), ***REMOVED***
-            ***REMOVED***
-            const validate = useVuelidate(rules, ***REMOVED***
+                    data.router.push(`/profile/${data.user.userName.content}`)
+                })
+            }
+            const rules = {
+                name:                   { required, maxLength: maxLength(30), },
+                userName:               { required, alphaNum, maxLength: maxLength(30), },
+                intro:                  { maxLength: maxLength(200), }
+            }
+            const validate = useVuelidate(rules, {
                 name:                   toRef(data.user.name, 'content'),
                 userName:               toRef(data.user.userName, 'content'),
                 intro:                  toRef(data.user.intro, 'content'),
-            ***REMOVED***)
-            onBeforeMount(() => ***REMOVED***
+            })
+            onBeforeMount(() => {
                 antiNotLoginUser()
                 validate.value.$touch()
-            ***REMOVED***)
-            onMounted(() => ***REMOVED*** getUserData() ***REMOVED***)
-            return ***REMOVED*** data, refreshUserData, validate ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
+            })
+            onMounted(() => { getUserData() })
+            return { data, refreshUserData, validate }
+        }
+    }
 </script>

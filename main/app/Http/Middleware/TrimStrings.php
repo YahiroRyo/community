@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 
 class TrimStrings extends Middleware
-***REMOVED***
+{
     /**
      * The names of the attributes that should not be trimmed.
      *
@@ -16,4 +16,4 @@ class TrimStrings extends Middleware
         'password',
         'password_confirmation',
     ];
-***REMOVED***
+}

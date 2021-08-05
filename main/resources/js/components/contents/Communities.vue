@@ -3,10 +3,10 @@
         <link rel="stylesheet" href="/css/components/communities/communities.css">
         <!-- タブ -->
         <div class="tabs-wapper" style="display: flex;">
-            <div @click="data.router.push('/communities/0')" :class="***REMOVED***'tab': true, 'tab_selecting': data.route.params.page == 0 ***REMOVED***">
+            <div @click="data.router.push('/communities/0')" :class="{'tab': true, 'tab_selecting': data.route.params.page == 0 }">
                 <p class="communities-tab__title">コミュニティを選択</p>
             </div>
-            <div @click="data.router.push('/communities/1')" :class="***REMOVED***'tab': true, 'tab_selecting': data.route.params.page == 1***REMOVED***">
+            <div @click="data.router.push('/communities/1')" :class="{'tab': true, 'tab_selecting': data.route.params.page == 1}">
                 <p class="communities-tab__title">コミュニティを作成</p>
             </div>
         </div>
@@ -16,11 +16,11 @@
             <div v-show="data.route.params.page == 0" class="communities-page" key="communities-page-0">
                 <div class="post" v-for="(community, key) in data.community.objects" :key="key">
                     <div class="post__flex">
-                        <p class="post__name">***REMOVED******REMOVED***community.name***REMOVED******REMOVED***</p>
+                        <p class="post__name">{{community.name}}</p>
                     </div>
                     <div class="post__flex">
-                        <p class="post__font">***REMOVED******REMOVED***community.description***REMOVED******REMOVED***</p>
-                        <button @click="goToCommunity(key)" class="communitiest__btn">***REMOVED******REMOVED***community.type === 0 ? '加入申請' : community.type === 1 ? '加入申請中' : '入る'***REMOVED******REMOVED***</button>
+                        <p class="post__font">{{community.description}}</p>
+                        <button @click="goToCommunity(key)" class="communitiest__btn">{{community.type === 0 ? '加入申請' : community.type === 1 ? '加入申請中' : '入る'}}</button>
                     </div>
                 </div>
             </div>
@@ -46,106 +46,106 @@
 </template>
 
 <script>
-    import ***REMOVED*** reactive, watch, onMounted, onBeforeMount, toRef ***REMOVED*** from 'vue'
-    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***          from '../../alert.js'
-    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***                  from '../../router.js'
-    import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***                    from '../../page.js'
-    import ***REMOVED*** useRouter, useRoute ***REMOVED***                              from 'vue-router'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                                   from '../../supportFirebase.js'
+    import { reactive, watch, onMounted, onBeforeMount, toRef } from 'vue'
+    import { createAlert, alert, notNormalTokenAlert }          from '../../alert.js'
+    import { antiLoginUser, antiNotLoginUser }                  from '../../router.js'
+    import { addPageEvent, removeAtAllFunc }                    from '../../page.js'
+    import { useRouter, useRoute }                              from 'vue-router'
+    import { getUidAndToken }                                   from '../../supportFirebase.js'
     import firebase                                             from 'firebase'
     import axios                                                from 'axios'
     /* ---------------validation関係--------------- */
-    import ***REMOVED*** required, minLength, maxLength  ***REMOVED*** from "@vuelidate/validators"
-    import ***REMOVED*** useVuelidate ***REMOVED*** from "@vuelidate/core"
+    import { required, minLength, maxLength  } from "@vuelidate/validators"
+    import { useVuelidate } from "@vuelidate/core"
 
     /* ---------------コンポーネントをインポート--------------- */
     import Form                                         from '../Form.vue'
 
-    export default ***REMOVED***
-        components: ***REMOVED***
+    export default {
+        components: {
             Form
-        ***REMOVED***,
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+        },
+        setup() {
+            const data = reactive({
                 router: useRouter(),
                 route:  useRoute(),
-                community: ***REMOVED***
+                community: {
                     take:       50,
                     gotNum:     0,
                     objects:    [],
                     cantTake:   false,
-                ***REMOVED***,
-                createCommunity: ***REMOVED***
-                    name: ***REMOVED***
+                },
+                createCommunity: {
+                    name: {
                         content: localStorage.getItem('name') ? localStorage.getItem('name') : '',
                         isClick: false,
-                    ***REMOVED***,
-                    description: ***REMOVED***
+                    },
+                    description: {
                         content: localStorage.getItem('description') ? localStorage.getItem('description') : '',
                         isClick: false,
-                    ***REMOVED***,
-                ***REMOVED***,
-            ***REMOVED***)
-            const getCommunities = async() => ***REMOVED***
-                if (!data.community.cantTake) ***REMOVED***
+                    },
+                },
+            })
+            const getCommunities = async() => {
+                if (!data.community.cantTake) {
                     const user = await getUidAndToken()
-                    if (!user.isError) ***REMOVED***
-                        const getCommunitiesInfos = ***REMOVED***
-                            params: ***REMOVED***
+                    if (!user.isError) {
+                        const getCommunitiesInfos = {
+                            params: {
                                 uid: user.uid,
                                 take: data.community.take,
                                 gotNum: data.community.gotNum,
-                            ***REMOVED***
-                        ***REMOVED***
+                            }
+                        }
                         await axios.get('/api/get/communities', getCommunitiesInfos)
-                        .then((responce) => ***REMOVED***
-                            if (responce.data.isGetCommunities) ***REMOVED***
+                        .then((responce) => {
+                            if (responce.data.isGetCommunities) {
                                 data.community.gotNum += data.community.take
                                 // 取得しようとしていた数よりも少なかった場合は、それ以上のデータがない。
                                 // 従って、これ以上取得できないように設定
                                 if (data.community.gotNum > responce.data.communities.length)
                                     data.community.cantTake = true
-                                responce.data.communities.forEach((community) => ***REMOVED***
-                                    data.community.objects.push(***REMOVED***
+                                responce.data.communities.forEach((community) => {
+                                    data.community.objects.push({
                                         name: community.name,
                                         description: community.description,
                                         id: community.id,
                                         type: community.is_joining_community !== null ? 2 : community.can_i_join_community !== null ? 1 : 0,
-                                    ***REMOVED***)
-                                ***REMOVED***)
-                            ***REMOVED*** else ***REMOVED***
+                                    })
+                                })
+                            } else {
                                 createAlert(new alert('コミュニティの取得に失敗しました。', 2))
                                 // 失敗した場合は、ホームに飛ぶ
-                                setTimeout(() => ***REMOVED***
+                                setTimeout(() => {
                                     data.router.push('/')
-                                ***REMOVED***, 50)
-                            ***REMOVED***
-                        ***REMOVED***)
-                    ***REMOVED*** else ***REMOVED***
+                                }, 50)
+                            }
+                        })
+                    } else {
                         createAlert(new alert('ユーザー情報を取得することに失敗しました。', 2))
                         // 失敗した場合は、ホームに飛ぶ
-                        setTimeout(() => ***REMOVED***
+                        setTimeout(() => {
                             data.router.push('/')
-                        ***REMOVED***, 50)
-                    ***REMOVED***
-                ***REMOVED***
-            ***REMOVED***
-            const createCommunity = async() => ***REMOVED***
-                if (validate.value.$invalid) ***REMOVED***
+                        }, 50)
+                    }
+                }
+            }
+            const createCommunity = async() => {
+                if (validate.value.$invalid) {
                     createAlert(new alert('不正な値です。', 2))
                     return
-                ***REMOVED***
+                }
                 const user = await getUidAndToken()
-                if (!user.isError) ***REMOVED***
-                    const createCommunityInfos = ***REMOVED***
+                if (!user.isError) {
+                    const createCommunityInfos = {
                         uid: user.uid,
                         token: user.token,
                         name: data.createCommunity.name.content,
                         description: data.createCommunity.description.content,
-                    ***REMOVED***
+                    }
                     axios.post('/api/post/create-community', createCommunityInfos)
-                    .then((responce) => ***REMOVED***
-                        if (responce.data.isCreateCommunity) ***REMOVED***
+                    .then((responce) => {
+                        if (responce.data.isCreateCommunity) {
                             createAlert(new alert('コミュニティを作成しました。', 0))
                             // v-modelの内容とlocalStorageの内容を初期化
                             data.createCommunity.name = ''
@@ -153,98 +153,98 @@
                             localStorage.removeItem('name')
                             localStorage.removeItem('description')
                             data.router.go('communities/1')
-                        ***REMOVED*** else if (!responce.data.isNormalToken) ***REMOVED***
+                        } else if (!responce.data.isNormalToken) {
                             notNormalTokenAlert()
-                        ***REMOVED*** else ***REMOVED***
+                        } else {
                             createAlert(new alert('コミュニティの作成に失敗しました。', 2))
-                        ***REMOVED***
-                    ***REMOVED***)
-                ***REMOVED*** else ***REMOVED***
+                        }
+                    })
+                } else {
                     createAlert(new alert('コミュニティの作成に失敗しました。', 2))
-                ***REMOVED***
-            ***REMOVED***
-            const goToCommunity = async(key) => ***REMOVED***
+                }
+            }
+            const goToCommunity = async(key) => {
                 /* ---------------TODO: コミュニティに入る作業--------------- */
                 const user = await getUidAndToken()
-                if (!user.isError) ***REMOVED***
-                    if (data.community.objects[key].type === 0) ***REMOVED***
+                if (!user.isError) {
+                    if (data.community.objects[key].type === 0) {
                         // 加入申請を送信
-                        const canIJoinCommunityInfos = ***REMOVED***
+                        const canIJoinCommunityInfos = {
                             uid: user.uid,
                             token: user.token,
                             communityId: data.community.objects[key].id,
-                        ***REMOVED***
+                        }
                         axios.post('/api/post/can-i-join-community', canIJoinCommunityInfos)
-                        .then((responce) => ***REMOVED***
-                            if (responce.data.isNormalToken) ***REMOVED***
-                                if (responce.data.isCanIJoinCommunity) ***REMOVED***
+                        .then((responce) => {
+                            if (responce.data.isNormalToken) {
+                                if (responce.data.isCanIJoinCommunity) {
                                     data.community.objects[key].type = 1
                                     createAlert(new alert('加入申請をしました。', 0))
-                                ***REMOVED*** else ***REMOVED***
+                                } else {
                                     createAlert(new alert('加入申請に失敗しました。', 2))
-                                ***REMOVED***
-                            ***REMOVED*** else ***REMOVED***
+                                }
+                            } else {
                                 notNormalTokenAlert()
-                            ***REMOVED***
-                        ***REMOVED***)
-                    ***REMOVED*** else if (data.community.objects[key].type === 1) ***REMOVED***
+                            }
+                        })
+                    } else if (data.community.objects[key].type === 1) {
                         // 加入申請を取り消し
-                        const cancelJoinCommunityInfos = ***REMOVED***
+                        const cancelJoinCommunityInfos = {
                             uid: user.uid,
                             token: usersToken,
                             communityId: data.community.objects[key].id,
-                        ***REMOVED***
+                        }
                         axios.post('/api/post/cancel-join-community', cancelJoinCommunityInfos)
-                        .then((responce) => ***REMOVED***
-                            if (responce.data.isNormalToken) ***REMOVED***
-                                if (responce.data.isCancelJoinCommunity) ***REMOVED***
+                        .then((responce) => {
+                            if (responce.data.isNormalToken) {
+                                if (responce.data.isCancelJoinCommunity) {
                                     data.community.objects[key].type = 0
                                     createAlert(new alert('加入申請を取り消しました。', 0))
-                                ***REMOVED*** else ***REMOVED***
+                                } else {
                                     createAlert(new alert('加入申請の取り消しに失敗しました', 2))
-                                ***REMOVED***
-                            ***REMOVED*** else ***REMOVED***
+                                }
+                            } else {
                                 notNormalTokenAlert()
-                            ***REMOVED***
-                        ***REMOVED***)
-                    ***REMOVED*** else ***REMOVED***
+                            }
+                        })
+                    } else {
                         // ルームへ入る
-                        data.router.push(`/community/$***REMOVED***data.community.objects[key].id***REMOVED***`)
-                    ***REMOVED***
-                ***REMOVED*** else ***REMOVED***
+                        data.router.push(`/community/${data.community.objects[key].id}`)
+                    }
+                } else {
                     createAlert(new alert('ユーザー情報を取得することに失敗しました。', 2))
-                ***REMOVED***
-            ***REMOVED***
-            const rules = ***REMOVED***
-                name:                   ***REMOVED*** required, maxLength: maxLength(50), ***REMOVED***,
-                description:            ***REMOVED*** required, maxLength: maxLength(500), ***REMOVED***,
-            ***REMOVED***
-            const validate = useVuelidate(rules, ***REMOVED***
+                }
+            }
+            const rules = {
+                name:                   { required, maxLength: maxLength(50), },
+                description:            { required, maxLength: maxLength(500), },
+            }
+            const validate = useVuelidate(rules, {
                 name:                   toRef(data.createCommunity.name, 'content'),
                 description:            toRef(data.createCommunity.description, 'content'),
-            ***REMOVED***)
+            })
             
             /* ---------------createCommunity変数について--------------- */
             // 他のURLに飛ぶと値が消滅してしまうため、ローカルストレージに入力した値を保存
-            watch(() => data.createCommunity.name, () => ***REMOVED***
+            watch(() => data.createCommunity.name, () => {
                 localStorage.setItem('name', data.createCommunity.name) 
-            ***REMOVED***)
-            watch(() => data.createCommunity.description, () => ***REMOVED***
+            })
+            watch(() => data.createCommunity.description, () => {
                 localStorage.setItem('description', data.createCommunity.description) 
-            ***REMOVED***)
-            onBeforeMount(() => ***REMOVED***
+            })
+            onBeforeMount(() => {
                 antiNotLoginUser()
-            ***REMOVED***)
-            onMounted(() => ***REMOVED***
+            })
+            onMounted(() => {
                 getCommunities()
-                addPageEvent('pageMostBottom', () => ***REMOVED***getCommunities()***REMOVED***)
+                addPageEvent('pageMostBottom', () => {getCommunities()})
                 validate.value.$touch()
-            ***REMOVED***)
-            return ***REMOVED*** data, createCommunity, goToCommunity, validate ***REMOVED***
-        ***REMOVED***,
-        beforeRouteLeave (to, from, next) ***REMOVED***
+            })
+            return { data, createCommunity, goToCommunity, validate }
+        },
+        beforeRouteLeave (to, from, next) {
             removeAtAllFunc()
             next()
-        ***REMOVED***
-    ***REMOVED***
+        }
+    }
 </script>

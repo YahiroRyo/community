@@ -8,17 +8,17 @@
 @import 'modules/post.scss';
 @import 'modules/tab.scss';
 
-body ***REMOVED***
+body {
     background-color: $non-colored-color-gray-2;
     font-family: "Hiragino Kaku Gothic ProN","メイリオ", sans-serif;
-***REMOVED***
+}
 
 /*
 ======================
         header      
 ======================
 */
-#header ***REMOVED***
+#header {
     align-items: center;
     background-color: white;
     box-shadow: 5px 0 5px rgba(0, 0, 0, 0.5);
@@ -28,57 +28,57 @@ body ***REMOVED***
     height: 75px;
     width: 100%;
     z-index: 1;
-***REMOVED***
-.header__icon ***REMOVED***
+}
+.header__icon {
     margin-left: 20px;
     width: 60px;
     height: 60px;
-***REMOVED***
+}
 .header__icon-wapper,
-.header__other ***REMOVED*** width: 25vw; ***REMOVED***
-.header__other__menu ***REMOVED***
+.header__other { width: 25vw; }
+.header__other__menu {
     align-items: center;
     display: flex;
-***REMOVED***
-.header__other__menu__item ***REMOVED***
+}
+.header__other__menu__item {
     padding: 20px;
     margin-left: auto;
-***REMOVED***
-.header__other__menu__item__btn ***REMOVED***
+}
+.header__other__menu__item__btn {
     @extend .btn;
     @extend .btn_normal;
     @extend .btn_circle;
     background-color: transparent;
-    &:hover ***REMOVED*** background-color: $non-colored-color-gray-3; ***REMOVED***
-***REMOVED***
-.header__tab-wapper ***REMOVED***
+    &:hover { background-color: $non-colored-color-gray-3; }
+}
+.header__tab-wapper {
     @extend .tabs-wapper;
     @extend .tab_circle;
     width: 50vw;
     margin: 0 auto;
-***REMOVED***
+}
 
 /*
 =====================
         body      
 =====================
 */
-#container ***REMOVED***
+#container {
     display: flex;
     padding-top: 50px;
-***REMOVED***
-#main ***REMOVED*** width: 50vw; ***REMOVED***
-.menu, .other ***REMOVED***
+}
+#main { width: 50vw; }
+.menu, .other {
     width: 25vw;
     position: sticky;
     top: 125px;
     height: 500px;
-***REMOVED***
-.menu__items-wapper ***REMOVED***
+}
+.menu__items-wapper {
     box-sizing: border-box;
     padding: 0 20px;
-***REMOVED***
-.menu__item ***REMOVED***
+}
+.menu__item {
     @extend .btn;
     @extend .btn_item;
     display: flex;
@@ -88,13 +88,13 @@ body ***REMOVED***
     text-overflow: ellipsis;
     white-space: nowrap;
     user-select: none;
-***REMOVED***
-.menu__item-icon ***REMOVED***
+}
+.menu__item-icon {
     width: 20px;
     height: 20px;
     margin-right: 10px;
-***REMOVED***
-.mobile-phone-menu ***REMOVED***
+}
+.mobile-phone-menu {
     align-items: center;
     background-color: white;
     box-shadow: 0 0 20px rgba(0, 0, 0, .3);
@@ -104,27 +104,27 @@ body ***REMOVED***
     left: 0;
     height: 75px;
     width: 100%;
-***REMOVED***
-.mobile-phone-menu__item ***REMOVED***
+}
+.mobile-phone-menu__item {
     align-items: center;
     display: flex;
     margin: 0 auto;
     height: 100%;
-***REMOVED***
-.mobile-phone-menu__item__img ***REMOVED***
+}
+.mobile-phone-menu__item__img {
     width: 30px;
     height: 30px;
-    &:hover ***REMOVED***
+    &:hover {
         cursor: pointer;
-    ***REMOVED***
-***REMOVED***
+    }
+}
 /*
 =====================
         other      
 =====================
 */
-.other__item-wapper ***REMOVED*** padding: 0 20px; ***REMOVED***
-.other__item ***REMOVED***
+.other__item-wapper { padding: 0 20px; }
+.other__item {
     @extend .btn;
     @extend .btn_item;
     align-items: center;
@@ -134,13 +134,13 @@ body ***REMOVED***
     text-overflow: ellipsis;
     white-space: nowrap;
     user-select: none;
-***REMOVED***
-.other__item-icon ***REMOVED***
+}
+.other__item-icon {
     margin-right: 10px;
     width: 20px;
     height: 20px;
-***REMOVED***
-.pop-up-discription ***REMOVED***
+}
+.pop-up-discription {
     background-color: white;
     border-radius: 16px;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
@@ -153,7 +153,7 @@ body ***REMOVED***
     transform: translateX(-50%);
     height: 50%;
     z-index: 2;
-    &::after ***REMOVED***
+    &::after {
         position: absolute;
         content: ' ';
         border-right: 10px solid transparent;
@@ -162,26 +162,26 @@ body ***REMOVED***
         top: -25%;
         left: 50%;
         transform: translateX(-50%);
-    ***REMOVED***
-***REMOVED***
-.pop-up-discription__content ***REMOVED***
+    }
+}
+.pop-up-discription__content {
     color: $non-colored-color-gray-6;
     text-align: center;
     user-select: none;
-***REMOVED***
+}
 
 /* ---------------スクロールバーのデザイン--------------- */
-::-webkit-scrollbar ***REMOVED***
+::-webkit-scrollbar {
     width: 10px;
     background-color: white;
-***REMOVED***
-::-webkit-scrollbar-track ***REMOVED*** border-radius: 5px; ***REMOVED***
-::-webkit-scrollbar-thumb ***REMOVED***
+}
+::-webkit-scrollbar-track { border-radius: 5px; }
+::-webkit-scrollbar-thumb {
   background-color: $base-color-5;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
-***REMOVED***
-.dark-background ***REMOVED***
+}
+.dark-background {
     background-color: rgba(0, 0, 0, 0.5);
     width: 100vw;
     height: 100vh;
@@ -189,67 +189,67 @@ body ***REMOVED***
     left: 0;
     position: fixed;
     z-index: 3;
-***REMOVED***
+}
 
 /* ---------------dark-background-animのtransition--------------- */
 .dark-background-anim-enter-active,
-.dark-background-anim-leave-active ***REMOVED*** transition: opacity .5s ease-in-out; ***REMOVED***
+.dark-background-anim-leave-active { transition: opacity .5s ease-in-out; }
 
 .dark-background-anim-enter-active,
-.dark-background-anim-leave-to ***REMOVED*** opacity: 0; ***REMOVED***
+.dark-background-anim-leave-to { opacity: 0; }
 
 .dark-background-anim-enter-to,
-.dark-background-anim-leave ***REMOVED*** opacity: 1; ***REMOVED***
+.dark-background-anim-leave { opacity: 1; }
 
 /* ---------------router-view-animのtransition--------------- */
 .router-view-anim-enter-active,
-.router-view-anim-leave-active ***REMOVED*** transition: opacity .5s ease-in-out, transform .5s ease; ***REMOVED***
+.router-view-anim-leave-active { transition: opacity .5s ease-in-out, transform .5s ease; }
 
 .router-view-anim-enter-active,
-.router-view-anim-leave-to ***REMOVED*** opacity: 0; ***REMOVED***
+.router-view-anim-leave-to { opacity: 0; }
 
-.router-view-anim-enter-active ***REMOVED*** transform: translateY(-100px); ***REMOVED***
-.router-view-anim-leave-to ***REMOVED*** transform: translateY(100px); ***REMOVED***
+.router-view-anim-enter-active { transform: translateY(-100px); }
+.router-view-anim-leave-to { transform: translateY(100px); }
 
 .router-view-anim-enter-to,
-.router-view-anim-leave ***REMOVED***
+.router-view-anim-leave {
     opacity: 1;
     transition-delay: .5s;
     transform: translateY(0);
-***REMOVED***
+}
 
 /* ---------------pop-up-discription-animのtransition--------------- */
 
 .pop-up-discription-anim-enter-active,
-.pop-up-discription-anim-leave-active ***REMOVED*** transition: opacity .1s ease-in-out; ***REMOVED***
+.pop-up-discription-anim-leave-active { transition: opacity .1s ease-in-out; }
 
 .pop-up-discription-anim-enter-active,
-.pop-up-discription-anim-leave-to ***REMOVED*** opacity: 0; ***REMOVED***
+.pop-up-discription-anim-leave-to { opacity: 0; }
 
 .pop-up-discription-anim-enter-to,
-.pop-up-discription-anim-leave ***REMOVED*** opacity: 1; ***REMOVED***
+.pop-up-discription-anim-leave { opacity: 1; }
 
 /*
 =====================
   ipad レスポンシブ
 =====================
 */
-@media screen and (max-width: 1024px) ***REMOVED***
+@media screen and (max-width: 1024px) {
     .menu,
     .other,
-    .header__other ***REMOVED*** display: none; ***REMOVED***
-    #main ***REMOVED***
+    .header__other { display: none; }
+    #main {
         width: 95vw;
         margin: 0 auto 75px auto;
-    ***REMOVED***
-    .header__tab-wapper ***REMOVED*** width: 90vw; ***REMOVED***
-    .header__icon-wapper ***REMOVED*** width: 10vw ***REMOVED***
-    .mobile-phone-menu ***REMOVED*** display: flex; ***REMOVED***
-***REMOVED***
-@media screen and (max-width: 768px) ***REMOVED***
-    .header__tab-wapper ***REMOVED*** width: 85vw; ***REMOVED***
-    .header__icon-wapper ***REMOVED*** width: 15vw ***REMOVED***
-***REMOVED***
+    }
+    .header__tab-wapper { width: 90vw; }
+    .header__icon-wapper { width: 10vw }
+    .mobile-phone-menu { display: flex; }
+}
+@media screen and (max-width: 768px) {
+    .header__tab-wapper { width: 85vw; }
+    .header__icon-wapper { width: 15vw }
+}
 
 
 /*
@@ -257,14 +257,14 @@ body ***REMOVED***
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
-    .header__icon-wapper ***REMOVED*** display: none; ***REMOVED***
-    .header__tab-wapper ***REMOVED*** width: 95vw; ***REMOVED***
+@media screen and (max-width: 414px) {
+    .header__icon-wapper { display: none; }
+    .header__tab-wapper { width: 95vw; }
     .tab__img-icon,
-    .mobile-phone-menu ***REMOVED*** height: 50px; ***REMOVED***
+    .mobile-phone-menu { height: 50px; }
     .mobile-phone-menu__item__img,
-    .tab__img-icon ***REMOVED***
+    .tab__img-icon {
         width: 25px;
         height: 25px;
-    ***REMOVED***
-***REMOVED***
+    }
+}

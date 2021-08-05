@@ -1,46 +1,46 @@
 @import '../../modules/button.scss';
 
-.communities-tab__title ***REMOVED***
+.communities-tab__title {
     color: #333;
     display: block;
     font-size: 18px;
     margin: 0 auto;
     user-select: none;
-***REMOVED***
-.tabs-wapper ***REMOVED***
+}
+.tabs-wapper {
     position: sticky;
     top: 80px;
     z-index: 2;
-***REMOVED***
-.tab ***REMOVED*** &:hover ***REMOVED*** cursor: pointer; ***REMOVED*** ***REMOVED***
-.post__font ***REMOVED***
+}
+.tab { &:hover { cursor: pointer; } }
+.post__font {
     display: -webkit-box;
     overflow: hidden;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-***REMOVED***
-.communities-page ***REMOVED*** margin-top: 20px; ***REMOVED***
-.communities__form-label ***REMOVED***
+}
+.communities-page { margin-top: 20px; }
+.communities__form-label {
     margin-top: 10px;
-***REMOVED***
-.btn_normal ***REMOVED***
+}
+.btn_normal {
     font-size: 16px;
     margin-left: 10px;
-***REMOVED***
-.communitiest__btn ***REMOVED***
+}
+.communitiest__btn {
     @extend .btn;
     @extend .btn_normal;
     width: 200px;
     margin-left: auto;
     user-select: none;
-***REMOVED***
+}
 
 /*
 =====================
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
-    .communities-tab__title ***REMOVED*** font-size: 14px; ***REMOVED***
-    .communitiest__btn ***REMOVED*** line-height: 2.5; ***REMOVED***
-***REMOVED***
+@media screen and (max-width: 414px) {
+    .communities-tab__title { font-size: 14px; }
+    .communitiest__btn { line-height: 2.5; }
+}

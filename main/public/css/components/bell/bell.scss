@@ -1,36 +1,36 @@
 @import '../../modules/button.scss';
 @import '../../brandColor';
 
-.bell__btn ***REMOVED***
+.bell__btn {
     @extend .btn;
     @extend .btn_normal;
     font-size: 16px;
     margin-left: auto;
     width: 200px;
-***REMOVED***
-.bell__btn-app ***REMOVED***
+}
+.bell__btn-app {
     @extend .bell__btn;
     background-color: $accent-color-success;
-    &:hover ***REMOVED*** background-color: darken($accent-color-success, 20%); ***REMOVED***
-***REMOVED***
-.bell__btn-disallow ***REMOVED***
+    &:hover { background-color: darken($accent-color-success, 20%); }
+}
+.bell__btn-disallow {
     @extend .bell__btn;
     background-color: $accent-color-danger;
-    &:hover ***REMOVED*** background-color: darken($accent-color-danger, 20%); ***REMOVED***
-***REMOVED***
-.bell__go-to-profile ***REMOVED***
+    &:hover { background-color: darken($accent-color-danger, 20%); }
+}
+.bell__go-to-profile {
     color: black;
     display: inline-block;
     font-weight: bold;
-    &:hover ***REMOVED*** cursor: pointer; ***REMOVED***
-***REMOVED***
-.bell__not-exist ***REMOVED***
+    &:hover { cursor: pointer; }
+}
+.bell__not-exist {
     font-size: 32px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-***REMOVED***
+}
 
 
 /*
@@ -38,12 +38,12 @@
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
-    .post__flex ***REMOVED*** display: block; ***REMOVED***
+@media screen and (max-width: 414px) {
+    .post__flex { display: block; }
     .bell__btn-app,
-    .bell__btn-disallow ***REMOVED***
+    .bell__btn-disallow {
         margin: 10px auto 0 auto;
         line-height: 2.5;
         font-size: 14px;
-    ***REMOVED***
-***REMOVED***
+    }
+}

@@ -1,39 +1,39 @@
-.form__wapper ***REMOVED***
+.form__wapper {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   background-color: white;
   border-radius: 16px;
-  padding: 30px; ***REMOVED***
+  padding: 30px; }
 
-.form ***REMOVED***
+.form {
   margin: 30px 0;
-  background-color: white; ***REMOVED***
+  background-color: white; }
 
-.form__btn ***REMOVED***
+.form__btn {
   padding: 20px;
   background-color: white;
   margin-top: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
-  transition: .3s; ***REMOVED***
-  .form__btn:hover ***REMOVED***
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); ***REMOVED***
+  transition: .3s; }
+  .form__btn:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
 
-.contact__title ***REMOVED***
-  font-size: 32px; ***REMOVED***
+.contact__title {
+  font-size: 32px; }
 
-.contact__flex ***REMOVED***
+.contact__flex {
   align-items: center;
   display: flex;
-  margin-top: 10px; ***REMOVED***
+  margin-top: 10px; }
 
-.contact__input ***REMOVED***
+.contact__input {
   margin-left: auto;
   margin-right: auto;
-  width: 45%; ***REMOVED***
+  width: 45%; }
 
-.contact__textarea ***REMOVED***
+.contact__textarea {
   width: 95%;
   margin-left: auto;
-  margin-right: auto; ***REMOVED***
+  margin-right: auto; }
 
 /*# sourceMappingURL=contact.css.map */

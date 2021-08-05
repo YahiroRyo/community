@@ -2,19 +2,19 @@
 @import '../../modules/button.scss';
 @import '../../modules/form.scss';
 
-.create-post-btn ***REMOVED***
+.create-post-btn {
     @extend .btn;
     @extend .btn_normal;
     @extend .btn_circle;
     background-color: white;
     margin-top: 10px;
-***REMOVED***
-.create-post-btn__media-img ***REMOVED***
+}
+.create-post-btn__media-img {
     width: 25px;
     height: 45px;
     margin-bottom: 5px;
-***REMOVED***
-.create-post-input-img ***REMOVED***
+}
+.create-post-input-img {
     background-size: cover;
     background-position: center center;
     box-sizing: border-box;
@@ -24,14 +24,14 @@
     overflow: hidden;
     height: 200px;
     width: 48%;
-***REMOVED***
-.create-post-display-img-wapper ***REMOVED***
+}
+.create-post-display-img-wapper {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
-***REMOVED***
-.create-post-input-img__btn ***REMOVED***
+}
+.create-post-input-img__btn {
     @extend .btn;
     @extend .btn_normal;
     @extend .btn_circle;
@@ -40,46 +40,46 @@
     height: 30px;
     position: relative;
     margin: 10px 0 0 10px;
-    &:hover ***REMOVED*** background-color: rgba(0, 0, 0, 0.5); ***REMOVED***
-***REMOVED***
-.create-post-input-img__btn__img ***REMOVED***
+    &:hover { background-color: rgba(0, 0, 0, 0.5); }
+}
+.create-post-input-img__btn__img {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 16px;
     height: 16px;
-***REMOVED***
+}
 
 /* ---------------create-post-input-img-animのtransition--------------- */
 .create-post-input-img-anim-enter-active,
-.create-post-input-img-anim-leave-active ***REMOVED*** animation-duration: .5s; ***REMOVED***
-.create-post-input-img-anim-enter-active ***REMOVED*** animation-name: scaleToBig; ***REMOVED***
-.create-post-input-img-anim-leave-active ***REMOVED*** animation-name: scaleToSmall; ***REMOVED***
+.create-post-input-img-anim-leave-active { animation-duration: .5s; }
+.create-post-input-img-anim-enter-active { animation-name: scaleToBig; }
+.create-post-input-img-anim-leave-active { animation-name: scaleToSmall; }
 
-@keyframes scaleToBig ***REMOVED***
-    0% ***REMOVED*** transform: scale(0); ***REMOVED***
-    20% ***REMOVED*** transform: scale(1.2); ***REMOVED***
-    30% ***REMOVED*** transform: scale(0.9); ***REMOVED***
-    100% ***REMOVED*** transform: scale(1); ***REMOVED***
-***REMOVED***
-@keyframes scaleToSmall ***REMOVED***
-    0% ***REMOVED*** transform: scale(1); ***REMOVED***
-    20% ***REMOVED*** transform: scale(0.1); ***REMOVED***
-    100% ***REMOVED*** transform: scale(0); ***REMOVED***
-***REMOVED***
+@keyframes scaleToBig {
+    0% { transform: scale(0); }
+    20% { transform: scale(1.2); }
+    30% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+@keyframes scaleToSmall {
+    0% { transform: scale(1); }
+    20% { transform: scale(0.1); }
+    100% { transform: scale(0); }
+}
 
 /*
 =====================
  スマホ レスポンシブ
 =====================
 */
-@media screen and (max-width: 414px) ***REMOVED***
-    .post__flex ***REMOVED*** display: block; ***REMOVED***
+@media screen and (max-width: 414px) {
+    .post__flex { display: block; }
     .bell__btn-app,
-    .bell__btn-disallow ***REMOVED***
+    .bell__btn-disallow {
         margin: 10px auto 0 auto;
         line-height: 2.5;
         font-size: 14px;
-    ***REMOVED***
-***REMOVED***
+    }
+}

@@ -1,29 +1,29 @@
 import firebase from 'firebase'
 
-const getUidAndToken = async() => ***REMOVED***
-    return new Promise(async(resolve, reject) => ***REMOVED***
-        let result = ***REMOVED***
+const getUidAndToken = async() => {
+    return new Promise(async(resolve, reject) => {
+        let result = {
             isError:    false,
             token:      null,
             uid:        null,
-        ***REMOVED***
-        await firebase.auth().onAuthStateChanged(async(user) => ***REMOVED***
+        }
+        await firebase.auth().onAuthStateChanged(async(user) => {
             result.uid = user.uid
-            if (user) ***REMOVED***
-                await user.getIdToken().then((token) => ***REMOVED***
+            if (user) {
+                await user.getIdToken().then((token) => {
                     result.token = token
-                ***REMOVED***)
-                .catch(() => ***REMOVED***
+                })
+                .catch(() => {
                     result.isError = true
                     reject(result)
-                ***REMOVED***)
-            ***REMOVED*** else ***REMOVED***
+                })
+            } else {
                 result.isError = true
                 reject(result)
-            ***REMOVED***
+            }
             resolve(result)
-        ***REMOVED***)
-    ***REMOVED***)
-***REMOVED***
+        })
+    })
+}
 
-export ***REMOVED*** getUidAndToken ***REMOVED*** 
+export { getUidAndToken } 

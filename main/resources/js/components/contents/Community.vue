@@ -6,11 +6,11 @@
             <img v-if="$store.state.windowSize.width <= 414" @click="data.post.isOpen = false" style="width: 16px; height: 16px;" src="/images/materials/close.svg">
             <Form class="form" :useTextArea="true" v-model:inputContent="data.post.content" label="コミュニティに投稿する" uniqueClassKey="1" />
             <!-- 文字数カウント -->
-            <p :class="***REMOVED***'form-label-create-post': true, 'form-label_danger': bytes(data.post.content) >= 280, ***REMOVED***">***REMOVED******REMOVED***bytes(data.post.content) ***REMOVED******REMOVED*** | 280</p>
+            <p :class="{'form-label-create-post': true, 'form-label_danger': bytes(data.post.content) >= 280, }">{{bytes(data.post.content) }} | 280</p>
             <!-- 画像プレビュー -->
             <div class="create-post-display-img-wapper" v-show="data.post.images.length > 0">
                 <transition-group name="create-post-input-img-anim">
-                    <div class="create-post-input-img" v-for="(image, key) in data.post.images" :key="key" :style="`background-image: url($***REMOVED***image***REMOVED***)`">
+                    <div class="create-post-input-img" v-for="(image, key) in data.post.images" :key="key" :style="`background-image: url(${image})`">
                         <button @click="deleteMedia(key)" class="create-post-input-img__btn"><img class="create-post-input-img__btn__img" src="/images/materials/close.svg"></button>
                     </div>
                 </transition-group>
@@ -40,42 +40,42 @@
         </div>
             <component is="style">
             .form__textarea,
-            .form__textarea-wapper ***REMOVED***height: 30px !important;***REMOVED***
+            .form__textarea-wapper {height: 30px !important;}
             .form__textarea:focus ~ .form__label,
-            .form__textarea:valid ~ .form__label ***REMOVED***
+            .form__textarea:valid ~ .form__label {
                 transform: translateY(-25px);
-            ***REMOVED***
-            .form ***REMOVED*** margin-bottom: 20px !important; ***REMOVED***
+            }
+            .form { margin-bottom: 20px !important; }
         </component>
     </div>
 </template>
 
 <script>
-    import ***REMOVED*** reactive, onMounted, onBeforeMount, ref ***REMOVED***  from 'vue'
-    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
-    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***          from '../../router.js'
-    import ***REMOVED*** addPageEvent, removeAtAllFunc ***REMOVED***            from '../../page.js'
-    import ***REMOVED*** useRoute, useRouter ***REMOVED***                      from 'vue-router'
-    import ***REMOVED*** post, sendGood ***REMOVED***                           from '../../post.js'
-    import ***REMOVED*** getUidAndToken ***REMOVED***                           from '../../supportFirebase.js'
-    import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
+    import { reactive, onMounted, onBeforeMount, ref }  from 'vue'
+    import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
+    import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
+    import { addPageEvent, removeAtAllFunc }            from '../../page.js'
+    import { useRoute, useRouter }                      from 'vue-router'
+    import { post, sendGood }                           from '../../post.js'
+    import { getUidAndToken }                           from '../../supportFirebase.js'
+    import { useStore }                                 from 'vuex'
     import axios                                        from 'axios' 
     
     /* ---------------コンポーネントをインポート--------------- */
     import Post                                 from '../Post.vue'
     import Form                                 from '../Form.vue'
 
-    export default ***REMOVED***
-        components: ***REMOVED*** 
+    export default {
+        components: { 
             Post,
             Form,
-        ***REMOVED***,
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+        },
+        setup() {
+            const data = reactive({
                 router: useRouter(),
                 route:  useRoute(),
                 store:  useStore(),
-                post: ***REMOVED***
+                post: {
                     cantGetPosts:   false,
                     objects:        [],
                     content:        '',
@@ -84,77 +84,77 @@
                     gotNum:         0,
                     files:          [],
                     take:           50,
-                ***REMOVED***,
-            ***REMOVED***)
+                },
+            })
             const inputFileElement = ref(null)
-            const selectMedia = () => ***REMOVED***
+            const selectMedia = () => {
                 // 閉じた際に、clickするとnullをクリックした判定になるため、nullじゃないかチェック
-                if (inputFileElement.value.click !== null) ***REMOVED*** inputFileElement.value.click() ***REMOVED***
-            ***REMOVED***
-            const displayMedia = () => ***REMOVED***
-                if (inputFileElement.value.files.length > 0) ***REMOVED***
-                    if (data.post.images.length < 4 && inputFileElement.value.files[0].type.match("image.*")) ***REMOVED***
+                if (inputFileElement.value.click !== null) { inputFileElement.value.click() }
+            }
+            const displayMedia = () => {
+                if (inputFileElement.value.files.length > 0) {
+                    if (data.post.images.length < 4 && inputFileElement.value.files[0].type.match("image.*")) {
                         data.post.files.push(inputFileElement.value.files[0])
                         const fileReader    = new FileReader()
-                        fileReader.onload   = (() => ***REMOVED*** data.post.images.push(fileReader.result) ***REMOVED***)
+                        fileReader.onload   = (() => { data.post.images.push(fileReader.result) })
                         fileReader.readAsDataURL(inputFileElement.value.files[0])
-                    ***REMOVED*** else ***REMOVED***
+                    } else {
                         createAlert(new alert('4枚以上の画像を設定できません', 1))
-                    ***REMOVED***
-                ***REMOVED***
-            ***REMOVED***
-            const deleteMedia = (key) => ***REMOVED***
+                    }
+                }
+            }
+            const deleteMedia = (key) => {
                 data.post.images.splice(key, 1)
                 data.post.files.splice(key, 1)
-            ***REMOVED***
-            const createPost = async() => ***REMOVED***
-                if (data.post.content.length === 0 || bytes(data.post.content) >= 280) ***REMOVED***
+            }
+            const createPost = async() => {
+                if (data.post.content.length === 0 || bytes(data.post.content) >= 280) {
                     createAlert(new alert('不正な値です。', 2))
                     return
-                ***REMOVED***
+                }
                 const user = await getUidAndToken()
                 const createCommunityPostInfos = new FormData()
                 createCommunityPostInfos.append('communityId', data.route.params.id)
                 createCommunityPostInfos.append('content', data.post.content)
                 createCommunityPostInfos.append('token', user.token)
                 createCommunityPostInfos.append('uid', user.uid)
-                for (let i = 0; i < data.post.files.length; i++) ***REMOVED***
-                    createCommunityPostInfos.append(`file[$***REMOVED***i***REMOVED***]`, data.post.files[i])
-                ***REMOVED***
+                for (let i = 0; i < data.post.files.length; i++) {
+                    createCommunityPostInfos.append(`file[${i}]`, data.post.files[i])
+                }
                 axios.post('/api/post/create-community-post', createCommunityPostInfos)
-                .then((responce) => ***REMOVED***
-                    if (responce.data.isNormalToken) ***REMOVED***
-                        if (responce.data.isCreateCommunityPost) ***REMOVED***
+                .then((responce) => {
+                    if (responce.data.isNormalToken) {
+                        if (responce.data.isCreateCommunityPost) {
                             createAlert(new alert('投稿しました。', 0))
                             data.post.content = ''
                             data.post.images = []
                             data.post.files = []
                             inputFileElement.value = null
-                        ***REMOVED*** else ***REMOVED***
+                        } else {
                             createAlert(new alert('投稿に失敗しました。', 2))
-                        ***REMOVED***
-                    ***REMOVED*** else ***REMOVED***
+                        }
+                    } else {
                         notNormalTokenAlert()
-                    ***REMOVED***
-                ***REMOVED***)
-            ***REMOVED***
-            const getPosts = async() => ***REMOVED***
-                if (!data.post.cantGetPosts) ***REMOVED***
+                    }
+                })
+            }
+            const getPosts = async() => {
+                if (!data.post.cantGetPosts) {
                     const user = await getUidAndToken()
-                    const communityPostsInfos = ***REMOVED***
-                        params: ***REMOVED***
+                    const communityPostsInfos = {
+                        params: {
                             communityId:    data.route.params.id,
                             gotNum:         data.post.gotNum,
                             take:           data.post.take,
                             uid:            user.uid,
-                        ***REMOVED***
-                    ***REMOVED***
+                        }
+                    }
                     axios.get('/api/get/community-posts', communityPostsInfos)
-                    .then((responce) => ***REMOVED***
+                    .then((responce) => {
                         data.post.gotNum += data.post.take
                         if (data.post.take > responce.data.length)
                             data.post.cantGetPosts = true
-                        responce.data.forEach((obj) => ***REMOVED***
+                        responce.data.forEach((obj) => {
                             data.post.objects.push(
                                 new post(
                                     obj.user_info.name,
@@ -170,50 +170,50 @@
                                     obj.user_id === obj.main_user_id,
                                 )
                             )
-                        ***REMOVED***)
-                    ***REMOVED***)
-                ***REMOVED***
-            ***REMOVED***
-            const bytes = (str) => ***REMOVED***
+                        })
+                    })
+                }
+            }
+            const bytes = (str) => {
                 return(encodeURIComponent(str).replace(/%../g,"x").length)
-            ***REMOVED***
-            const checkCanJoinCommunity = async() => ***REMOVED***
+            }
+            const checkCanJoinCommunity = async() => {
                 const user = await getUidAndToken()
-                const canJoinCommunity = ***REMOVED***
-                    params: ***REMOVED***
+                const canJoinCommunity = {
+                    params: {
                         uid: user.uid,
                         token: user.token,
                         communityId: data.route.params.id,
-                    ***REMOVED***
-                ***REMOVED***
+                    }
+                }
                 axios.get('/api/get/can-join-community', canJoinCommunity)
-                .then((responce) => ***REMOVED***
-                    if (responce.data.isNormalToken) ***REMOVED***
-                        if (!responce.data.canJoinCommunity) ***REMOVED***
+                .then((responce) => {
+                    if (responce.data.isNormalToken) {
+                        if (!responce.data.canJoinCommunity) {
                             createAlert(new alert('コミュニティに入る権利がないです。'), 2)
                             data.router.push('/communities/0')   
-                        ***REMOVED***
-                    ***REMOVED*** else ***REMOVED***
+                        }
+                    } else {
                         notNormalTokenAlert()
-                    ***REMOVED***
-                ***REMOVED***)
-                .catch(() => ***REMOVED***
+                    }
+                })
+                .catch(() => {
                     createAlert(new alert('エラーが発生しました。'), 2)
                     data.router.push('/communities/0')   
-                ***REMOVED***)
-            ***REMOVED***
-            onBeforeMount(() => ***REMOVED***
+                })
+            }
+            onBeforeMount(() => {
                 antiNotLoginUser()
                 checkCanJoinCommunity()
-            ***REMOVED***)
-            onMounted(() => ***REMOVED***
+            })
+            onMounted(() => {
                 getPosts()
-                addPageEvent('pageMostBottom', () => ***REMOVED***getPosts()***REMOVED***)
-                if (data.store.state.windowSize.width > 414) ***REMOVED***
+                addPageEvent('pageMostBottom', () => {getPosts()})
+                if (data.store.state.windowSize.width > 414) {
                     data.post.isOpen = true
-                ***REMOVED***
-            ***REMOVED***)
-            return ***REMOVED*** data, sendGood, inputFileElement, selectMedia, displayMedia, deleteMedia, createPost, bytes ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
+                }
+            })
+            return { data, sendGood, inputFileElement, selectMedia, displayMedia, deleteMedia, createPost, bytes }
+        }
+    }
 </script>

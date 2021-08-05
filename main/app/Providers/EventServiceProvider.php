@@ -8,7 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
-***REMOVED***
+{
     /**
      * The event listener mappings for the application.
      *
@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    ***REMOVED***
+    {
         //
-    ***REMOVED***
-***REMOVED***
+    }
+}

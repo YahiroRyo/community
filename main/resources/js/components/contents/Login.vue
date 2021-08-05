@@ -11,49 +11,49 @@
 </template>
 
 <script>
-    import ***REMOVED*** createAlert, alert, notNormalTokenAlert ***REMOVED***  from '../../alert.js'
-    import ***REMOVED*** antiLoginUser, antiNotLoginUser ***REMOVED***          from '../../router.js'
-    import ***REMOVED*** reactive, onBeforeMount, ref ***REMOVED***             from 'vue'
-    import ***REMOVED*** useRouter ***REMOVED***                                from 'vue-router'
-    import ***REMOVED*** useStore ***REMOVED***                                 from 'vuex'
+    import { createAlert, alert, notNormalTokenAlert }  from '../../alert.js'
+    import { antiLoginUser, antiNotLoginUser }          from '../../router.js'
+    import { reactive, onBeforeMount, ref }             from 'vue'
+    import { useRouter }                                from 'vue-router'
+    import { useStore }                                 from 'vuex'
     import firebase                                     from 'firebase'
 
     /* ---------------コンポーネントをインポート--------------- */
     import Form                                         from '../Form.vue'
     
-    export default ***REMOVED***
-        components: ***REMOVED***
+    export default {
+        components: {
             Form
-        ***REMOVED***,
-        setup() ***REMOVED***
-            const data = reactive(***REMOVED***
+        },
+        setup() {
+            const data = reactive({
                 store: useStore(),
                 router: useRouter(),
-                form: ***REMOVED***
-                    email: ***REMOVED***
+                form: {
+                    email: {
                         content: '',
-                    ***REMOVED***,
-                    password: ***REMOVED***
+                    },
+                    password: {
                         content: '',
-                    ***REMOVED***,
-                ***REMOVED***,
-            ***REMOVED***)
-            const login = async() => ***REMOVED***
+                    },
+                },
+            })
+            const login = async() => {
                 await firebase.auth().signInWithEmailAndPassword(data.form.email.content, data.form.password.content)
-                .then(async(responce) => ***REMOVED***
+                .then(async(responce) => {
                     createAlert(new alert('ログインしました。', 0))
                     data.router.push('/')
                     await firebase.auth().refreshAccessToken()
-                ***REMOVED***)
-                .catch(() => ***REMOVED***
+                })
+                .catch(() => {
                     createAlert(new alert('ログインに失敗しました。', 2))
                     data.form.password.content = ''
-                ***REMOVED***)
-            ***REMOVED***
-            onBeforeMount(() => ***REMOVED***
+                })
+            }
+            onBeforeMount(() => {
                 antiLoginUser()
-            ***REMOVED***)
-            return ***REMOVED*** data, login ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
+            })
+            return { data, login }
+        }
+    }
 </script>
